@@ -222,7 +222,7 @@
                                 class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="teachers.html">Teacher List</a></li>
-                            <li><a href="teacher-details.html">Teacher View</a></li>
+                            <li><a href="exercise-details.jsp">Teacher View</a></li>
                             <li><a href="add-teacher.html">Teacher Add</a></li>
                             <li><a href="edit-teacher.html">Teacher Edit</a></li>
                         </ul>

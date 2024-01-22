@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,5 +52,12 @@ public class ExerciseController {
     public String getExercisePage(ModelMap model) {
         model.addAttribute("exerciseList", exerciseList);
         return "exercise-list";
+    }
+
+    @RequestMapping(value = "/details", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    public String getExerciseDetailPage(@RequestParam long id, ModelMap model) {
+        Exercise exercise = exerciseList.get(0);
+        model.addAttribute("exercise", exercise);
+        return "exercise-details";
     }
 }

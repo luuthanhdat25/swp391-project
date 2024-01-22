@@ -1,12 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Preskool - Books</title>
+    <title>Preskool - Teacher Details</title>
 
     <link rel="shortcut icon" href="../../theme2/img/favicon.png">
 
@@ -20,22 +20,16 @@
 
     <link rel="stylesheet" href="../../theme2/plugins/icons/flags/flags.css">
 
-    <link rel="stylesheet" href="../../theme2/css/feather.css">
-    <link rel="stylesheet" href="../../theme1/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="../../theme2/css/bootstrap-datetimepicker.min.css">
-
-    <link rel="stylesheet" href="../../theme2/plugins/datatables/datatables.min.css">
-
     <link rel="stylesheet" href="../../theme2/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="../../theme2/plugins/fontawesome/css/all.min.css">
 
-    <link rel="stylesheet" href="../../theme2/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="../../theme2/plugins/datatables/datatables.min.css">
 
     <link rel="stylesheet" href="../../theme2/css/style.css">
 </head>
 
 <body>
+
     <div class="main-wrapper">
 
         <div class="header">
@@ -231,12 +225,12 @@
                                 <li><a href="edit-student.html">Student Edit</a></li>
                             </ul>
                         </li>
-                        <li class="submenu">
+                        <li class="submenu active">
                             <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span
                                     class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="teachers.html">Teacher List</a></li>
-                                <li><a href="exercise-details.jsp">Teacher View</a></li>
+                                <li><a href="teacher-details.html" class="active">Teacher View</a></li>
                                 <li><a href="add-teacher.html">Teacher Add</a></li>
                                 <li><a href="edit-teacher.html">Teacher Edit</a></li>
                             </ul>
@@ -259,12 +253,12 @@
                                 <li><a href="edit-subject.html">Subject Edit</a></li>
                             </ul>
                         </li>
-                        <li class="submenu active">
+                        <li class="submenu">
                             <a href="#"><i class="fas fa-clipboard"></i> <span> Invoices</span> <span
                                     class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="invoices.html">Invoices List</a></li>
-                                <li><a href="invoice-grid.html" class="active">Invoices Grid</a></li>
+                                <li><a href="invoice-grid.html">Invoices Grid</a></li>
                                 <li><a href="add-invoice.html">Add Invoices</a></li>
                                 <li><a href="edit-invoice.html">Edit Invoices</a></li>
                                 <li><a href="view-invoice.html">Invoices Details</a></li>
@@ -301,7 +295,7 @@
                         <li>
                             <a href="time-table.html"><i class="fas fa-table"></i> <span>Time Table</span></a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>
                         </li>
                         <li class="submenu">
@@ -481,186 +475,97 @@
 
         <div class="page-wrapper">
             <div class="content container-fluid">
-
                 <div class="page-header">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="page-title">Exercise</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container mb-3">
-                    <form class="d-flex align-items-center">
-                        <input type="text" class="form-control" placeholder="Search here">
-                        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-
-
-
-
-                <div class="card report-card">
-                    <div class="card-body pb-0">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <ul class="app-listing justify-content-lg-start">
-                                    <li>
-                                        <div class="multipleSelection">
-                                            <div class="selectBox">
-                                                <p class="mb-0">Category</p>
-                                                <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                                            </div>
-                                            <div id="checkBoxes">
-                                                    <div class="selectBox-cont">
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span>
-                                                            Chest
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span>
-                                                            Triceps
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span>
-                                                            Biceps
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span>
-                                                            Forearms
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span>
-                                                            Cadio
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span>
-                                                            Calves
-                                                        </label>
-                                                    </div>
-                                                    <button type="submit" class="btn w-100 btn-primary">Apply</button>
-                                                    <button type="reset" class="btn w-100 btn-grey">Reset</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="multipleSelection">
-                                            <div class="selectBox">
-                                                <p class="mb-0">Difficulty</p>
-                                                <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                                            </div>
-                                            <div id="checkBoxes">
-                                                <div class="selectBox-cont">
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="username">
-                                                        <span class="checkmark"></span>
-                                                        Beginner
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="username">
-                                                        <span class="checkmark"></span>
-                                                        Intermediate
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="username">
-                                                        <span class="checkmark"></span>
-                                                        Advanced
-                                                    </label>
-                                                </div>
-                                                <button type="submit" class="btn w-100 btn-primary">Apply</button>
-                                                <button type="reset" class="btn w-100 btn-grey">Reset</button>
-                                            </div>
-                                        </div>
-                                    </li>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="page-sub-header">
+                                <h3 class="page-title">Exercise Details</h3>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/exercise/">Exercise</a></li>
+                                    <li class="breadcrumb-item active">Exercise Details</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="student-personals-grp">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <img class="w-100 mb-2" src="${exercise.imageDescription}" style="border-radius: .25rem;" alt="User Image">
+                                        </div>
+                                    </div>
+                                </div>
 
-                <div class="card invoices-tabs-card border-0">
-                    <div class="card-body card-body pt-0 pb-0">
-                        <div class="invoices-main-tabs border-0 pb-0">
-                            <div class="row align-items-center">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="invoices-settings-btn invoices-settings-btn-one">
-                                        <a href="add-invoice.html" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>
+                                <div class="student-personals-grp">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="embed-responsive embed-responsive-16by9 w-100">
+                                                <iframe width="100%" src="https://www.youtube.com/embed/VmB1G1K7v94?si=sXUOXtLXqPeqOHik" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="student-personals-grp">
+                                    <div class="card mb-0">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center heading-detail">
+                                                <h2>${exercise.name}</h2>
+                                                <a href="edit-invoice.html" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
+                                            </div>
+
+                                            <div class="d-flex mt-md-2">
+                                                <h2 class="m-100 p-1 bg-info text-white rounded me-2" style="font-size: 1rem">${exercise.type}</h2>
+
+                                                <c:set var="backgroundColor" value="bg-success" />
+                                                <c:choose>
+                                                    <c:when test="${exercise.level eq 'Intermediate'}">
+                                                        <c:set var="backgroundColor" value="bg-warning" />
+                                                    </c:when>
+                                                    <c:when test="${exercise.level eq 'Advanced'}">
+                                                        <c:set var="backgroundColor" value="bg-danger" />
+                                                    </c:when>
+                                                </c:choose>
+
+                                                <h2 class="m-100 p-1 ${backgroundColor} text-white rounded" style="font-size: 1rem">${exercise.level}</h2>
+                                            </div>
+
+                                            <div class="row align-items-center mt-md-3">
+                                                <div class="col d-flex">
+                                                    <img style="height: 5%; width: 5%;" src="../../theme2/img/calories.png" alt="Calo">
+                                                    <h6 class="mb-0 ml-2 ml-auto" style="font-size: 1.5rem;">${exercise.caloriesOutput} calories/rep</h6>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="hello-park  mt-md-4">
+                                                <p>${exercise.description}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <c:forEach var="exercise" items="${exerciseList}">
-                        <div class="col-sm-6 col-lg-4 col-xl-3 d-flex">
-                            <div class="card invoices-grid-card w-100">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <a href="/exercise/details?id=0" class="invoice-grid-link">${exercise.name}</a>
-<%--                                    <a href="edit-invoice.html" class="btn btn-primary"><i class="far fa-edit me-2"></i>Edit</a>--%>
-                                    <a href="view-invoice.html" class="avatar avatar-sm me-2 avatar-img rounded-circle">
-                                        <img class="rounded-circle" src="https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*" alt="Edit Avatar">
-                                    </a>
-                                </div>
-                                <div class="container position-relative">
-                                    <a href="profile.html" class="text-decoration-none text-dark d-block position-relative">
-                                        <img class="w-100 mb-2" src="${exercise.imageDescription}" alt="User Image">
-                                        <div class="position-absolute top-0 end-0">
-                                            <h2 class="m-100 p-1 bg-info text-white rounded small" style="font-size: 15px;">${exercise.type}</h2>
-
-                                            <c:set var="backgroundColor" value="bg-success" />
-                                            <c:choose>
-                                                <c:when test="${exercise.level eq 'Intermediate'}">
-                                                    <c:set var="backgroundColor" value="bg-warning" />
-                                                </c:when>
-                                                <c:when test="${exercise.level eq 'Advanced'}">
-                                                    <c:set var="backgroundColor" value="bg-danger" />
-                                                </c:when>
-                                            </c:choose>
-
-                                            <h2 class="m-100 p-1 ${backgroundColor} text-white rounded small" style="font-size: 15px;">${exercise.level}</h2>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col d-flex">
-                                            <img style="height: 10%; width: 10%" src="../../theme2/img/calories.png" alt="Calo">
-                                            <h6 class="mb-0 ml-2">${exercise.caloriesOutput} calories/rep</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
-            <div>
-                <ul class="pagination mb-4">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
             </div>
-            </div>
+
+            <footer>
+                <p>Copyright © 2022 Dreamguys.</p>
+            </footer>
+
         </div>
+
     </div>
 
 
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="../../theme2/js/jquery-3.6.0.min.js"></script>
 
     <script src="../../theme2/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -668,14 +573,6 @@
     <script src="../../theme2/js/feather.min.js"></script>
 
     <script src="../../theme2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-    <script src="../../theme2/plugins/select2/js/select2.min.js"></script>
-
-    <script src="../../theme2/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="../../theme2/plugins/datatables/datatables.min.js"></script>
-
-    <script src="../../theme2/plugins/moment/moment.min.js"></script>
-    <script src="../../theme2/js/bootstrap-datetimepicker.min.js"></script>
 
     <script src="../../theme2/js/script.js"></script>
 </body>

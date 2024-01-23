@@ -25,7 +25,7 @@ public class ExerciseController {
                     "https://www.youtube.com/watch?v=VmB1G1K7v94",
                     "https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg",
                     290,
-                    0L),
+                    0),
             new Exercise(
                     "Dumbbell floor press",
                     "Triceps",
@@ -34,7 +34,7 @@ public class ExerciseController {
                     "https://www.youtube.com/watch?v=uUGDRwge4F8",
                     "https://static.strengthlevel.com/images/illustrations/dumbbell-floor-press-1000x1000.jpg",
                     120, // Calories output
-                    3L    // Personal Trainer ID
+                    3   // Personal Trainer ID
             ),
             new Exercise(
                     "Incline Hammer Curls",
@@ -44,7 +44,7 @@ public class ExerciseController {
                             "https://www.youtube.com/watch?v=cbRSu8Ws_hs",
                             "https://static.strengthlevel.com/images/illustrations/incline-hammer-curl-1000x1000.jpg",
                             120, // Calories output
-                            3L    // Personal Trainer ID
+                            3   // Personal Trainer ID
             )
     );
 
@@ -55,9 +55,16 @@ public class ExerciseController {
     }
 
     @RequestMapping(value = "/details", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getExerciseDetailPage(@RequestParam long id, ModelMap model) {
+    public String getExerciseDetailsPage(@RequestParam int id, ModelMap model) {
         Exercise exercise = exerciseList.get(0);
         model.addAttribute("exercise", exercise);
         return "exercise-details";
+    }
+
+    @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    public String getExerciseDetailsEditPage(@RequestParam int id, ModelMap model) {
+        Exercise exercise = exerciseList.get(0);
+        model.addAttribute("exercise", exercise);
+        return "exercise-details-edit";
     }
 }

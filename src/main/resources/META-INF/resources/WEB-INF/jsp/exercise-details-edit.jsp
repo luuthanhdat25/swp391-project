@@ -466,18 +466,31 @@
                             <div class="col-lg-4">
                                 <div class="student-personals-grp">
                                     <div class="card">
-                                        <div class="card-body">
-                                            <img class="w-100 mb-2" src="${exercise.imageDescription}" style="border-radius: .25rem;" alt="User Image">
+                                        <div class="card-body position-relative">
+                                            <img class="w-100 mb-2" id="userImage" src="${exercise.imageDescription}" style="border-radius: .25rem;" alt="User Image">
+                                            <label for="imageInput" class="btn btn-primary position-absolute" style="border-radius: 100%; padding: 1rem; bottom: 5%; right: 5%;">
+                                                <input type="file" id="imageInput" style="display: none;" accept="image/*">
+                                                <img src="../../theme2/img/icons/pencil-square.svg" style="filter: brightness(0) invert(1); width: 1.5rem;" alt="Edit Icon">
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
 
+<%--                                <div class="student-personals-grp">--%>
+<%--                                    <div class="card">--%>
+<%--                                        <div class="card-body">--%>
+<%--                                            <div class="embed-responsive embed-responsive-16by9">--%>
+<%--                                                <iframe width="100%" src="${exercise.videoDescription}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
                                 <div class="student-personals-grp">
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="embed-responsive embed-responsive-16by9 w-100">
-                                                <iframe width="100%" src="https://www.youtube.com/embed/VmB1G1K7v94?si=sXUOXtLXqPeqOHik" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                                            </div>
+                                            <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control">
+                                            <button onclick="changeVideo()" class="btn btn-primary mt-md-2">Change Video</button>
+                                            <div id="player" style="width: 100%; height: 100%;" class="mt-md-3"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -487,9 +500,20 @@
                                     <div class="card mb-0">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center heading-detail">
-                                                <h2>${exercise.name}</h2>
-                                                <a href="/exercise/details/edit?id=0" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
+                                                <input type="text" name="exerciseName" class="form-control w-75"
+                                                       value='<c:out value="${exercise.name}" />'
+                                                       placeholder="Nhập tên bài tập" />
+
+                                                <div class="d-flex">
+                                                    <a href="edit-invoice.html" class="btn btn-primary me-2">
+                                                        <i ></i>Save
+                                                    </a>
+                                                    <a href="edit-invoice.html" class="btn btn-danger">
+                                                        <i ></i>Cancel
+                                                    </a>
+                                                </div>
                                             </div>
+
 
                                             <div class="d-flex mt-md-2">
                                                 <h2 class="m-100 p-1 bg-info text-white rounded me-2" style="font-size: 1rem">${exercise.type}</h2>
@@ -501,6 +525,9 @@
                                                     </c:when>
                                                     <c:when test="${exercise.level eq 'Advanced'}">
                                                         <c:set var="backgroundColor" value="bg-danger" />
+                                                    </c:when>
+                                                    <c:when test="${exercise.level eq 'Beginner'}">
+                                                        <c:set var="backgroundColor" value="bg-info" />
                                                     </c:when>
                                                 </c:choose>
 
@@ -547,6 +574,108 @@
     <script src="../../theme2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <script src="../../theme2/js/script.js"></script>
+
+    <script>
+        $(function () {
+            $('#imageInput').change(function () {
+                readURL(this);
+            });
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#userImage').attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        });
+    </script>
+
+    <script>
+        var player;
+
+        // Function to extract video ID from YouTube link
+        function extractVideoId(url) {
+            var regex = /^(?:(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11}))/;
+            var match = url.match(regex);
+            return match ? match[1] : null;
+        }
+
+
+        // Function to change video when the button is clicked
+        function changeVideo() {
+            var youtubeLink = $('#youtubeLink').val();
+            var videoId = extractVideoId(youtubeLink);
+
+            // Check if the input is a valid YouTube link
+            if (videoId) {
+                // Change the video
+                player.loadVideoById(videoId);
+            } else {
+                // Display a warning for invalid link
+                alert("Invalid YouTube link. Please enter a valid link.");
+            }
+        }
+
+        $(document).ready(function() {
+            // Load the YouTube IFrame Player API code asynchronously
+            var tag = $('<script>', {
+                src: 'https://www.youtube.com/iframe_api'
+            });
+            $('script:first').before(tag);
+
+            // This function creates an <iframe> (and YouTube player) after the API code downloads
+            window.onYouTubeIframeAPIReady = function() {
+                    // Default video link from ${exercise.videoDescription}
+                    var defaultVideoLink = '${exercise.videoDescription}';
+                    var defaultVideoId = extractVideoId(defaultVideoLink);
+
+                    player = new YT.Player('player', {
+                        height: '390',
+                    width: '640',
+                    videoId: defaultVideoId,
+                    playerVars: {
+                        'playsinline': 1
+                    },
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            };
+
+            // The API will call this function when the video player is ready
+            function onPlayerReady(event) {
+                event.target.playVideo();
+            }
+
+            // The API calls this function when the player's state changes
+            // The function indicates that when playing a video (state=1),
+            // the player should play for six seconds and then stop
+            var done = false;
+            function onPlayerStateChange(event) {
+                if (event.data == YT.PlayerState.PLAYING && !done) {
+                    setTimeout(stopVideo, 6000);
+                    done = true;
+                }
+            }
+
+            // Function to stop the video
+            function stopVideo() {
+                player.stopVideo();
+            }
+
+            // Set default video link in the input field
+            $('#youtubeLink').val(defaultVideoLink);
+
+            // Attach click event to the button
+            $('#changeVideoBtn').on('click', changeVideo);
+        });
+    </script>
 </body>
 
 </html>

@@ -23,7 +23,7 @@ public class PersonalTrainerProfileController {
 
 
     @RequestMapping(value = "/personal-trainer/profile/update-profile", method = RequestMethod.GET)
-    public String updateProfile(@RequestParam long id, ModelMap model) {
+    public String updateProfile(@RequestParam int id, ModelMap model) {
         PersonalTrainer personalTrainer = personalTrainerRepository.findById(id).get();
         model.addAttribute("personalTrainer", personalTrainer);
         return "update-profile";

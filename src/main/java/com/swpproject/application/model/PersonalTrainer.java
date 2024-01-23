@@ -12,7 +12,7 @@ public class PersonalTrainer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String name;
     private String bankName;
@@ -30,7 +30,7 @@ public class PersonalTrainer {
     public PersonalTrainer() {
     }
 
-    public PersonalTrainer(Long id, String name, String bankName, String bankNumber, String phone, double weight, double height, String email, LocalDate dayOfBirth, String location, String sex, double price, String description) {
+    public PersonalTrainer(int id, String name, String bankName, String bankNumber, String phone, double weight, double height, String email, LocalDate dayOfBirth, String location, String sex, double price, String description) {
         this.id = id;
         this.name = name;
         this.bankName = bankName;
@@ -46,11 +46,11 @@ public class PersonalTrainer {
         this.description = description;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

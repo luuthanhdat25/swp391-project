@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String name;
     private String type;
     private String description;
@@ -15,13 +15,13 @@ public class Exercise {
     private String videoDescription;
     private String imageDescription;
     private int caloriesOutput;
-    private Long personalTrainerId;
+    private int personalTrainerId;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -81,11 +81,11 @@ public class Exercise {
         this.caloriesOutput = caloriesOutput;
     }
 
-    public Long getPersonalTrainerId() {
+    public int getPersonalTrainerId() {
         return personalTrainerId;
     }
 
-    public void setPersonalTrainerId(Long personalTrainerId) {
+    public void setPersonalTrainerId(int personalTrainerId) {
         this.personalTrainerId = personalTrainerId;
     }
 
@@ -94,7 +94,7 @@ public class Exercise {
 
     // Parameterized constructor
     public Exercise(String name, String type, String description, String level,
-                    String videoDescription, String imageDescription, int caloriesOutput, Long personalTrainerId) {
+                    String videoDescription, String imageDescription, int caloriesOutput, int personalTrainerId) {
         this.name = name;
         this.type = type;
         this.description = description;

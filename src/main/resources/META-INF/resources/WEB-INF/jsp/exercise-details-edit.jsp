@@ -451,10 +451,11 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-sub-header">
-                                <h3 class="page-title">Exercise Details</h3>
+                                <h3 class="page-title">Exercise Edit</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/exercise/">Exercise</a></li>
-                                    <li class="breadcrumb-item active">Exercise Details</li>
+                                    <li class="breadcrumb-item">Exercise</li>
+                                    <li class="breadcrumb-item">Exercise Details</li>
+                                    <li class="breadcrumb-item">Exercise Edit</li>
                                 </ul>
                             </div>
                         </div>
@@ -518,20 +519,12 @@
                                             <div class="d-flex mt-md-2">
                                                 <h2 class="m-100 p-1 bg-info text-white rounded me-2" style="font-size: 1rem">${exercise.type}</h2>
 
-                                                <c:set var="backgroundColor" value="bg-success" />
-                                                <c:choose>
-                                                    <c:when test="${exercise.level eq 'Intermediate'}">
-                                                        <c:set var="backgroundColor" value="bg-warning" />
-                                                    </c:when>
-                                                    <c:when test="${exercise.level eq 'Advanced'}">
-                                                        <c:set var="backgroundColor" value="bg-danger" />
-                                                    </c:when>
-                                                    <c:when test="${exercise.level eq 'Beginner'}">
-                                                        <c:set var="backgroundColor" value="bg-info" />
-                                                    </c:when>
-                                                </c:choose>
+                                                <select id="levelSelect" class="form-select form-select-lg w-25" aria-label=".form-select-lg example">
+                                                    <option value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">selected</c:if>>Beginner</option>
+                                                    <option value="Intermediate" <c:if test="${exercise.level eq 'Intermediate'}">selected</c:if>>Intermediate</option>
+                                                    <option value="Advanced" <c:if test="${exercise.level eq 'Advanced'}">selected</c:if>>Advanced</option>
+                                                </select>
 
-                                                <h2 class="m-100 p-1 ${backgroundColor} text-white rounded" style="font-size: 1rem">${exercise.level}</h2>
                                             </div>
 
                                             <div class="row align-items-center mt-md-3">
@@ -674,6 +667,34 @@
 
             // Attach click event to the button
             $('#changeVideoBtn').on('click', changeVideo);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            updateColor();
+            $("#levelSelect").change(function () {
+                updateColor();
+            });
+
+            function updateColor() {
+                var selectedLevel = $("#levelSelect").val();
+
+                $("#levelSelect").removeClass().addClass("form-select form-select-lg mb-3 w-25").addClass(getColorClass(selectedLevel));
+            }
+
+            function getColorClass(level) {
+                switch (level) {
+                    case "Beginner":
+                        return "bg-success";
+                    case "Intermediate":
+                        return "bg-warning";
+                    case "Advanced":
+                        return "bg-danger";
+                    default:
+                        return "";
+                }
+            }
         });
     </script>
 </body>

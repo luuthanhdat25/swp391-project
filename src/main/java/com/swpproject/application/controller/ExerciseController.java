@@ -49,7 +49,7 @@ public class ExerciseController {
     );
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getExercisePage(ModelMap model) {
+    public String getExerciseListPage(ModelMap model) {
         model.addAttribute("exerciseList", exerciseList);
         return "exercise-list";
     }
@@ -61,10 +61,37 @@ public class ExerciseController {
         return "exercise-details";
     }
 
+
+    //----------------------------------------------------------------Search Exercises
+
+
+    //----------------------------------------------------------------Create Exercise
+    @RequestMapping(value = "/create", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    public String getCreateExercisePage() {
+        return "exercise-create";
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+    public String getCreateExercisePage(@RequestParam Exercise exercise) {
+        //
+        return "exercise-create";
+    }
+    //----------------------------------------------------------------
+
+
+    //----------------------------------------------------------------Edit the exercise
     @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseDetailsEditPage(@RequestParam int id, ModelMap model) {
         Exercise exercise = exerciseList.get(0);
         model.addAttribute("exercise", exercise);
         return "exercise-details-edit";
     }
+
+    @RequestMapping(value = "/details/edit", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+    public String editExercise(@RequestParam Exercise exercise, ModelMap model) {
+        //
+        return "exercise-details-edit";
+    }
+    //----------------------------------------------------------------
+
 }

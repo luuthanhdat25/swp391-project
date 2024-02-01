@@ -1,6 +1,7 @@
 <%@ include file="common/header.jspf" %>
 
 <body>
+
     <div class="main-wrapper">
 
         <div class="header">
@@ -196,12 +197,12 @@
                                 <li><a href="edit-student.html">Student Edit</a></li>
                             </ul>
                         </li>
-                        <li class="submenu">
+                        <li class="submenu active">
                             <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span
                                     class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="teachers.html">Teacher List</a></li>
-                                <li><a href="exercise-details.jsp">Teacher View</a></li>
+                                <li><a href="teacher-details.html" class="active">Teacher View</a></li>
                                 <li><a href="add-teacher.html">Teacher Add</a></li>
                                 <li><a href="edit-teacher.html">Teacher Edit</a></li>
                             </ul>
@@ -224,12 +225,12 @@
                                 <li><a href="edit-subject.html">Subject Edit</a></li>
                             </ul>
                         </li>
-                        <li class="submenu active">
+                        <li class="submenu">
                             <a href="#"><i class="fas fa-clipboard"></i> <span> Invoices</span> <span
                                     class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="invoices.html">Invoices List</a></li>
-                                <li><a href="invoice-grid.html" class="active">Invoices Grid</a></li>
+                                <li><a href="invoice-grid.html">Invoices Grid</a></li>
                                 <li><a href="add-invoice.html">Add Invoices</a></li>
                                 <li><a href="edit-invoice.html">Edit Invoices</a></li>
                                 <li><a href="view-invoice.html">Invoices Details</a></li>
@@ -266,7 +267,7 @@
                         <li>
                             <a href="time-table.html"><i class="fas fa-table"></i> <span>Time Table</span></a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>
                         </li>
                         <li class="submenu">
@@ -446,186 +447,108 @@
 
         <div class="page-wrapper">
             <div class="content container-fluid">
-
                 <div class="page-header">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="page-title">Exercise</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container mb-3">
-                    <form class="d-flex align-items-center">
-                        <input type="text" class="form-control" placeholder="Search here">
-                        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-
-
-
-
-                <div class="card report-card">
-                    <div class="card-body pb-0">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <ul class="app-listing justify-content-lg-start">
-                                    <li>
-                                        <div class="multipleSelection">
-                                            <div class="selectBox">
-                                                <p class="mb-0">Category</p>
-                                                <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                                            </div>
-                                            <div id="checkBoxes">
-                                                    <div class="selectBox-cont">
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span>
-                                                            Chest
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span>
-                                                            Triceps
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span>
-                                                            Biceps
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span>
-                                                            Forearms
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span>
-                                                            Cadio
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="username">
-                                                            <span class="checkmark"></span>
-                                                            Calves
-                                                        </label>
-                                                    </div>
-                                                    <button type="submit" class="btn w-100 btn-primary">Apply</button>
-                                                    <button type="reset" class="btn w-100 btn-grey">Reset</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="multipleSelection">
-                                            <div class="selectBox">
-                                                <p class="mb-0">Difficulty</p>
-                                                <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                                            </div>
-                                            <div id="checkBoxes">
-                                                <div class="selectBox-cont">
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="username">
-                                                        <span class="checkmark"></span>
-                                                        Beginner
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="username">
-                                                        <span class="checkmark"></span>
-                                                        Intermediate
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="username">
-                                                        <span class="checkmark"></span>
-                                                        Advanced
-                                                    </label>
-                                                </div>
-                                                <button type="submit" class="btn w-100 btn-primary">Apply</button>
-                                                <button type="reset" class="btn w-100 btn-grey">Reset</button>
-                                            </div>
-                                        </div>
-                                    </li>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="page-sub-header">
+                                <h3 class="page-title">Exercise Create</h3>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/exercise/">Exercise</a></li>
+                                    <li class="breadcrumb-item active">Exercise Create</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="student-personals-grp">
+                                    <div class="card">
+                                        <div class="card-body position-relative">
+                                            <img class="w-100 mb-2" id="userImage" src="https://shop.lifefitness.com/cdn/shop/products/Rubber-Hex-Dumbbell-L_1_1800x1800_78ea050c-4f5a-4e8a-bdae-a664272eac80_1200x1200.jpg?v=1619710214" style="border-radius: .25rem;" alt="User Image">
+                                            <label for="imageInput" class="btn btn-primary position-absolute" style="border-radius: 100%; padding: 1rem; bottom: 5%; right: 5%;">
+                                                <input type="file" id="imageInput" style="display: none;" accept="image/*">
+                                                <img src="../../theme2/img/icons/pencil-square.svg" style="filter: brightness(0) invert(1); width: 1.5rem;" alt="Edit Icon">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
 
-                <div class="card invoices-tabs-card border-0">
-                    <div class="card-body card-body pt-0 pb-0">
-                        <div class="invoices-main-tabs border-0 pb-0">
-                            <div class="row align-items-center">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="invoices-settings-btn invoices-settings-btn-one">
-                                        <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>
+                                <div class="student-personals-grp">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control">
+                                            <button onclick="changeVideo()" class="btn btn-primary mt-md-2">Add Video</button>
+                                            <div id="player" style="width: 100%; height: 100%;" class="mt-md-3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="student-personals-grp">
+                                    <div class="card mb-0">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center heading-detail">
+                                                <input type="text" name="exerciseName" class="form-control w-75"
+                                                       value='<c:out value="${exercise.name}" />'
+                                                       placeholder="Exercise Name" />
+
+                                                <div class="d-flex">
+                                                    <a href="edit-invoice.html" class="btn btn-primary me-2">
+                                                        <i ></i>Create
+                                                    </a>
+                                                    <a href="edit-invoice.html" class="btn btn-danger">
+                                                        <i ></i>Cancel
+                                                    </a>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="d-flex mt-md-2">
+<%--                                                Multiple selection--%>
+                                                <h2 class="m-100 p-1 bg-info text-white rounded me-2" style="font-size: 1rem">Chest</h2>
+
+                                                <select id="levelSelect" class="form-select form-select-lg w-25" aria-label=".form-select-lg example">
+                                                    <option value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">selected</c:if>>Beginner</option>
+                                                    <option value="Intermediate" <c:if test="${exercise.level eq 'Intermediate'}">selected</c:if>>Intermediate</option>
+                                                    <option value="Advanced" <c:if test="${exercise.level eq 'Advanced'}">selected</c:if>>Advanced</option>
+                                                </select>
+
+                                            </div>
+
+                                            <div class="row align-items-center mt-md-3">
+                                                <div class="col d-flex">
+                                                    <img style="height: 5%; width: 5%;" src="../../theme2/img/calories.png" alt="Calo">
+                                                    <input type="number" class="form-control mb-0 ml-2 w-25" style="font-size: 1rem;" id="caloriesInput" placeholder="Calories per rep">
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="hello-park  mt-md-4">
+                                                <textarea class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <c:forEach var="exercise" items="${exerciseList}">
-                        <div class="col-sm-6 col-lg-4 col-xl-3 d-flex">
-                            <div class="card invoices-grid-card w-100">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <a href="/exercise/details?id=0" class="invoice-grid-link">${exercise.name}</a>
-<%--                                    <a href="edit-invoice.html" class="btn btn-primary"><i class="far fa-edit me-2"></i>Edit</a>--%>
-                                    <a href="view-invoice.html" class="avatar avatar-sm me-2 avatar-img rounded-circle">
-                                        <img class="rounded-circle" src="https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*" alt="Edit Avatar">
-                                    </a>
-                                </div>
-                                <div class="container position-relative">
-                                    <a href="profile.html" class="text-decoration-none text-dark d-block position-relative">
-                                        <img class="w-100 mb-2" src="${exercise.imageDescription}" alt="User Image">
-                                        <div class="position-absolute top-0 end-0">
-                                            <h2 class="m-100 p-1 bg-info text-white rounded small" style="font-size: 15px;">${exercise.type}</h2>
-
-                                            <c:set var="backgroundColor" value="bg-success" />
-                                            <c:choose>
-                                                <c:when test="${exercise.level eq 'Intermediate'}">
-                                                    <c:set var="backgroundColor" value="bg-warning" />
-                                                </c:when>
-                                                <c:when test="${exercise.level eq 'Advanced'}">
-                                                    <c:set var="backgroundColor" value="bg-danger" />
-                                                </c:when>
-                                            </c:choose>
-
-                                            <h2 class="m-100 p-1 ${backgroundColor} text-white rounded small" style="font-size: 15px;">${exercise.level}</h2>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col d-flex">
-                                            <img style="height: 10%; width: 10%" src="../../theme2/img/calories.png" alt="Calo">
-                                            <h6 class="mb-0 ml-2">${exercise.caloriesOutput} calories/rep</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
-            <div>
-                <ul class="pagination mb-4">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
             </div>
-            </div>
+
+            <footer>
+                <p>Copyright © 2022 Dreamguys.</p>
+            </footer>
+
         </div>
+
     </div>
 
 
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="../../theme2/js/jquery-3.6.0.min.js"></script>
 
     <script src="../../theme2/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -634,15 +557,137 @@
 
     <script src="../../theme2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <script src="../../theme2/plugins/select2/js/select2.min.js"></script>
-
-    <script src="../../theme2/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="../../theme2/plugins/datatables/datatables.min.js"></script>
-
-    <script src="../../theme2/plugins/moment/moment.min.js"></script>
-    <script src="../../theme2/js/bootstrap-datetimepicker.min.js"></script>
-
     <script src="../../theme2/js/script.js"></script>
+
+    <script>
+        $(function () {
+            $('#imageInput').change(function () {
+                readURL(this);
+            });
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#userImage').attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        });
+    </script>
+
+    <script>
+        var player;
+
+        // Function to extract video ID from YouTube link
+        function extractVideoId(url) {
+            var regex = /^(?:(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11}))/;
+            var match = url.match(regex);
+            return match ? match[1] : null;
+        }
+
+
+        // Function to change video when the button is clicked
+        function changeVideo() {
+            var youtubeLink = $('#youtubeLink').val();
+            var videoId = extractVideoId(youtubeLink);
+
+            // Check if the input is a valid YouTube link
+            if (videoId) {
+                // Change the video
+                player.loadVideoById(videoId);
+            } else {
+                // Display a warning for invalid link
+                alert("Invalid YouTube link. Please enter a valid link.");
+            }
+        }
+
+        $(document).ready(function() {
+            // Load the YouTube IFrame Player API code asynchronously
+            var tag = $('<script>', {
+                src: 'https://www.youtube.com/iframe_api'
+            });
+            $('script:first').before(tag);
+
+            // This function creates an <iframe> (and YouTube player) after the API code downloads
+            window.onYouTubeIframeAPIReady = function() {
+                    // Default video link from ${exercise.videoDescription}
+                    var defaultVideoLink = '${exercise.videoDescription}';
+                    var defaultVideoId = extractVideoId(defaultVideoLink);
+
+                    player = new YT.Player('player', {
+                        height: '390',
+                    width: '640',
+                    videoId: defaultVideoId,
+                    playerVars: {
+                        'playsinline': 1
+                    },
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            };
+
+            // The API will call this function when the video player is ready
+            function onPlayerReady(event) {
+                event.target.playVideo();
+            }
+
+            // The API calls this function when the player's state changes
+            // The function indicates that when playing a video (state=1),
+            // the player should play for six seconds and then stop
+            var done = false;
+            function onPlayerStateChange(event) {
+                if (event.data == YT.PlayerState.PLAYING && !done) {
+                    setTimeout(stopVideo, 6000);
+                    done = true;
+                }
+            }
+
+            // Function to stop the video
+            function stopVideo() {
+                player.stopVideo();
+            }
+
+            // Set default video link in the input field
+            $('#youtubeLink').val(defaultVideoLink);
+
+            // Attach click event to the button
+            $('#changeVideoBtn').on('click', changeVideo);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            updateColor();
+            $("#levelSelect").change(function () {
+                updateColor();
+            });
+
+            function updateColor() {
+                var selectedLevel = $("#levelSelect").val();
+
+                $("#levelSelect").removeClass().addClass("form-select form-select-lg mb-3 w-25").addClass(getColorClass(selectedLevel));
+            }
+
+            function getColorClass(level) {
+                switch (level) {
+                    case "Beginner":
+                        return "bg-success";
+                    case "Intermediate":
+                        return "bg-warning";
+                    case "Advanced":
+                        return "bg-danger";
+                    default:
+                        return "";
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

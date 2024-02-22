@@ -14,7 +14,6 @@ public class Exercise {
     private String level;
     private String videoDescription;
     private String imageDescription;
-    private int caloriesOutput;
     private int personalTrainerId;
 
     public int getId() {
@@ -73,14 +72,6 @@ public class Exercise {
         this.imageDescription = imageDescription;
     }
 
-    public int getCaloriesOutput() {
-        return caloriesOutput;
-    }
-
-    public void setCaloriesOutput(int caloriesOutput) {
-        this.caloriesOutput = caloriesOutput;
-    }
-
     public int getPersonalTrainerId() {
         return personalTrainerId;
     }
@@ -94,14 +85,13 @@ public class Exercise {
 
     // Parameterized constructor
     public Exercise(String name, String type, String description, String level,
-                    String videoDescription, String imageDescription, int caloriesOutput, int personalTrainerId) {
+                    String videoDescription, String imageDescription, int personalTrainerId) {
         this.name = name;
         this.type = type;
         this.description = description;
         this.level = level;
         this.videoDescription = videoDescription;
         this.imageDescription = imageDescription;
-        this.caloriesOutput = caloriesOutput;
         this.personalTrainerId = personalTrainerId;
     }
 }

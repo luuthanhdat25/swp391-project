@@ -1,8 +1,5 @@
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="common/header.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<head><link rel="stylesheet" href="../../theme2/plugins/bootstrap/css/bootstrap.min.css"></head>
 
 <body>
     <div class="main-wrapper">
@@ -25,12 +22,11 @@
             </div>
 
             <div class="top-nav-search">
-                <form id="search_bar">
-                    <input type="text"  class="form-control" placeholder="Search here">
-                    <button type="submit" class="btn"><i class="fas fa-search"></i></button>
+                <form>
+                    <input type="text" id="search_exercise" class="form-control" placeholder="Search here">
+                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
-
 
 
             <a class="mobile_btn" id="mobile_btn">
@@ -452,183 +448,28 @@
         <div class="page-wrapper">
             <div class="content container-fluid">
 
-                <div class="page-header">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="page-title">Exercise</h3>
-                        </div>
-                    </div>
-                </div>
+                <div class="container mt-5 d-flex justify-content-center">
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <div class="card">
+                                <div class="card-header bg-white d-flex justify-content-center">
+                                    <i class="fas fa-times-circle fa-3x text-danger"></i> <!-- Thay icon bằng fa-times-circle và màu đỏ -->
+                                </div>
 
-                <div class="container mb-3">
-                    <form id="searchForm" class="d-flex align-items-center">
-                        <input id="searchInput" type="text" class="form-control" placeholder="Search here">
-                        <button id="searchButton" class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-
-
-
-
-                <div class="card report-card">
-                    <div class="card-body pb-0">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <ul class="app-listing justify-content-lg-start">
-                                    <li>
-                                        <div class="multipleSelection">
-                                            <div class="selectBox">
-                                                <p class="mb-0">Category</p>
-                                                <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                                            </div>
-                                            <div id="checkBoxes">
-                                                    <div class="selectBox-cont">
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Chest" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Chest
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Triceps" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Triceps
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Biceps" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Biceps
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Forearms" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Forearms
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Cadio" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Cadio
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Calves" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Calves
-                                                        </label>
-                                                    </div>
-                                                    <button type="submit" class="btn w-100 btn-primary submit-filter">Apply</button>
-                                                    <button type="reset" class="btn w-100 btn-grey">Reset</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="multipleSelection">
-                                            <div class="selectBox">
-                                                <p class="mb-0">Difficulty</p>
-                                                <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                                            </div>
-                                            <div id="checkBoxes">
-                                                <div class="selectBox-cont">
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Beginner" class="difficulty">
-                                                        <span class="checkmark"></span>
-                                                        Beginner
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Intermediate" class="difficulty">
-                                                        <span class="checkmark"></span>
-                                                        Intermediate
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Advanced" class="difficulty">
-                                                        <span class="checkmark"></span>
-                                                        Advanced
-                                                    </label>
-                                                </div>
-                                                <button type="submit" class="btn w-100 btn-primary submit-filter">Apply</button>
-                                                <button type="reset" class="btn w-100 btn-grey">Reset</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card invoices-tabs-card border-0">
-                    <div class="card-body card-body pt-0 pb-0">
-                        <div class="invoices-main-tabs border-0 pb-0">
-                            <div class="row align-items-center">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="invoices-settings-btn invoices-settings-btn-one">
-                                        <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>
-                                    </div>
+                                <div class="card-body text-center">
+                                    <h3 class="card-title">Payment Unsuccessful</h3>
+                                    <p class="card-text">
+                                        We regret to inform you that the payment was unsuccessful.  <br>
+                                        Please check your payment details and try again later.
+                                    </p>
+                                    <a href="#" class="btn btn-primary">Continue</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="exerciseContainer" class="row">
-<%--                    <c:forEach var="exercise" items="${exerciseList}">--%>
 
-<%--                        <div class="col-sm-6 col-lg-4 col-xl-3 d-flex">--%>
-<%--                            <div class="card invoices-grid-card w-100">--%>
-<%--                                <div class="card-header d-flex justify-content-between align-items-center">--%>
-<%--                                    <a href="/exercise/details?id=0" class="invoice-grid-link">${exercise.name}</a>--%>
-<%--&lt;%&ndash;                                    <a href="edit-invoice.html" class="btn btn-primary"><i class="far fa-edit me-2"></i>Edit</a>&ndash;%&gt;--%>
-<%--                                    <a href="view-invoice.html" class="avatar avatar-sm me-2 avatar-img rounded-circle">--%>
-<%--                                        <img class="rounded-circle" src="https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*" alt="Edit Avatar">--%>
-<%--                                    </a>--%>
-<%--                                </div>--%>
-<%--                                <div class="container position-relative">--%>
-<%--                                    <a href="profile.html" class="text-decoration-none text-dark d-block position-relative">--%>
-<%--                                        <img class="w-100 mb-2" src="${exercise.imageDescription}" alt="User Image">--%>
-<%--                                        <div class="position-absolute top-0 end-0">--%>
-
-
-<%--                                            <c:set var="backgroundColor" value="bg-success" />--%>
-<%--                                            <c:choose>--%>
-<%--                                                <c:when test="${exercise.level eq 'Intermediate'}">--%>
-<%--                                                    <c:set var="backgroundColor" value="bg-warning" />--%>
-<%--                                                </c:when>--%>
-<%--                                                <c:when test="${exercise.level eq 'Advanced'}">--%>
-<%--                                                    <c:set var="backgroundColor" value="bg-danger" />--%>
-<%--                                                </c:when>--%>
-<%--                                            </c:choose>--%>
-
-<%--                                            <h2 class="m-100 p-1 ${backgroundColor} text-white rounded small" style="font-size: 15px;">${exercise.level}</h2>--%>
-<%--                                        </div>--%>
-<%--                                    </a>--%>
-<%--                                </div>--%>
-<%--                                <div class="card-body">--%>
-<%--                                    <c:forEach var="word" items="${fn:split(exercise.type, ' ')}">--%>
-<%--                                        <div style="display: inline-block;">--%>
-<%--                                            <h2 class="w-auto p-1 bg-info text-white rounded small" style="font-size: 15px;">${word}</h2>--%>
-<%--                                        </div>--%>
-<%--                                    </c:forEach>--%>
-<%--                                </div>--%>
-
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-<%--                    </c:forEach>--%>
-                </div>
-
-                <div>
-                <ul class="pagination mb-4">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </div>
             </div>
         </div>
     </div>
@@ -651,107 +492,5 @@
     <script src="../../theme2/js/bootstrap-datetimepicker.min.js"></script>
 
     <script src="../../theme2/js/script.js"></script>
-
-    <script>
-        // Function to generate HTML for exercise cards
-        function generateExerciseCards(exerciseList) {
-            var cardHtml = '';
-            exerciseList.forEach(function(exercise) {
-                cardHtml += '<div class="col-sm-6 col-lg-4 col-xl-3 d-flex">' +
-                    '<div class="card invoices-grid-card w-100">' +
-                    '<div class="card-header d-flex justify-content-between align-items-center">' +
-                    '<a href="/exercise/details?id=0" class="invoice-grid-link text-decoration-none">' + exercise.name + '</a>' +
-                    '<a href="view-invoice.html" class="avatar avatar-sm me-2 avatar-img rounded-circle">' +
-                    '<img class="rounded-circle" src="https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*" alt="Edit Avatar">' +
-                    '</a>' +
-                    '</div>' +
-                    '<div class="container position-relative">' +
-                    '<a href="profile.html" class="text-decoration-none text-dark d-block position-relative">' +
-                    '<img class="w-100 mb-2" src="' + exercise.imageDescription + '" alt="User Image">' +
-                    '<div class="position-absolute top-0 end-0">';
-
-                var backgroundColor = 'bg-success';
-                if (exercise.level === 'Intermediate') {
-                    backgroundColor = 'bg-warning';
-                } else if (exercise.level === 'Advanced') {
-                    backgroundColor = 'bg-danger';
-                }
-
-                cardHtml += '<h2 class="m-100 p-1 ' + backgroundColor + ' text-white rounded small" style="font-size: 15px;">' + exercise.level + '</h2>' +
-                    '</div>' +
-                    '</a>' +
-                    '</div>' +
-                    '<div class="card-body">';
-
-                var types = exercise.type.split(' ');
-                types.forEach(function(word) {
-                    cardHtml += '<div style="display: inline-block;">' +
-                        '<h2 class="w-auto p-1 bg-info text-white rounded small" style="font-size: 15px;">' + word + '</h2>' +
-                        '</div>';
-                });
-
-                cardHtml += '</div></div></div>';
-            });
-            return cardHtml;
-        }
-
-        function sendFilterJSON(filterObject) {
-            var filterJSON = JSON.stringify(filterObject);
-            console.log(filterJSON);
-            $.ajax({
-                url: '/api/exercises/search',
-                type: 'POST',
-                data: filterJSON,
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function(response) {
-                    document.getElementById('exerciseContainer').innerHTML = generateExerciseCards(response);
-                },
-                error: function(xhr, status, error) {
-                }
-            });
-        }
-
-        function sendFilterRequest(){
-            var filterObject = {};
-            var searchValue = $('#searchInput').val();
-            filterObject.searchValue = searchValue;
-            filterObject.categories = $('.category:checked').map(function() {
-                return $(this).attr('name');
-            }).get();
-            filterObject.difficulties = $('.difficulty:checked').map(function() {
-                return $(this).attr('name');
-            }).get();
-
-            sendFilterJSON(filterObject);
-        }
-    </script>
-
-    <script>
-        // Start call when page is loaded
-        var exerciseList = ${exerciseList};
-        document.getElementById('exerciseContainer').innerHTML = generateExerciseCards(exerciseList);
-        console.log(exerciseList);
-    </script>
-
-    <script>
-        $(document).ready(function(){
-            // Search form
-            $('#searchForm').submit(function(event) {
-                event.preventDefault();
-
-                var searchValue = $('#searchInput').val();
-                if (searchValue.trim() !== '') {
-                    sendFilterRequest()
-                }
-            });
-
-            // Filter submit
-            $('.submit-filter').click(function() {
-                sendFilterRequest();
-            });
-        });
-    </script>
-
 </body>
 

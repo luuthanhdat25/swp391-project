@@ -5,12 +5,19 @@ import com.swpproject.application.repository.ScheduleDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ScheduleDataService {
+        @Autowired
+        private ScheduleDataRepository scheduleDataRepository;
 
-    @Autowired
-    private ScheduleDataRepository repository;
-    public  void saveOrUpdate(ScheduleDataEntity entity){
-        repository.save(entity);
+
+
+    public void saveOrUpdate(ScheduleDataEntity scheduleData) {
+            scheduleDataRepository.save(scheduleData);
+        }
+    public List<ScheduleDataEntity> getSlotsByWeekAndYear(int week, int year) {
+        return scheduleDataRepository.findByWeekAndYear(week, year);
     }
 }

@@ -1,11 +1,11 @@
-<%@include file="common/header.jspf"%>
+<%@include file="common/header.jspf" %>
 
 <body>
 <div class="main-wrapper">
     <div class="header">
         <div class="header-left">
             <a href="index.html" class="logo">
-                <img src="assets/img/logo.png" alt="Logo" />
+                <img src="assets/img/logo.png" alt="Logo"/>
             </a>
             <a href="index.html" class="logo logo-small">
                 <img
@@ -26,7 +26,7 @@
 
         <div class="top-nav-search">
             <form>
-                <input type="text" class="form-control" placeholder="" />
+                <input type="text" class="form-control" placeholder=""/>
                 <button class="btn" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
@@ -174,7 +174,7 @@
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <span class="user-img">
-                <img src="assets/img/profile.jpg" alt="" />
+                <img src="assets/img/profile.jpg" alt=""/>
                 <span class="status online"></span>
               </span>
                     <span>Kavin Hansen</span>
@@ -251,7 +251,7 @@
                     <ul>
                         <li>
                             <a href="index.html"
-                            ><img src="assets/img/home.svg" alt="sidebar_img" />
+                            ><img src="assets/img/home.svg" alt="sidebar_img"/>
                                 <span>Dashboard</span></a
                             >
                         </li>
@@ -265,39 +265,39 @@
                         </li>
                         <li>
                             <a href="company.html"
-                            ><img src="assets/img/company.svg" alt="sidebar_img" />
+                            ><img src="assets/img/company.svg" alt="sidebar_img"/>
                                 <span> Company</span></a
                             >
                         </li>
                         <li class="active">
                             <a href="#"
-                            ><img src="assets/img/calendar.svg" alt="sidebar_img" />
+                            ><img src="assets/img/calendar.svg" alt="sidebar_img"/>
                                 <span>Calendar</span></a
                             >
                         </li>
                         <li>
                             <a href="leave.html"
-                            ><img src="assets/img/leave.svg" alt="sidebar_img" />
+                            ><img src="assets/img/leave.svg" alt="sidebar_img"/>
                                 <span>Leave</span></a
                             >
                         </li>
                         <li>
                             <a href="review.html"
-                            ><img src="assets/img/review.svg" alt="sidebar_img" /><span
+                            ><img src="assets/img/review.svg" alt="sidebar_img"/><span
                             >Review</span
                             ></a
                             >
                         </li>
                         <li>
                             <a href="report.html"
-                            ><img src="assets/img/report.svg" alt="sidebar_img" /><span
+                            ><img src="assets/img/report.svg" alt="sidebar_img"/><span
                             >Report</span
                             ></a
                             >
                         </li>
                         <li>
                             <a href="manage.html"
-                            ><img src="assets/img/manage.svg" alt="sidebar_img" />
+                            ><img src="assets/img/manage.svg" alt="sidebar_img"/>
                                 <span>Manage</span></a
                             >
                         </li>
@@ -311,7 +311,7 @@
                         </li>
                         <li>
                             <a href="profile.html"
-                            ><img src="assets/img/profile.svg" alt="sidebar_img" />
+                            ><img src="assets/img/profile.svg" alt="sidebar_img"/>
                                 <span>Profile</span></a
                             >
                         </li>
@@ -319,7 +319,7 @@
                     <ul class="logout">
                         <li>
                             <a href="profile.html"
-                            ><img src="assets/img/logout.svg" alt="sidebar_img" /><span
+                            ><img src="assets/img/logout.svg" alt="sidebar_img"/><span
                             >Log out</span
                             ></a
                             >
@@ -374,7 +374,7 @@
 
                             </div>
                             <div class="checkbox mb-3">
-                                <input id="drop-remove" type="checkbox" />
+                                <input id="drop-remove" type="checkbox"/>
                                 <label for="drop-remove"> Remove after drop </label>
                             </div>
                             <a
@@ -392,22 +392,26 @@
                     <div class="card bg-white">
                         <div class="card-body">
                             <div class="ageda">
-                                <form action="/saveSchedule" method="post">
-                                <table>
+                                                               <table>
                                     <thead>
                                     <tr>
                                         <th rowspan="2">
-                                            <select id="year" class="form-control" onchange="updateWeeks()">
-                                                <!-- Thay đổi dải số năm tùy ý -->
-                                                <script>
-                                                    var currentYear = new Date().getFullYear();
-                                                    for (var i = currentYear; i >= currentYear - 10; i--) {
-                                                        document.write("<option value='" + i + "'>" + i + "</option>");
-                                                    }
-                                                </script>
-                                            </select>
-
-                                            <select id="week" class="form-control" onchange="updateTable();"></select>
+                                            <form id="weekForm" action="/SelectWeek" method="GET">
+                                                <select id="year" class="form-control" name="year"
+                                                        onchange="updateWeeks()">
+                                                    <!-- Thay đổi dải số năm tùy ý -->
+                                                    <script>
+                                                        var currentYear = new Date().getFullYear();
+                                                        for (var i = currentYear; i >= currentYear - 10; i--) {
+                                                            document.write("<option value='" + i + "'>" + i + "</option>");
+                                                        }
+                                                    </script>
+                                                </select>
+                                                <select id="week" class="form-control" name="week"
+                                                        onchange="this.form.submit()">
+                                                    <!-- Options will be generated dynamically by JavaScript -->
+                                                </select>
+                                            </form>
                                         </th>
                                         <th align="center">Mon</th>
                                         <th align="center">Tue</th>
@@ -427,25 +431,38 @@
                                         <th align="center"></th>
                                     </tr>
                                     </thead>
-                                 <tbody>
-                                 <c:forEach begin="1" end="8" var="slot">
-                                     <tr>
-                                         <td>Slot ${slot}</td>
-                                         <c:forEach begin="1" end="7" var="day">
-                                             <td>
-                                                 <fieldset class="ui-cinema">
-                                                     <label aria-label="${slot}-${day}">
-                                                         <input type="checkbox" value="${slot}-${day}" onclick="saveCheckboxData(${slot}, ${day}, this.checked)">
-                                                     </label>
-                                                 </fieldset>
-                                             </td>
-                                         </c:forEach>
-                                     </tr>
-                                 </c:forEach>
-                                   </tbody>
+
+                                    <form id="scheduleForm" action="/saveSchedule" method="post">
+                                        <tbody>
+
+                                        <c:forEach begin="1" end="8" var="slot">
+                                            <tr>
+                                                <td>Slot ${slot}</td>
+                                                <c:forEach begin="1" end="7" var="day">
+                                                    <c:set var="disabled" value="false" />
+                                                    <c:forEach items="${scheduleSlots}" var="scheduleSlot">
+                                                        <c:if test="${scheduleSlot.slot == slot && scheduleSlot.day == day}">
+                                                            <c:set var="disabled" value="true" />
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <td>
+                                                        <fieldset class="ui-cinema">
+                                                            <label aria-label="${slot}-${day}">
+                                                                <input type="checkbox" value="${slot}-${day}" <c:if test="${disabled}">disabled="disabled"</c:if>
+                                                                       onclick="saveCheckboxData(${slot}, ${day}, this.checked)">
+                                                            </label>
+                                                        </fieldset>
+                                                    </td>
+                                                </c:forEach>
+                                            </tr>
+                                        </c:forEach>
+
+                                        <input type="hidden" id="selectedSlotsAndDays" name="selectedSlotsAndDays" value="">
+                                        <button type="submit" class="btn btn-primary">Save Schedule</button>
+                                        </tbody>
+                                    </form>
                                 </table>
-                                <button type="submit">Save</button>
-                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -481,7 +498,7 @@
                                 <div class="col-md-12 p-0">
                                     <div class="form-popup">
                                         <label>Event Name</label>
-                                        <input type="text" placeholder="Insert Event Name" />
+                                        <input type="text" placeholder="Insert Event Name"/>
                                     </div>
                                     <div class="form-popup">
                                         <label>Category Color</label>
@@ -537,7 +554,7 @@
                                 <div class="col-md-12 p-0">
                                     <div class="form-popup">
                                         <label>Event Name</label>
-                                        <input type="text" placeholder="Insert Event Name" />
+                                        <input type="text" placeholder="Insert Event Name"/>
                                     </div>
                                     <div class="form-popup">
                                         <label>Category Color</label>
@@ -593,7 +610,7 @@
                                 <div class="col-md-12 p-0">
                                     <div class="form-popup">
                                         <label>Category Name</label>
-                                        <input type="text" placeholder="Enter Name" />
+                                        <input type="text" placeholder="Enter Name"/>
                                     </div>
                                     <div class="form-popup">
                                         <label>Choose Category Color</label>
@@ -625,7 +642,7 @@
 <script src="theme2/js/jquery-3.6.0.min.js"></script>
 
 <script src="theme2/js/popper.min.js"></script>
- <script src="theme2/js/bootstrap.min.js"></script>
+<script src="theme2/js/bootstrap.min.js"></script>
 
 <script src="theme2/js/feather.min.js"></script>
 

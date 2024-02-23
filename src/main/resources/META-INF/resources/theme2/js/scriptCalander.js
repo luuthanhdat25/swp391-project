@@ -2,27 +2,36 @@ function generateWeeks() {
     var year = $("#year").val();
     var weeks = [];
 
-    // Tạo danh sách tuần tương ứng với năm được chọn
     for (var i = 1; i <= 52; i++) {
         var startOfWeek = moment().year(year).isoWeek(i).startOf('isoWeek');
         var endOfWeek = moment().year(year).isoWeek(i).endOf('isoWeek');
         var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');
-        weeks.push("<option value='" + i + "'>" + weekText + "</option>");
+        weeks.push("<option value='" +i+ "'>" + weekText + "</option>");
     }
 
-    // Gán danh sách tuần vào khung chọn tuần
     $("#week").html(weeks.join(""));
 }
 
-// Sự kiện khi trang web được tải
 $(document).ready(function () {
-    // Lấy ngày hiện tại
     var currentDate = moment();
 
-    // Set giá trị năm và tuần tương ứng với ngày hiện tại
-    $("#year").val(currentDate.year());
+    // Set giá trị năm tương ứng với ngày hiện tại
+
     generateWeeks();
-    $("#week").val(currentDate.isoWeek());
+
+    // Extract week parameter from the URL and set it as the selected value
+    var urlParams = new URLSearchParams(window.location.search);
+    var weekParam = urlParams.get('week');
+
+    var yearParam = urlParams.get('year');
+
+    if (weekParam && yearParam) {
+        $("#week").val(weekParam);
+        $("#year").val(yearParam);
+    } else {
+        $("#year").val(currentDate.year);
+        $("#week").val(currentDate.isoWeek());
+    }
 
     updateTable(); // Cập nhật bảng khi trang web được tải
 });
@@ -36,6 +45,27 @@ $("#year").change(function () {
 // Hàm để cập nhật bảng khi người dùng chọn tuần mới
 function updateTable() {
     updateDays();   // Cập nhật giá trị ngày của từng thứ trong tuần
+    var year = $("#year").val();
+    var week = $("#week").val();
+
+    // Gửi AJAX request để load lại file với tham số tuần
+    $.ajax({
+        type: "POST",
+        url: "/SelectWeek", // Update to the correct URL
+        data: {
+            week: week,
+            year: year,
+        },
+        contentType: 'application/x-www-form-urlencoded;charset=UTF-8', // Explicitly set the content type
+        success: function (response) {
+            // Xử lý response, ví dụ: cập nhật nội dung trang
+            // response có thể là HTML, JSON, hoặc bất kỳ định dạng dữ liệu nào khác
+            console.log(response);
+        },
+        error: function (error) {
+            console.error("Error loading file:", error);
+        }
+    });
 }
 
 // Hàm để cập nhật giá trị ngày của từng thứ trong tuần
@@ -53,3 +83,20 @@ function updateDays() {
         }
     }
 }
+
+
+var selectedSlotsAndDays = [];
+
+function saveCheckboxData(slot, day, isChecked) {
+    var slotAndDay = slot + '-' + day;
+    if (isChecked) {
+        selectedSlotsAndDays.push(slotAndDay);
+    } else {
+        // Remove from array if unchecked
+        selectedSlotsAndDays = selectedSlotsAndDays.filter(item => item !== slotAndDay);
+    }
+
+    // Update the hidden input value
+    document.getElementById('selectedSlotsAndDays').value = selectedSlotsAndDays.join(',');
+}
+

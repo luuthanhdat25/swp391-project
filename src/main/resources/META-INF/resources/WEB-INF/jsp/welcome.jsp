@@ -162,7 +162,7 @@
                     </div>
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="inbox.html">Inbox</a>
-                    <a class="dropdown-item" href="/login">Logout</a>
+                    <a class="dropdown-item" href="/">Logout</a>
                 </div>
             </li>
 

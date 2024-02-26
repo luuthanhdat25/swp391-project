@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @SessionAttributes("id")
@@ -23,28 +24,28 @@ public class WelcomeController {
     public WelcomeController(PersonalTrainerRepository personalTrainerRepository) {
         this.personalTrainerRepository = personalTrainerRepository;
         PersonalTrainer newPersonalTrainer = new PersonalTrainer();
-        newPersonalTrainer.setName("Doan Minh Tri");
+//        newPersonalTrainer.setName("Doan Minh Tri");
         newPersonalTrainer.setBankName("Example Bank");
         newPersonalTrainer.setBankNumber("1234567890");
-        newPersonalTrainer.setPhone("123-456-7890");
+//        newPersonalTrainer.setPhone("123-456-7890");
         newPersonalTrainer.setWeight(70.5);
         newPersonalTrainer.setHeight(175.0);
-        newPersonalTrainer.setEmail("tridm@gmail.com");
-        newPersonalTrainer.setDayOfBirth(LocalDate.now().plusYears(-20));
-        newPersonalTrainer.setLocation("City, Country");
-        newPersonalTrainer.setSex("Male");
+//        newPersonalTrainer.setEmail("tridm@gmail.com");
+//        newPersonalTrainer.setDayOfBirth(LocalDate.now().plusYears(-20));
+//        newPersonalTrainer.setLocation("City, Country");
+//        newPersonalTrainer.setSex("Male");
         newPersonalTrainer.setPrice(50.0);
         newPersonalTrainer.setDescription("Experienced personal trainer with a focus on strength training.");
         clonePersonalTrainer = newPersonalTrainer;
         personalTrainerRepository.save(newPersonalTrainer);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET) //Return login.jsp
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET) //Return login.jsp
     public String wellComePage(ModelMap model) {
         PersonalTrainer personalTrainer = personalTrainerRepository.findById(clonePersonalTrainer.getId()).get();
         model.addAttribute("id", personalTrainer.getId());
         model.addAttribute("personTrainer", personalTrainer);
-        return "index";
+        return "welcome";
     }
 
     @RequestMapping(value = "/profile/change-password", method = RequestMethod.GET) //Return login.jsp

@@ -468,32 +468,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <img class="w-100 mb-2" src="${exercise.imageDescription}" style="border-radius: .25rem;" alt="User Image">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="student-personals-grp">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="embed-responsive embed-responsive-16by9 w-100">
-                                                <iframe width="100%" src="https://www.youtube.com/embed/VmB1G1K7v94?si=sXUOXtLXqPeqOHik" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-8">
-                                <div class="student-personals-grp">
-                                    <div class="card mb-0">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center heading-detail">
-                                                <h2>${exercise.name}</h2>
-                                                <a href="/exercise/details/edit?id=0" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
-                                            </div>
-
                                             <div class="d-flex mt-md-2">
-                                                <h2 class="m-100 p-1 bg-info text-white rounded me-2" style="font-size: 1rem">${exercise.type}</h2>
-
                                                 <c:set var="backgroundColor" value="bg-success" />
                                                 <c:choose>
                                                     <c:when test="${exercise.level eq 'Intermediate'}">
@@ -505,16 +480,26 @@
                                                 </c:choose>
 
                                                 <h2 class="m-100 p-1 ${backgroundColor} text-white rounded" style="font-size: 1rem">${exercise.level}</h2>
+                                                <h2 class="m-100 m-l-5 p-1 bg-info text-white rounded" style="font-size: 1rem">${exercise.type}</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-8">
+                                <div class="student-personals-grp">
+                                    <div class="card mb-0">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center heading-detail">
+                                                <h2>${exercise.name}</h2>
+                                                <a href="/exercise/details/edit?id=0" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
                                             </div>
 
-                                            <div class="row align-items-center mt-md-3">
-                                                <div class="col d-flex">
-                                                    <img style="height: 5%; width: 5%;" src="../../theme2/img/calories.png" alt="Calo">
-                                                    <h6 class="mb-0 ml-2 ml-auto" style="font-size: 1.5rem;">${exercise.caloriesOutput} calories/rep</h6>
-                                                </div>
+
+                                            <div class="embed-responsive embed-responsive-16by9 w-100">
+                                                <iframe  src="https://www.youtube.com/embed/VmB1G1K7v94?si=sXUOXtLXqPeqOHik" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                             </div>
-
-
 
                                             <div class="hello-park  mt-md-4">
                                                 <p>${exercise.description}</p>

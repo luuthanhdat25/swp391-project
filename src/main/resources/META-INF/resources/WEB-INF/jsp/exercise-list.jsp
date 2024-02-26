@@ -461,9 +461,9 @@
                 </div>
 
                 <div class="container mb-3">
-                    <form id="searchForm" class="d-flex align-items-center">
+                    <form id="search-exercise" class="d-flex align-items-center">
                         <input id="searchInput" type="text" class="form-control" placeholder="Search here">
-                        <button id="searchButton" class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                        <button id="search-exercise-button" class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
 
@@ -515,7 +515,7 @@
                                                         </label>
                                                     </div>
                                                     <button type="submit" class="btn w-100 btn-primary submit-filter">Apply</button>
-                                                    <button type="reset" class="btn w-100 btn-grey">Reset</button>
+                                                    <button id="reset-category" type="reset" class="btn w-100 btn-grey">Reset</button>
                                             </div>
                                         </div>
                                     </li>
@@ -544,7 +544,7 @@
                                                     </label>
                                                 </div>
                                                 <button type="submit" class="btn w-100 btn-primary submit-filter">Apply</button>
-                                                <button type="reset" class="btn w-100 btn-grey">Reset</button>
+                                                <button id="reset-difficulty" type="reset" class="btn w-100 btn-grey">Reset</button>
                                             </div>
                                         </div>
                                     </li>
@@ -660,13 +660,13 @@
                 cardHtml += '<div class="col-sm-6 col-lg-4 col-xl-3 d-flex">' +
                     '<div class="card invoices-grid-card w-100">' +
                     '<div class="card-header d-flex justify-content-between align-items-center">' +
-                    '<a href="/exercise/details?id=0" class="invoice-grid-link text-decoration-none">' + exercise.name + '</a>' +
+                    '<a href="/exercise/details?id=' + exercise.id + '" class="invoice-grid-link text-decoration-none">' + exercise.name + '</a>' +
                     '<a href="view-invoice.html" class="avatar avatar-sm me-2 avatar-img rounded-circle">' +
-                    '<img class="rounded-circle" src="https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*" alt="Edit Avatar">' +
+                    '<img class="rounded-circle" src="https://icons.veryicon.com/png/o/miscellaneous/commonly-used-icon-1/personal-25.png" alt="Edit Avatar">' +
                     '</a>' +
                     '</div>' +
                     '<div class="container position-relative">' +
-                    '<a href="profile.html" class="text-decoration-none text-dark d-block position-relative">' +
+                    '<a href="/exercise/details?id=' + exercise.id + '" class="text-decoration-none text-dark d-block position-relative">' +
                     '<img class="w-100 mb-2" src="' + exercise.imageDescription + '" alt="User Image">' +
                     '<div class="position-absolute top-0 end-0">';
 
@@ -677,7 +677,7 @@
                     backgroundColor = 'bg-danger';
                 }
 
-                cardHtml += '<h2 class="m-100 p-1 ' + backgroundColor + ' text-white rounded small" style="font-size: 15px;">' + exercise.level + '</h2>' +
+                cardHtml += '<h2 class="m-100 p-1 ' + backgroundColor + ' text-white rounded small" style="font-size: 12px;">' + exercise.level + '</h2>' +
                     '</div>' +
                     '</a>' +
                     '</div>' +
@@ -686,7 +686,7 @@
                 var types = exercise.type.split(' ');
                 types.forEach(function(word) {
                     cardHtml += '<div style="display: inline-block;">' +
-                        '<h2 class="w-auto p-1 bg-info text-white rounded small" style="font-size: 15px;">' + word + '</h2>' +
+                        '<h2 class="w-auto p-1 m-1 bg-info text-white rounded small" style="font-size: 15px;">' + word + '</h2>' +
                         '</div>';
                 });
 
@@ -694,6 +694,7 @@
             });
             return cardHtml;
         }
+
 
         function sendFilterJSON(filterObject) {
             var filterJSON = JSON.stringify(filterObject);
@@ -737,7 +738,7 @@
     <script>
         $(document).ready(function(){
             // Search form
-            $('#searchForm').submit(function(event) {
+            $('#search-exercise').submit(function(event) {
                 event.preventDefault();
 
                 var searchValue = $('#searchInput').val();
@@ -746,9 +747,26 @@
                 }
             });
 
+            $('#search-exercise-button').click(function() {
+                sendFilterRequest()
+            });
+            
+
             // Filter submit
             $('.submit-filter').click(function() {
                 sendFilterRequest();
+            });
+
+            // Reset categories
+            $('#reset-category').click(function() {
+                $('.category').prop('checked', false);
+                sendFilterRequest()
+            });
+
+            // Reset difficulty
+            $('#reset-difficulty').click(function() {
+                $('.difficulty').prop('checked', false);
+                sendFilterRequest()
             });
         });
     </script>

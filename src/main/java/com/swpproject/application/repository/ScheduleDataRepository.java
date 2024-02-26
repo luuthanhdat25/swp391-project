@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface ScheduleDataRepository extends JpaRepository<ScheduleDataEntity,Long> {
     List<ScheduleDataEntity> findByWeekAndYear(int week, int year);
+
 }

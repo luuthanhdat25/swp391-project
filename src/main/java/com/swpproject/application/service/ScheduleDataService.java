@@ -20,4 +20,12 @@ public class ScheduleDataService {
     public List<ScheduleDataEntity> getSlotsByWeekAndYear(int week, int year) {
         return scheduleDataRepository.findByWeekAndYear(week, year);
     }
+    public List<ScheduleDataEntity> viewSchedulePTRole(Long personalTrainerID){
+
+        return null;
+    }
+    public List<ScheduleDataEntity> viewScheduleGymerRole(Long GymerId){
+        return null;
+    }
+
 }

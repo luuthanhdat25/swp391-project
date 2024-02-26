@@ -63,16 +63,7 @@ public class ScheduleController {
         session.setAttribute("selectedYear", year);
         return "redirect:/Schedule?year=" + year + "&week=" + week;
     }
-//    @GetMapping("/Schedule1")
-//    public String showSchedule(Model model, @RequestParam int year, @RequestParam int week, HttpSession session) {
-//        // Retrieve scheduleSlots from the session
-//        List<ScheduleDataEntity> scheduleSlots = (List<ScheduleDataEntity>) session.getAttribute("scheduleSlots");
-//
-//        // Use scheduleSlots and other parameters as needed
-//        model.addAttribute("scheduleSlots", scheduleSlots);
-//        model.addAttribute("year", year);
-//        model.addAttribute("week", week);
-//
-//        return "redirect:/Schedule?year=" + year + "&week=" + week; // Replace with your actual view name
-//    }
+
+
+
 }

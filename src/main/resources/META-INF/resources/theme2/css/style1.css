@@ -3624,6 +3624,7 @@ a {
     z-index: 3;
     top: 0;
     right: 0;
+    left: 79%;
     height: 70px;
     width: 70px;
     background: hsla(240, 8%, 12%, 0.1);

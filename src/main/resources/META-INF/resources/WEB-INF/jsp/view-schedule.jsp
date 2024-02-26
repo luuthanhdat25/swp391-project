@@ -516,7 +516,7 @@
 
                                             <ul>
                                                 <li class="cd-schedule__event">
-                                                    <a data-start="05:00" data-end="07:00" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                                    <a data-start="05:00" data-end="07:00" data-content="event-abs-circuit" data-event="event-2" href="#0">
                                                         <em class="cd-schedule__name">Abs Circuit</em>
                                                     </a>
                                                 </li>
@@ -583,7 +583,7 @@
 
                                                 <li class="cd-schedule__event">
                                                     <a data-start="12:00" data-end="13:45"  data-content="event-rowing-workout" data-event="event-2" href="#0">
-                                                        <em class="cd-schedule__name">Rowing Workout</em>
+                                                        <em class="cd-schedule__name">Rowing Workout sda sd s sdsd sd sd s sd</em>
                                                     </a>
                                                 </li>
 
@@ -691,7 +691,7 @@
 
                                                 <li class="cd-schedule__event">
                                                     <a data-start="15:00" data-end="16:45"  data-content="event-yoga-1" data-event="event-3" href="#0">
-                                                        <em class="cd-schedule__name">Yoga Level 1</em>
+                                                        <em class="cd-schedule__name">Yoga Level 1 </em>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -705,7 +705,6 @@
                                             <span class="cd-schedule-modal__date"></span>
                                             <h3 class="cd-schedule-modal__name"></h3>
                                         </div>
-
                                         <div class="cd-schedule-modal__header-bg"></div>
                                     </header>
 

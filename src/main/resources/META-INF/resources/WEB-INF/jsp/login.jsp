@@ -5,7 +5,7 @@
         <div class="container">
             <div class="loginbox">
                 <div class="login-left">
-                    <img class="img-fluid" src="/theme2/img/login.png" alt="Logo">
+                    <img class="img-fluid" src="/META-INF/resources/assets/img/login.png" alt="Logo">
                 </div>
                 <div class="login-right">
                     <div class="login-right-wrap">

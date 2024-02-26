@@ -1,65 +1,56 @@
 package com.swpproject.application.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
-
+// View PT, detail - Trình
 @Entity
 public class PersonalTrainer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    private String name;
+    private Integer id;
     private String bankName;
     private String bankNumber;
-    private String phone;
-    private double weight;
-    private double height;
-    private String email;
-    private LocalDate dayOfBirth;
-    private String location;
-    private String sex;
-    private double price;
+    private Double weight;
+    private Double height;
+    private Double price;
+    private Double balance;
+    private Boolean is_active;
     private String description;
+    @OneToOne
+    @JoinColumn(name="id", nullable = false)
+    private Account account;
 
     public PersonalTrainer() {
     }
 
-    public PersonalTrainer(int id, String name, String bankName, String bankNumber, String phone, double weight, double height, String email, LocalDate dayOfBirth, String location, String sex, double price, String description) {
+    public PersonalTrainer(Integer id, Account account, String bankName, String bankNumber, Double weight, Double height, Double price, String description) {
         this.id = id;
-        this.name = name;
+        this.account = account;
         this.bankName = bankName;
         this.bankNumber = bankNumber;
-        this.phone = phone;
         this.weight = weight;
         this.height = height;
-        this.email = email;
-        this.dayOfBirth = dayOfBirth;
-        this.location = location;
-        this.sex = sex;
         this.price = price;
         this.description = description;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public String getBankName() {
@@ -78,68 +69,36 @@ public class PersonalTrainer {
         this.bankNumber = bankNumber;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public double getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
-    public double getHeight() {
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(Double height) {
         this.height = height;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getDayOfBirth() {
-        return dayOfBirth;
-    }
-
-    public void setDayOfBirth(LocalDate dayOfBirth) {
-        this.dayOfBirth = dayOfBirth;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 
     public String getDescription() {
@@ -148,5 +107,19 @@ public class PersonalTrainer {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonalTrainer{" +
+                "id=" + id +
+                ", account=" + account +
+                ", bankName='" + bankName + '\'' +
+                ", bankNumber='" + bankNumber + '\'' +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

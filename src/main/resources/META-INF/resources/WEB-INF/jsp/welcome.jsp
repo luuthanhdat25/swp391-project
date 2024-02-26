@@ -1,31 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Admin Dashboard</title>
-    <link rel="shortcut icon" href="../../theme2/img/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"rel="stylesheet">
-    <link rel="stylesheet" href="../../theme2/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../theme2/plugins/feather/feather.css">
-    <link rel="stylesheet" href="../../theme2/plugins/icons/flags/flags.css">
-    <link rel="stylesheet" href="../../theme2/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="../../theme2/plugins/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="../../theme2/css/style.css">
-</head>
-
-<body>
+<%@ include file="common/header.jspf" %>
 
 <div class="main-wrapper">
 
     <div class="header">
 
         <div class="header-left">
-            <a href="index.html" class="logo">
+            <a href="login.jsp" class="logo">
                 <img src="../../theme2/img/logo.png" alt="Logo">
             </a>
-            <a href="index.html" class="logo logo-small">
+            <a href="login.jsp" class="logo logo-small">
                 <img src="../../theme2/img/logo-small.png" alt="Logo" width="30" height="30">
             </a>
         </div>
@@ -179,7 +162,7 @@
                     </div>
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="inbox.html">Inbox</a>
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <a class="dropdown-item" href="/login">Logout</a>
                 </div>
             </li>
 
@@ -834,14 +817,4 @@
         </footer>
     </div>
 </div>
-
-<script src="../../theme2/js/jquery-3.6.0.min.js"></script>
-<script src="../../theme2/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../theme2/js/feather.min.js"></script>
-<script src="../../theme2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="../../theme2/plugins/apexchart/apexcharts.min.js"></script>
-<script src="../../theme2/plugins/apexchart/chart-data.js"></script>
-<script src="../../theme2/js/script.js"></script>
-</body>
-
-</html>
+<%@ include file="common/script.jspf" %>

@@ -8,10 +8,10 @@
 
             <div class="header-left">
                 <a href="index.html" class="logo">
-                    <img src="../../theme2/img/logo.png" alt="Logo">
+                    <img src="../../assets/img/logo.png" alt="Logo">
                 </a>
                 <a href="index.html" class="logo logo-small">
-                    <img src="../../theme2/img/logo-small.png" alt="Logo" width="30" height="30">
+                    <img src="../../assets/img/logo-small.png" alt="Logo" width="30" height="30">
                 </a>
             </div>
 
@@ -37,7 +37,7 @@
             <ul class="nav user-menu">
                 <li class="nav-item dropdown language-drop me-2">
                     <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                        <img src="../../theme2/img/icons/header-icon-01.svg" alt="">
+                        <img src="../../assets/img/icons/header-icon-01.svg" alt="">
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="javascript:;"><i class="flag flag-lr me-2"></i>English</a>
@@ -48,7 +48,7 @@
 
                 <li class="nav-item dropdown noti-dropdown me-2">
                     <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                        <img src="../../theme2/img/icons/header-icon-05.svg" alt="">
+                        <img src="../../assets/img/icons/header-icon-05.svg" alt="">
                     </a>
                     <div class="dropdown-menu notifications">
                         <div class="topnav-dropdown-header">
@@ -62,7 +62,7 @@
                                         <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
                                                 <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="../../theme2/img/profiles/avatar-02.jpg">
+                                                    src="../../assets/img/profiles/avatar-02.jpg">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">Carlson Tech</span> has
@@ -78,7 +78,7 @@
                                         <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
                                                 <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="../../theme2/img/profiles/avatar-11.jpg">
+                                                    src="../../assets/img/profiles/avatar-11.jpg">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">International Software
@@ -95,7 +95,7 @@
                                         <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
                                                 <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="../../theme2/img/profiles/avatar-17.jpg">
+                                                    src="../../assets/img/profiles/avatar-17.jpg">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">John Hendry</span> sent
@@ -112,7 +112,7 @@
                                         <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
                                                 <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="../../theme2/img/profiles/avatar-13.jpg">
+                                                    src="../../assets/img/profiles/avatar-13.jpg">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">Mercury Software
@@ -134,15 +134,15 @@
 
                 <li class="nav-item zoom-screen me-2">
                     <a href="#" class="nav-link header-nav-list">
-                        <img src="../../theme2/img/icons/header-icon-04.svg" alt="">
+                        <img src="../../assets/img/icons/header-icon-04.svg" alt="">
                     </a>
                 </li>
 
                 <li class="nav-item dropdown has-arrow new-user-menus">
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
-                            <img class="rounded-circle" src="../../theme2/img/profiles/avatar-01.jpg" width="31"
-                                alt="Soeng Souy">
+                            <img class="rounded-circle" src="../../assets/img/profiles/avatar-01.jpg" width="31"
+                                 alt="Soeng Souy">
                             <div class="user-text">
                                 <h6>Soeng Souy</h6>
                                 <p class="text-muted mb-0">Administrator</p>
@@ -152,8 +152,8 @@
                     <div class="dropdown-menu">
                         <div class="user-header">
                             <div class="avatar avatar-sm">
-                                <img src="../../theme2/img/profiles/avatar-01.jpg" alt="User Image"
-                                    class="avatar-img rounded-circle">
+                                <img src="../../assets/img/profiles/avatar-01.jpg" alt="User Image"
+                                     class="avatar-img rounded-circle">
                             </div>
                             <div class="user-text">
                                 <h6>Soeng Souy</h6>
@@ -463,75 +463,202 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div>
                                 <div class="student-personals-grp">
-                                    <div class="card">
-                                        <div class="card-body position-relative">
-                                            <img class="w-100 mb-2" id="userImage" src="https://shop.lifefitness.com/cdn/shop/products/Rubber-Hex-Dumbbell-L_1_1800x1800_78ea050c-4f5a-4e8a-bdae-a664272eac80_1200x1200.jpg?v=1619710214" style="border-radius: .25rem;" alt="User Image">
-                                            <label for="imageInput" class="btn btn-primary position-absolute" style="border-radius: 100%; padding: 1rem; bottom: 5%; right: 5%;">
-                                                <input type="file" id="imageInput" style="display: none;" accept="image/*">
-                                                <img src="../../theme2/img/icons/pencil-square.svg" style="filter: brightness(0) invert(1); width: 1.5rem;" alt="Edit Icon">
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
+<%--                                    <div class="card mb-0">--%>
+<%--                                        <div class="card-body">--%>
+<%--                                            <div class="w-50">--%>
+<%--                                                <input type="text" name="exerciseName" class="form-control"--%>
+<%--                                                       value='<c:out value="${exercise.name}" />'--%>
+<%--                                                       placeholder="Exercise Name" />--%>
+<%--                                            </div>--%>
 
-                                <div class="student-personals-grp">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control">
-                                            <button onclick="changeVideo()" class="btn btn-primary mt-md-2">Add Video</button>
-                                            <div id="player" style="width: 100%; height: 100%;" class="mt-md-3"></div>
-                                        </div>
-                                    </div>
+<%--                                            <div class="row mt-3">--%>
+<%--                                                <div class="col-md-6">--%>
+<%--                                                    <div class="mt-3">--%>
+<%--                                                        <div class="mb-2">Level</div>--%>
+
+<%--                                                        <div class="form-check form-check-inline">--%>
+<%--                                                            <input class="form-check-input" type="radio" name="levelRadio" id="beginnerRadio" value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">checked</c:if>>--%>
+<%--                                                            <label class="form-check-label" for="beginnerRadio">Beginner</label>--%>
+<%--                                                        </div>--%>
+<%--                                                        <div class="form-check form-check-inline">--%>
+<%--                                                            <input class="form-check-input" type="radio" name="levelRadio" id="intermediateRadio" value="Intermediate" <c:if test="${exercise.level eq 'Intermediate'}">checked</c:if>>--%>
+<%--                                                            <label class="form-check-label" for="intermediateRadio">Intermediate</label>--%>
+<%--                                                        </div>--%>
+<%--                                                        <div class="form-check form-check-inline">--%>
+<%--                                                            <input class="form-check-input" type="radio" name="levelRadio" id="advancedRadio" value="Advanced" <c:if test="${exercise.level eq 'Advanced'}">checked</c:if>>--%>
+<%--                                                            <label class="form-check-label" for="advancedRadio">Advanced</label>--%>
+<%--                                                        </div>--%>
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
+<%--                                                <div class="col-md-6">--%>
+<%--                                                    <div class="mt-3">--%>
+<%--                                                        <div class="mb-2">Equipment</div>--%>
+<%--                                                        <select class="form-select" aria-label="Default select example">--%>
+<%--                                                            <option selected value="None">None</option>--%>
+<%--                                                            <option value="Stationary bike">Stationary bike</option>--%>
+<%--                                                            <option value="Elliptical machine">Elliptical machine</option>--%>
+<%--                                                            <option value="Rowing machine">Rowing machine</option>--%>
+<%--                                                            <option value="Free weights">Free weights</option>--%>
+<%--                                                            <option value="Resistance bands">Resistance bands</option>--%>
+<%--                                                            <option value="Kettlebells">Kettlebells</option>--%>
+<%--                                                            <option value="Bench press">Bench press</option>--%>
+<%--                                                            <option value="Leg press machine">Leg press machine</option>--%>
+<%--                                                            <option value="Pull-up bar">Pull-up bar</option>--%>
+<%--                                                            <option value="Dumbbells">Dumbbells</option>--%>
+<%--                                                            <option value="Barbells">Barbells</option>--%>
+<%--                                                            <option value="Exercise ball">Exercise ball</option>--%>
+<%--                                                            <option value="Yoga mat">Yoga mat</option>--%>
+<%--                                                            <option value="Jump rope">Jump rope</option>--%>
+<%--                                                            <option value="Medicine ball">Medicine ball</option>--%>
+<%--                                                            <option value="Foam roller">Foam roller</option>--%>
+<%--                                                        </select>--%>
+<%--                                                    </div>--%>
+
+<%--                                                </div>--%>
+<%--                                            </div>--%>
+
+<%--                                            <div class="mt-3">--%>
+<%--                                                <div class="mb-2">Image description</div>--%>
+<%--                                                <button type="button" id="chooseImageButton" class="btn btn-warning">Choose Image</button>--%>
+<%--                                                <br>--%>
+<%--                                                <input type="file" id="imageInput" style="display: none;">--%>
+<%--                                                <img id="previewImage" src="#" alt="Preview" style="display: none;" class="w-50">--%>
+<%--                                            </div>--%>
+
+
+<%--                                            <div class="mt-4">--%>
+<%--                                                <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control w-50">--%>
+<%--                                                <button type="button" id="changeVideoBtn" class="btn btn-warning mt-1">Add Video</button>--%>
+<%--                                            </div>--%>
+
+<%--                                            <div id="playerContainer" style="display: none;" class="mt-2">--%>
+<%--                                                <div id="player"></div>--%>
+<%--                                            </div>--%>
+
+<%--                                            <div class="hello-park mt-3">--%>
+<%--                                                <textarea class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description"></textarea>--%>
+<%--                                            </div>--%>
+
+<%--                                            <div class="mt-3">--%>
+<%--                                                <div class="form-check">--%>
+<%--                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">--%>
+<%--                                                    <label class="form-check-label" for="flexCheckDefault">--%>
+<%--                                                        Private (Only you and the gymer working with you can see)--%>
+<%--                                                    </label>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
+
+
+<%--                                            <div class="d-flex mt-3">--%>
+<%--                                                <a href="edit-invoice.html" class="btn btn-primary me-2">--%>
+<%--                                                    Create--%>
+<%--                                                </a>--%>
+<%--                                                <a href="edit-invoice.html" class="btn btn-danger">--%>
+<%--                                                    Cancel--%>
+<%--                                                </a>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+        <div class="card mb-0">
+            <div class="card-body">
+                <c:url var="createExerciseUrl" value="/exercise/create" />
+                <form id="exerciseForm" action="${createExerciseUrl}" method="post">
+                    <div class="w-50">
+                        <input type="text" name="exerciseName" class="form-control" value='<c:out value="${exercise.name}" />' placeholder="Exercise Name" />
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="mt-3">
+                                <div class="mb-2">Level</div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="levelRadio" id="beginnerRadio" value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">checked</c:if>>
+                                    <label class="form-check-label" for="beginnerRadio">Beginner</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="levelRadio" id="intermediateRadio" value="Intermediate" <c:if test="${exercise.level eq 'Intermediate'}">checked</c:if>>
+                                    <label class="form-check-label" for="intermediateRadio">Intermediate</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="levelRadio" id="advancedRadio" value="Advanced" <c:if test="${exercise.level eq 'Advanced'}">checked</c:if>>
+                                    <label class="form-check-label" for="advancedRadio">Advanced</label>
                                 </div>
                             </div>
-                            <div class="col-lg-8">
-                                <div class="student-personals-grp">
-                                    <div class="card mb-0">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center heading-detail">
-                                                <input type="text" name="exerciseName" class="form-control w-75"
-                                                       value='<c:out value="${exercise.name}" />'
-                                                       placeholder="Exercise Name" />
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mt-3">
+                                <div class="mb-2">Equipment</div>
+                                <select class="form-select" aria-label="Default select example" name="equipment">
+                                    <option selected value="None">None</option>
+                                    <option value="Stationary bike">Stationary bike</option>
+                                    <option value="Elliptical machine">Elliptical machine</option>
+                                    <option value="Rowing machine">Rowing machine</option>
+                                    <option value="Free weights">Free weights</option>
+                                    <option value="Resistance bands">Resistance bands</option>
+                                    <option value="Kettlebells">Kettlebells</option>
+                                    <option value="Bench press">Bench press</option>
+                                    <option value="Leg press machine">Leg press machine</option>
+                                    <option value="Pull-up bar">Pull-up bar</option>
+                                    <option value="Dumbbells">Dumbbells</option>
+                                    <option value="Barbells">Barbells</option>
+                                    <option value="Exercise ball">Exercise ball</option>
+                                    <option value="Yoga mat">Yoga mat</option>
+                                    <option value="Jump rope">Jump rope</option>
+                                    <option value="Medicine ball">Medicine ball</option>
+                                    <option value="Foam roller">Foam roller</option>
+                                </select>
+                            </div>
 
-                                                <div class="d-flex">
-                                                    <a href="edit-invoice.html" class="btn btn-primary me-2">
-                                                        <i ></i>Create
-                                                    </a>
-                                                    <a href="edit-invoice.html" class="btn btn-danger">
-                                                        <i ></i>Cancel
-                                                    </a>
-                                                </div>
-                                            </div>
+                        </div>
+                    </div>
 
-
-                                            <div class="d-flex mt-md-2">
-<%--                                                Multiple selection--%>
-                                                <h2 class="m-100 p-1 bg-info text-white rounded me-2" style="font-size: 1rem">Chest</h2>
-
-                                                <select id="levelSelect" class="form-select form-select-lg w-25" aria-label=".form-select-lg example">
-                                                    <option value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">selected</c:if>>Beginner</option>
-                                                    <option value="Intermediate" <c:if test="${exercise.level eq 'Intermediate'}">selected</c:if>>Intermediate</option>
-                                                    <option value="Advanced" <c:if test="${exercise.level eq 'Advanced'}">selected</c:if>>Advanced</option>
-                                                </select>
-
-                                            </div>
-
-                                            <div class="row align-items-center mt-md-3">
-                                                <div class="col d-flex">
-                                                    <img style="height: 5%; width: 5%;" src="../../theme2/img/calories.png" alt="Calo">
-                                                    <input type="number" class="form-control mb-0 ml-2 w-25" style="font-size: 1rem;" id="caloriesInput" placeholder="Calories per rep">
-                                                </div>
-                                            </div>
+                    <div class="mt-3">
+                        <div class="mb-2">Image description</div>
+                        <button type="button" id="chooseImageButton" class="btn btn-warning">Choose Image</button>
+                        <br>
+                        <input type="file" id="imageInput" style="display: none;" name="image">
+                        <img id="previewImage" src="#" alt="Preview" style="display: none;" class="w-50">
+                    </div>
 
 
+                    <div class="mt-4">
+                        <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control w-50" name="youtubeLink">
+                        <button type="button" id="changeVideoBtn" class="btn btn-warning mt-1">Add Video</button>
+                    </div>
 
-                                            <div class="hello-park  mt-md-4">
-                                                <textarea class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div id="playerContainer" style="display: none;" class="mt-2">
+                        <div id="player"></div>
+                    </div>
+
+                    <div class="hello-park mt-3">
+                        <textarea class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description" name="exerciseDescription"></textarea>
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="private" id="flexCheckDefault" name="privacy">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Private (Only you and the gymer working with you can see)
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="d-flex mt-3">
+                        <button type="submit" class="btn btn-primary me-2">
+                            <i ></i>Create
+                        </button>
+                        <a href="edit-invoice.html" class="btn btn-danger">
+                            <i ></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
                                 </div>
                             </div>
                         </div>
@@ -549,79 +676,76 @@
 
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="../../theme2/js/jquery-3.6.0.min.js"></script>
+    <script src="../../assets/js/jquery-3.6.0.min.js"></script>
 
-    <script src="../../theme2/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../../theme2/js/feather.min.js"></script>
+    <script src="../../assets/js/feather.min.js"></script>
 
-    <script src="../../theme2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <script src="../../theme2/js/script.js"></script>
+    <script src="../../assets/js/script.js"></script>
 
     <script>
-        $(function () {
-            $('#imageInput').change(function () {
-                readURL(this);
+        $(document).ready(function() {
+            $('#chooseImageButton').click(function() {
+                $('#imageInput').click();
             });
 
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    const reader = new FileReader();
+            $('#imageInput').change(function() {
+                var file = this.files[0];
+                if (file) {
+                    if (file.size > 10 * 1024 * 1024) {
+                        alert("The image size exceeds 10MB limit.");
+                        return;
+                    }
 
-                    reader.onload = function (e) {
-                        $('#userImage').attr('src', e.target.result);
+                    var fileType = file.type;
+                    if (fileType !== 'image/jpeg' && fileType !== 'image/png') {
+                        alert("Please choose a valid image file (JPEG or PNG).");
+                        return;
+                    }
+
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        $('#previewImage').attr('src', event.target.result);
+                        $('#previewImage').show();
                     };
-
-                    reader.readAsDataURL(input.files[0]);
+                    reader.readAsDataURL(file);
                 }
-            }
+            });
         });
     </script>
 
     <script>
-        var player;
-
-        // Function to extract video ID from YouTube link
         function extractVideoId(url) {
             var regex = /^(?:(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11}))/;
             var match = url.match(regex);
             return match ? match[1] : null;
         }
 
-
-        // Function to change video when the button is clicked
         function changeVideo() {
             var youtubeLink = $('#youtubeLink').val();
             var videoId = extractVideoId(youtubeLink);
 
-            // Check if the input is a valid YouTube link
             if (videoId) {
-                // Change the video
+                $('#playerContainer').show();
                 player.loadVideoById(videoId);
             } else {
-                // Display a warning for invalid link
                 alert("Invalid YouTube link. Please enter a valid link.");
             }
         }
 
         $(document).ready(function() {
-            // Load the YouTube IFrame Player API code asynchronously
             var tag = $('<script>', {
                 src: 'https://www.youtube.com/iframe_api'
             });
             $('script:first').before(tag);
 
-            // This function creates an <iframe> (and YouTube player) after the API code downloads
             window.onYouTubeIframeAPIReady = function() {
-                    // Default video link from ${exercise.videoDescription}
-                    var defaultVideoLink = '${exercise.videoDescription}';
-                    var defaultVideoId = extractVideoId(defaultVideoLink);
-
-                    player = new YT.Player('player', {
-                        height: '390',
+                player = new YT.Player('player', {
+                    height: '390',
                     width: '640',
-                    videoId: defaultVideoId,
                     playerVars: {
                         'playsinline': 1
                     },
@@ -632,7 +756,6 @@
                 });
             };
 
-            // The API will call this function when the video player is ready
             function onPlayerReady(event) {
                 event.target.playVideo();
             }
@@ -653,39 +776,8 @@
                 player.stopVideo();
             }
 
-            // Set default video link in the input field
-            $('#youtubeLink').val(defaultVideoLink);
-
             // Attach click event to the button
             $('#changeVideoBtn').on('click', changeVideo);
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            updateColor();
-            $("#levelSelect").change(function () {
-                updateColor();
-            });
-
-            function updateColor() {
-                var selectedLevel = $("#levelSelect").val();
-
-                $("#levelSelect").removeClass().addClass("form-select form-select-lg mb-3 w-25").addClass(getColorClass(selectedLevel));
-            }
-
-            function getColorClass(level) {
-                switch (level) {
-                    case "Beginner":
-                        return "bg-success";
-                    case "Intermediate":
-                        return "bg-warning";
-                    case "Advanced":
-                        return "bg-danger";
-                    default:
-                        return "";
-                }
-            }
         });
     </script>
 </body>

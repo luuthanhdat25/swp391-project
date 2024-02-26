@@ -1,38 +1,17 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Admin Dashboard</title>
-    <script>document.getElementsByTagName("html")[0].className += " js";</script>
-    <link rel="shortcut icon" href="../../theme2/img/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"rel="stylesheet">
-    <link rel="stylesheet" href="../../theme2/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../theme2/plugins/feather/feather.css">
-    <link rel="stylesheet" href="../../theme2/plugins/icons/flags/flags.css">
-    <link rel="stylesheet" href="../../theme2/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="../../theme2/plugins/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="../../theme2/css/style.css">
-    <link rel="stylesheet" href="../../theme2/css/style1.css">
-</head>
-
-<body>
+<%@ include file="common/header.jspf" %>
 
 <div class="main-wrapper">
 
     <div class="header">
 
         <div class="header-left">
-            <a href="index.html" class="logo">
-                <img src="assets/img/logo.png" alt="Logo">
+            <a href="login.jsp" class="logo">
+                <img src="../../assets/img/logo.png" alt="Logo">
             </a>
-            <a href="index.html" class="logo logo-small">
-                <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
+            <a href="login.jsp" class="logo logo-small">
+                <img src="../../assets/img/logo-small.png" alt="Logo" width="30" height="30">
             </a>
         </div>
-
         <div class="menu-toggle">
             <a href="javascript:void(0);" id="toggle_btn">
                 <i class="fas fa-bars"></i>
@@ -45,28 +24,31 @@
                 <button class="btn" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
-
-
         <a class="mobile_btn" id="mobile_btn">
             <i class="fas fa-bars"></i>
         </a>
 
-
         <ul class="nav user-menu">
-            <li class="nav-item dropdown language-drop me-2">
+            <li class="nav-item dropdown noti-dropdown language-drop me-2">
                 <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                    <img src="assets/img/icons/header-icon-01.svg" alt="">
+                    <img src="../../assets/img/icons/header-icon-01.svg" alt="">
                 </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="javascript:;"><i class="flag flag-lr me-2"></i>English</a>
-                    <a class="dropdown-item" href="javascript:;"><i class="flag flag-bl me-2"></i>Francais</a>
-                    <a class="dropdown-item" href="javascript:;"><i class="flag flag-cn me-2"></i>Turkce</a>
+                <div class="dropdown-menu ">
+                    <div class="noti-content">
+                        <div>
+                            <a class="dropdown-item" href="javascript:;"><i
+                                    class="flag flag-lr me-2"></i>English</a>
+                            <a class="dropdown-item" href="javascript:;"><i
+                                    class="flag flag-bl me-2"></i>Francais</a>
+                            <a class="dropdown-item" href="javascript:;"><i class="flag flag-cn me-2"></i>Turkce</a>
+                        </div>
+                    </div>
                 </div>
             </li>
 
             <li class="nav-item dropdown noti-dropdown me-2">
                 <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                    <img src="assets/img/icons/header-icon-05.svg" alt="">
+                    <img src="../../assets/img/icons/header-icon-05.svg" alt="">
                 </a>
                 <div class="dropdown-menu notifications">
                     <div class="topnav-dropdown-header">
@@ -80,7 +62,7 @@
                                     <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
                                                 <img class="avatar-img rounded-circle" alt="User Image"
-                                                     src="assets/img/profiles/avatar-02.jpg">
+                                                     src="../../assets/img/profiles/avatar-02.jpg">
                                             </span>
                                         <div class="media-body flex-grow-1">
                                             <p class="noti-details"><span class="noti-title">Carlson Tech</span> has
@@ -96,7 +78,7 @@
                                     <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
                                                 <img class="avatar-img rounded-circle" alt="User Image"
-                                                     src="assets/img/profiles/avatar-11.jpg">
+                                                     src="../../assets/img/profiles/avatar-11.jpg">
                                             </span>
                                         <div class="media-body flex-grow-1">
                                             <p class="noti-details"><span class="noti-title">International Software
@@ -113,7 +95,7 @@
                                     <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
                                                 <img class="avatar-img rounded-circle" alt="User Image"
-                                                     src="assets/img/profiles/avatar-17.jpg">
+                                                     src="../../assets/img/profiles/avatar-17.jpg">
                                             </span>
                                         <div class="media-body flex-grow-1">
                                             <p class="noti-details"><span class="noti-title">John Hendry</span> sent
@@ -130,7 +112,7 @@
                                     <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
                                                 <img class="avatar-img rounded-circle" alt="User Image"
-                                                     src="assets/img/profiles/avatar-13.jpg">
+                                                     src="../../assets/img/profiles/avatar-13.jpg">
                                             </span>
                                         <div class="media-body flex-grow-1">
                                             <p class="noti-details"><span class="noti-title">Mercury Software
@@ -151,15 +133,15 @@
             </li>
 
             <li class="nav-item zoom-screen me-2">
-                <a href="#" class="nav-link header-nav-list">
-                    <img src="assets/img/icons/header-icon-04.svg" alt="">
+                <a href="#" class="nav-link header-nav-list win-maximize">
+                    <img src="../../assets/img/icons/header-icon-04.svg" alt="">
                 </a>
             </li>
 
             <li class="nav-item dropdown has-arrow new-user-menus">
                 <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
-                            <img class="rounded-circle" src="assets/img/profiles/avatar-01.jpg" width="31"
+                            <img class="rounded-circle" src="../../assets/img/profiles/avatar-01.jpg" width="31"
                                  alt="Soeng Souy">
                             <div class="user-text">
                                 <h6>Soeng Souy</h6>
@@ -170,7 +152,7 @@
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img src="assets/img/profiles/avatar-01.jpg" alt="User Image"
+                            <img src="../../assets/img/profiles/avatar-01.jpg" alt="User Image"
                                  class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
@@ -180,7 +162,7 @@
                     </div>
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="inbox.html">Inbox</a>
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <a class="dropdown-item" href="/">Logout</a>
                 </div>
             </li>
 
@@ -196,11 +178,14 @@
                     <li class="menu-title">
                         <span>Main Menu</span>
                     </li>
-                    <li class="submenu">
+                    <li>
+                        <a href="/exercise/"><i class="fas fa-holly-berry"></i> <span>Exercise</span></a>
+                    </li>
+                    <li class="submenu active">
                         <a href="#"><i class="feather-grid"></i> <span> Dashboard</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="index.html">Admin Dashboard</a></li>
+                            <li><a href="index.html" class="active">Admin Dashboard</a></li>
                             <li><a href="teacher-dashboard.html">Teacher Dashboard</a></li>
                             <li><a href="student-dashboard.html">Student Dashboard</a></li>
                         </ul>
@@ -220,7 +205,7 @@
                                 class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="teachers.html">Teacher List</a></li>
-                            <li><a href="teacher-details.html">Teacher View</a></li>
+                            <li><a href="exercise-details.jsp">Teacher View</a></li>
                             <li><a href="add-teacher.html">Teacher Add</a></li>
                             <li><a href="edit-teacher.html">Teacher Edit</a></li>
                         </ul>
@@ -271,22 +256,19 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="index.html"><i class="fas fa-holly-berry"></i> <span>Holiday</span></a>
+                        <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>Fees</span></a>
                     </li>
                     <li>
-                        <a href="index.html"><i class="fas fa-comment-dollar"></i> <span>Fees</span></a>
+                        <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>Exam list</span></a>
                     </li>
                     <li>
-                        <a href="index.html"><i class="fas fa-clipboard-list"></i> <span>Exam list</span></a>
+                        <a href="event.html"><i class="fas fa-calendar-day"></i> <span>Events</span></a>
                     </li>
                     <li>
-                        <a href="index.html"><i class="fas fa-calendar-day"></i> <span>Events</span></a>
+                        <a href="time-table.html"><i class="fas fa-table"></i> <span>Time Table</span></a>
                     </li>
                     <li>
-                        <a href="index.html"><i class="fas fa-table"></i> <span>Time Table</span></a>
-                    </li>
-                    <li>
-                        <a href="index.html"><i class="fas fa-book"></i> <span>Library</span></a>
+                        <a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>
                     </li>
                     <li class="submenu">
                         <a href="#"><i class="fa fa-newspaper"></i> <span> Blogs</span>
@@ -412,14 +394,14 @@
                             <li><a href="icon-flag.html">Flag Icons</a></li>
                         </ul>
                     </li>
-                    <li class="submenu active">
+                    <li class="submenu">
                         <a href="#"><i class="fas fa-columns"></i> <span> Forms </span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="form-basic-inputs.html">Basic Inputs </a></li>
                             <li><a href="form-input-groups.html">Input Groups </a></li>
                             <li><a href="form-horizontal.html">Horizontal Form </a></li>
-                            <li><a href="form-vertical.html" class="active"> Vertical Form </a></li>
+                            <li><a href="form-vertical.html"> Vertical Form </a></li>
                             <li><a href="form-mask.html"> Form Mask </a></li>
                             <li><a href="form-validation.html"> Form Validation </a></li>
                         </ul>
@@ -468,280 +450,371 @@
 
             <div class="page-header">
                 <div class="row">
-                    <div class="col">
-                        <h3 class="page-title">Book a Personal Trainer</h3>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active">Booking</li>
-                        </ul>
+                    <div class="col-sm-12">
+                        <div class="page-sub-header">
+                            <h3 class="page-title">Welcome Admin!</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item active">Admin</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                    <div class="card bg-comman w-100">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6>Students</h6>
+                                    <h3>50055</h3>
+                                </div>
+                                <div class="db-icon">
+                                    <img src="../../assets/img/icons/dash-icon-01.svg" alt="Dashboard Icon">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                    <div class="card bg-comman w-100">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6>Awards</h6>
+                                    <h3>50+</h3>
+                                </div>
+                                <div class="db-icon">
+                                    <img src="../../assets/img/icons/dash-icon-02.svg" alt="Dashboard Icon">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                    <div class="card bg-comman w-100">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6>Department</h6>
+                                    <h3>30+</h3>
+                                </div>
+                                <div class="db-icon">
+                                    <img src="../../assets/img/icons/dash-icon-03.svg" alt="Dashboard Icon">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                    <div class="card bg-comman w-100">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6>Revenue</h6>
+                                    <h3>$505</h3>
+                                </div>
+                                <div class="db-icon">
+                                    <img src="../../assets/img/icons/dash-icon-04.svg" alt="Dashboard Icon">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
+                <div class="col-md-12 col-lg-6">
+
+                    <div class="card card-chart">
                         <div class="card-header">
-                            <h5 class="card-title">Request form</h5>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <h5 class="card-title">Overview</h5>
+                                </div>
+                                <div class="col-6">
+                                    <ul class="chart-list-out">
+                                        <li><span class="circle-blue"></span>Teacher</li>
+                                        <li><span class="circle-green"></span>Student</li>
+                                        <li class="star-menus"><a href="javascript:;"><i
+                                                class="fas fa-ellipsis-v"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
-                            <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
-                                <div class="cd-schedule__timeline">
-                                    <ul>
-                                        <li><span>05:00</span></li>
-                                        <li><span>06:00</span></li>
-                                        <li><span>07:00</span></li>
-                                        <li><span>08:00</span></li>
-                                        <li><span>09:00</span></li>
-                                        <li><span>10:00</span></li>
-                                        <li><span>11:00</span></li>
-                                        <li><span>12:00</span></li>
-                                        <li><span>13:00</span></li>
-                                        <li><span>14:00</span></li>
-                                        <li><span>15:00</span></li>
-                                        <li><span>16:00</span></li>
-                                        <li><span>17:00</span></li>
-                                        <li><span>18:00</span></li>
-                                        <li><span>19:00</span></li>
-                                        <li><span>20:00</span></li>
-                                        <li><span>21:00</span></li>
-                                        <li><span>22:00</span></li>
-                                        <li><span>23:00</span></li>
-                                    </ul>
-                                </div> <!-- .cd-schedule__timeline -->
+                            <div id="apexcharts-area"></div>
+                        </div>
+                    </div>
 
-                                <div class="cd-schedule__events">
-                                    <ul>
-                                        <li class="cd-schedule__group">
-                                            <div class="cd-schedule__top-info"><span>Monday</span></div>
+                </div>
+                <div class="col-md-12 col-lg-6">
 
-                                            <ul>
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="05:00" data-end="07:00" data-content="event-abs-circuit" data-event="event-2" href="#0">
-                                                        <em class="cd-schedule__name">Abs Circuit</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="09:00" data-end="11:00" data-content="event-rowing-workout" data-event="event-2" href="#0">
-                                                        <em class="cd-schedule__name">Rowing Workout</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="13:00" data-end="15:00"  data-content="event-yoga-1" data-event="event-3" href="#0">
-                                                        <em class="cd-schedule__name">Yoga Level 1</em>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="cd-schedule__group">
-                                            <div class="cd-schedule__top-info"><span>Tuesday</span></div>
-
-                                            <ul>
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="05:00" data-end="06:30"  data-content="event-rowing-workout" data-event="event-2" href="#0">
-                                                        <em class="cd-schedule__name">Rowing Workout</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="08:00" data-end="10:00"  data-content="event-restorative-yoga" data-event="event-4" href="#0">
-                                                        <em class="cd-schedule__name">Restorative Yoga</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="13:00" data-end="15:00" data-content="event-abs-circuit" data-event="event-1" href="#0">
-                                                        <em class="cd-schedule__name">Abs Circuit</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="19:00" data-end="21:00"  data-content="event-yoga-1" data-event="event-3" href="#0">
-                                                        <em class="cd-schedule__name">Yoga Level 1</em>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="cd-schedule__group">
-                                            <div class="cd-schedule__top-info"><span>Wednesday</span></div>
-
-                                            <ul>
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="07:00" data-end="09:00" data-content="event-restorative-yoga" data-event="event-4" href="#0">
-                                                        <em class="cd-schedule__name">Restorative Yoga</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="10:00" data-end="12:00" data-content="event-yoga-1" data-event="event-3" href="#0">
-                                                        <em class="cd-schedule__name">Yoga Level 1</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="12:00" data-end="13:45"  data-content="event-rowing-workout" data-event="event-2" href="#0">
-                                                        <em class="cd-schedule__name">Rowing Workout sda sd s sdsd sd sd s sd</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="13:45" data-end="15:00" data-content="event-yoga-1" data-event="event-3" href="#0">
-                                                        <em class="cd-schedule__name">Yoga Level 1</em>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="cd-schedule__group">
-                                            <div class="cd-schedule__top-info"><span>Thursday</span></div>
-
-                                            <ul>
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="09:00" data-end="10:30" data-content="event-abs-circuit" data-event="event-1" href="#0">
-                                                        <em class="cd-schedule__name">Abs Circuit</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="12:00" data-end="13:45" data-content="event-restorative-yoga" data-event="event-4" href="#0">
-                                                        <em class="cd-schedule__name">Restorative Yoga</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="15:00" data-end="16:30" data-content="event-abs-circuit" data-event="event-1" href="#0">
-                                                        <em class="cd-schedule__name">Abs Circuit</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="17:00" data-end="18:30"  data-content="event-rowing-workout" data-event="event-2" href="#0">
-                                                        <em class="cd-schedule__name">Rowing Workout</em>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="cd-schedule__group">
-                                            <div class="cd-schedule__top-info"><span>Friday</span></div>
-
-                                            <ul>
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="05:00" data-end="07:00"  data-content="event-rowing-workout" data-event="event-2" href="#0">
-                                                        <em class="cd-schedule__name">Rowing Workout</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="13:00" data-end="14:30" data-content="event-abs-circuit" data-event="event-1" href="#0">
-                                                        <em class="cd-schedule__name">Abs Circuit</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="15:00" data-end="17:00"  data-content="event-yoga-1" data-event="event-3" href="#0">
-                                                        <em class="cd-schedule__name">Yoga Level 1</em>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="cd-schedule__group">
-                                            <div class="cd-schedule__top-info"><span>Saturday</span></div>
-
-                                            <ul>
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="07:00" data-end="09:00"  data-content="event-rowing-workout" data-event="event-2" href="#0">
-                                                        <em class="cd-schedule__name">Rowing Workout</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="11:00" data-end="14:00" data-content="event-abs-circuit" data-event="event-1" href="#0">
-                                                        <em class="cd-schedule__name">Abs Circuit</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="15:00" data-end="16:30"  data-content="event-yoga-1" data-event="event-3" href="#0">
-                                                        <em class="cd-schedule__name">Yoga Level 1</em>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="cd-schedule__group">
-                                            <div class="cd-schedule__top-info"><span>Sunday</span></div>
-
-                                            <ul>
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="06:00" data-end="08:00"  data-content="event-rowing-workout" data-event="event-2" href="#0">
-                                                        <em class="cd-schedule__name">Rowing Workout</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="12:30" data-end="14:00" data-content="event-abs-circuit" data-event="event-1" href="#0">
-                                                        <em class="cd-schedule__name">Abs Circuit</em>
-                                                    </a>
-                                                </li>
-
-                                                <li class="cd-schedule__event">
-                                                    <a data-start="15:00" data-end="16:45"  data-content="event-yoga-1" data-event="event-3" href="#0">
-                                                        <em class="cd-schedule__name">Yoga Level 1 </em>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <h5 class="card-title">Number of Students</h5>
+                                </div>
+                                <div class="col-6">
+                                    <ul class="chart-list-out">
+                                        <li><span class="circle-blue"></span>Girls</li>
+                                        <li><span class="circle-green"></span>Boys</li>
+                                        <li class="star-menus"><a href="javascript:;"><i
+                                                class="fas fa-ellipsis-v"></i></a></li>
                                     </ul>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="bar"></div>
+                        </div>
+                    </div>
 
-                                <div class="cd-schedule-modal">
-                                    <header class="cd-schedule-modal__header">
-                                        <div class="cd-schedule-modal__content">
-                                            <span class="cd-schedule-modal__date"></span>
-                                            <h3 class="cd-schedule-modal__name"></h3>
-                                        </div>
-                                        <div class="cd-schedule-modal__header-bg"></div>
-                                    </header>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 d-flex">
 
-                                    <div class="cd-schedule-modal__body">
-                                        <div class="cd-schedule-modal__event-info"></div>
-                                        <div class="cd-schedule-modal__body-bg"></div>
+                    <div class="card flex-fill student-space comman-shadow">
+                        <div class="card-header d-flex align-items-center">
+                            <h5 class="card-title">Star Students</h5>
+                            <ul class="chart-list-out student-ellips">
+                                <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table
+                                        class="table star-student table-hover table-center table-borderless table-striped">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th class="text-center">Marks</th>
+                                        <th class="text-center">Percentage</th>
+                                        <th class="text-end">Year</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-nowrap">
+                                            <div>PRE2209</div>
+                                        </td>
+                                        <td class="text-nowrap">
+                                            <a href="profile.html">
+                                                <img class="rounded-circle"
+                                                     src="../../assets/img/profiles/avatar-02.jpg" width="25"
+                                                     alt="Star Students">
+                                                John Smith
+                                            </a>
+                                        </td>
+                                        <td class="text-center">1185</td>
+                                        <td class="text-center">98%</td>
+                                        <td class="text-end">
+                                            <div>2019</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-nowrap">
+                                            <div>PRE1245</div>
+                                        </td>
+                                        <td class="text-nowrap">
+                                            <a href="profile.html">
+                                                <img class="rounded-circle"
+                                                     src="../../assets/img/profiles/avatar-01.jpg" width="25"
+                                                     alt="Star Students">
+                                                Jolie Hoskins
+                                            </a>
+                                        </td>
+                                        <td class="text-center">1195</td>
+                                        <td class="text-center">99.5%</td>
+                                        <td class="text-end">
+                                            <div>2018</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-nowrap">
+                                            <div>PRE1625</div>
+                                        </td>
+                                        <td class="text-nowrap">
+                                            <a href="profile.html">
+                                                <img class="rounded-circle"
+                                                     src="../../assets/img/profiles/avatar-03.jpg" width="25"
+                                                     alt="Star Students">
+                                                Pennington Joy
+                                            </a>
+                                        </td>
+                                        <td class="text-center">1196</td>
+                                        <td class="text-center">99.6%</td>
+                                        <td class="text-end">
+                                            <div>2017</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-nowrap">
+                                            <div>PRE2516</div>
+                                        </td>
+                                        <td class="text-nowrap">
+                                            <a href="profile.html">
+                                                <img class="rounded-circle"
+                                                     src="../../assets/img/profiles/avatar-04.jpg" width="25"
+                                                     alt="Star Students">
+                                                Millie Marsden
+                                            </a>
+                                        </td>
+                                        <td class="text-center">1187</td>
+                                        <td class="text-center">98.2%</td>
+                                        <td class="text-end">
+                                            <div>2016</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-nowrap">
+                                            <div>PRE2209</div>
+                                        </td>
+                                        <td class="text-nowrap">
+                                            <a href="profile.html">
+                                                <img class="rounded-circle"
+                                                     src="../../assets/img/profiles/avatar-05.jpg" width="25"
+                                                     alt="Star Students">
+                                                John Smith
+                                            </a>
+                                        </td>
+                                        <td class="text-center">1185</td>
+                                        <td class="text-center">98%</td>
+                                        <td class="text-end">
+                                            <div>2015</div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xl-6 d-flex">
+
+                    <div class="card flex-fill comman-shadow">
+                        <div class="card-header d-flex align-items-center">
+                            <h5 class="card-title ">Student Activity </h5>
+                            <ul class="chart-list-out student-ellips">
+                                <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-groups">
+                                <div class="activity-awards">
+                                    <div class="award-boxs">
+                                        <img src="../../assets/img/icons/award-icon-01.svg" alt="Award">
                                     </div>
-
-                                    <a href="#0" class="cd-schedule-modal__close text-replace">Close</a>
+                                    <div class="award-list-outs">
+                                        <h4>1st place in "Chess”</h4>
+                                        <h5>John Doe won 1st place in "Chess"</h5>
+                                    </div>
+                                    <div class="award-time-list">
+                                        <span>1 Day ago</span>
+                                    </div>
                                 </div>
+                                <div class="activity-awards">
+                                    <div class="award-boxs">
+                                        <img src="../../assets/img/icons/award-icon-02.svg" alt="Award">
+                                    </div>
+                                    <div class="award-list-outs">
+                                        <h4>Participated in "Carrom"</h4>
+                                        <h5>Justin Lee participated in "Carrom"</h5>
+                                    </div>
+                                    <div class="award-time-list">
+                                        <span>2 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="activity-awards">
+                                    <div class="award-boxs">
+                                        <img src="../../assets/img/icons/award-icon-03.svg" alt="Award">
+                                    </div>
+                                    <div class="award-list-outs">
+                                        <h4>Internation conference in "St.John School"</h4>
+                                        <h5>Justin Leeattended internation conference in "St.John School"</h5>
+                                    </div>
+                                    <div class="award-time-list">
+                                        <span>2 Week ago</span>
+                                    </div>
+                                </div>
+                                <div class="activity-awards mb-0">
+                                    <div class="award-boxs">
+                                        <img src="../../assets/img/icons/award-icon-04.svg" alt="Award">
+                                    </div>
+                                    <div class="award-list-outs">
+                                        <h4>Won 1st place in "Chess"</h4>
+                                        <h5>John Doe won 1st place in "Chess"</h5>
+                                    </div>
+                                    <div class="award-time-list">
+                                        <span>3 Day ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                                <div class="cd-schedule__cover-layer"></div>
-                            </div> <!-- .cd-schedule -->
+                </div>
+            </div>
 
+            <div class="row">
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card flex-fill fb sm-box">
+                        <div class="social-likes">
+                            <p>Like us on facebook</p>
+                            <h6>50,095</h6>
+                        </div>
+                        <div class="social-boxs">
+                            <img src="../../assets/img/icons/social-icon-01.svg" alt="Social Icon">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card flex-fill twitter sm-box">
+                        <div class="social-likes">
+                            <p>Follow us on twitter</p>
+                            <h6>48,596</h6>
+                        </div>
+                        <div class="social-boxs">
+                            <img src="../../assets/img/icons/social-icon-02.svg" alt="Social Icon">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card flex-fill insta sm-box">
+                        <div class="social-likes">
+                            <p>Follow us on instagram</p>
+                            <h6>52,085</h6>
+                        </div>
+                        <div class="social-boxs">
+                            <img src="../../assets/img/icons/social-icon-03.svg" alt="Social Icon">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card flex-fill linkedin sm-box">
+                        <div class="social-likes">
+                            <p>Follow us on linkedin</p>
+                            <h6>69,050</h6>
+                        </div>
+                        <div class="social-boxs">
+                            <img src="../../assets/img/icons/social-icon-04.svg" alt="Social Icon">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <footer>
             <p>Copyright © 2022 Dreamguys.</p>
         </footer>
-
     </div>
-
 </div>
-<script src="../../theme2/js/jquery-3.6.0.min.js"></script>
-<script src="../../theme2/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../theme2/js/feather.min.js"></script>
-<script src="../../theme2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="../../theme2/plugins/apexchart/apexcharts.min.js"></script>
-<script src="../../theme2/plugins/apexchart/chart-data.js"></script>
-<script src="../../theme2/js/script.js"></script>
-<script src="../../theme2/js/util.js"></script>
-<script src="../../theme2/js/main.js"></script>
-</body>
-
-</html>
+<%@ include file="common/script.jspf" %>

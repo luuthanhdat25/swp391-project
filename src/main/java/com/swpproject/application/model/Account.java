@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name="Account")
@@ -33,9 +34,13 @@ public class Account {
     @OneToOne
     @JoinColumn(name="personal_trainer_id", nullable = false)
     private PersonalTrainer personalTrainer;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="gymer_id",nullable = false)
     private Gymer gymer;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn()
+    private List<Certificate> certificateList;
 
     public Account() {}
 

@@ -12,8 +12,8 @@ public class Certificate {
     private String organizer;
     @Lob // use to store varbinary in db
     private byte[] image;
-    @ManyToOne
-    @JoinColumn(name = "personal_trainer_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "personal_trainer_id", referencedColumnName = "id")
     private PersonalTrainer personalTrainer;
 
     public Certificate() {}

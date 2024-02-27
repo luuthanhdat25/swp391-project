@@ -465,199 +465,111 @@
                         <div class="row">
                             <div>
                                 <div class="student-personals-grp">
-<%--                                    <div class="card mb-0">--%>
-<%--                                        <div class="card-body">--%>
-<%--                                            <div class="w-50">--%>
-<%--                                                <input type="text" name="exerciseName" class="form-control"--%>
-<%--                                                       value='<c:out value="${exercise.name}" />'--%>
-<%--                                                       placeholder="Exercise Name" />--%>
-<%--                                            </div>--%>
+                                    <div class="card mb-0">
+                                        <div class="card-body">
+                                            <form id="exerciseForm" action="/exercise/create" method="post">
+                                                <div class="w-50">
+                                                    <input type="text" name="exerciseName" class="form-control" value='<c:out value="${exercise.name}" />' placeholder="Exercise Name" />
+                                                </div>
 
-<%--                                            <div class="row mt-3">--%>
-<%--                                                <div class="col-md-6">--%>
-<%--                                                    <div class="mt-3">--%>
-<%--                                                        <div class="mb-2">Level</div>--%>
+                                                <div class="row mt-3">
+                                                    <div class="col-md-6">
+                                                        <div class="mt-3">
+                                                            <div class="mb-2">Level</div>
 
-<%--                                                        <div class="form-check form-check-inline">--%>
-<%--                                                            <input class="form-check-input" type="radio" name="levelRadio" id="beginnerRadio" value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">checked</c:if>>--%>
-<%--                                                            <label class="form-check-label" for="beginnerRadio">Beginner</label>--%>
-<%--                                                        </div>--%>
-<%--                                                        <div class="form-check form-check-inline">--%>
-<%--                                                            <input class="form-check-input" type="radio" name="levelRadio" id="intermediateRadio" value="Intermediate" <c:if test="${exercise.level eq 'Intermediate'}">checked</c:if>>--%>
-<%--                                                            <label class="form-check-label" for="intermediateRadio">Intermediate</label>--%>
-<%--                                                        </div>--%>
-<%--                                                        <div class="form-check form-check-inline">--%>
-<%--                                                            <input class="form-check-input" type="radio" name="levelRadio" id="advancedRadio" value="Advanced" <c:if test="${exercise.level eq 'Advanced'}">checked</c:if>>--%>
-<%--                                                            <label class="form-check-label" for="advancedRadio">Advanced</label>--%>
-<%--                                                        </div>--%>
-<%--                                                    </div>--%>
-<%--                                                </div>--%>
-<%--                                                <div class="col-md-6">--%>
-<%--                                                    <div class="mt-3">--%>
-<%--                                                        <div class="mb-2">Equipment</div>--%>
-<%--                                                        <select class="form-select" aria-label="Default select example">--%>
-<%--                                                            <option selected value="None">None</option>--%>
-<%--                                                            <option value="Stationary bike">Stationary bike</option>--%>
-<%--                                                            <option value="Elliptical machine">Elliptical machine</option>--%>
-<%--                                                            <option value="Rowing machine">Rowing machine</option>--%>
-<%--                                                            <option value="Free weights">Free weights</option>--%>
-<%--                                                            <option value="Resistance bands">Resistance bands</option>--%>
-<%--                                                            <option value="Kettlebells">Kettlebells</option>--%>
-<%--                                                            <option value="Bench press">Bench press</option>--%>
-<%--                                                            <option value="Leg press machine">Leg press machine</option>--%>
-<%--                                                            <option value="Pull-up bar">Pull-up bar</option>--%>
-<%--                                                            <option value="Dumbbells">Dumbbells</option>--%>
-<%--                                                            <option value="Barbells">Barbells</option>--%>
-<%--                                                            <option value="Exercise ball">Exercise ball</option>--%>
-<%--                                                            <option value="Yoga mat">Yoga mat</option>--%>
-<%--                                                            <option value="Jump rope">Jump rope</option>--%>
-<%--                                                            <option value="Medicine ball">Medicine ball</option>--%>
-<%--                                                            <option value="Foam roller">Foam roller</option>--%>
-<%--                                                        </select>--%>
-<%--                                                    </div>--%>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="levelRadio" id="beginnerRadio" value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">checked</c:if>>
+                                                                <label class="form-check-label" for="beginnerRadio">Beginner</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="levelRadio" id="intermediateRadio" value="Intermediate" <c:if test="${exercise.level eq 'Intermediate'}">checked</c:if>>
+                                                                <label class="form-check-label" for="intermediateRadio">Intermediate</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="levelRadio" id="advancedRadio" value="Advanced" <c:if test="${exercise.level eq 'Advanced'}">checked</c:if>>
+                                                                <label class="form-check-label" for="advancedRadio">Advanced</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mt-3">
+                                                            <div class="mb-2">Equipment</div>
+                                                            <select class="form-select" aria-label="Default select example" name="equipment">
+                                                                <option selected value="None">None</option>
+                                                                <option value="Stationary bike">Stationary bike</option>
+                                                                <option value="Elliptical machine">Elliptical machine</option>
+                                                                <option value="Rowing machine">Rowing machine</option>
+                                                                <option value="Free weights">Free weights</option>
+                                                                <option value="Resistance bands">Resistance bands</option>
+                                                                <option value="Kettlebells">Kettlebells</option>
+                                                                <option value="Bench press">Bench press</option>
+                                                                <option value="Leg press machine">Leg press machine</option>
+                                                                <option value="Pull-up bar">Pull-up bar</option>
+                                                                <option value="Dumbbells">Dumbbells</option>
+                                                                <option value="Barbells">Barbells</option>
+                                                                <option value="Exercise ball">Exercise ball</option>
+                                                                <option value="Yoga mat">Yoga mat</option>
+                                                                <option value="Jump rope">Jump rope</option>
+                                                                <option value="Medicine ball">Medicine ball</option>
+                                                                <option value="Foam roller">Foam roller</option>
+                                                            </select>
+                                                        </div>
 
-<%--                                                </div>--%>
-<%--                                            </div>--%>
+                                                    </div>
+                                                </div>
 
-<%--                                            <div class="mt-3">--%>
-<%--                                                <div class="mb-2">Image description</div>--%>
-<%--                                                <button type="button" id="chooseImageButton" class="btn btn-warning">Choose Image</button>--%>
-<%--                                                <br>--%>
-<%--                                                <input type="file" id="imageInput" style="display: none;">--%>
-<%--                                                <img id="previewImage" src="#" alt="Preview" style="display: none;" class="w-50">--%>
-<%--                                            </div>--%>
-
-
-<%--                                            <div class="mt-4">--%>
-<%--                                                <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control w-50">--%>
-<%--                                                <button type="button" id="changeVideoBtn" class="btn btn-warning mt-1">Add Video</button>--%>
-<%--                                            </div>--%>
-
-<%--                                            <div id="playerContainer" style="display: none;" class="mt-2">--%>
-<%--                                                <div id="player"></div>--%>
-<%--                                            </div>--%>
-
-<%--                                            <div class="hello-park mt-3">--%>
-<%--                                                <textarea class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description"></textarea>--%>
-<%--                                            </div>--%>
-
-<%--                                            <div class="mt-3">--%>
-<%--                                                <div class="form-check">--%>
-<%--                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">--%>
-<%--                                                    <label class="form-check-label" for="flexCheckDefault">--%>
-<%--                                                        Private (Only you and the gymer working with you can see)--%>
-<%--                                                    </label>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
+                                                <div class="mt-3">
+                                                    <div class="mb-2">Image description</div>
+                                                    <button type="button" id="chooseImageButton" class="btn btn-warning">Choose Image</button>
+                                                    <br>
+                                                    <input type="file" id="imageInput" style="display: none;" name="image">
+                                                    <img id="previewImage" src="#" alt="Preview" style="display: none;" class="w-50">
+                                                </div>
 
 
-<%--                                            <div class="d-flex mt-3">--%>
-<%--                                                <a href="edit-invoice.html" class="btn btn-primary me-2">--%>
-<%--                                                    Create--%>
-<%--                                                </a>--%>
-<%--                                                <a href="edit-invoice.html" class="btn btn-danger">--%>
-<%--                                                    Cancel--%>
-<%--                                                </a>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-        <div class="card mb-0">
-            <div class="card-body">
-                <c:url var="createExerciseUrl" value="/exercise/create" />
-                <form id="exerciseForm" action="${createExerciseUrl}" method="post">
-                    <div class="w-50">
-                        <input type="text" name="exerciseName" class="form-control" value='<c:out value="${exercise.name}" />' placeholder="Exercise Name" />
-                    </div>
+                                                <div class="mt-4">
+                                                    <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control w-50" name="youtubeLink">
+                                                    <button type="button" id="changeVideoBtn" class="btn btn-warning mt-1">Add Video</button>
+                                                </div>
 
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <div class="mt-3">
-                                <div class="mb-2">Level</div>
+                                                <div id="playerContainer" style="display: none;" class="mt-2">
+                                                    <div id="player"></div>
+                                                </div>
 
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="levelRadio" id="beginnerRadio" value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">checked</c:if>>
-                                    <label class="form-check-label" for="beginnerRadio">Beginner</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="levelRadio" id="intermediateRadio" value="Intermediate" <c:if test="${exercise.level eq 'Intermediate'}">checked</c:if>>
-                                    <label class="form-check-label" for="intermediateRadio">Intermediate</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="levelRadio" id="advancedRadio" value="Advanced" <c:if test="${exercise.level eq 'Advanced'}">checked</c:if>>
-                                    <label class="form-check-label" for="advancedRadio">Advanced</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mt-3">
-                                <div class="mb-2">Equipment</div>
-                                <select class="form-select" aria-label="Default select example" name="equipment">
-                                    <option selected value="None">None</option>
-                                    <option value="Stationary bike">Stationary bike</option>
-                                    <option value="Elliptical machine">Elliptical machine</option>
-                                    <option value="Rowing machine">Rowing machine</option>
-                                    <option value="Free weights">Free weights</option>
-                                    <option value="Resistance bands">Resistance bands</option>
-                                    <option value="Kettlebells">Kettlebells</option>
-                                    <option value="Bench press">Bench press</option>
-                                    <option value="Leg press machine">Leg press machine</option>
-                                    <option value="Pull-up bar">Pull-up bar</option>
-                                    <option value="Dumbbells">Dumbbells</option>
-                                    <option value="Barbells">Barbells</option>
-                                    <option value="Exercise ball">Exercise ball</option>
-                                    <option value="Yoga mat">Yoga mat</option>
-                                    <option value="Jump rope">Jump rope</option>
-                                    <option value="Medicine ball">Medicine ball</option>
-                                    <option value="Foam roller">Foam roller</option>
-                                </select>
-                            </div>
+                                                <div class="hello-park mt-3">
+                                                    <textarea class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description" name="exerciseDescription"></textarea>
+                                                </div>
 
-                        </div>
-                    </div>
+                                                <div class="mt-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="private" id="flexCheckDefault" name="privacy">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Private (Only you and the gymer working with you can see)
+                                                        </label>
+                                                    </div>
+                                                </div>
 
-                    <div class="mt-3">
-                        <div class="mb-2">Image description</div>
-                        <button type="button" id="chooseImageButton" class="btn btn-warning">Choose Image</button>
-                        <br>
-                        <input type="file" id="imageInput" style="display: none;" name="image">
-                        <img id="previewImage" src="#" alt="Preview" style="display: none;" class="w-50">
-                    </div>
+                                                <div id="errorMessages">
+                                                    <p id="exerciseNameError" class="text-danger"></p>
+                                                    <p id="levelError" class="text-danger"></p>
+                                                    <p id="equipmentError" class="text-danger"></p>
+                                                    <p id="imageError" class="text-danger"></p>
+                                                    <p id="youtubeLinkError" class="text-danger"></p>
+                                                    <p id="exerciseDescriptionError" class="text-danger"></p>
+                                                </div>
 
 
-                    <div class="mt-4">
-                        <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control w-50" name="youtubeLink">
-                        <button type="button" id="changeVideoBtn" class="btn btn-warning mt-1">Add Video</button>
-                    </div>
-
-                    <div id="playerContainer" style="display: none;" class="mt-2">
-                        <div id="player"></div>
-                    </div>
-
-                    <div class="hello-park mt-3">
-                        <textarea class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description" name="exerciseDescription"></textarea>
-                    </div>
-
-                    <div class="mt-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="private" id="flexCheckDefault" name="privacy">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Private (Only you and the gymer working with you can see)
-                            </label>
-                        </div>
-                    </div>
-
-
-                    <div class="d-flex mt-3">
-                        <button type="submit" class="btn btn-primary me-2">
-                            <i ></i>Create
-                        </button>
-                        <a href="edit-invoice.html" class="btn btn-danger">
-                            <i ></i>Cancel
-                        </a>
-                    </div>
-                </form>
-            </div>
-        </div>
+                                                <div class="d-flex mt-3">
+                                                    <button type="submit" class="btn btn-primary me-2">
+                                                        Create
+                                                    </button>
+                                                    <a href="edit-invoice.html" class="btn btn-danger">
+                                                        Cancel
+                                                    </a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
@@ -779,6 +691,62 @@
             // Attach click event to the button
             $('#changeVideoBtn').on('click', changeVideo);
         });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#exerciseForm').submit(function(event) {
+                var errors = false;
+
+                // Kiểm tra từng trường và hiển thị thông báo lỗi nếu cần
+                if ($('input[name="exerciseName"]').val().trim() === '') {
+                    $('#exerciseNameError').text('Exercise Name is required');
+                    errors = true;
+                } else {
+                    $('#exerciseNameError').text('');
+                }
+
+                if (!$('input[name="levelRadio"]:checked').val()) {
+                    $('#levelError').text('Please select a level');
+                    errors = true;
+                } else {
+                    $('#levelError').text('');
+                }
+
+                if ($('select[name="equipment"]').val() === 'None') {
+                    $('#equipmentError').text('Please select an equipment');
+                    errors = true;
+                } else {
+                    $('#equipmentError').text('');
+                }
+
+                if ($('input[name="image"]').val() === '') {
+                    $('#imageError').text('Please choose an image');
+                    errors = true;
+                } else {
+                    $('#imageError').text('');
+                }
+
+                if ($('#youtubeLink').val().trim() === '') {
+                    $('#youtubeLinkError').text('YouTube URL is required');
+                    errors = true;
+                } else {
+                    $('#youtubeLinkError').text('');
+                }
+
+                if ($('#exerciseDescription').val().trim() === '') {
+                    $('#exerciseDescriptionError').text('Exercise Description is required');
+                    errors = true;
+                } else {
+                    $('#exerciseDescriptionError').text('');
+                }
+
+                if (errors) {
+                    event.preventDefault();
+                }
+            });
+        });
+
     </script>
 </body>
 

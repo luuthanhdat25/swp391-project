@@ -1,31 +1,28 @@
 package com.swpproject.application.model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "exercise")
 public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private String type;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
     private String level;
     private String equipment;
     private String videoDescription;
-    private String imageDescription;
-    private int personalTrainerId;
+    @Lob
+    private byte[] imageDescription;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "personal_trainer_id")
+    private PersonalTrainer personalTrainer;
+    private boolean isPrivate;
 
     public String getName() {
         return name;
@@ -67,20 +64,12 @@ public class Exercise {
         this.videoDescription = videoDescription;
     }
 
-    public String getImageDescription() {
+    public byte[] getImageDescription() {
         return imageDescription;
     }
 
-    public void setImageDescription(String imageDescription) {
+    public void setImageDescription(byte[] imageDescription) {
         this.imageDescription = imageDescription;
-    }
-
-    public int getPersonalTrainerId() {
-        return personalTrainerId;
-    }
-
-    public void setPersonalTrainerId(int personalTrainerId) {
-        this.personalTrainerId = personalTrainerId;
     }
 
     public String getEquipment() {
@@ -91,29 +80,26 @@ public class Exercise {
         this.equipment = equipment;
     }
 
-    public Exercise() {
+    public boolean isPrivate() {
+        return isPrivate;
     }
 
-    public Exercise(String name, String type, String description, String level, String equipment, String videoDescription, String imageDescription, int personalTrainerId) {
-        this.name = name;
-        this.type = type;
-        this.description = description;
-        this.level = level;
-        this.equipment = equipment;
-        this.videoDescription = videoDescription;
-        this.imageDescription = imageDescription;
-        this.personalTrainerId = personalTrainerId;
+    public void setPrivate(boolean aPrivate) {
+        isPrivate = aPrivate;
     }
 
-    public Exercise(int id, String name, String type, String description, String level, String equipment, String videoDescription, String imageDescription, int personalTrainerId) {
+    public void setId(Integer id) {
         this.id = id;
-        this.name = name;
-        this.type = type;
-        this.description = description;
-        this.level = level;
-        this.equipment = equipment;
-        this.videoDescription = videoDescription;
-        this.imageDescription = imageDescription;
-        this.personalTrainerId = personalTrainerId;
+    }
+
+    public PersonalTrainer getPersonalTrainer() {
+        return personalTrainer;
+    }
+
+    public void setPersonalTrainer(PersonalTrainer personalTrainer) {
+        this.personalTrainer = personalTrainer;
+    }
+
+    public Exercise() {
     }
 }

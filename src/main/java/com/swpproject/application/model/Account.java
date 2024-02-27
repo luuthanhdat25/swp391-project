@@ -3,14 +3,11 @@ package com.swpproject.application.model;
 import com.swpproject.application.enums.Gender;
 import com.swpproject.application.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import org.hibernate.annotations.ColumnDefault;
-
+import org.springframework.data.relational.core.mapping.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="Account")
+@Table(name="account")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,21 +22,26 @@ public class Account {
     private String phone;
     private LocalDate birthday;
     private String address;
+
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "varchar(5)")
     private Role role;
     private Boolean isBan;
+
+    @Column(length = 1000)
     private String image;
-    @OneToOne
-    @JoinColumn(name="personal_trainer_id", nullable = false)
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="personalTrainer_id")
     private PersonalTrainer personalTrainer;
-    @OneToOne
-    @JoinColumn(name="gymer_id",nullable = false)
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="gymer_id")
     private Gymer gymer;
 
     public Account() {}
 
-    public Account(Integer id, String fullName, String email, String password, Gender gender, String phone, LocalDate birthday, String address, Role role, Boolean isBan, String image) {
+    public Account(Integer id, String fullName, String email, String password, Gender gender, String phone, LocalDate birthday, String address, Role role, Boolean isBan, String image, PersonalTrainer personalTrainer, Gymer gymer) {
         Id = id;
         this.fullName = fullName;
         this.email = email;
@@ -51,6 +53,8 @@ public class Account {
         this.role = role;
         this.isBan = isBan;
         this.image = image;
+        this.personalTrainer = personalTrainer;
+        this.gymer = gymer;
     }
 
     public Integer getId() {

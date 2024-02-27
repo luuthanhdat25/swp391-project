@@ -1,13 +1,13 @@
 package com.swpproject.application.model;
-
+import org.springframework.data.relational.core.mapping.Table;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 // View PT, detail - Trình
 @Entity
+@Table(name = "personalTrainer")
 public class PersonalTrainer {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,23 +18,27 @@ public class PersonalTrainer {
     private Double price;
     private Double balance;
     private Boolean is_active;
+    @Column(columnDefinition = "TEXT")
     private String description;
-    @OneToOne
-    @JoinColumn(name="id", nullable = false)
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="account_id")
     private Account account;
 
     public PersonalTrainer() {
     }
 
-    public PersonalTrainer(Integer id, Account account, String bankName, String bankNumber, Double weight, Double height, Double price, String description) {
+    public PersonalTrainer(Integer id, String bankName, String bankNumber, Double weight, Double height, Double price, Double balance, Boolean is_active, String description, Account account) {
         this.id = id;
-        this.account = account;
         this.bankName = bankName;
         this.bankNumber = bankNumber;
         this.weight = weight;
         this.height = height;
         this.price = price;
+        this.balance = balance;
+        this.is_active = is_active;
         this.description = description;
+        this.account = account;
     }
 
     public Integer getId() {

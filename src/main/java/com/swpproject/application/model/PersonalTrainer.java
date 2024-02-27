@@ -1,65 +1,47 @@
 package com.swpproject.application.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
-
+// View PT, detail - Trình
 @Entity
+@Table(name = "PERSONAL_TRAINER")
 public class PersonalTrainer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "PT_ID")
+    private Integer ptId;
 
-    private String name;
+    @Column(name = "BANK_NAME")
     private String bankName;
+
+    @Column(name = "BANK_NUMBER")
     private String bankNumber;
-    private String phone;
-    private double weight;
-    private double height;
-    private String email;
-    private LocalDate dayOfBirth;
-    private String location;
-    private String sex;
-    private double price;
+
+    @Column(name = "[DESC]")
     private String description;
 
-    public PersonalTrainer() {
+    @Column(name = "IS_ACTIVE", columnDefinition = "BIT DEFAULT 0")
+    private Boolean isActive;
+
+    @Column(name = "PRICE")
+    private Integer price;
+
+    @OneToOne
+    @JoinColumn(name = "ACCOUNT_ID", nullable = false)
+    private Account account;
+
+    @OneToOne(mappedBy = "personalTrainer", cascade = CascadeType.ALL)
+    private Certificate certificate;
+
+    public Integer getPtId() {
+        return ptId;
     }
 
-    public PersonalTrainer(int id, String name, String bankName, String bankNumber, String phone, double weight, double height, String email, LocalDate dayOfBirth, String location, String sex, double price, String description) {
-        this.id = id;
-        this.name = name;
-        this.bankName = bankName;
-        this.bankNumber = bankNumber;
-        this.phone = phone;
-        this.weight = weight;
-        this.height = height;
-        this.email = email;
-        this.dayOfBirth = dayOfBirth;
-        this.location = location;
-        this.sex = sex;
-        this.price = price;
-        this.description = description;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setPtId(Integer ptId) {
+        this.ptId = ptId;
     }
 
     public String getBankName() {
@@ -78,75 +60,43 @@ public class PersonalTrainer {
         this.bankNumber = bankNumber;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getDayOfBirth() {
-        return dayOfBirth;
-    }
-
-    public void setDayOfBirth(LocalDate dayOfBirth) {
-        this.dayOfBirth = dayOfBirth;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Certificate getCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(Certificate certificate) {
+        this.certificate = certificate;
     }
 }

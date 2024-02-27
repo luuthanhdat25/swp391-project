@@ -57,6 +57,7 @@ public class ScheduleController {
     public String handleFormSubmission(@RequestParam int week, @RequestParam int year, Model model, HttpSession session) {
         List<ScheduleDataEntity> scheduleSlots = scheduleDataService.getSlotsByWeekAndYear(week, year);
         model.addAttribute("scheduleSlots", scheduleSlots);
+        System.out.println(week +","+year);
         // Store scheduleSlots in the session
         session.setAttribute("scheduleSlots", scheduleSlots);
         session.setAttribute("selectedWeek", week);

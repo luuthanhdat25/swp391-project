@@ -16,7 +16,7 @@ public class SlotController {
     @Autowired
     private SlotExcerciseEntityService slotExcerciseEntiryService;
 
-    @GetMapping("/bookPT")
+    @RequestMapping(value ="bookPT", method = RequestMethod.GET)
     public String bookPT(Model model, HttpSession session) {
         List<SlotExcerciseEntity> allSlots = slotExcerciseEntiryService.getAllSlots();
         model.addAttribute("allSlots", allSlots);
@@ -24,16 +24,16 @@ public class SlotController {
             System.out.println(allSlot.toString());
         };
         session.setAttribute("allSlots", allSlots);
-
         return "book-pt";
     }
 
-    @PostMapping("/save-checked")
+
+    @RequestMapping(value = "save-checked",method = RequestMethod.POST)
     public String saveCheckedSlots(@RequestParam(value = "checkedSlots", required = false) List<String> checkedSlots) {
         if (checkedSlots != null && !checkedSlots.isEmpty()) {
             slotExcerciseEntiryService.SaveSlotExcercise(checkedSlots);
         }
-        return "redirect:/api/bookPT";
+        return "redirect:/bookPT";
     }
 
 }

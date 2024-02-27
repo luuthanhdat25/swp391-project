@@ -1,9 +1,11 @@
 package com.swpproject.application.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+@Entity
 public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,9 +14,9 @@ public class Exercise {
     private String type;
     private String description;
     private String level;
+    private String equipment;
     private String videoDescription;
     private String imageDescription;
-    private int caloriesOutput;
     private int personalTrainerId;
 
     public int getId() {
@@ -73,14 +75,6 @@ public class Exercise {
         this.imageDescription = imageDescription;
     }
 
-    public int getCaloriesOutput() {
-        return caloriesOutput;
-    }
-
-    public void setCaloriesOutput(int caloriesOutput) {
-        this.caloriesOutput = caloriesOutput;
-    }
-
     public int getPersonalTrainerId() {
         return personalTrainerId;
     }
@@ -89,19 +83,37 @@ public class Exercise {
         this.personalTrainerId = personalTrainerId;
     }
 
+    public String getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(String equipment) {
+        this.equipment = equipment;
+    }
+
     public Exercise() {
     }
 
-    // Parameterized constructor
-    public Exercise(String name, String type, String description, String level,
-                    String videoDescription, String imageDescription, int caloriesOutput, int personalTrainerId) {
+    public Exercise(String name, String type, String description, String level, String equipment, String videoDescription, String imageDescription, int personalTrainerId) {
         this.name = name;
         this.type = type;
         this.description = description;
         this.level = level;
+        this.equipment = equipment;
         this.videoDescription = videoDescription;
         this.imageDescription = imageDescription;
-        this.caloriesOutput = caloriesOutput;
+        this.personalTrainerId = personalTrainerId;
+    }
+
+    public Exercise(int id, String name, String type, String description, String level, String equipment, String videoDescription, String imageDescription, int personalTrainerId) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.level = level;
+        this.equipment = equipment;
+        this.videoDescription = videoDescription;
+        this.imageDescription = imageDescription;
         this.personalTrainerId = personalTrainerId;
     }
 }

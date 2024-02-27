@@ -8,10 +8,10 @@
 
             <div class="header-left">
                 <a href="index.html" class="logo">
-                    <img src="../../theme2/img/logo.png" alt="Logo">
+                    <img src="../../assets/img/logo.png" alt="Logo">
                 </a>
                 <a href="index.html" class="logo logo-small">
-                    <img src="../../theme2/img/logo-small.png" alt="Logo" width="30" height="30">
+                    <img src="../../assets/img/logo-small.png" alt="Logo" width="30" height="30">
                 </a>
             </div>
 
@@ -37,7 +37,7 @@
             <ul class="nav user-menu">
                 <li class="nav-item dropdown language-drop me-2">
                     <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                        <img src="../../theme2/img/icons/header-icon-01.svg" alt="">
+                        <img src="../../assets/img/icons/header-icon-01.svg" alt="">
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="javascript:;"><i class="flag flag-lr me-2"></i>English</a>
@@ -48,7 +48,7 @@
 
                 <li class="nav-item dropdown noti-dropdown me-2">
                     <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                        <img src="../../theme2/img/icons/header-icon-05.svg" alt="">
+                        <img src="../../assets/img/icons/header-icon-05.svg" alt="">
                     </a>
                     <div class="dropdown-menu notifications">
                         <div class="topnav-dropdown-header">
@@ -62,7 +62,7 @@
                                         <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
                                                 <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="../../theme2/img/profiles/avatar-02.jpg">
+                                                    src="../../assets/img/profiles/avatar-02.jpg">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">Carlson Tech</span> has
@@ -78,7 +78,7 @@
                                         <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
                                                 <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="../../theme2/img/profiles/avatar-11.jpg">
+                                                    src="../../assets/img/profiles/avatar-11.jpg">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">International Software
@@ -95,7 +95,7 @@
                                         <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
                                                 <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="../../theme2/img/profiles/avatar-17.jpg">
+                                                    src="../../assets/img/profiles/avatar-17.jpg">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">John Hendry</span> sent
@@ -112,7 +112,7 @@
                                         <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
                                                 <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="../../theme2/img/profiles/avatar-13.jpg">
+                                                    src="../../assets/img/profiles/avatar-13.jpg">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">Mercury Software
@@ -134,15 +134,15 @@
 
                 <li class="nav-item zoom-screen me-2">
                     <a href="#" class="nav-link header-nav-list">
-                        <img src="../../theme2/img/icons/header-icon-04.svg" alt="">
+                        <img src="../../assets/img/icons/header-icon-04.svg" alt="">
                     </a>
                 </li>
 
                 <li class="nav-item dropdown has-arrow new-user-menus">
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
-                            <img class="rounded-circle" src="../../theme2/img/profiles/avatar-01.jpg" width="31"
-                                alt="Soeng Souy">
+                            <img class="rounded-circle" src="../../assets/img/profiles/avatar-01.jpg" width="31"
+                                 alt="Soeng Souy">
                             <div class="user-text">
                                 <h6>Soeng Souy</h6>
                                 <p class="text-muted mb-0">Administrator</p>
@@ -152,8 +152,8 @@
                     <div class="dropdown-menu">
                         <div class="user-header">
                             <div class="avatar avatar-sm">
-                                <img src="../../theme2/img/profiles/avatar-01.jpg" alt="User Image"
-                                    class="avatar-img rounded-circle">
+                                <img src="../../assets/img/profiles/avatar-01.jpg" alt="User Image"
+                                     class="avatar-img rounded-circle">
                             </div>
                             <div class="user-text">
                                 <h6>Soeng Souy</h6>
@@ -451,10 +451,11 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-sub-header">
-                                <h3 class="page-title">Exercise Details</h3>
+                                <h3 class="page-title">Exercise Edit</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/exercise/">Exercise</a></li>
-                                    <li class="breadcrumb-item active">Exercise Details</li>
+                                    <li class="breadcrumb-item">Exercise</li>
+                                    <li class="breadcrumb-item">Exercise Details</li>
+                                    <li class="breadcrumb-item">Exercise Edit</li>
                                 </ul>
                             </div>
                         </div>
@@ -470,7 +471,7 @@
                                             <img class="w-100 mb-2" id="userImage" src="${exercise.imageDescription}" style="border-radius: .25rem;" alt="User Image">
                                             <label for="imageInput" class="btn btn-primary position-absolute" style="border-radius: 100%; padding: 1rem; bottom: 5%; right: 5%;">
                                                 <input type="file" id="imageInput" style="display: none;" accept="image/*">
-                                                <img src="../../theme2/img/icons/pencil-square.svg" style="filter: brightness(0) invert(1); width: 1.5rem;" alt="Edit Icon">
+                                                <img src="../../assets/img/icons/pencil-square.svg" style="filter: brightness(0) invert(1); width: 1.5rem;" alt="Edit Icon">
                                             </label>
                                         </div>
                                     </div>
@@ -518,25 +519,17 @@
                                             <div class="d-flex mt-md-2">
                                                 <h2 class="m-100 p-1 bg-info text-white rounded me-2" style="font-size: 1rem">${exercise.type}</h2>
 
-                                                <c:set var="backgroundColor" value="bg-success" />
-                                                <c:choose>
-                                                    <c:when test="${exercise.level eq 'Intermediate'}">
-                                                        <c:set var="backgroundColor" value="bg-warning" />
-                                                    </c:when>
-                                                    <c:when test="${exercise.level eq 'Advanced'}">
-                                                        <c:set var="backgroundColor" value="bg-danger" />
-                                                    </c:when>
-                                                    <c:when test="${exercise.level eq 'Beginner'}">
-                                                        <c:set var="backgroundColor" value="bg-info" />
-                                                    </c:when>
-                                                </c:choose>
+                                                <select id="levelSelect" class="form-select form-select-lg w-25" aria-label=".form-select-lg example">
+                                                    <option value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">selected</c:if>>Beginner</option>
+                                                    <option value="Intermediate" <c:if test="${exercise.level eq 'Intermediate'}">selected</c:if>>Intermediate</option>
+                                                    <option value="Advanced" <c:if test="${exercise.level eq 'Advanced'}">selected</c:if>>Advanced</option>
+                                                </select>
 
-                                                <h2 class="m-100 p-1 ${backgroundColor} text-white rounded" style="font-size: 1rem">${exercise.level}</h2>
                                             </div>
 
                                             <div class="row align-items-center mt-md-3">
                                                 <div class="col d-flex">
-                                                    <img style="height: 5%; width: 5%;" src="../../theme2/img/calories.png" alt="Calo">
+                                                    <img style="height: 5%; width: 5%;" src="../../assets/img/calories.png" alt="Calo">
                                                     <h6 class="mb-0 ml-2 ml-auto" style="font-size: 1.5rem;">${exercise.caloriesOutput} calories/rep</h6>
                                                 </div>
                                             </div>
@@ -565,15 +558,15 @@
 
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="../../theme2/js/jquery-3.6.0.min.js"></script>
+    <script src="../../assets/js/jquery-3.6.0.min.js"></script>
 
-    <script src="../../theme2/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../../theme2/js/feather.min.js"></script>
+    <script src="../../assets/js/feather.min.js"></script>
 
-    <script src="../../theme2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <script src="../../theme2/js/script.js"></script>
+    <script src="../../assets/js/script.js"></script>
 
     <script>
         $(function () {
@@ -674,6 +667,34 @@
 
             // Attach click event to the button
             $('#changeVideoBtn').on('click', changeVideo);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            updateColor();
+            $("#levelSelect").change(function () {
+                updateColor();
+            });
+
+            function updateColor() {
+                var selectedLevel = $("#levelSelect").val();
+
+                $("#levelSelect").removeClass().addClass("form-select form-select-lg mb-3 w-25").addClass(getColorClass(selectedLevel));
+            }
+
+            function getColorClass(level) {
+                switch (level) {
+                    case "Beginner":
+                        return "bg-success";
+                    case "Intermediate":
+                        return "bg-warning";
+                    case "Advanced":
+                        return "bg-danger";
+                    default:
+                        return "";
+                }
+            }
         });
     </script>
 </body>

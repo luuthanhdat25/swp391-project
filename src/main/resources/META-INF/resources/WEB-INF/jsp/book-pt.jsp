@@ -1,5 +1,5 @@
 <%@include file="common/header.jspf" %>
-<link rel="stylesheet" href="../../theme2/css/styleBook.css">
+<link rel="stylesheet" href="../../assets/css/styleBook.css">
 <body>
 
 <div class="main-wrapper">
@@ -467,7 +467,8 @@
                             <h5 class="card-title">Request form</h5>
                         </div>
                         <div class="card-body">
-                            <form action="save-checked" method="post">
+                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
+
                                 <div class="row">
                                     <div class="col-md-6">
 
@@ -569,7 +570,8 @@
                                                 <c:forEach var="day" items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
                                                     <c:set var="disabled" value="false" />
                                                     <c:forEach items="${allSlots}" var="scheduleSlot">
-                                                        <c:if test="${scheduleSlot.startHour == hour && scheduleSlot.endHour == hour + 2 && scheduleSlot.day eq day.toLowerCase()}">
+                                                        <c:if test="${scheduleSlot.startHour == hour && scheduleSlot.endHour == hour + 2 && scheduleSlot.day eq day.toLowerCase()
+                                                        }">
                                                             <c:set var="disabled" value="true" />
                                                         </c:if>
                                                     </c:forEach>
@@ -580,7 +582,6 @@
                                                         <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
                                                     </td>
                                                 </c:forEach>
-
                                             </tr>
                                         </c:forEach>
                                         </tbody>
@@ -589,7 +590,7 @@
                                 <div>
                                     <button type="submit" class="btn btn-primary" onclick="saveCheckedSlots()">Send</button>
                                 </div>
-                            </form>
+                            </form:form >
                         </div>
                     </div>
                 </div>

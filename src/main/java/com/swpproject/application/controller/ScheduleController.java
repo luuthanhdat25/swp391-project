@@ -1,35 +1,69 @@
 package com.swpproject.application.controller;
 
-import com.swpproject.application.model.PersonalTrainer;
+
+import com.swpproject.application.model.ScheduleDataEntity;
+import com.swpproject.application.service.ScheduleDataService;
+//import com.swpproject.application.service.ScheduleDataService;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.MultiValueMap;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
+//ManhLD
 @Controller
+@SessionAttributes("id")
 public class ScheduleController {
-    @RequestMapping(value = "/book-pt", method = RequestMethod.GET) //Click to book pt
-    public String bookPTPage() {
-        return "book-pt";
+
+    @Autowired
+    private ScheduleDataService scheduleDataService;
+
+    @RequestMapping(value = "Schedule", method = RequestMethod.GET)
+    public String Schedule(){
+        return "calendar";
     }
 
-    @PostMapping("/book-pt")
-    public void processCheckboxes(@RequestBody String[] checkedCheckboxes) {
-        if (checkedCheckboxes != null && checkedCheckboxes.length > 0) {
-            // Process the data received from the client
-            for (String checkbox : checkedCheckboxes) {
-                System.out.println("Received checked checkbox: " + checkbox);
+    @PostMapping("/saveSchedule")
+    public String saveSchedule(@RequestParam("selectedSlotsAndDays") String selectedSlotsAndDays,HttpSession session) {
+        String[] selectedSlotsAndDaysArray = selectedSlotsAndDays.split(",");
+        for (String slotAndDay : selectedSlotsAndDaysArray) {
+            String[] parts = slotAndDay.split("-");
+            if (parts.length == 2) {
+                int slot = Integer.parseInt(parts[0]);
+                int day = Integer.parseInt(parts[1]);
+                ScheduleDataEntity scheduleData = new ScheduleDataEntity();
+                scheduleData.setSlot(slot);
+                scheduleData.setDay(day);
+
+
+                scheduleData.setWeek((int)session.getAttribute("selectedWeek"));
+                scheduleData.setYear((int)session.getAttribute("selectedYear"));
+                // Làm tương tự cho các trường khác như week, year
+                System.out.println(slot);
+                System.out.println(day);
+                System.out.println("----");
+                scheduleDataService.saveOrUpdate(scheduleData);
+                // Save or update the data to the database using your service
+                // scheduleDataService.saveOrUpdate(year, week, slot, day);
             }
-        } else {
-            System.out.println("No checked checkboxes received.");
         }
+
+        // Redirect to the appropriate page
+        return "redirect:/SelectWeek?year=" + session.getAttribute("selectedYear") + "&week=" + session.getAttribute("selectedWeek");
     }
 
-    @RequestMapping(value = "/view-schedule", method = RequestMethod.GET) //Click to book pt
-    public String viewSchedule() {
-        return "view-schedule";
+    @GetMapping( "/SelectWeek")
+    public String handleFormSubmission(@RequestParam int week, @RequestParam int year, Model model, HttpSession session) {
+        List<ScheduleDataEntity> scheduleSlots = scheduleDataService.getSlotsByWeekAndYear(week, year);
+        model.addAttribute("scheduleSlots", scheduleSlots);
+        System.out.println(week +","+year);
+        // Store scheduleSlots in the session
+        session.setAttribute("scheduleSlots", scheduleSlots);
+        session.setAttribute("selectedWeek", week);
+        session.setAttribute("selectedYear", year);
+        return "redirect:/Schedule?year=" + year + "&week=" + week;
     }
+
 }

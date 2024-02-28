@@ -1,65 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Admin Dashboard</title>
-    <link rel="shortcut icon" href="../../assets/img/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../assets/plugins/feather/feather.css">
-    <link rel="stylesheet" href="../../assets/plugins/icons/flags/flags.css">
-    <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="../../assets/css/style.css">
-
-    <style>
-        table {
-            width: 100%;
-        }
-
-        th,
-        td {
-            text-align: center;
-            padding: 0;
-            position: relative;
-        }
-
-        th.time-column {
-            width: 15%;
-        }
-
-        td input[type="checkbox"] {
-            position: absolute;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-
-        td label {
-            display: block;
-            cursor: pointer;
-            padding: 15px;
-            border: 1px solid #ccc;
-            width: 100%;
-            height: 100%;
-            box-sizing: border-box;
-            position: relative;
-        }
-
-        td input[type="checkbox"]:checked+label {
-            background-color: rgb(100, 100, 237);
-            color: #fff;
-        }
-
-        input[type="checkbox"]:disabled+label {
-            background-color: rgb(194, 192, 192);
-        }
-    </style>
-</head>
-
+<%@include file="common/header.jspf" %>
+<link rel="stylesheet" href="../../assets/css/styleBook.css">
 <body>
 
 <div class="main-wrapper">
@@ -527,28 +467,48 @@
                             <h5 class="card-title">Request form</h5>
                         </div>
                         <div class="card-body">
-                            <form action="#" method="post">
+<%--                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">--%>
+
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h5 class="card-title">Purpose details</h5>
-                                        <div class="form-group">
-                                            <label>Goals:</label>
-                                            <input name="goals" type="text" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Description:</label>
-                                            <textarea rows="5" cols="5" class="form-control"
-                                                      placeholder="Details about your goals"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Training time:</label>
-                                            <select class="form-control">
-                                                <option disabled>Select Training Time</option>
-                                                <option value="1">1 months</option>
-                                                <option value="2">3 months</option>
-                                                <option value="3">6 months</option>
+                                        <form id="weekForm" action="/bookPT1" method="GET">
+                                            <select id="week" class="form-control" name="week"
+                                                    onchange="this.form.submit()">
+                                                <!-- Options will be generated dynamically by JavaScript -->
                                             </select>
-                                        </div>
+                                            <select id="year" class="form-control" name="year"
+                                                    onchange="updateWeeks()">
+                                                <!-- Thay đổi dải số năm tùy ý -->
+                                                <script>
+                                                    var currentYear = new Date().getFullYear();
+                                                    for (var i = currentYear; i >= currentYear - 10; i--) {
+                                                        document.write("<option value='" + i + "'>" + i + "</option>");
+                                                    }
+                                                </script>
+                                            </select>
+                                            <input type="hidden" id="accountId" name="accountId" value="${accountId}">
+                                        </form>
+                                        <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
+                                        <h5 class="card-title">Purpose details</h5>
+                                        <c:forEach var="field" items="${['Goals', 'Description', 'Training Time']}">
+                                            <div class="form-group">
+                                                <label>${field}:</label>
+                                                <c:choose>
+                                                    <c:when test="${field eq 'Training Time'}">
+                                                        <select class="form-control">
+                                                            <option disabled>Select Training Time</option>
+                                                            <option value="1">1 month</option>
+                                                            <option value="2">3 months</option>
+                                                            <option value="3">6 months</option>
+                                                        </select>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <input name="${field.toLowerCase()}" type="text"
+                                                               class="form-control">
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
+                                        </c:forEach>
                                     </div>
                                     <div class="col-md-6">
                                         <h5 class="card-title">Personal Trainer information</h5>
@@ -611,160 +571,58 @@
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th class="time-column"></th>
-                                            <th>Mon</th>
-                                            <th>Tue</th>
-                                            <th>Wed</th>
-                                            <th>Thu</th>
-                                            <th>Fri</th>
-                                            <th>Sat</th>
-                                            <th>Sun</th>
+                                            <th rowspan="2">
+
+                                            </th>
+                                            <th align="center">Mon</th>
+                                            <th align="center">Tue</th>
+                                            <th align="center">Wed</th>
+                                            <th align="center">Thu</th>
+                                            <th align="center">Fri</th>
+                                            <th align="center">Sat</th>
+                                            <th align="center">Sun</th>
+                                        </tr>
+                                        <tr id="dayRow">
+                                            <th align="center"></th>
+                                            <th align="center"></th>
+                                            <th align="center"></th>
+                                            <th align="center"></th>
+                                            <th align="center"></th>
+                                            <th align="center"></th>
+                                            <th align="center"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td class="time-column">05:00 - 07:00</td>
-                                            <td><input type="checkbox" id="mon-0507" disabled><label
-                                                    for="mon-0507"></label></td>
-                                            <td><input type="checkbox" id="tue-0507"><label
-                                                    for="tue-0507"></label></td>
-                                            <td><input type="checkbox" id="wed-0507"><label
-                                                    for="wed-0507"></label></td>
-                                            <td><input type="checkbox" id="thu-0507"><label
-                                                    for="thu-0507"></label></td>
-                                            <td><input type="checkbox" id="fri-0507"><label
-                                                    for="fri-0507"></label></td>
-                                            <td><input type="checkbox" id="sat-0507" disabled><label
-                                                    for="sat-0507"></label></td>
-                                            <td><input type="checkbox" id="sun-0507" disabled><label
-                                                    for="sun-0507"></label></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="time-column">07:00 - 09:00</td>
-                                            <td><input type="checkbox" id="mon-0709"><label
-                                                    for="mon-0709"></label></td>
-                                            <td><input type="checkbox" id="tue-0709"><label
-                                                    for="tue-0709"></label></td>
-                                            <td><input type="checkbox" id="wed-0709" disabled><label
-                                                    for="wed-0709"></label></td>
-                                            <td><input type="checkbox" id="thu-0709" disabled><label
-                                                    for="thu-0709"></label></td>
-                                            <td><input type="checkbox" id="fri-0709"><label
-                                                    for="fri-0709"></label></td>
-                                            <td><input type="checkbox" id="sat-0709"><label
-                                                    for="sat-0709"></label></td>
-                                            <td><input type="checkbox" id="sun-0709"><label
-                                                    for="sun-0709"></label></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="time-column">09:00 - 11:00</td>
-                                            <td><input type="checkbox" id="mon-0911" disabled><label
-                                                    for="mon-0911"></label></td>
-                                            <td><input type="checkbox" id="tue-0911" disabled><label
-                                                    for="tue-0911"></label></td>
-                                            <td><input type="checkbox" id="wed-0911"><label
-                                                    for="wed-0911"></label></td>
-                                            <td><input type="checkbox" id="thu-0911"><label
-                                                    for="thu-0911"></label></td>
-                                            <td><input type="checkbox" id="fri-0911"><label
-                                                    for="fri-0911"></label></td>
-                                            <td><input type="checkbox" id="sat-0911"><label
-                                                    for="sat-0911"></label></td>
-                                            <td><input type="checkbox" id="sun-0911"><label
-                                                    for="sun-0911"></label></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="time-column">13:00 - 15:00</td>
-                                            <td><input type="checkbox" id="mon-1315" disabled><label
-                                                    for="mon-1315"></label></td>
-                                            <td><input type="checkbox" id="tue-1315"><label
-                                                    for="tue-1315"></label></td>
-                                            <td><input type="checkbox" id="wed-1315"><label
-                                                    for="wed-1315"></label></td>
-                                            <td><input type="checkbox" id="thu-1315"><label
-                                                    for="thu-1315"></label></td>
-                                            <td><input type="checkbox" id="fri-1315"><label
-                                                    for="fri-1315"></label></td>
-                                            <td><input type="checkbox" id="sat-1315" disabled><label
-                                                    for="sat-1315"></label></td>
-                                            <td><input type="checkbox" id="sun-1315" disabled><label
-                                                    for="sun-1315"></label></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="time-column">15:00 - 17:00</td>
-                                            <td><input type="checkbox" id="mon-1517"><label
-                                                    for="mon-1517"></label></td>
-                                            <td><input type="checkbox" id="tue-1517"><label
-                                                    for="tue-1517"></label></td>
-                                            <td><input type="checkbox" id="wed-1517"><label
-                                                    for="wed-1517"></label></td>
-                                            <td><input type="checkbox" id="thu-1517"><label
-                                                    for="thu-1517"></label></td>
-                                            <td><input type="checkbox" id="fri-1517"><label
-                                                    for="fri-1517"></label></td>
-                                            <td><input type="checkbox" id="sat-1517"><label
-                                                    for="sat-1517"></label></td>
-                                            <td><input type="checkbox" id="sun-1517"><label
-                                                    for="sun-1517"></label></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="time-column">17:00 - 19:00</td>
-                                            <td><input type="checkbox" id="mon-1719"><label
-                                                    for="mon-1719"></label></td>
-                                            <td><input type="checkbox" id="tue-1719"><label
-                                                    for="tue-1719"></label></td>
-                                            <td><input type="checkbox" id="wed-1719"><label
-                                                    for="wed-1719"></label></td>
-                                            <td><input type="checkbox" id="thu-1719"><label
-                                                    for="thu-1719"></label></td>
-                                            <td><input type="checkbox" id="fri-1719"><label
-                                                    for="fri-1719"></label></td>
-                                            <td><input type="checkbox" id="sat-1719"><label
-                                                    for="sat-1719"></label></td>
-                                            <td><input type="checkbox" id="sun-1719"><label
-                                                    for="sun-1719"></label></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="time-column">19:00 - 21:00</td>
-                                            <td><input type="checkbox" id="mon-1921"><label
-                                                    for="mon-1921"></label></td>
-                                            <td><input type="checkbox" id="tue-1921"><label
-                                                    for="tue-1921"></label></td>
-                                            <td><input type="checkbox" id="wed-1921"><label
-                                                    for="wed-1921"></label></td>
-                                            <td><input type="checkbox" id="thu-1921"><label
-                                                    for="thu-1921"></label></td>
-                                            <td><input type="checkbox" id="fri-1921"><label
-                                                    for="fri-1921"></label></td>
-                                            <td><input type="checkbox" id="sat-1921"><label
-                                                    for="sat-1921"></label></td>
-                                            <td><input type="checkbox" id="sun-1921"><label
-                                                    for="sun-1921"></label></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="time-column">21:00 - 23:00</td>
-                                            <td><input type="checkbox" id="mon-2123" disabled><label
-                                                    for="mon-2123"></label></td>
-                                            <td><input type="checkbox" id="tue-2123" disabled><label
-                                                    for="tue-2123"></label></td>
-                                            <td><input type="checkbox" id="wed-2123"><label
-                                                    for="wed-2123"></label></td>
-                                            <td><input type="checkbox" id="thu-2123"><label
-                                                    for="thu-2123"></label></td>
-                                            <td><input type="checkbox" id="fri-2123" disabled><label
-                                                    for="fri-2123"></label></td>
-                                            <td><input type="checkbox" id="sat-2123"><label
-                                                    for="sat-2123"></label></td>
-                                            <td><input type="checkbox" id="sun-2123"><label
-                                                    for="sun-2123"></label></td>
-                                        </tr>
+                                        <c:forEach begin="5" end="21" var="hour" step="2">
+                                            <tr>
+                                                <td class="time-column">${hour}:00 - ${hour + 2}:00</td>
+                                                <c:forEach var="day"
+                                                           items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
+                                                    <c:set var="disabled" value="false"/>
+                                                    <c:forEach items="${allSlots}" var="scheduleSlot">
+                                                        <c:if test="${scheduleSlot.startHour == hour && scheduleSlot.endHour == hour + 2 && scheduleSlot.day eq day.toLowerCase()
+                                                        }">
+                                                            <c:set var="disabled" value="true"/>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <td>
+                                                        <input type="checkbox" name="checkedSlots"
+                                                               value="${day.toLowerCase()}-${hour}-${hour + 2}"
+                                                               <c:if test="${disabled}">disabled="disabled"</c:if>
+                                                               id="${day.toLowerCase()}-${hour}${hour + 2}">
+                                                        <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
+                                                    </td>
+                                                </c:forEach>
+                                            </tr>
+                                        </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div>
-                                    <button type="submit" class="btn btn-primary" onclick="collectCheckedCheckboxes()">Send</button>
+                                    <button type="submit" class="btn btn-primary" onclick="saveCheckedSlots()">Send
+                                    </button>
                                 </div>
-                            </form>
+                            </form:form>
                         </div>
                     </div>
                 </div>
@@ -778,42 +636,53 @@
     </div>
 
 </div>
-
 <script>
-    function collectCheckedCheckboxes() {
-        var checkedCheckboxes = []; // Array to store IDs of checked checkboxes
+    function saveCheckedSlots() {
+        var checkboxes = document.getElementsByName("checkedSlots");
+        var checkedValues = [];
 
-        // Loop through all checkboxes
-        $('input[type="checkbox"]:checked').each(function() {
-            checkedCheckboxes.push($(this).attr('id')); // Add ID of checked checkbox to array
-        });
-
-        // Send the array of checked checkbox IDs to the server
-        $.ajax({
-            type: "POST",
-            url: "/book-pt",
-            contentType: "application/json", // Set content type to JSON
-            data: JSON.stringify(checkedCheckboxes), // Convert array to JSON string
-            success: function(response) {
-                // Handle success response from server if needed
-                console.log("Checked checkboxes sent successfully.");
-            },
-            error: function(xhr, status, error) {
-                // Handle error response from server if needed
-                console.error("Error sending checked checkboxes:", error);
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                checkedValues.push(checkboxes[i].value);
             }
-        });
+        }
+
+        var jsonBody = JSON.stringify(checkedValues);
+
+        fetch('/api/save-checked', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: jsonBody,
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Xử lý phản hồi từ server (nếu cần)
+            })
+            .catch(error => console.error('Error:', error));
     }
 
 </script>
+<script src="assets/js/jquery-3.6.0.min.js"></script>
 
-<script src="../../assets/js/jquery-3.6.0.min.js"></script>
-<script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../assets/js/feather.min.js"></script>
-<script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="../../assets/plugins/apexchart/apexcharts.min.js"></script>
-<script src="../../assets/plugins/apexchart/chart-data.js"></script>
-<script src="../../assets/js/script.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script src="assets/js/feather.min.js"></script>
+
+<script src="assets/js/jquery.slimscroll.min.js"></script>
+
+<script src="assets/js/moment.min.js"></script>
+<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/scriptBook.js"></script>
 </body>
 
 </html>

@@ -1,676 +1,778 @@
-<%@ include file="common/header.jspf" %>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
-    <link rel="stylesheet" href="css/StyleProfile.css">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Activitar | Template</title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <!-- jQuery and Bootstrap JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700,800,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
-
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
+<%@include file="common/header.jspf" %>
 
 <body>
+<div class="main-wrapper">
 
-    <div id="preloder">
-        <div class="loader"></div>
+    <div class="header">
+
+        <div class="header-left">
+            <a href="index.html" class="logo">
+                <img src="assets/img/logo.png" alt="Logo">
+            </a>
+            <a href="index.html" class="logo logo-small">
+                <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
+            </a>
+        </div>
+
+        <div class="menu-toggle">
+            <a href="javascript:void(0);" id="toggle_btn">
+                <i class="fas fa-bars"></i>
+            </a>
+        </div>
+
+        <div class="top-nav-search">
+            <form>
+                <input type="text" class="form-control" placeholder="Search here">
+                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+
+
+        <a class="mobile_btn" id="mobile_btn">
+            <i class="fas fa-bars"></i>
+        </a>
+
+
+        <ul class="nav user-menu">
+            <li class="nav-item dropdown language-drop me-2">
+                <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
+                    <img src="assets/img/icons/header-icon-01.svg" alt="">
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;"><i class="flag flag-lr me-2"></i>English</a>
+                    <a class="dropdown-item" href="javascript:;"><i class="flag flag-bl me-2"></i>Francais</a>
+                    <a class="dropdown-item" href="javascript:;"><i class="flag flag-cn me-2"></i>Turkce</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown noti-dropdown me-2">
+                <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
+                    <img src="assets/img/icons/header-icon-05.svg" alt="">
+                </a>
+                <div class="dropdown-menu notifications">
+                    <div class="topnav-dropdown-header">
+                        <span class="notification-title">Notifications</span>
+                        <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                    </div>
+                    <div class="noti-content">
+                        <ul class="notification-list">
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media d-flex">
+                                            <span class="avatar avatar-sm flex-shrink-0">
+                                                <img class="avatar-img rounded-circle" alt="User Image"
+                                                     src="assets/img/profiles/avatar-02.jpg">
+                                            </span>
+                                        <div class="media-body flex-grow-1">
+                                            <p class="noti-details"><span class="noti-title">Carlson Tech</span> has
+                                                approved <span class="noti-title">your estimate</span></p>
+                                            <p class="noti-time"><span class="notification-time">4 mins ago</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media d-flex">
+                                            <span class="avatar avatar-sm flex-shrink-0">
+                                                <img class="avatar-img rounded-circle" alt="User Image"
+                                                     src="assets/img/profiles/avatar-11.jpg">
+                                            </span>
+                                        <div class="media-body flex-grow-1">
+                                            <p class="noti-details"><span class="noti-title">International Software
+                                                        Inc</span> has sent you a invoice in the amount of <span
+                                                    class="noti-title">$218</span></p>
+                                            <p class="noti-time"><span class="notification-time">6 mins ago</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media d-flex">
+                                            <span class="avatar avatar-sm flex-shrink-0">
+                                                <img class="avatar-img rounded-circle" alt="User Image"
+                                                     src="assets/img/profiles/avatar-17.jpg">
+                                            </span>
+                                        <div class="media-body flex-grow-1">
+                                            <p class="noti-details"><span class="noti-title">John Hendry</span> sent
+                                                a cancellation request <span class="noti-title">Apple iPhone
+                                                        XR</span></p>
+                                            <p class="noti-time"><span class="notification-time">8 mins ago</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media d-flex">
+                                            <span class="avatar avatar-sm flex-shrink-0">
+                                                <img class="avatar-img rounded-circle" alt="User Image"
+                                                     src="assets/img/profiles/avatar-13.jpg">
+                                            </span>
+                                        <div class="media-body flex-grow-1">
+                                            <p class="noti-details"><span class="noti-title">Mercury Software
+                                                        Inc</span> added a new product <span class="noti-title">Apple
+                                                        MacBook Pro</span></p>
+                                            <p class="noti-time"><span class="notification-time">12 mins ago</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="topnav-dropdown-footer">
+                        <a href="#">View all Notifications</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item zoom-screen me-2">
+                <a href="#" class="nav-link header-nav-list">
+                    <img src="assets/img/icons/header-icon-04.svg" alt="">
+                </a>
+            </li>
+
+            <li class="nav-item dropdown has-arrow new-user-menus">
+                <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                        <span class="user-img">
+                            <img class="rounded-circle" src="assets/img/profiles/avatar-01.jpg" width="31"
+                                 alt="Soeng Souy">
+                            <div class="user-text">
+                                <h6>Soeng Souy</h6>
+                                <p class="text-muted mb-0">Administrator</p>
+                            </div>
+                        </span>
+                </a>
+                <div class="dropdown-menu">
+                    <div class="user-header">
+                        <div class="avatar avatar-sm">
+                            <img src="assets/img/profiles/avatar-01.jpg" alt="User Image"
+                                 class="avatar-img rounded-circle">
+                        </div>
+                        <div class="user-text">
+                            <h6>Soeng Souy</h6>
+                            <p class="text-muted mb-0">Administrator</p>
+                        </div>
+                    </div>
+                    <a class="dropdown-item" href="profile.html">My Profile</a>
+                    <a class="dropdown-item" href="inbox.html">Inbox</a>
+                    <a class="dropdown-item" href="login.html">Logout</a>
+                </div>
+            </li>
+
+        </ul>
+
     </div>
 
-    <!-- Header Section Begin -->
-    <%-- <header class="header-section header-normal">--%>
-        <%-- <div class="container-fluid">--%>
-            <%-- <div class="logo">--%>
-                <%-- <a href="./index.html">--%>
-                    <%-- <img src="img/logo.png" alt="">--%>
-                        <%-- </a>--%>
-                            <%-- </div>--%>
-                                <%-- <div class="top-social">--%>
-                                    <%-- <a href="#"><i class="fa fa-pinterest-p"></i></a>--%>
-                                        <%-- <a href="#"><i class="fa fa-linkedin"></i></a>--%>
-                                            <%-- <a href="#"><i class="fa fa-pinterest-p"></i></a>--%>
-                                                <%-- <a href="#"><i class="fa fa-youtube-play"></i></a>--%>
-                                                    <%-- <a href="#"><i class="fa fa-instagram"></i></a>--%>
-                                                        <%-- </div>--%>
-                                                            <%-- <div class="container">--%>
-                                                                <%-- <div class="nav-menu">--%>
-                                                                    <%-- <nav class="mainmenu mobile-menu">--%>
-                                                                        <%-- <ul>--%>
-                                                                            <%-- <li><a href="./index.html">Home</a>
-                                                                                </li>--%>
-                                                                                <%-- <li><a href="./about-us.html">About
-                                                                                        us</a></li>--%>
-                                                                                    <%-- <li><a
-                                                                                            href="./schedule.html">Schedule</a>
-                                                                                        </li>--%>
-                                                                                        <%-- <li class="active"><a
-                                                                                                href="./gallery.html">Gallery</a>
-                                                                                            </li>--%>
-                                                                                            <%-- <li><a
-                                                                                                    href="./blog.html">Blog</a>--%>
-                                                                                                <%-- <ul
-                                                                                                    class="dropdown">--%>
-                                                                                                    <%-- <li><a
-                                                                                                            href="./about-us.html">About
-                                                                                                            Us</a></li>
-                                                                                                        --%>
-                                                                                                        <%-- <li><a
-                                                                                                                href="./blog-single.html">Blog
-                                                                                                                Details</a>
-                                                                                                            </li>--%>
-                                                                                                            <%-- </ul>--%>
-                                                                                                                <%--
-                                                                                                                    </li>--%>
-                                                                                                                    <%--
-                                                                                                                        <li><a
-                                                                                                                            href="./contact.html">Contacts</a>
-                                                                                                                        </li>
-                                                                                                                        --%>
-                                                                                                                        <%--
-                                                                                                                            </ul>--%>
-                                                                                                                            <%--
-                                                                                                                                </nav>--%>
-                                                                                                                                <%--
-                                                                                                                                    </div>--%>
-                                                                                                                                    <%--
-                                                                                                                                        </div>--%>
-                                                                                                                                        <%-- <div
-                                                                                                                                            id="mobile-menu-wrap">
-                                                                                                                                            </div>
-                                                                                                                                            --%>
-                                                                                                                                            <%--
-                                                                                                                                                </div>--%>
-                                                                                                                                                <%--
-                                                                                                                                                    </header>--%>
-                                                                                                                                                     <a class="nav-link" href="/logout">Logout</a>
-                                                                                                                                                    <div
-                                                                                                                                                        class="container">
-                                                                                                                                                        <div
-                                                                                                                                                            class="row profile">
-                                                                                                                                                            <div
-                                                                                                                                                                class="col-md-3">
-                                                                                                                                                                <div
-                                                                                                                                                                    class="profile-sidebar">
-                                                                                                                                                                    <!-- SIDEBAR USERPIC -->
-                                                                                                                                                                    <div
-                                                                                                                                                                        class="profile-userpic">
-                                                                                                                                                                        <img src="https://scontent.fsgn2-7.fna.fbcdn.net/v/t1.6435-9/68727992_705625573241145_675769175100096512_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=73878a&_nc_eui2=AeHSzM-XQT51j-tx_uC8e-qdLHQuxTv5EQUsdC7FO_kRBQe8Gw6hEws8eus-a-ACspTdF_W2vJM3A9h878a3cUu8&_nc_ohc=ON7_qEUZMxAAX-qwzvB&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfC-NT6aRrWSPYcXhJhBxlIniTFGZAbOx6v_NymBXo4O0g&oe=65D0685C"
-                                                                                                                                                                            class="img-responsive"
-                                                                                                                                                                            alt="">
-                                                                                                                                                                    </div>
-                                                                                                                                                                    <!-- END SIDEBAR USERPIC -->
-                                                                                                                                                                    <!-- SIDEBAR USER TITLE -->
-                                                                                                                                                                    <div
-                                                                                                                                                                        class="profile-usertitle">
-                                                                                                                                                                        <div
-                                                                                                                                                                            class="profile-usertitle-name">
-                                                                                                                                                                            Truong
-                                                                                                                                                                            Cong
-                                                                                                                                                                            Trinh
-                                                                                                                                                                        </div>
 
-                                                                                                                                                                    </div>
-                                                                                                                                                                    <!-- END SIDEBAR USER TITLE -->
-                                                                                                                                                                    <!-- SIDEBAR BUTTONS -->
-                                                                                                                                                                    <div
-                                                                                                                                                                        class="profile-userbuttons">
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li class="menu-title">
+                        <span>Main Menu</span>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i class="feather-grid"></i> <span> Dashboard</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="index.html">Admin Dashboard</a></li>
+                            <li><a href="teacher-dashboard.html">Teacher Dashboard</a></li>
+                            <li><a href="student-dashboard.html">Student Dashboard</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-graduation-cap"></i> <span> Students</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="students.html">Student List</a></li>
+                            <li><a href="student-details.html">Student View</a></li>
+                            <li><a href="add-student.html">Student Add</a></li>
+                            <li><a href="edit-student.html">Student Edit</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="teachers.html">Teacher List</a></li>
+                            <li><a href="teacher-details.html">Teacher View</a></li>
+                            <li><a href="add-teacher.html">Teacher Add</a></li>
+                            <li><a href="edit-teacher.html">Teacher Edit</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-building"></i> <span> Departments</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="departments.html">Department List</a></li>
+                            <li><a href="add-department.html">Department Add</a></li>
+                            <li><a href="edit-department.html">Department Edit</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="subjects.html">Subject List</a></li>
+                            <li><a href="add-subject.html">Subject Add</a></li>
+                            <li><a href="edit-subject.html">Subject Edit</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-clipboard"></i> <span> Invoices</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="invoices.html">Invoices List</a></li>
+                            <li><a href="invoice-grid.html">Invoices Grid</a></li>
+                            <li><a href="add-invoice.html">Add Invoices</a></li>
+                            <li><a href="edit-invoice.html">Edit Invoices</a></li>
+                            <li><a href="view-invoice.html">Invoices Details</a></li>
+                            <li><a href="invoices-settings.html">Invoices Settings</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-title">
+                        <span>Management</span>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-file-invoice-dollar"></i> <span> Accounts</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="fees-collections.html">Fees Collection</a></li>
+                            <li><a href="expenses.html">Expenses</a></li>
+                            <li><a href="salary.html">Salary</a></li>
+                            <li><a href="add-fees-collection.html">Add Fees</a></li>
+                            <li><a href="add-expenses.html">Add Expenses</a></li>
+                            <li><a href="add-salary.html">Add Salary</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fas fa-holly-berry"></i> <span>Holiday</span></a>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fas fa-comment-dollar"></i> <span>Fees</span></a>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fas fa-clipboard-list"></i> <span>Exam list</span></a>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fas fa-calendar-day"></i> <span>Events</span></a>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fas fa-table"></i> <span>Time Table</span></a>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fas fa-book"></i> <span>Library</span></a>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i class="fa fa-newspaper"></i> <span> Blogs</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li><a href="blog.html">All Blogs</a></li>
+                            <li><a href="add-blog.html">Add Blog</a></li>
+                            <li><a href="edit-blog.html">Edit Blog</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a>
+                    </li>
+                    <li class="menu-title">
+                        <span>Pages</span>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-shield-alt"></i> <span> Authentication </span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="login.html">Login</a></li>
+                            <li><a href="register.html">Register</a></li>
+                            <li><a href="forgot-password.html">Forgot Password</a></li>
+                            <li><a href="error-404.html">Error Page</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="blank-page.html"><i class="fas fa-file"></i> <span>Blank Page</span></a>
+                    </li>
+                    <li class="menu-title">
+                        <span>Others</span>
+                    </li>
+                    <li>
+                        <a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>Sports</span></a>
+                    </li>
+                    <li>
+                        <a href="hostel.html"><i class="fas fa-hotel"></i> <span>Hostel</span></a>
+                    </li>
+                    <li>
+                        <a href="transport.html"><i class="fas fa-bus"></i> <span>Transport</span></a>
+                    </li>
+                    <li class="menu-title">
+                        <span>UI Interface</span>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i class="fab fa-get-pocket"></i> <span>Base UI </span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="alerts.html">Alerts</a></li>
+                            <li><a href="accordions.html">Accordions</a></li>
+                            <li><a href="avatar.html">Avatar</a></li>
+                            <li><a href="badges.html">Badges</a></li>
+                            <li><a href="buttons.html">Buttons</a></li>
+                            <li><a href="buttongroup.html">Button Group</a></li>
+                            <li><a href="breadcrumbs.html">Breadcrumb</a></li>
+                            <li><a href="cards.html">Cards</a></li>
+                            <li><a href="carousel.html">Carousel</a></li>
+                            <li><a href="dropdowns.html">Dropdowns</a></li>
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="images.html">Images</a></li>
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="media.html">Media</a></li>
+                            <li><a href="modal.html">Modals</a></li>
+                            <li><a href="offcanvas.html">Offcanvas</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="popover.html">Popover</a></li>
+                            <li><a href="progress.html">Progress Bars</a></li>
+                            <li><a href="placeholders.html">Placeholders</a></li>
+                            <li><a href="rangeslider.html">Range Slider</a></li>
+                            <li><a href="spinners.html">Spinner</a></li>
+                            <li><a href="sweetalerts.html">Sweet Alerts</a></li>
+                            <li><a href="tab.html">Tabs</a></li>
+                            <li><a href="toastr.html">Toasts</a></li>
+                            <li><a href="tooltip.html">Tooltip</a></li>
+                            <li><a href="typography.html">Typography</a></li>
+                            <li><a href="video.html">Video</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i data-feather="box"></i> <span>Elements </span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="ribbon.html">Ribbon</a></li>
+                            <li><a href="clipboard.html">Clipboard</a></li>
+                            <li><a href="drag-drop.html">Drag & Drop</a></li>
+                            <li><a href="rating.html">Rating</a></li>
+                            <li><a href="text-editor.html">Text Editor</a></li>
+                            <li><a href="counter.html">Counter</a></li>
+                            <li><a href="scrollbar.html">Scrollbar</a></li>
+                            <li><a href="notification.html">Notification</a></li>
+                            <li><a href="stickynote.html">Sticky Note</a></li>
+                            <li><a href="timeline.html">Timeline</a></li>
+                            <li><a href="horizontal-timeline.html">Horizontal Timeline</a></li>
+                            <li><a href="form-wizard.html">Form Wizard</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i data-feather="bar-chart-2"></i> <span> Charts </span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="chart-apex.html">Apex Charts</a></li>
+                            <li><a href="chart-js.html">Chart Js</a></li>
+                            <li><a href="chart-morris.html">Morris Charts</a></li>
+                            <li><a href="chart-flot.html">Flot Charts</a></li>
+                            <li><a href="chart-peity.html">Peity Charts</a></li>
+                            <li><a href="chart-c3.html">C3 Charts</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i data-feather="award"></i> <span> Icons </span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="icon-fontawesome.html">Fontawesome Icons</a></li>
+                            <li><a href="icon-feather.html">Feather Icons</a></li>
+                            <li><a href="icon-ionic.html">Ionic Icons</a></li>
+                            <li><a href="icon-material.html">Material Icons</a></li>
+                            <li><a href="icon-pe7.html">Pe7 Icons</a></li>
+                            <li><a href="icon-simpleline.html">Simpleline Icons</a></li>
+                            <li><a href="icon-themify.html">Themify Icons</a></li>
+                            <li><a href="icon-weather.html">Weather Icons</a></li>
+                            <li><a href="icon-typicon.html">Typicon Icons</a></li>
+                            <li><a href="icon-flag.html">Flag Icons</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu active">
+                        <a href="#"><i class="fas fa-columns"></i> <span> Forms </span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="form-basic-inputs.html">Basic Inputs </a></li>
+                            <li><a href="form-input-groups.html">Input Groups </a></li>
+                            <li><a href="form-horizontal.html">Horizontal Form </a></li>
+                            <li><a href="form-vertical.html" class="active"> Vertical Form </a></li>
+                            <li><a href="form-mask.html"> Form Mask </a></li>
+                            <li><a href="form-validation.html"> Form Validation </a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-table"></i> <span> Tables </span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="tables-basic.html">Basic Tables </a></li>
+                            <li><a href="data-tables.html">Data Table </a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="javascript:void(0);"><i class="fas fa-code"></i> <span>Multi Level</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li class="submenu">
+                                <a href="javascript:void(0);"> <span>Level 1</span> <span
+                                        class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="javascript:void(0);"><span>Level 2</span></a></li>
+                                    <li class="submenu">
+                                        <a href="javascript:void(0);"> <span> Level 2</span> <span
+                                                class="menu-arrow"></span></a>
+                                        <ul>
+                                            <li><a href="javascript:void(0);">Level 3</a></li>
+                                            <li><a href="javascript:void(0);">Level 3</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="javascript:void(0);"> <span>Level 2</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"> <span>Level 1</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-                                                                                                                                                                        <a class="btn btn-success btn-sm"
-                                                                                                                                                                            href="personal-trainer/profile/update-profile?id=${personTrainer.id}">
-                                                                                                                                                                            Update profile
-                                                                                                                                                                        </a>
+    <div class="page-wrapper calendar_page">
+        <div class="content container-fluid">
+            <div class="row">
+                <div class="col-xl-12 col-sm-12 col-12 mb-4">
+                    <div class="breadcrumb-path">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"
+                                ><img
+                                        src="assets/img/dash.png"
+                                        class="mr-2"
+                                        alt="breadcrumb"
+                                />Home</a
+                                >
+                            </li>
+                            <li class="breadcrumb-item active">Calendar</li>
+                        </ul>
+                        <h3>Calendar</h3>
+                    </div>
+                </div>
+            </div>
 
-                                                                                                                                                                        <a class="btn btn-danger btn-sm"
-                                                                                                                                                                           href="/profile/change-password?id=${personTrainer.id}">Change password
-                                                                                                                                                                        </a>
-                                                                                                                                                                        <div>${succes}</div>
-                                                                                                                                                                    </div>
-                                                                                                                                                                    <!-- END SIDEBAR BUTTONS -->
-                                                                                                                                                                    <!-- SIDEBAR MENU -->
-                                                                                                                                                                    <div
-                                                                                                                                                                        class="profile-usermenu">
+            <div class="row">
+                <div class="col-lg-3 col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="calendar_head">Calendar</h2>
+                        </div>
+                        <div class="calendar_events">
+                            <div id="calendar-events" class="mb-3">
+                                <div class="ui-color-key">
+                                    <div class="calendar-events" data-class="bg-info">
+                                        <li style="--ui-color-key:var(--ColorSuccess)">Selected</li>
+                                    </div>
+                                    <div class="calendar-events" data-class="bg-success">
+                                        <li style="--ui-color-key:var(--ColorError)">Sold</li>
+                                    </div>
+                                    <div class="calendar-events" data-class="bg-danger">
+                                        <li style="--ui-color-key:var(--GrayCanvas)">Available</li>
+                                    </div>
+                                </div>
 
-                                                                                                                                                                    </div>
-                                                                                                                                                                    <!-- END MENU -->
-                                                                                                                                                                </div>
-                                                                                                                                                            </div>
-                                                                                                                                                            <div
-                                                                                                                                                                class="col-md-9">
-                                                                                                                                                                <div
-                                                                                                                                                                    class="profile-content">
-                                                                                                                                                                    <div
-                                                                                                                                                                        class="col-sm-9">
-                                                                                                                                                                        <ul
-                                                                                                                                                                            class="nav nav-tabs">
-                                                                                                                                                                            <li
-                                                                                                                                                                                class="active">
-                                                                                                                                                                                <a data-toggle="tab"
-                                                                                                                                                                                    href="#home">Home</a>
-                                                                                                                                                                            </li>
-                                                                                                                                                                            <li><a data-toggle="tab"
-                                                                                                                                                                                    href="#messages">Certificate</a>
-                                                                                                                                                                            </li>
+                            </div>
+                            <div class="checkbox mb-3">
+                                <input id="drop-remove" type="checkbox"/>
+                                <label for="drop-remove"> Remove after drop </label>
+                            </div>
+                            <a
+                                    href="#"
+                                    data-toggle="modal"
+                                    data-target="#add_new_event"
+                                    class="btn mb-3 btn-primary btn-block"
+                            >
+                                <i class="fas fa-plus"></i> Create New
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-8">
+                    <div class="card bg-white">
+                        <div class="card-body">
+                            <div class="ageda">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th rowspan="2">
+                                            <form id="weekForm" action="/SelectWeek" method="GET">
+                                                <select id="year" class="form-control" name="y  ear"
+                                                        onchange="updateWeeks()">
+                                                    <!-- Thay đổi dải số năm tùy ý -->
+                                                    <script>
+                                                        var currentYear = new Date().getFullYear();
+                                                        for (var i = currentYear; i >= currentYear - 10; i--) {
+                                                            document.write("<option value='" + i + "'>" + i + "</option>");
+                                                        }
+                                                    </script>
+                                                </select>
+                                                <select id="week" class="form-control" name="week"
+                                                        onchange="this.form.submit()">
+                                                    <!-- Options will be generated dynamically by JavaScript -->
+                                                </select>
+                                            </form>
+                                        </th>
+                                        <th align="center">Mon</th>
+                                        <th align="center">Tue</th>
+                                        <th align="center">Wed</th>
+                                        <th align="center">Thu</th>
+                                        <th align="center">Fri</th>
+                                        <th align="center">Sat</th>
+                                        <th align="center">Sun</th>
+                                    </tr>
+                                    <tr id="dayRow">
+                                        <th align="center"></th>
+                                        <th align="center"></th>
+                                        <th align="center"></th>
+                                        <th align="center"></th>
+                                        <th align="center"></th>
+                                        <th align="center"></th>
+                                        <th align="center"></th>
+                                    </tr>
+                                    </thead>
+                                    <form:form action="${pageContext.request.contextPath}/saveSchedule" method="post">
 
-                                                                                                                                                                        </ul>
+                                        <tbody>
 
+                                        <c:forEach begin="1" end="8" var="slot">
+                                            <tr>
+                                                <td>Slot ${slot}</td>
+                                                <c:forEach begin="1" end="7" var="day">
+                                                    <c:set var="disabled" value="false"/>
+                                                    <c:forEach items="${scheduleSlots}" var="scheduleSlot">
+                                                        <c:if test="${scheduleSlot.slot == slot && scheduleSlot.day == day}">
+                                                            <c:set var="disabled" value="true"/>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <td>
+                                                        <fieldset class="ui-cinema">
+                                                            <label aria-label="${slot}-${day}">
+                                                                <input type="checkbox" value="${slot}-${day}"
+                                                                       <c:if test="${disabled}">disabled="disabled"</c:if>
+                                                                       onclick="saveCheckboxData(${slot}, ${day}, this.checked)">
+                                                            </label>
+                                                        </fieldset>
+                                                    </td>
+                                                </c:forEach>
+                                            </tr>
+                                        </c:forEach>
 
-                                                                                                                                                                        <div
-                                                                                                                                                                            class="tab-content">
-                                                                                                                                                                            <div class="tab-pane active"
-                                                                                                                                                                                id="home">
-                                                                                                                                                                                <hr>
-                                                                                                                                                                                <form
-                                                                                                                                                                                    class="form"
-                                                                                                                                                                                    action="##"
-                                                                                                                                                                                    method="post"
-                                                                                                                                                                                    id="registrationForm">
-                                                                                                                                                                                    <div
-                                                                                                                                                                                        class="form-group">
+                                        <input type="hidden" id="selectedSlotsAndDays" name="selectedSlotsAndDays" value="">
+                                        <button type="submit" class="btn btn-primary">Save Schedule</button>
+                                        </tbody>
 
-                                                                                                                                                                                        <div
-                                                                                                                                                                                            class="col-xs-6">
-                                                                                                                                                                                            <label
-                                                                                                                                                                                                for="Name">
-                                                                                                                                                                                                <h4>${personTrainer.name}
-                                                                                                                                                                                                </h4>
-                                                                                                                                                                                            </label>
+                                    </form:form >
+                                </table>
 
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                    </div>
-                                                                                                                                                                                    <div
-                                                                                                                                                                                        class="form-group">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                                                                                                                                                                                        <div
-                                                                                                                                                                                            class="col-xs-6">
-                                                                                                                                                                                            <label
-                                                                                                                                                                                                for="phone">
-                                                                                                                                                                                                <h4>${personTrainer.bankNumber}
-                                                                                                                                                                                                </h4>
-                                                                                                                                                                                            </label>
+            <div class="customize_popup">
+                <div
+                        class="modal fade"
+                        id="add_event"
+                        data-backdrop="static"
+                        data-keyboard="false"
+                        tabindex="-1"
+                        aria-labelledby="staticBackdropLabelevent"
+                        aria-hidden="true"
+                >
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabelevent">
+                                    Add New Event
+                                </h5>
+                                <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                >
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-md-12 p-0">
+                                    <div class="form-popup">
+                                        <label>Event Name</label>
+                                        <input type="text" placeholder="Insert Event Name"/>
+                                    </div>
+                                    <div class="form-popup">
+                                        <label>Category Color</label>
+                                        <select name="Danger">
+                                            <option value="Danger">Danger</option>
+                                            <option value="Success">Success</option>
+                                            <option value="Warning">Warning</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-apply">Apply</button>
+                                <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-dismiss="modal"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                    </div>
+            <div class="customize_popup">
+                <div
+                        class="modal fade"
+                        id="my_event"
+                        data-backdrop="static"
+                        data-keyboard="false"
+                        tabindex="-1"
+                        aria-labelledby="staticBackdropLabeladd"
+                        aria-hidden="true"
+                >
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabeladd">
+                                    Add New Event
+                                </h5>
+                                <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                >
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-md-12 p-0">
+                                    <div class="form-popup">
+                                        <label>Event Name</label>
+                                        <input type="text" placeholder="Insert Event Name"/>
+                                    </div>
+                                    <div class="form-popup">
+                                        <label>Category Color</label>
+                                        <select name="Danger">
+                                            <option value="Danger">Danger</option>
+                                            <option value="Success">Success</option>
+                                            <option value="Warning">Warning</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-apply">Apply</button>
+                                <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-dismiss="modal"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                                                                                                                                                                                    <div
-                                                                                                                                                                                        class="form-group">
+            <div class="customize_popup">
+                <div
+                        class="modal fade"
+                        id="add_new_event"
+                        data-backdrop="static"
+                        data-keyboard="false"
+                        tabindex="-1"
+                        aria-labelledby="staticBackdropLabel"
+                        aria-hidden="true"
+                >
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">
+                                    Add a category
+                                </h5>
+                                <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                >
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-md-12 p-0">
+                                    <div class="form-popup">
+                                        <label>Category Name</label>
+                                        <input type="text" placeholder="Enter Name"/>
+                                    </div>
+                                    <div class="form-popup">
+                                        <label>Choose Category Color</label>
+                                        <select name="Success">
+                                            <option value="Success">Success</option>
+                                            <option value="Cancel">Danger</option>
+                                            <option value="Cancel">Warning</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-apply">Apply</button>
+                                <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-dismiss="modal"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="assets/js/jquery-3.6.0.min.js"></script>
 
-                                                                                                                                                                                        <div
-                                                                                                                                                                                            class="col-xs-6">
-                                                                                                                                                                                            <label
-                                                                                                                                                                                                for="phone">
-                                                                                                                                                                                                <h4>${personTrainer.phone}
-                                                                                                                                                                                                </h4>
-                                                                                                                                                                                            </label>
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                    </div>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 
-                                                                                                                                                                                    <div
-                                                                                                                                                                                        class="form-group">
-                                                                                                                                                                                        <div
-                                                                                                                                                                                            class="col-xs-6">
-                                                                                                                                                                                            <label
-                                                                                                                                                                                                for="Weight">
-                                                                                                                                                                                                <h4>${personTrainer.weight}
-                                                                                                                                                                                                </h4>
-                                                                                                                                                                                            </label>
+<script src="assets/js/feather.min.js"></script>
 
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                    </div>
-                                                                                                                                                                                    <div
-                                                                                                                                                                                        class="form-group">
-                                                                                                                                                                                        <div
-                                                                                                                                                                                            class="col-xs-6">
-                                                                                                                                                                                            <label
-                                                                                                                                                                                                for="Height">
-                                                                                                                                                                                                <h4>${personTrainer.height}
-                                                                                                                                                                                                </h4>
-                                                                                                                                                                                            </label>
+<script src="assets/js/jquery.slimscroll.min.js"></script>
 
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                    </div>
-                                                                                                                                                                                    <div
-                                                                                                                                                                                        class="form-group">
+<script src="assets/js/moment.min.js"></script>
+<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
 
-                                                                                                                                                                                        <div
-                                                                                                                                                                                            class="col-xs-6">
-                                                                                                                                                                                            <label
-                                                                                                                                                                                                for="email">
-                                                                                                                                                                                                <h4>${personTrainer.email}
-                                                                                                                                                                                                </h4>
-                                                                                                                                                                                            </label>
+<script src="assets/js/jquery-ui.min.js"></script>
 
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                    </div>
-                                                                                                                                                                                    <div
-                                                                                                                                                                                        class="form-group">
-
-                                                                                                                                                                                        <div
-                                                                                                                                                                                            class="col-xs-6">
-                                                                                                                                                                                            <label
-                                                                                                                                                                                                for="dayOfBirth">
-                                                                                                                                                                                                <h4>${personTrainer.dayOfBirth}
-                                                                                                                                                                                                </h4>
-                                                                                                                                                                                            </label>
-
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                    </div>
-                                                                                                                                                                                    <div
-                                                                                                                                                                                        class="form-group">
-
-                                                                                                                                                                                        <div
-                                                                                                                                                                                            class="col-xs-6">
-                                                                                                                                                                                            <label
-                                                                                                                                                                                                for="location">
-                                                                                                                                                                                                <h4>${personTrainer.location}
-                                                                                                                                                                                                </h4>
-                                                                                                                                                                                            </label>
-
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                    </div>
-                                                                                                                                                                                    <div
-                                                                                                                                                                                        class="form-group">
-
-                                                                                                                                                                                        <div
-                                                                                                                                                                                            class="col-xs-6">
-                                                                                                                                                                                            <label
-                                                                                                                                                                                                for="sex">
-                                                                                                                                                                                                <h4>${personTrainer.sex}
-                                                                                                                                                                                                </h4>
-                                                                                                                                                                                            </label>
-
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                    </div>
-                                                                                                                                                                                    <div
-                                                                                                                                                                                        class="form-group">
-
-                                                                                                                                                                                        <div
-                                                                                                                                                                                            class="col-xs-6">
-                                                                                                                                                                                            <label
-                                                                                                                                                                                                for="price">
-                                                                                                                                                                                                <h4>${personTrainer.price}/h$
-                                                                                                                                                                                                </h4>
-                                                                                                                                                                                            </label>
-
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                    </div>
-                                                                                                                                                                                    <div
-                                                                                                                                                                                        class="form-group">
-                                                                                                                                                                                        <div
-                                                                                                                                                                                            class="col-xs-12">
-                                                                                                                                                                                            <label
-                                                                                                                                                                                                for="description">
-                                                                                                                                                                                                <h4>${personTrainer.description}
-                                                                                                                                                                                                </h4>
-                                                                                                                                                                                            </label>
-                                                                                                                                                                                            <!-- Đặt maxlength="-1" để không giới hạn ký tự -->
-
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                    </div>
-
-
-
-
-                                                                                                                                                                                </form>
-
-                                                                                                                                                                                <hr>
-
-                                                                                                                                                                            </div>
-                                                                                                                                                                            <!--/tab-pane-->
-                                                                                                                                                                            <div class="tab-pane"
-                                                                                                                                                                                id="messages">
-
-                                                                                                                                                                                <h2>
-                                                                                                                                                                                </h2>
-
-
-
-
-                                                                                                                                                                                <hr>
-                                                                                                                                                                                <form
-                                                                                                                                                                                    class="form"
-                                                                                                                                                                                    action="##"
-                                                                                                                                                                                    method="post"
-                                                                                                                                                                                    id="registrationForm">
-                                                                                                                                                                                    <table
-                                                                                                                                                                                        class="table">
-                                                                                                                                                                                        <thead>
-                                                                                                                                                                                            <tr>
-                                                                                                                                                                                                <th scope="col"
-                                                                                                                                                                                                    class="border-0 bg-light">
-                                                                                                                                                                                                    <div
-                                                                                                                                                                                                        class="p-2 px-3 text-uppercase">
-                                                                                                                                                                                                        Image
-                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                </th>
-                                                                                                                                                                                                <th scope="col"
-                                                                                                                                                                                                    class="border-0 bg-light">
-                                                                                                                                                                                                    <div
-                                                                                                                                                                                                        class="py-2 text-uppercase">
-                                                                                                                                                                                                        Decription
-                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                </th>
-
-
-                                                                                                                                                                                            </tr>
-                                                                                                                                                                                        </thead>
-                                                                                                                                                                                        <tbody>
-                                                                                                                                                                                            <c:forEach
-                                                                                                                                                                                                items="${list}"
-                                                                                                                                                                                                var="o">
-                                                                                                                                                                                                <tr>
-                                                                                                                                                                                                    <th
-                                                                                                                                                                                                        scope="row">
-                                                                                                                                                                                                        <div
-                                                                                                                                                                                                            class="p-2">
-                                                                                                                                                                                                            <img src="#"
-                                                                                                                                                                                                                alt=""
-                                                                                                                                                                                                                width="70"
-                                                                                                                                                                                                                class="img-fluid rounded shadow-sm">
-
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </th>
-                                                                                                                                                                                                    <td
-                                                                                                                                                                                                        class="align-middle">
-                                                                                                                                                                                                        <strong>
-                                                                                                                                                                                                        </strong>
-                                                                                                                                                                                                    </td>
-
-
-                                                                                                                                                                                                </tr>
-                                                                                                                                                                                            </c:forEach>
-                                                                                                                                                                                        </tbody>
-                                                                                                                                                                                    </table>
-
-                                                                                                                                                                                </form>
-
-                                                                                                                                                                            </div>
-                                                                                                                                                                            <!--/tab-pane-->
-
-
-                                                                                                                                                                        </div>
-                                                                                                                                                                        <!--/tab-pane-->
-                                                                                                                                                                    </div>
-                                                                                                                                                                    <!--/tab-content-->
-
-                                                                                                                                                                </div>
-                                                                                                                                                                <!--/col-9-->
-                                                                                                                                                            </div>
-                                                                                                                                                        </div>
-                                                                                                                                                    </div>
-                                                                                                                                                    </div>
-
-                                                                                                                                                    <br>
-                                                                                                                                                    <br>
-                                                                                                                                                    <footer
-                                                                                                                                                        class="footer-section">
-                                                                                                                                                        <div
-                                                                                                                                                            class="container">
-                                                                                                                                                            <div
-                                                                                                                                                                class="row">
-                                                                                                                                                                <div
-                                                                                                                                                                    class="col-lg-3">
-                                                                                                                                                                    <div
-                                                                                                                                                                        class="footer-logo-item">
-                                                                                                                                                                        <div
-                                                                                                                                                                            class="f-logo">
-                                                                                                                                                                            <a
-                                                                                                                                                                                href="#"><img
-                                                                                                                                                                                    src="../../theme1/img/logo.png"
-                                                                                                                                                                                    alt=""></a>
-                                                                                                                                                                        </div>
-                                                                                                                                                                        <p>Despite
-                                                                                                                                                                            growth
-                                                                                                                                                                            of
-                                                                                                                                                                            the
-                                                                                                                                                                            Internet
-                                                                                                                                                                            over
-                                                                                                                                                                            the
-                                                                                                                                                                            past
-                                                                                                                                                                            seven
-                                                                                                                                                                            years,
-                                                                                                                                                                            the
-                                                                                                                                                                            use
-                                                                                                                                                                            of
-                                                                                                                                                                            toll-free
-                                                                                                                                                                            phone
-                                                                                                                                                                            numbers
-                                                                                                                                                                            in
-                                                                                                                                                                            television
-                                                                                                                                                                            advertising
-                                                                                                                                                                            continues.
-                                                                                                                                                                        </p>
-                                                                                                                                                                        <div
-                                                                                                                                                                            class="social-links">
-                                                                                                                                                                            <h6>Follow
-                                                                                                                                                                                us
-                                                                                                                                                                            </h6>
-                                                                                                                                                                            <a
-                                                                                                                                                                                href="#"><i
-                                                                                                                                                                                    class="fa fa-facebook"></i></a>
-                                                                                                                                                                            <a
-                                                                                                                                                                                href="#"><i
-                                                                                                                                                                                    class="fa fa-twitter"></i></a>
-                                                                                                                                                                            <a
-                                                                                                                                                                                href="#"><i
-                                                                                                                                                                                    class="fa fa-google-plus"></i></a>
-                                                                                                                                                                            <a
-                                                                                                                                                                                href="#"><i
-                                                                                                                                                                                    class="fa fa-linkedin"></i></a>
-                                                                                                                                                                            <a
-                                                                                                                                                                                href="#"><i
-                                                                                                                                                                                    class="fa fa-instagram"></i></a>
-                                                                                                                                                                        </div>
-                                                                                                                                                                    </div>
-                                                                                                                                                                </div>
-                                                                                                                                                                <div
-                                                                                                                                                                    class="col-lg-3 offset-lg-1">
-                                                                                                                                                                    <div
-                                                                                                                                                                        class="footer-widget">
-                                                                                                                                                                        <h5>Our
-                                                                                                                                                                            Blog
-                                                                                                                                                                        </h5>
-                                                                                                                                                                        <div
-                                                                                                                                                                            class="footer-blog">
-                                                                                                                                                                            <a href="#"
-                                                                                                                                                                                class="fb-item">
-                                                                                                                                                                                <h6>Most
-                                                                                                                                                                                    people
-                                                                                                                                                                                    who
-                                                                                                                                                                                    work
-                                                                                                                                                                                </h6>
-                                                                                                                                                                                <span
-                                                                                                                                                                                    class="blog-time"><i
-                                                                                                                                                                                        class="fa fa-clock-o"></i>
-                                                                                                                                                                                    Jan
-                                                                                                                                                                                    02,
-                                                                                                                                                                                    2019</span>
-                                                                                                                                                                            </a>
-                                                                                                                                                                            <a href="#"
-                                                                                                                                                                                class="fb-item">
-                                                                                                                                                                                <h6>Freelance
-                                                                                                                                                                                    Design
-                                                                                                                                                                                    Tricks
-                                                                                                                                                                                    How
-                                                                                                                                                                                </h6>
-                                                                                                                                                                                <span
-                                                                                                                                                                                    class="blog-time"><i
-                                                                                                                                                                                        class="fa fa-clock-o"></i>
-                                                                                                                                                                                    Jan
-                                                                                                                                                                                    02,
-                                                                                                                                                                                    2019</span>
-                                                                                                                                                                            </a>
-                                                                                                                                                                            <a href="#"
-                                                                                                                                                                                class="fb-item">
-                                                                                                                                                                                <h6>have
-                                                                                                                                                                                    a
-                                                                                                                                                                                    computer
-                                                                                                                                                                                    at
-                                                                                                                                                                                    home
-                                                                                                                                                                                    have
-                                                                                                                                                                                    had
-                                                                                                                                                                                </h6>
-                                                                                                                                                                                <span
-                                                                                                                                                                                    class="blog-time"><i
-                                                                                                                                                                                        class="fa fa-clock-o"></i>
-                                                                                                                                                                                    Jan
-                                                                                                                                                                                    02,
-                                                                                                                                                                                    2019</span>
-                                                                                                                                                                            </a>
-                                                                                                                                                                        </div>
-                                                                                                                                                                    </div>
-                                                                                                                                                                </div>
-                                                                                                                                                                <div
-                                                                                                                                                                    class="col-lg-2">
-                                                                                                                                                                    <div
-                                                                                                                                                                        class="footer-widget">
-                                                                                                                                                                        <h5>Program
-                                                                                                                                                                        </h5>
-                                                                                                                                                                        <ul
-                                                                                                                                                                            class="workout-program">
-                                                                                                                                                                            <li><a
-                                                                                                                                                                                    href="#">Bodybuilding</a>
-                                                                                                                                                                            </li>
-                                                                                                                                                                            <li><a
-                                                                                                                                                                                    href="#">Running</a>
-                                                                                                                                                                            </li>
-                                                                                                                                                                            <li><a
-                                                                                                                                                                                    href="#">Streching</a>
-                                                                                                                                                                            </li>
-                                                                                                                                                                            <li><a
-                                                                                                                                                                                    href="#">Weight
-                                                                                                                                                                                    Loss</a>
-                                                                                                                                                                            </li>
-                                                                                                                                                                            <li><a
-                                                                                                                                                                                    href="#">Gym
-                                                                                                                                                                                    Fitness</a>
-                                                                                                                                                                            </li>
-                                                                                                                                                                        </ul>
-                                                                                                                                                                    </div>
-                                                                                                                                                                </div>
-                                                                                                                                                                <div
-                                                                                                                                                                    class="col-lg-3">
-                                                                                                                                                                    <div
-                                                                                                                                                                        class="footer-widget">
-                                                                                                                                                                        <h5>Get
-                                                                                                                                                                            Info
-                                                                                                                                                                        </h5>
-                                                                                                                                                                        <ul
-                                                                                                                                                                            class="footer-info">
-                                                                                                                                                                            <li>
-                                                                                                                                                                                <i
-                                                                                                                                                                                    class="fa fa-phone"></i>
-                                                                                                                                                                                <span>Phone:</span>
-                                                                                                                                                                                (12)
-                                                                                                                                                                                345
-                                                                                                                                                                                6789
-                                                                                                                                                                            </li>
-                                                                                                                                                                            <li>
-                                                                                                                                                                                <i
-                                                                                                                                                                                    class="fa fa-envelope-o"></i>
-                                                                                                                                                                                <span>Email:</span>
-                                                                                                                                                                                Colorlib.info@gmail.com
-                                                                                                                                                                            </li>
-                                                                                                                                                                            <li>
-                                                                                                                                                                                <i
-                                                                                                                                                                                    class="fa fa-map-marker"></i>
-                                                                                                                                                                                <span>Address</span>
-                                                                                                                                                                                Iris
-                                                                                                                                                                                Watson,
-                                                                                                                                                                                Box
-                                                                                                                                                                                283
-                                                                                                                                                                                8562,
-                                                                                                                                                                                NY
-                                                                                                                                                                            </li>
-                                                                                                                                                                        </ul>
-                                                                                                                                                                    </div>
-                                                                                                                                                                </div>
-                                                                                                                                                            </div>
-                                                                                                                                                        </div>
-                                                                                                                                                        <div
-                                                                                                                                                            class="copyright-text">
-                                                                                                                                                            <div
-                                                                                                                                                                class="container">
-                                                                                                                                                                <div
-                                                                                                                                                                    class="row">
-                                                                                                                                                                    <div
-                                                                                                                                                                        class="col-lg-12 text-center">
-                                                                                                                                                                        <div
-                                                                                                                                                                            class="ct-inside">
-                                                                                                                                                                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                                                                                                                                                            Copyright
-                                                                                                                                                                            &copy;
-                                                                                                                                                                            <script>document.write(new Date().getFullYear());</script>
-                                                                                                                                                                            All
-                                                                                                                                                                            rights
-                                                                                                                                                                            reserved
-                                                                                                                                                                            |
-                                                                                                                                                                            This
-                                                                                                                                                                            template
-                                                                                                                                                                            is
-                                                                                                                                                                            made
-                                                                                                                                                                            with
-                                                                                                                                                                            <i class="fa fa-heart-o"
-                                                                                                                                                                                aria-hidden="true"></i>
-                                                                                                                                                                            by
-                                                                                                                                                                            <a href="https://colorlib.com"
-                                                                                                                                                                                target="_blank">Colorlib</a>
-                                                                                                                                                                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                                                                                                                                                        </div>
-                                                                                                                                                                    </div>
-                                                                                                                                                                </div>
-                                                                                                                                                            </div>
-                                                                                                                                                        </div>
-                                                                                                                                                    </footer>
-                                                                                                                                                    <!-- Footer Section End -->
-
-                                                                                                                                                    <!-- Js Plugins -->
-                                                                                                                                                    <script
-                                                                                                                                                        src="js/jquery-3.3.1.min.js"></script>
-                                                                                                                                                    <script
-                                                                                                                                                        src="js/bootstrap.min.js"></script>
-                                                                                                                                                    <script
-                                                                                                                                                        src="js/jquery.magnific-popup.min.js"></script>
-                                                                                                                                                    <script
-                                                                                                                                                        src="js/mixitup.min.js"></script>
-                                                                                                                                                    <script
-                                                                                                                                                        src="js/jquery.nice-select.min.js"></script>
-                                                                                                                                                    <script
-                                                                                                                                                        src="js/jquery.slicknav.js"></script>
-                                                                                                                                                    <script
-                                                                                                                                                        src="js/owl.carousel.min.js"></script>
-                                                                                                                                                    <script
-                                                                                                                                                        src="js/masonry.pkgd.min.js"></script>
-                                                                                                                                                    <script
-                                                                                                                                                        src="js/main.js"></script>
+<script src="assets/js/scriptCalander.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- Sử dụng thư viện moment.js -->
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>--%>
 </body>
-
 </html>

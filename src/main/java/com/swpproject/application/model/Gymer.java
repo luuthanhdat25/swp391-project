@@ -1,16 +1,18 @@
 package com.swpproject.application.model;
+import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 @Entity
+@Table(name = "gymer")
 public class Gymer {
     @Id
     private Integer id;
     private Double weight;
     private Double height;
     private String goal;
-    @OneToOne(mappedBy = "gymer")
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="account_id")
     private Account account;
 
     public Gymer() {}

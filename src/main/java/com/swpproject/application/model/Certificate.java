@@ -3,8 +3,9 @@ package com.swpproject.application.model;
 import jakarta.persistence.*;
 
 import java.util.Arrays;
-
+import org.springframework.data.relational.core.mapping.Table;
 @Entity
+@Table(name = "certificate")
 public class Certificate {
     @Id
     private Integer id;
@@ -12,7 +13,8 @@ public class Certificate {
     private String organizer;
     @Lob // use to store varbinary in db
     private byte[] image;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "personal_trainer_id", nullable = false)
     private PersonalTrainer personalTrainer;
 

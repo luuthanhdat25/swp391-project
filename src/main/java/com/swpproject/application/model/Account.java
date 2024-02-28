@@ -31,10 +31,10 @@ public class Account {
     private Boolean isBan;
     private String image;
     @OneToOne
-    @JoinColumn(name="personal_trainer_id", nullable = false)
+    @JoinColumn(name="id", nullable = false)
     private PersonalTrainer personalTrainer;
     @OneToOne
-    @JoinColumn(name="gymer_id",nullable = false)
+    @JoinColumn(name="id",nullable = false)
     private Gymer gymer;
 
     public Account() {}

@@ -7,15 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>Admin Dashboard</title>
     <script>document.getElementsByTagName("html")[0].className += " js";</script>
-    <link rel="shortcut icon" href="../../theme2/img/favicon.png">
+    <link rel="shortcut icon" href="../../assets/img/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"rel="stylesheet">
-    <link rel="stylesheet" href="../../theme2/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../theme2/plugins/feather/feather.css">
-    <link rel="stylesheet" href="../../theme2/plugins/icons/flags/flags.css">
-    <link rel="stylesheet" href="../../theme2/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="../../theme2/plugins/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="../../theme2/css/style.css">
-    <link rel="stylesheet" href="../../theme2/css/style1.css">
+    <link rel="stylesheet" href="../../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/plugins/feather/feather.css">
+    <link rel="stylesheet" href="../../assets/plugins/icons/flags/flags.css">
+    <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/style1.css">
 </head>
 
 <body>
@@ -481,9 +481,21 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">Request form</h5>
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="schedule-selects">
+                                <form action="/view-personal-schedule" method="get">
+                                    <select id="yearSelect" class="form-select" onchange="updateWeekOptions()">
+                                        <!-- Year options will be added dynamically -->
+                                    </select>
+                                    <select id="weekSelect" class="form-select" onchange="onSelectionChange()">
+                                        <!-- Week options will be added dynamically -->
+                                    </select>
+                                </form>
+                            </div>
+                            <button id="addSlot" type="submit" class="btn btn-primary">Add new slot</button>
                         </div>
+
+
                         <div class="card-body">
                             <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
                                 <div class="cd-schedule__timeline">
@@ -541,7 +553,7 @@
 
                                             <ul>
                                                 <li class="cd-schedule__event">
-                                                    <a data-start="05:00" data-end="06:30"  data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                                    <a data-start="05:00" data-end="07:00"  data-content="event-rowing-workout" data-event="event-2" href="#0">
                                                         <em class="cd-schedule__name">Rowing Workout</em>
                                                     </a>
                                                 </li>
@@ -721,6 +733,7 @@
                             </div> <!-- .cd-schedule -->
 
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -733,15 +746,86 @@
     </div>
 
 </div>
-<script src="../../theme2/js/jquery-3.6.0.min.js"></script>
-<script src="../../theme2/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../theme2/js/feather.min.js"></script>
-<script src="../../theme2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="../../theme2/plugins/apexchart/apexcharts.min.js"></script>
-<script src="../../theme2/plugins/apexchart/chart-data.js"></script>
-<script src="../../theme2/js/script.js"></script>
-<script src="../../theme2/js/util.js"></script>
-<script src="../../theme2/js/main.js"></script>
+<script src="../../assets/js/jquery-3.6.0.min.js"></script>
+<script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/feather.min.js"></script>
+<script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../../assets/plugins/apexchart/apexcharts.min.js"></script>
+<script src="../../assets/plugins/apexchart/chart-data.js"></script>
+<script src="../../assets/js/script.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+    // Function to generate week options
+    function generateWeekOptions(year) {
+        var weekSelect = document.getElementById("weekSelect");
+        var options = "";
+
+        var currentDate = new Date(year, 0, 1); // Start from January 1st of the given year
+        var lastDate = new Date(year + 1, 0, 0); // End at December 31st of the given year
+
+        // Move currentDate to the first Monday of the year
+        currentDate.setDate(currentDate.getDate() + (8 - currentDate.getDay()) % 7);
+
+        while (currentDate < lastDate) {
+            var weekStart = new Date(currentDate);
+            var weekEnd = new Date(currentDate);
+            weekEnd.setDate(weekEnd.getDate() + 6);
+
+            var weekStartDay = weekStart.getDate().toString().padStart(2, '0');
+            var weekStartMonth = (weekStart.getMonth() + 1).toString().padStart(2, '0');
+            var weekEndDay = weekEnd.getDate().toString().padStart(2, '0');
+            var weekEndMonth = (weekEnd.getMonth() + 1).toString().padStart(2, '0');
+
+            var weekRange = weekStartDay + "/" + weekStartMonth + "-" + weekEndDay + "/" + weekEndMonth;
+            options += "<option value='" + weekRange + "'>" + weekRange + "</option>";
+
+            currentDate.setDate(currentDate.getDate() + 7); // Move to the next week
+        }
+
+        weekSelect.innerHTML = options;
+    }
+
+    // Function to generate year options
+    function generateYearOptions() {
+        var yearSelect = document.getElementById("yearSelect");
+        var options = "";
+        var currentYear = new Date().getFullYear();
+
+        for (var i = currentYear; i <= currentYear + 5; i++) {
+            options += "<option value='" + i + "'>" + i + "</option>";
+        }
+
+        yearSelect.innerHTML = options;
+    }
+
+    // Function to update week options based on selected year
+    function updateWeekOptions() {
+        var yearSelect = document.getElementById("yearSelect");
+        var selectedYear = parseInt(yearSelect.value);
+        generateWeekOptions(selectedYear);
+    }
+
+    // Function to handle selection change
+    function onSelectionChange() {
+        var weekSelect = document.getElementById("weekSelect");
+        var yearSelect = document.getElementById("yearSelect");
+
+        var selectedWeek = weekSelect.value; // Extracting the starting day of the week
+        var selectedYear = yearSelect.value;
+
+        // Construct the URL with the selected week and year values
+        var newUrl = window.location.pathname + "?week=" + selectedWeek + "&year=" + selectedYear;
+
+        // Redirect to the new URL, causing the page to refresh
+        window.location.href = newUrl;
+    }
+
+    // Call functions to generate options when the page loads
+    generateWeekOptions(new Date().getFullYear());
+    generateYearOptions();
+
+</script>
 </body>
 
 </html>

@@ -11439,3 +11439,64 @@ a.primary-btn.class-btn:hover {
     outline: none;
     border-color: #007bff;
 }
+
+.schedule-selects {
+    display: flex;
+    align-items: center;
+}
+
+/* Style for select dropdowns */
+.form-select {
+    width: 150px; /* Adjust width as needed */
+    margin-right: 10px; /* Adjust margin as needed */
+}
+
+/* Custom styles for select dropdown arrow */
+.form-select:after {
+    content: '\f078'; /* FontAwesome chevron-down icon */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Bootstrap form-select style */
+.form-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+/* Bootstrap form-select arrow */
+.form-select::-ms-expand {
+    display: none;
+}
+
+/* Bootstrap form-select arrow */
+.form-select {
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 16px 12px;
+}
+
+
+
+

@@ -1,13 +1,10 @@
 package com.swpproject.application.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table(name = "SlotExcerciseEntity")
+@Table(name = "SLOT_EXERCISE_ENTITY")
 public class SlotExcerciseEntity {
 
     @Id
@@ -19,32 +16,39 @@ public class SlotExcerciseEntity {
     private int endHour;
 
     private boolean Is_Pending;
-
     private String Attendant_Status;
 
-    public SlotExcerciseEntity(Long id, String day, int startHour, int endHour, boolean is_Pending, String attendant_Status) {
+    @ManyToOne
+    @JoinColumn(name = "schedule_id", nullable = false)
+    private SchedulePersonalTrainerEntity schedulePersonalTrainer;
+
+    // Constructors, getters, setters, and other methods
+
+    public SlotExcerciseEntity(Long id, String day, int startHour, int endHour, boolean is_Pending, String attendant_Status, SchedulePersonalTrainerEntity schedulePersonalTrainer) {
         this.id = id;
         this.day = day;
         this.startHour = startHour;
         this.endHour = endHour;
         Is_Pending = is_Pending;
         Attendant_Status = attendant_Status;
+        this.schedulePersonalTrainer = schedulePersonalTrainer;
     }
 
-    public boolean isIs_Pending() {
-        return Is_Pending;
+    public SlotExcerciseEntity() {
+
     }
 
-    public void setIs_Pending(boolean is_Pending) {
-        Is_Pending = is_Pending;
-    }
-
-    public String getAttendant_Status() {
-        return Attendant_Status;
-    }
-
-    public void setAttendant_Status(String attendant_Status) {
-        Attendant_Status = attendant_Status;
+    @Override
+    public String toString() {
+        return "SlotExcerciseEntity{" +
+                "id=" + id +
+                ", day='" + day + '\'' +
+                ", startHour=" + startHour +
+                ", endHour=" + endHour +
+                ", Is_Pending=" + Is_Pending +
+                ", Attendant_Status='" + Attendant_Status + '\'' +
+                ", schedulePersonalTrainer=" + schedulePersonalTrainer +
+                '}';
     }
 
     public Long getId() {
@@ -79,19 +83,27 @@ public class SlotExcerciseEntity {
         this.endHour = endHour;
     }
 
-
-    public SlotExcerciseEntity() {
+    public boolean isIs_Pending() {
+        return Is_Pending;
     }
 
-    @Override
-    public String toString() {
-        return "SlotExcerciseEntity{" +
-                "id=" + id +
-                ", day='" + day + '\'' +
-                ", startHour=" + startHour +
-                ", endHour=" + endHour +
-                ", Is_Pending=" + Is_Pending +
-                ", Attendant_Status='" + Attendant_Status + '\'' +
-                '}';
+    public void setIs_Pending(boolean is_Pending) {
+        Is_Pending = is_Pending;
+    }
+
+    public String getAttendant_Status() {
+        return Attendant_Status;
+    }
+
+    public void setAttendant_Status(String attendant_Status) {
+        Attendant_Status = attendant_Status;
+    }
+
+    public SchedulePersonalTrainerEntity getSchedulePersonalTrainer() {
+        return schedulePersonalTrainer;
+    }
+
+    public void setSchedulePersonalTrainer(SchedulePersonalTrainerEntity schedulePersonalTrainer) {
+        this.schedulePersonalTrainer = schedulePersonalTrainer;
     }
 }

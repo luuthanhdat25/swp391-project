@@ -467,95 +467,33 @@
                             <h5 class="card-title">Request form</h5>
                         </div>
                         <div class="card-body">
-                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
+                            <c:if test="${not empty personalTrainers}">
+                                <table border="1">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Full Name</th>
+                                        <th>Email</th>
+                                        <th>Book</th>
+                                        <!-- Add other columns as needed -->
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="account" items="${personalTrainers}">
+                                        <tr>
+                                            <td>${account.accountId}</td>
+                                            <td>${account.fullName}</td>
+                                            <td>${account.email}</td>
+                                            <td><a href="/bookPT1?accountId=${account.accountId}">Book</a></td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </c:if>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-
-                                        <h5 class="card-title">Purpose details</h5>
-                                        <c:forEach var="field" items="${['Goals', 'Description', 'Training Time']}">
-                                            <div class="form-group">
-                                                <label>${field}:</label>
-                                                <c:choose>
-                                                    <c:when test="${field eq 'Training Time'}">
-                                                        <select class="form-control">
-                                                            <option disabled>Select Training Time</option>
-                                                            <option value="1">1 month</option>
-                                                            <option value="2">3 months</option>
-                                                            <option value="3">6 months</option>
-                                                        </select>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <input name="${field.toLowerCase()}" type="text" class="form-control">
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5 class="card-title">Personal Trainer information</h5>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Full Name:</label>
-                                                    <input type="text" placeholder="Michael Scofield" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Age:</label>
-                                                    <input type="text" placeholder="31" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Gender:</label>
-                                                    <input type="text" placeholder="Male" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Phone:</label>
-                                                    <input type="text" placeholder="0971700427" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Email:</label>
-                                                    <input type="text" placeholder="michal@gmail.com" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Address line:</label>
-                                                    <input type="text" placeholder="Was" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-
-                                    <h5 class="card-title">Choose your training schedule</h5>
-
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-primary" onclick="saveCheckedSlots()">Send</button>
-                                </div>
-                            </form:form >
+                            <c:if test="${empty personalTrainers}">
+                                <p>No Personal Trainers found.</p>
+                            </c:if>
                         </div>
                     </div>
                 </div>

@@ -467,11 +467,28 @@
                             <h5 class="card-title">Request form</h5>
                         </div>
                         <div class="card-body">
-                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
+<%--                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">--%>
 
                                 <div class="row">
                                     <div class="col-md-6">
-
+                                        <form id="weekForm" action="/bookPT1" method="GET">
+                                            <select id="week" class="form-control" name="week"
+                                                    onchange="this.form.submit()">
+                                                <!-- Options will be generated dynamically by JavaScript -->
+                                            </select>
+                                            <select id="year" class="form-control" name="year"
+                                                    onchange="updateWeeks()">
+                                                <!-- Thay đổi dải số năm tùy ý -->
+                                                <script>
+                                                    var currentYear = new Date().getFullYear();
+                                                    for (var i = currentYear; i >= currentYear - 10; i--) {
+                                                        document.write("<option value='" + i + "'>" + i + "</option>");
+                                                    }
+                                                </script>
+                                            </select>
+                                            <input type="hidden" id="accountId" name="accountId" value="${accountId}">
+                                        </form>
+                                        <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
                                         <h5 class="card-title">Purpose details</h5>
                                         <c:forEach var="field" items="${['Goals', 'Description', 'Training Time']}">
                                             <div class="form-group">
@@ -486,7 +503,8 @@
                                                         </select>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <input name="${field.toLowerCase()}" type="text" class="form-control">
+                                                        <input name="${field.toLowerCase()}" type="text"
+                                                               class="form-control">
                                                     </c:otherwise>
                                                 </c:choose>
                                             </div>
@@ -553,30 +571,43 @@
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th class="time-column"></th>
-                                            <th>Mon</th>
-                                            <th>Tue</th>
-                                            <th>Wed</th>
-                                            <th>Thu</th>
-                                            <th>Fri</th>
-                                            <th>Sat</th>
-                                            <th>Sun</th>
+                                            <th rowspan="2">
+
+                                            </th>
+                                            <th align="center">Mon</th>
+                                            <th align="center">Tue</th>
+                                            <th align="center">Wed</th>
+                                            <th align="center">Thu</th>
+                                            <th align="center">Fri</th>
+                                            <th align="center">Sat</th>
+                                            <th align="center">Sun</th>
+                                        </tr>
+                                        <tr id="dayRow">
+                                            <th align="center"></th>
+                                            <th align="center"></th>
+                                            <th align="center"></th>
+                                            <th align="center"></th>
+                                            <th align="center"></th>
+                                            <th align="center"></th>
+                                            <th align="center"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <c:forEach begin="5" end="21" var="hour" step="2">
                                             <tr>
                                                 <td class="time-column">${hour}:00 - ${hour + 2}:00</td>
-                                                <c:forEach var="day" items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
-                                                    <c:set var="disabled" value="false" />
+                                                <c:forEach var="day"
+                                                           items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
+                                                    <c:set var="disabled" value="false"/>
                                                     <c:forEach items="${allSlots}" var="scheduleSlot">
                                                         <c:if test="${scheduleSlot.startHour == hour && scheduleSlot.endHour == hour + 2 && scheduleSlot.day eq day.toLowerCase()
                                                         }">
-                                                            <c:set var="disabled" value="true" />
+                                                            <c:set var="disabled" value="true"/>
                                                         </c:if>
                                                     </c:forEach>
                                                     <td>
-                                                        <input type="checkbox" name="checkedSlots" value="${day.toLowerCase()}-${hour}-${hour + 2}"
+                                                        <input type="checkbox" name="checkedSlots"
+                                                               value="${day.toLowerCase()}-${hour}-${hour + 2}"
                                                                <c:if test="${disabled}">disabled="disabled"</c:if>
                                                                id="${day.toLowerCase()}-${hour}${hour + 2}">
                                                         <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
@@ -588,9 +619,10 @@
                                     </table>
                                 </div>
                                 <div>
-                                    <button type="submit" class="btn btn-primary" onclick="saveCheckedSlots()">Send</button>
+                                    <button type="submit" class="btn btn-primary" onclick="saveCheckedSlots()">Send
+                                    </button>
                                 </div>
-                            </form:form >
+                            </form:form>
                         </div>
                     </div>
                 </div>
@@ -637,14 +669,20 @@
     }
 
 </script>
-<script src="../../theme2/js/scriptBook.js"></script>
-<script src="../../theme2/js/jquery-3.6.0.min.js"></script>
-<script src="../../theme2/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../theme2/js/feather.min.js"></script>
-<script src="../../theme2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="../../theme2/plugins/apexchart/apexcharts.min.js"></script>
-<script src="../../theme2/plugins/apexchart/chart-data.js"></script>
-<script src="../../theme2/js/script.js"></script>
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script src="assets/js/feather.min.js"></script>
+
+<script src="assets/js/jquery.slimscroll.min.js"></script>
+
+<script src="assets/js/moment.min.js"></script>
+<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/scriptBook.js"></script>
 </body>
 
 </html>

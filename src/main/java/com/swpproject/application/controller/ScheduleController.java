@@ -53,7 +53,7 @@ public class ScheduleController {
         return "redirect:/SelectWeek?year=" + session.getAttribute("selectedYear") + "&week=" + session.getAttribute("selectedWeek");
     }
 
-    @GetMapping("/SelectWeek")
+    @GetMapping( "/SelectWeek")
     public String handleFormSubmission(@RequestParam int week, @RequestParam int year, Model model, HttpSession session) {
         List<ScheduleDataEntity> scheduleSlots = scheduleDataService.getSlotsByWeekAndYear(week, year);
         model.addAttribute("scheduleSlots", scheduleSlots);

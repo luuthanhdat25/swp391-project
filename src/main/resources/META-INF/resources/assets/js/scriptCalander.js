@@ -49,23 +49,23 @@ function updateTable() {
     var week = $("#week").val();
 
     // Gửi AJAX request để load lại file với tham số tuần
-    $.ajax({
-        type: "POST",
-        url: "/SelectWeek", // Update to the correct URL
-        data: {
-            week: week,
-            year: year,
-        },
-        contentType: 'application/x-www-form-urlencoded;charset=UTF-8', // Explicitly set the content type
-        success: function (response) {
-            // Xử lý response, ví dụ: cập nhật nội dung trang
-            // response có thể là HTML, JSON, hoặc bất kỳ định dạng dữ liệu nào khác
-            console.log(response);
-        },
-        error: function (error) {
-            console.error("Error loading file:", error);
-        }
-    });
+    // $.ajax({
+    //     type: "POST",
+    //     url: "/SelectWeek", // Update to the correct URL
+    //     data: {
+    //         week: week,
+    //         year: year,
+    //     },
+    //     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', // Explicitly set the content type
+    //     success: function (response) {
+    //         // Xử lý response, ví dụ: cập nhật nội dung trang
+    //         // response có thể là HTML, JSON, hoặc bất kỳ định dạng dữ liệu nào khác
+    //         console.log(response);
+    //     },
+    //     error: function (error) {
+    //         console.error("Error loading file:", error);
+    //     }
+    // });
 }
 
 // Hàm để cập nhật giá trị ngày của từng thứ trong tuần

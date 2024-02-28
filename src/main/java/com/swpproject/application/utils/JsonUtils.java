@@ -1,9 +1,13 @@
-package com.swpproject.application.others;
+package com.swpproject.application.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-public class JsonUntils {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class JsonUtils {
+
     public static String jsonConvert(Object object){
         ObjectMapper objectMapper = new ObjectMapper();
         try {

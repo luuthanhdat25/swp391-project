@@ -1,4 +1,4 @@
-package com.swpproject.application.controller;
+package com.swpproject.application.controller.authentication;
 
 import com.swpproject.application.enums.Gender;
 import com.swpproject.application.enums.Role;
@@ -16,10 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Map;
-
-import static net.sf.jsqlparser.util.validation.metadata.NamedObject.user;
 
 @Controller
 
@@ -48,35 +44,41 @@ public class AccountRegistrationController {
     public String registerAccount(@ModelAttribute("account") Account account,
                                   @RequestParam String rptPassword,
                                   RedirectAttributes redirectAttributes,
+                                  ModelMap model,
                                   HttpSession session) {
 
-        System.out.println(account);
+        session.setAttribute("account",account);
+        session.setAttribute("rptPassword",rptPassword);
         // Check if fullName contains any number or special character
         if (!account.getFullName().matches("^[a-zA-Z ]+$")) {
             redirectAttributes.addFlashAttribute("MSG", "Please enter a valid full name. " +
                                                                                  "The full name should only contain alphabet characters and spaces.");
+            session.setAttribute("fullname", "fullname");
             return "redirect:/registration";
         }
-
+        session.removeAttribute("fullname");
         // Check if the email is already taken
         if (accountService.findAccountByEmail(account.getEmail()).isPresent()) {
             redirectAttributes.addFlashAttribute("MSG", "This email is already taken!");
+            session.setAttribute("email", "email");
             return "redirect:/registration";
         }
-
+        session.removeAttribute("email");
         // Check if passwords match
         if (!account.getPassword().equals(rptPassword)) {
             redirectAttributes.addFlashAttribute("MSG", "Repeat password does not match!");
+            session.setAttribute("fRptPassword", "fRptPassword");
             return "redirect:/registration";
         }
-
+        session.removeAttribute("fRptPassword");
         // Check if birthday exceed or equal today
         if(LocalDate.now().isBefore(account.getBirthday())) {
             redirectAttributes.addFlashAttribute("MSG", "Birthday must not exceed today!");
+            session.setAttribute("birthday", "birthday");
             return "redirect:/registration";
         }
-
-        account.setBan(false);
+        session.removeAttribute("birthday");
+        account.setIsBan(false);
         session.setAttribute("account",account);
         return "redirect:/otp";
     }

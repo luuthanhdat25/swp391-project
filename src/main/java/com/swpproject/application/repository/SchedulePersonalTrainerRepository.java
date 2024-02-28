@@ -1,11 +1,12 @@
-//package com.swpproject.application.repository;
-//
-//import com.swpproject.application.model.ScheduleDataEntity;
-//import com.swpproject.application.model.SchedulePersonalTrainerEntity;
-//import org.springframework.data.jpa.repository.JpaRepository;
-//
-//import java.util.List;
-//
-//public interface SchedulePersonalTrainerRepository extends JpaRepository<SchedulePersonalTrainerEntity,Long> {
-//    public SchedulePersonalTrainerEntity findAllByPersonalTrainerPtId(Integer id);
-//}
+package com.swpproject.application.repository;
+
+import com.swpproject.application.model.SchedulePersonalTrainer;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface SchedulePersonalTrainerRepository extends JpaRepository<SchedulePersonalTrainer,Long> {
+
+    // TODO: đặt lại tên hàm --> findAllSchedulesByPTId
+    public SchedulePersonalTrainer findAllByPersonalTrainerPtId(Integer id);
+}

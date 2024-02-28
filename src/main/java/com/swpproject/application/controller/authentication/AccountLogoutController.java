@@ -1,4 +1,4 @@
-package com.swpproject.application.controller;
+package com.swpproject.application.controller.authentication;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;

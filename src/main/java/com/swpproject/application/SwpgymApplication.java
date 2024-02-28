@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 //@EnableJpaRepositories(basePackages = "com.swpproject.application.repository")
 @EntityScan(basePackages = "com.swpproject.application.model")
-@EnableJdbcRepositories(basePackages = "com.swpproject.application.repository")
+//@EnableJdbcRepositories(basePackages = "com.swpproject.application.repository")
 @ComponentScan(basePackages = "com.swpproject.application.controller")
 @ComponentScan(basePackages = "com.swpproject.application.service")
 @ComponentScan(basePackages = "com.swpproject.application.repository")

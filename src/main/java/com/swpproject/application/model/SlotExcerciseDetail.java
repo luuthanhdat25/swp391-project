@@ -10,7 +10,7 @@ import lombok.*;
 @Data
 @Entity
 @Table(name = "Slot_excercise_detail")
-public class SlotExcerciseDetailEntity {
+public class SlotExcerciseDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

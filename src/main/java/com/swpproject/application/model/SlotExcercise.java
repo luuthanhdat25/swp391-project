@@ -11,7 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Data
 @Entity
 @Table(name = "slot_exercise")
-public class SlotExcerciseEntity {
+public class SlotExcercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,5 +26,5 @@ public class SlotExcerciseEntity {
 
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
-    private SchedulePersonalTrainerEntity schedulePersonalTrainer;
+    private SchedulePersonalTrainer schedulePersonalTrainer;
 }

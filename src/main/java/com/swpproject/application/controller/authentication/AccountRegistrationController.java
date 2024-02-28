@@ -1,4 +1,4 @@
-package com.swpproject.application.controller;
+package com.swpproject.application.controller.authentication;
 
 import com.swpproject.application.enums.Gender;
 import com.swpproject.application.enums.Role;

@@ -11,7 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Data
 @Entity
 @Table(name = "SCHEDULE_PERSONAL_TRAINER")
-public class SchedulePersonalTrainerEntity {
+public class SchedulePersonalTrainer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

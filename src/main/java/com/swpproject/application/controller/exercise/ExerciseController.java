@@ -1,7 +1,5 @@
 package com.swpproject.application.controller.exercise;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swpproject.application.model.Exercise;
 import com.swpproject.application.others.ImageUtils;
 import com.swpproject.application.others.JsonUntils;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -24,9 +20,12 @@ import java.util.List;
 public class ExerciseController {
     private final ExerciseRepository exerciseRepository;
 
+    @Autowired
     public ExerciseController(ExerciseRepository exerciseRepository) {
         this.exerciseRepository = exerciseRepository;
     }
+
+
 //    private List<Exercise> exerciseList = Arrays.asList(
 //            new Exercise(
 //                    0,
@@ -77,7 +76,7 @@ public class ExerciseController {
 
     @RequestMapping(value = "/details", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseDetailsPage(@RequestParam int id, ModelMap model) {
-        Exercise exercise = exerciseRepository.findById(id).get();
+        Exercise exercise = exerciseRepository.findById(id);
         model.addAttribute("exercise", exercise);
         return "exercise-details";
     }
@@ -119,7 +118,7 @@ public class ExerciseController {
     //----------------------------------------------------------------Edit the exercise
     @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseDetailsEditPage(@RequestParam int id, ModelMap model) {
-        Exercise exercise = exerciseRepository.findById(id).get();
+        Exercise exercise = exerciseRepository.findById(id);
         model.addAttribute("exercise", exercise);
         return "exercise-details-edit";
     }

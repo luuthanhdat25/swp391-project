@@ -18,14 +18,12 @@ import java.util.List;
 public class PersonalTrainerListController {
     @Autowired
     private PersonalTrainerRepository personalTrainerRepository;
+    @Autowired
     private AccountRepository accountRepository;
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getPersonalTrainerListPage(ModelMap model) {
         List<PersonalTrainer> list = personalTrainerRepository.findAll();
-        for (PersonalTrainer child : list) {
-            child.setAccount(accountRepository.findById(child.getId()).get());
-        }
         String json = JsonUntils.jsonConvert(list);
         model.addAttribute("personalTrainerList", json);
         return "personal-trainer-list";

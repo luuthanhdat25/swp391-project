@@ -189,9 +189,9 @@
                         <li  class="submenu active">
                             <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>Exercise Wiki</span></a>
                         </li>
-                        <li>
-                            <a href="/nutrition/"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>
-                        </li>
+<%--                        <li>--%>
+<%--                            <a href="/nutrition/"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>--%>
+<%--                        </li>--%>
                     </ul>
                 </div>
             </div>
@@ -211,11 +211,9 @@
                 <div class="container mb-3">
                     <form id="search-exercise" class="d-flex align-items-center">
                         <input id="searchInput" type="text" class="form-control" placeholder="Search here">
-                        <button id="search-exercise-button" class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                        <button id="search-exercise-button" class="btn btn-primary w-auto h-100" type="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
-
-
 
 
                 <div class="card report-card">
@@ -410,7 +408,7 @@
 <%--                    </div>--%>
 <%--                </div>--%>
 
-                    <div id="exerciseContainer"></div>
+                    <div id="exerciseContainer" class="d-flex"></div>
 
 <%--                <div>--%>
 <%--                    <ul class="pagination mb-4">--%>
@@ -453,15 +451,15 @@
     <script>
         // Function to generate HTML for exercise cards
         function generateExerciseCards(exerciseList) {
-            var defaultIconUrl = 'https://cdn-icons-png.freepik.com/512/9582/9582626.png';
+            var defaultIconUrl = 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg';
             var cardHtml = '';
             exerciseList.forEach(function(exercise) {
-                cardHtml += '<div class="col-sm-6 col-lg-4 col-xl-3 d-flex">' +
+                cardHtml += '<div class="col-lg-3 col-xl-3 m-2 rounded-3">' +
                     '<div class="card invoices-grid-card w-100">' +
                     '<div class="card-header d-flex justify-content-between align-items-center">' +
                     '<a href="/exercise/details?id=' + exercise.id + '" class="invoice-grid-link text-decoration-none">' + exercise.name + '</a>' +
                     '<a href="view-invoice.html" class="avatar avatar-sm me-2 avatar-img rounded-circle">' +
-                    '<img class="rounded-circle" src="' +  defaultIconUrl + '" alt="Edit Avatar">' +
+                    '<img class="rounded-circle" src="' +  'https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-1/426550388_1093431275117966_2445071136543330602_n.jpg?stp=dst-jpg_p320x320&_nc_cat=108&ccb=1-7&_nc_sid=5740b7&_nc_ohc=PVboOVasR0EAX94BvC9&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfAMa4QeO4QY-dCi0093TSNiV0_fculKKi1ibh2DlU2UiA&oe=65E3F442' + '" alt="Edit Avatar">' +
                     '</a>' +
                     '</div>' +
                     '<div class="container position-relative">' +
@@ -494,7 +492,10 @@
             return cardHtml;
         }
 
-
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+        console.log(csrfToken)
+        console.log(csrfHeader)
 
         function sendFilterJSON(filterObject) {
             var filterJSON = JSON.stringify(filterObject);
@@ -502,6 +503,9 @@
             $.ajax({
                 url: '/api/exercises/search',
                 type: 'POST',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
                 data: filterJSON,
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',

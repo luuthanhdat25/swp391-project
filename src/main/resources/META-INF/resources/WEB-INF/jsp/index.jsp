@@ -49,9 +49,9 @@
                     <li>
                         <a href="/exercise/"><i class="fas fa-chalkboard-teacher"></i> <span>Exercise Wiki</span></a>
                     </li>
-                    <li>
-                        <a href="/nutrition/"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>
-                    </li>
+<%--                    <li>--%>
+<%--                        <a href="/nutrition/"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>--%>
+<%--                    </li>--%>
                 </ul>
             </div>
         </div>

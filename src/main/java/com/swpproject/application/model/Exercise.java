@@ -100,6 +100,10 @@ public class Exercise {
         this.personalTrainer = personalTrainer;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public Exercise() {
     }
 }

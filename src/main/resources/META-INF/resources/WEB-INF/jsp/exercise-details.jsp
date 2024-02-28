@@ -170,7 +170,29 @@
 
         </div>
 
-
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">
+                            <span>Main Menu</span>
+                        </li>
+                        <li>
+                            <a href="/"><i class="feather-grid"></i> <span> Home</span></a>
+                        </li>
+                        <li>
+                            <a href="/personal-trainer/"><i class="fas fa-graduation-cap"></i> <span>Find Personal Trainer</span> </a>
+                        </li>
+                        <li  class="submenu active">
+                            <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>Exercise Wiki</span></a>
+                        </li>
+                        <%--                        <li>--%>
+                        <%--                            <a href="/nutrition/"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>--%>
+                        <%--                        </li>--%>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
 
         <div class="page-wrapper">
@@ -195,10 +217,10 @@
                                 <div class="student-personals-grp">
                                     <div class="card">
                                         <div class="card-body position-relative">
-                                            <img id="exerciseImage" class="w-100 mb-2" src="${exercise.imageDescription ? exercise.imageDescription : 'https://cdn-icons-png.freepik.com/512/9582/9582626.png'}" style="border-radius: .25rem;" alt="User Image">
+                                            <img id="exerciseImage" class="w-100 mb-2" src="${exercise.imageDescription ? exercise.imageDescription : 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg'}" style="border-radius: .25rem;" alt="User Image">
 
                                             <a href="personal-trainer/profile/">
-                                                 <img id="smallImage" class="position-absolute top-0 end-0 w-25" src="${personalTrainerAvatar ? personalTrainerAvatar : 'https://cdn-icons-png.freepik.com/512/9582/9582626.png'}" style="width: 90%; max-width: 100px; border-radius: .25rem;" alt="Small Image">
+                                                 <img id="smallImage" class="position-absolute rounded-circle top-0 end-0 w-25" src="${personalTrainerAvatar ? personalTrainerAvatar : 'https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-1/426550388_1093431275117966_2445071136543330602_n.jpg?stp=dst-jpg_p320x320&_nc_cat=108&ccb=1-7&_nc_sid=5740b7&_nc_ohc=PVboOVasR0EAX94BvC9&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfAMa4QeO4QY-dCi0093TSNiV0_fculKKi1ibh2DlU2UiA&oe=65E3F442'}" style="width: 90%; max-width: 100px; border-radius: .25rem;" alt="Small Image">
                                             </a>
 
                                             <div class="mt-md-2">

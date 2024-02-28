@@ -213,9 +213,9 @@
                         <li>
                             <a href="/exercise/"><i class="fas fa-chalkboard-teacher"></i> <span>Exercise Wiki</span></a>
                         </li>
-                        <li>
-                            <a href="/nutrition/"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>
-                        </li>
+<%--                        <li>--%>
+<%--                            <a href="/nutrition/"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>--%>
+<%--                        </li>--%>
                     </ul>
                 </div>
             </div>
@@ -228,10 +228,9 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-sub-header">
-                                <h3 class="page-title">Teachers Details</h3>
+                                <h3 class="page-title">Personal Trainer</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="teachers.html">Teachers</a></li>
-                                    <li class="breadcrumb-item active">Teachers Details</li>
+                                    <li class="breadcrumb-item "><a class="text-muted" href="teachers.html">Personal Trainer</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -239,14 +238,6 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="about-info">
-                                    <h4>Personal Trainer<span><a href="javascript:;"></a></span></h4>
-                                </div>
-                                
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="student-personals-grp">
@@ -300,51 +291,141 @@
                                 </div>
                             </div>
                             <div class="col-lg-8 " id="personalTrainerContainer">
-<%--                                <div class="student-personals-grp ">--%>
-<%--                                    <div class="card mb-0">--%>
-<%--                                        <div class="card-body row">--%>
-<%--                                            <!-- Left column -->--%>
-<%--                                            <div class="col">--%>
-<%--                                                <img class="w-100 rounded-circle" src="../../assets/img/profiles/avatar-18.jpg" alt="Profile">--%>
-<%--                                            </div>--%>
+                                <div class="student-personals-grp">
+                                    <div class="card mb-0">
+                                        <div class="card-body row">
+                                            <!-- Left column -->
+                                            <div class="col">
+                                                <img class="w-100 rounded-circle" src="../../assets/img/profiles/avatar-18.jpg" alt="Profile">
+                                            </div>
 
-<%--                                            <!-- Middle column -->--%>
-<%--                                            <div class="col-lg-8">--%>
-<%--                                                <div class="heading-detail d-flex align-items-center">--%>
-<%--                                                    <h5 class="mb-0">Personal Trainer Name</h5>--%>
-<%--                                                    <div class="ms-2">--%>
-<%--                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFFF00" class="bi bi-star-fill" viewBox="0 0 16 16">--%>
-<%--                                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>--%>
-<%--                                                        </svg>--%>
-<%--                                                    </div>--%>
-<%--                                                    <h6 class="text-muted mb-0 ms-2">4.0 (2 rating)</h6>--%>
-<%--                                                </div>--%>
+                                            <!-- Middle column -->
+                                            <div class="col-lg-8">
+                                                <div class="heading-detail d-flex align-items-center">
+                                                    <h5 class="mb-0">Personal Trainer Name</h5>
+                                                    <div class="ms-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFFF00" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <h6 class="text-muted mb-0 ms-2">4.0 (2 rating)</h6>
+                                                </div>
 
-<%--                                                <div class="personal-activity mt-2 ">--%>
-<%--                                                    <div class="personal-icons d-flex align-items-center bg-light rounded-2 p-2 w-auto">--%>
-<%--                                                        <i class="feather-map-pin text-black"></i>--%>
-<%--                                                        <h6 class="text-black mb-0 ms-2">180, Estern Avenue, United States</h6>--%>
-<%--                                                    </div>--%>
-<%--                                                </div>--%>
+                                                <div class="personal-activity mt-2 ">
+                                                    <div class="personal-icons d-flex align-items-center bg-light rounded-2 p-2 w-auto">
+                                                        <i class="feather-map-pin text-black"></i>
+                                                        <h6 class="text-black mb-0 ms-2">180, Estern Avenue, United States</h6>
+                                                    </div>
+                                                </div>
 
-<%--                                                <div class="hello-park shortDescription">--%>
-<%--                                                    <p>My name is Zhi Sun, I started my professional training career at Equinox Midtown, and worked hard to become a high end tier trainer. I had the opportunity to work with clients of varying levels of fitness. I am originally from Syracuse, NY and I decided to move to the city around 2017. I took a chance and risk to move to a big city and pursue my passion as a full time fitness trainer. </p>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
+                                                <div class="hello-park shortDescription">
+                                                    <p>My name is Zhi Sun, I started my professional training career at Equinox Midtown, and worked hard to become a high end tier trainer. I had the opportunity to work with clients of varying levels of fitness. I am originally from Syracuse, NY and I decided to move to the city around 2017. I took a chance and risk to move to a big city and pursue my passion as a full time fitness trainer. </p>
+                                                </div>
+                                            </div>
 
-<%--                                            <!-- Right column -->--%>
-<%--                                            <div class="col">--%>
-<%--                                                <div id="priceText">--%>
-<%--                                                    <h6 class="text-muted">Price</h6>--%>
-<%--                                                    <h5>60.000đ/hr</h5>--%>
-<%--                                                </div>--%>
-<%--                                                <div>--%>
-<%--                                                    <button id="viewProfile" class="btn btn-primary font-weight-bold" type="button" style="font-size: 95%">View Profile</button>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
+                                            <!-- Right column -->
+                                            <div class="col">
+                                                <div id="priceText">
+                                                    <h6 class="text-muted">Price</h6>
+                                                    <h5>60.000đ/hr</h5>
+                                                </div>
+                                                <div>
+                                                    <button id="viewProfile" class="btn btn-primary font-weight-bold" type="button" style="font-size: 95%">View Profile</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="student-personals-grp mt-3">
+                                    <div class="card mb-0">
+                                        <div class="card-body row">
+                                            <!-- Left column -->
+                                            <div class="col">
+                                                <img class="w-100 rounded-circle" src="../../assets/img/profiles/avatar-18.jpg" alt="Profile">
+                                            </div>
+
+                                            <!-- Middle column -->
+                                            <div class="col-lg-8">
+                                                <div class="heading-detail d-flex align-items-center">
+                                                    <h5 class="mb-0">Personal Trainer Name</h5>
+                                                    <div class="ms-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFFF00" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <h6 class="text-muted mb-0 ms-2">4.0 (2 rating)</h6>
+                                                </div>
+
+                                                <div class="personal-activity mt-2 ">
+                                                    <div class="personal-icons d-flex align-items-center bg-light rounded-2 p-2 w-auto">
+                                                        <i class="feather-map-pin text-black"></i>
+                                                        <h6 class="text-black mb-0 ms-2">180, Estern Avenue, United States</h6>
+                                                    </div>
+                                                </div>
+
+                                                <div class="hello-park shortDescription">
+                                                    <p>My name is Zhi Sun, I started my professional training career at Equinox Midtown, and worked hard to become a high end tier trainer. I had the opportunity to work with clients of varying levels of fitness. I am originally from Syracuse, NY and I decided to move to the city around 2017. I took a chance and risk to move to a big city and pursue my passion as a full time fitness trainer. </p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Right column -->
+                                            <div class="col">
+                                                <div id="priceText">
+                                                    <h6 class="text-muted">Price</h6>
+                                                    <h5>60.000đ/hr</h5>
+                                                </div>
+                                                <div>
+                                                    <button id="viewProfile" class="btn btn-primary font-weight-bold" type="button" style="font-size: 95%">View Profile</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="student-personals-grp mt-3">
+                                    <div class="card mb-0">
+                                        <div class="card-body row">
+                                            <!-- Left column -->
+                                            <div class="col">
+                                                <img class="w-100 rounded-circle" src="../../assets/img/profiles/avatar-18.jpg" alt="Profile">
+                                            </div>
+
+                                            <!-- Middle column -->
+                                            <div class="col-lg-8">
+                                                <div class="heading-detail d-flex align-items-center">
+                                                    <h5 class="mb-0">Personal Trainer Name</h5>
+                                                    <div class="ms-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFFF00" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <h6 class="text-muted mb-0 ms-2">4.0 (2 rating)</h6>
+                                                </div>
+
+                                                <div class="personal-activity mt-2 ">
+                                                    <div class="personal-icons d-flex align-items-center bg-light rounded-2 p-2 w-auto">
+                                                        <i class="feather-map-pin text-black"></i>
+                                                        <h6 class="text-black mb-0 ms-2">180, Estern Avenue, United States</h6>
+                                                    </div>
+                                                </div>
+
+                                                <div class="hello-park shortDescription">
+                                                    <p>My name is Zhi Sun, I started my professional training career at Equinox Midtown, and worked hard to become a high end tier trainer. I had the opportunity to work with clients of varying levels of fitness. I am originally from Syracuse, NY and I decided to move to the city around 2017. I took a chance and risk to move to a big city and pursue my passion as a full time fitness trainer. </p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Right column -->
+                                            <div class="col">
+                                                <div id="priceText">
+                                                    <h6 class="text-muted">Price</h6>
+                                                    <h5>60.000đ/hr</h5>
+                                                </div>
+                                                <div>
+                                                    <button id="viewProfile" class="btn btn-primary font-weight-bold" type="button" style="font-size: 95%">View Profile</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -368,77 +449,81 @@
 
     <script src="../../assets/js/script.js"></script>
 
+<%--    <script>--%>
+<%--        function generatePersonalTrainers(personalTrainerList) {--%>
+<%--            const container = $('<div class="student-personals-grp"></div>');--%>
+
+<%--            personalTrainerList.forEach(personalTrainer => {--%>
+<%--                const card = $('<div class="card mb-0"></div>');--%>
+
+<%--                const cardBody = $('<div class="card-body row"></div>');--%>
+
+<%--                // Left column (Image)--%>
+<%--                const leftColumn = $('<div class="col"></div>');--%>
+<%--                const image = $('<img class="w-100 rounded-circle" alt="Profile">').attr('src', '../../assets/img/profiles/avatar-18.jpg');--%>
+<%--                leftColumn.append(image);--%>
+
+<%--                // Middle column (Details)--%>
+<%--                const middleColumn = $('<div class="col-lg-8"></div>');--%>
+<%--                const headingDetail = $('<div class="heading-detail d-flex align-items-center"></div>');--%>
+<%--                const trainerName = $('<h5 class="mb-0"></h5>').text(personalTrainer);--%>
+<%--                const ratingContainer = $('<div></div>');--%>
+<%--                const rating = $('<h6 class="text-muted mb-0 ms-2"></h6>').text(`${personalTrainer.rating} (${personalTrainer.ratingCount} rating)`);--%>
+<%--                ratingContainer.append(rating);--%>
+<%--                headingDetail.append(trainerName, ratingContainer);--%>
+<%--                const personalActivity = $('<div class="personal-activity mt-2"></div>');--%>
+<%--                const personalIcons = $('<div class="personal-icons d-flex align-items-center bg-light rounded-2 p-2 w-auto"></div>');--%>
+<%--                const locationIcon = $('<i class="feather-map-pin text-black"></i>');--%>
+<%--                const locationText = $('<h6 class="text-black mb-0 ms-2"></h6>').text(personalTrainer.location);--%>
+<%--                personalIcons.append(locationIcon, locationText);--%>
+<%--                personalActivity.append(personalIcons);--%>
+<%--                const description = $('<div class="hello-park shortDescription"></div>');--%>
+<%--                const descriptionParagraph = $('<p></p>').text(personalTrainer.description);--%>
+<%--                description.append(descriptionParagraph);--%>
+<%--                middleColumn.append(headingDetail, personalActivity, description);--%>
+
+<%--                // Right column (Price and Button)--%>
+<%--                const rightColumn = $('<div class="col"></div>');--%>
+<%--                const priceText = $('<div></div>');--%>
+<%--                const priceHeading = $('<h6 class="text-muted">Price</h6>');--%>
+<%--                const price = $('<h5></h5>').text(personalTrainer.price);--%>
+<%--                priceText.append(priceHeading, price);--%>
+<%--                const viewProfileButton = $('<button class="btn btn-primary font-weight-bold" type="button" style="font-size: 95%">View Profile</button>');--%>
+<%--                rightColumn.append(priceText, viewProfileButton);--%>
+
+<%--                // Append columns to card body--%>
+<%--                cardBody.append(leftColumn, middleColumn, rightColumn);--%>
+
+<%--                // Append card body to card--%>
+<%--                card.append(cardBody);--%>
+
+<%--                // Append card to container--%>
+<%--                container.append(card);--%>
+<%--            });--%>
+
+<%--            return container;--%>
+<%--        }--%>
+
+<%--        var personalTrainerList = ${personalTrainerList};--%>
+<%--        console.log(personalTrainerList)--%>
+<%--        const personalTrainersContainer = generatePersonalTrainers(personalTrainerList);--%>
+<%--        $('#personalTrainerContainer').html(personalTrainersContainer);--%>
+<%--    </script>--%>
+
     <script>
-        function generatePersonalTrainers(personalTrainerList) {
-            const container = $('<div class="student-personals-grp"></div>');
-
-            personalTrainerList.forEach(personalTrainer => {
-                const card = $('<div class="card mb-0"></div>');
-
-                const cardBody = $('<div class="card-body row"></div>');
-
-                // Left column (Image)
-                const leftColumn = $('<div class="col"></div>');
-                const image = $('<img class="w-100 rounded-circle" alt="Profile">').attr('src', '../../assets/img/profiles/avatar-18.jpg');
-                leftColumn.append(image);
-
-                // Middle column (Details)
-                const middleColumn = $('<div class="col-lg-8"></div>');
-                const headingDetail = $('<div class="heading-detail d-flex align-items-center"></div>');
-                const trainerName = $('<h5 class="mb-0"></h5>').text(personalTrainer.account.fullName);
-                const ratingContainer = $('<div></div>');
-                const rating = $('<h6 class="text-muted mb-0 ms-2"></h6>').text(`${personalTrainer.rating} (${personalTrainer.ratingCount} rating)`);
-                ratingContainer.append(rating);
-                headingDetail.append(trainerName, ratingContainer);
-                const personalActivity = $('<div class="personal-activity mt-2"></div>');
-                const personalIcons = $('<div class="personal-icons d-flex align-items-center bg-light rounded-2 p-2 w-auto"></div>');
-                const locationIcon = $('<i class="feather-map-pin text-black"></i>');
-                const locationText = $('<h6 class="text-black mb-0 ms-2"></h6>').text(personalTrainer.location);
-                personalIcons.append(locationIcon, locationText);
-                personalActivity.append(personalIcons);
-                const description = $('<div class="hello-park shortDescription"></div>');
-                const descriptionParagraph = $('<p></p>').text(personalTrainer.description);
-                description.append(descriptionParagraph);
-                middleColumn.append(headingDetail, personalActivity, description);
-
-                // Right column (Price and Button)
-                const rightColumn = $('<div class="col"></div>');
-                const priceText = $('<div></div>');
-                const priceHeading = $('<h6 class="text-muted">Price</h6>');
-                const price = $('<h5></h5>').text(personalTrainer.price);
-                priceText.append(priceHeading, price);
-                const viewProfileButton = $('<button class="btn btn-primary font-weight-bold" type="button" style="font-size: 95%">View Profile</button>');
-                rightColumn.append(priceText, viewProfileButton);
-
-                // Append columns to card body
-                cardBody.append(leftColumn, middleColumn, rightColumn);
-
-                // Append card body to card
-                card.append(cardBody);
-
-                // Append card to container
-                container.append(card);
+        $(document).ready(function() {
+            $('.shortDescription').each(function() {
+                var maxLength = 200;
+                var text = $(this).text();
+                if (text.length > maxLength) {
+                    var trimmedText = text.substr(0, maxLength);
+                    $(this).text(trimmedText + '...');
+                }
             });
+        });
 
-            return container;
-        }
-
-        // Example usage:
-        // const personalTrainerList = [
-        //     {
-        //         imageSrc: '../../assets/img/profiles/avatar-18.jpg',
-        //         name: 'Personal Trainer Name',
-        //         rating: '4.0',
-        //         ratingCount: '2',
-        //         location: '180, Estern Avenue, United States',
-        //         description: 'My name is Zhi Sun, I started my professional training career at Equinox Midtown, and worked hard to become a high end tier trainer. I had the opportunity to work with clients of varying levels of fitness. I am originally from Syracuse, NY and I decided to move to the city around 2017. I took a chance and risk to move to a big city and pursue my passion as a full time fitness trainer.',
-        //         price: '60.000đ/hr'
-        //     }
-        // ];
-        var personalTrainerList = ${personalTrainerList};
-        console.log(personalTrainerList)
-        const personalTrainersContainer = generatePersonalTrainers(personalTrainerList);
-        $('#personalTrainerContainer').html(personalTrainersContainer);
+        var personalTrainerList = ${personalTrainerList}
+            console.log(personalTrainerList);
     </script>
 </body>
 

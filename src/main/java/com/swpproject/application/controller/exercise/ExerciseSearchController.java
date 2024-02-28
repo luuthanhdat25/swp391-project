@@ -3,6 +3,7 @@ package com.swpproject.application.controller.exercise;
 import com.swpproject.application.model.Exercise;
 import com.swpproject.application.repository.ExerciseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class ExerciseSearchController {
     private ExerciseRepository exerciseRepository;
 
     @PostMapping("/search")
-    public ResponseEntity<List<Exercise>> searchProducts(@RequestBody FilterObject filterObject) {
+    public ResponseEntity<List<Exercise>> searchExercise(@RequestBody FilterObject filterObject) {
         List<Exercise> exercises = exerciseRepository.findAll();
         exercises = findByNameContaining(filterObject.getSearchValue(), exercises);
         exercises = findByCategory(filterObject.getCategories(), exercises);
@@ -25,6 +26,13 @@ public class ExerciseSearchController {
         exercises = findByEquipment(filterObject.getEquipments(), exercises);
         return ResponseEntity.ok().body(exercises);
     }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Exercise>> getExerciseList() {
+        List<Exercise> exercises = exerciseRepository.findAll();
+        return ResponseEntity.ok().body(exercises);
+    }
+
 
     private List<Exercise> findByNameContaining(String keyword, List<Exercise> exercises) {
         if(keyword == null) return exercises;

@@ -3,6 +3,7 @@ package com.swpproject.application.controller;
 //import com.swpproject.application.service.AccountService;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.service.AccountService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,9 +34,11 @@ public class AccountLoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
     public String loginAccount(@RequestParam String email, @RequestParam String password,
-                               RedirectAttributes redirectAttributes) {
+                               RedirectAttributes redirectAttributes, HttpSession session) {
         Optional<Account> account = accountService.findAccountByEmail(email);
         if(account.isPresent() && password.equals(account.get().getPassword())) {
+            session.setAttribute("scheduleSlots", account);
+
             return "welcome";
         } else
             redirectAttributes.addFlashAttribute("fLogin", "Oops! Invalid login. Retry or use 'Forgot Password.' Contact support if needed. Thank you.");

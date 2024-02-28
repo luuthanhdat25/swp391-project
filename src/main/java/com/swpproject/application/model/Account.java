@@ -8,57 +8,86 @@ import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Date;
 
 @Entity
-@Table(name="Account")
+@Table(name = "ACCOUNT")
 public class Account {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    @Column(name = "ACCOUNT_ID")
+    private Integer accountId;
+
+    @Column(name = "FULLNAME", nullable = false)
     private String fullName;
+
+    @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "char(1)")
+    @Column(name = "GENDER", length = 1, nullable = false, columnDefinition = "CHAR(1)")
     private Gender gender;
+
+    @Column(name = "PHONE")
     private String phone;
+
+    @Column(name = "COIN", columnDefinition = "INT DEFAULT 0")
+    private Integer coin;
+
+    @Column(name = "BIRTHDAY")
     private LocalDate birthday;
+
+    @Column(name = "ADDRESS", columnDefinition = "NVARCHAR(MAX)")
     private String address;
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "varchar(5)")
-    private Role role;
+
+    @Column(name = "ROLE", nullable = false, length = 5)
+    private String role;
+
+    @Column(name = "IS_BAN", columnDefinition = "BIT DEFAULT 0")
     private Boolean isBan;
-    private String image;
-    @OneToOne
-    @JoinColumn(name="personal_trainer_id", nullable = false)
+
+    @Lob
+    @Column(name = "AVATAR_IMAGE")
+    private byte[] avatarImage;
+
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
     private PersonalTrainer personalTrainer;
-    @OneToOne
-    @JoinColumn(name="gymer_id",nullable = false)
+
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
     private Gymer gymer;
 
-    public Account() {}
+    // Getter and setter methods
 
-    public Account(Integer id, String fullName, String email, String password, Gender gender, String phone, LocalDate birthday, String address, Role role, Boolean isBan, String image) {
-        Id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.password = password;
-        this.gender = gender;
-        this.phone = phone;
-        this.birthday = birthday;
-        this.address = address;
-        this.role = role;
-        this.isBan = isBan;
-        this.image = image;
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId=" + accountId +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", gender=" + gender +
+                ", phone='" + phone + '\'' +
+                ", coin=" + coin +
+                ", birthday=" + birthday +
+                ", address='" + address + '\'' +
+                ", role='" + role + '\'' +
+                ", isBan=" + isBan +
+                ", avatarImage=" + Arrays.toString(avatarImage) +
+                ", personalTrainer=" + personalTrainer +
+                ", gymer=" + gymer +
+                '}';
     }
 
-    public Integer getId() {
-        return Id;
+    public Integer getAccountId() {
+        return accountId;
     }
 
-    public void setId(Integer id) {
-        Id = id;
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
     }
 
     public String getFullName() {
@@ -101,6 +130,14 @@ public class Account {
         this.phone = phone;
     }
 
+    public Integer getCoin() {
+        return coin;
+    }
+
+    public void setCoin(Integer coin) {
+        this.coin = coin;
+    }
+
     public LocalDate getBirthday() {
         return birthday;
     }
@@ -117,11 +154,11 @@ public class Account {
         this.address = address;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -133,28 +170,27 @@ public class Account {
         isBan = ban;
     }
 
-    public String getImage() {
-        return image;
+    public byte[] getAvatarImage() {
+        return avatarImage;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setAvatarImage(byte[] avatarImage) {
+        this.avatarImage = avatarImage;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "Id=" + Id +
-                ", fullName='" + fullName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", gender=" + gender +
-                ", phone='" + phone + '\'' +
-                ", birthday=" + birthday +
-                ", address='" + address + '\'' +
-                ", role=" + role +
-                ", isBan=" + isBan +
-                ", image='" + image + '\'' +
-                '}';
+    public PersonalTrainer getPersonalTrainer() {
+        return personalTrainer;
+    }
+
+    public void setPersonalTrainer(PersonalTrainer personalTrainer) {
+        this.personalTrainer = personalTrainer;
+    }
+
+    public Gymer getGymer() {
+        return gymer;
+    }
+
+    public void setGymer(Gymer gymer) {
+        this.gymer = gymer;
     }
 }

@@ -1,4 +1,31 @@
-<%@ include file="common/header.jspf" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Preskool - Teacher Details</title>
+
+    <link rel="shortcut icon" href="../../assets/img/favicon.png">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../../assets/plugins/bootstrap/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../assets/plugins/feather/feather.css">
+
+    <link rel="stylesheet" href="../../assets/plugins/icons/flags/flags.css">
+
+    <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/all.min.css">
+
+    <link rel="stylesheet" href="../../assets/plugins/datatables/datatables.min.css">
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
 
 <body>
 
@@ -142,7 +169,7 @@
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
                             <img class="rounded-circle" src="../../assets/img/profiles/avatar-01.jpg" width="31"
-                                 alt="Soeng Souy">
+                                alt="Soeng Souy">
                             <div class="user-text">
                                 <h6>Soeng Souy</h6>
                                 <p class="text-muted mb-0">Administrator</p>
@@ -153,7 +180,7 @@
                         <div class="user-header">
                             <div class="avatar avatar-sm">
                                 <img src="../../assets/img/profiles/avatar-01.jpg" alt="User Image"
-                                     class="avatar-img rounded-circle">
+                                    class="avatar-img rounded-circle">
                             </div>
                             <div class="user-text">
                                 <h6>Soeng Souy</h6>
@@ -177,23 +204,22 @@
                         <li class="menu-title">
                             <span>Main Menu</span>
                         </li>
-                        <li>
+                        <li >
                             <a href="/"><i class="feather-grid"></i> <span> Home</span></a>
                         </li>
                         <li>
                             <a href="/personal-trainer/"><i class="fas fa-graduation-cap"></i> <span>Find Personal Trainer</span> </a>
                         </li>
-                        <li  class="submenu active">
-                            <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>Exercise Wiki</span></a>
+                        <li>
+                            <a href="/exercise/"><i class="fas fa-chalkboard-teacher"></i> <span>Exercise Wiki</span></a>
                         </li>
-                        <%--                        <li>--%>
-                        <%--                            <a href="/nutrition/"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>--%>
-                        <%--                        </li>--%>
+                        <li class="submenu active">
+                            <a href="#"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
-
 
         <div class="page-wrapper">
             <div class="content container-fluid">
@@ -201,10 +227,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-sub-header">
-                                <h3 class="page-title">Exercise Details</h3>
+                                <h3 class="page-title">Teachers Details</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/exercise/">Exercise</a></li>
-                                    <li class="breadcrumb-item active">Exercise Details</li>
+                                    <li class="breadcrumb-item"><a href="teachers.html">Teachers</a></li>
+                                    <li class="breadcrumb-item active">Teachers Details</li>
                                 </ul>
                             </div>
                         </div>
@@ -213,87 +239,110 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="about-info">
+                                    <h4>Personal Trainer<span><a href="javascript:;"></a></span></h4>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-lg-4">
                                 <div class="student-personals-grp">
                                     <div class="card">
-<<<<<<< HEAD
                                         <div class="card-body">
-                                            <img class="w-100 mb-2" src="${exercise.imageDescription}" style="border-radius: .25rem;" alt="User Image">
-                                            <div class="d-flex mt-md-2">
-=======
-                                        <div class="card-body position-relative">
-                                            <img id="exerciseImage" class="w-100 mb-2" src="${exercise.imageDescription ? exercise.imageDescription : 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg'}" style="border-radius: .25rem;" alt="User Image">
-
-                                            <a href="personal-trainer/profile/">
-                                                 <img id="smallImage" class="position-absolute rounded-circle top-0 end-0 w-25" src="${personalTrainerAvatar ? personalTrainerAvatar : 'https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-1/426550388_1093431275117966_2445071136543330602_n.jpg?stp=dst-jpg_p320x320&_nc_cat=108&ccb=1-7&_nc_sid=5740b7&_nc_ohc=PVboOVasR0EAX94BvC9&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfAMa4QeO4QY-dCi0093TSNiV0_fculKKi1ibh2DlU2UiA&oe=65E3F442'}" style="width: 90%; max-width: 100px; border-radius: .25rem;" alt="Small Image">
-                                            </a>
-
-                                            <div class="mt-md-2">
->>>>>>> origin/development
-                                                <c:set var="backgroundColor" value="bg-success" />
-                                                <c:choose>
-                                                    <c:when test="${exercise.level eq 'Intermediate'}">
-                                                        <c:set var="backgroundColor" value="bg-warning" />
-                                                    </c:when>
-                                                    <c:when test="${exercise.level eq 'Advanced'}">
-                                                        <c:set var="backgroundColor" value="bg-danger" />
-                                                    </c:when>
-                                                </c:choose>
-
-<<<<<<< HEAD
-                                                <h2 class="m-100 p-1 ${backgroundColor} text-white rounded" style="font-size: 1rem">${exercise.level}</h2>
-                                                <h2 class="m-100 m-l-5 p-1 bg-info text-white rounded" style="font-size: 1rem">${exercise.type}</h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-=======
-                                                <h2 class="m-100 p-1 ${backgroundColor} text-white rounded" style="font-size: 1rem">Level: ${exercise.level}</h2>
-                                                <h2 class="m-100 p-1 bg-info text-white rounded" style="font-size: 1rem">Affected Muscle: ${exercise.type}</h2>
-                                                <h2 class="m-100 p-1 bg-secondary text-white rounded" style="font-size: 1rem">Equipment: ${exercise.equipment}</h2>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
->>>>>>> origin/development
-                            <div class="col-lg-8">
-                                <div class="student-personals-grp">
-                                    <div class="card mb-0">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center heading-detail">
-                                                <h2>${exercise.name}</h2>
-<<<<<<< HEAD
-                                                <a href="/exercise/details/edit?id=0" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
-                                            </div>
-
-
-                                            <div class="embed-responsive embed-responsive-16by9 w-100">
-                                                <iframe  src="https://www.youtube.com/embed/VmB1G1K7v94?si=sXUOXtLXqPeqOHik" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                                            </div>
-=======
-<%--                                                <a href="/exercise/details/edit?id=0" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>--%>
-                                            </div>
-                                            <hr>
-
-                                            <div class="d-flex justify-content-center">
-                                                <div class="embed-responsive embed-responsive-16by9">
-                                                    <iframe class="embed-responsive-item" height="270" width="480" src="https://www.youtube.com/embed/VmB1G1K7v94?si=sXUOXtLXqPeqOHik" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                            <div class="personal-activity">
+                                                <div class="mb-3 w-100 input-group">
+                                                    <label for="searchInput" class="form-label visually-hidden">Search by Name</label>
+                                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                                    <input type="text" class="form-control" id="searchInput" placeholder="Enter search name">
                                                 </div>
                                             </div>
 
-                                            <hr>
->>>>>>> origin/development
+                                            <div class="personal-activity">
+                                                <div class="mb-3 w-100">
+                                                    <label for="priceSlider" class="form-label">Price</label>
+                                                    <input type="range" class="form-range" id="priceSlider">
+                                                    <div class="input-group mt-3">
+                                                        <input type="number" class="form-control" id="priceMin" placeholder="Min">
+                                                        <span class="input-group-text">to</span>
+                                                        <input type="number" class="form-control" id="priceMax" placeholder="Max">
+                                                        <button id="submitPrice" class="btn btn-primary" type="button">></button>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                            <div class="hello-park  mt-md-4">
-                                                <h2>Description</h2>
-                                                <p class="mt-2">${exercise.description}</p>
+                                            <div class="personal-activity">
+                                                <div class="mb-3 w-100">
+                                                    <label for="distanceSlider" class="form-label">Distance</label>
+                                                    <input type="range" class="form-range" id="distanceSlider">
+                                                    <div class="input-group mt-3">
+                                                        <input type="number" class="form-control" id="distanceMin" placeholder="Min">
+                                                        <span class="input-group-text">to</span>
+                                                        <input type="number" class="form-control" id="distanceMax" placeholder="Max">
+                                                        <button id="submitDistance" class="btn btn-primary" type="button">></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="personal-activity">
+                                                <div class="mb-3 w-100">
+                                                    <label for="genderSelect" class="form-label">Gender</label>
+                                                    <select class="form-select" id="genderSelect">
+                                                        <option value="">Select gender</option>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="student-personals-grp">
+                                    <div class="card mb-0">
+                                        <div class="card-body row">
+                                            <!-- Left column -->
+                                            <div class="col">
+                                                <img class="w-100 rounded-circle" src="../../assets/img/profiles/avatar-18.jpg" alt="Profile">
+                                            </div>
+
+                                            <!-- Middle column -->
+                                            <div class="col-lg-8">
+                                                <div class="heading-detail d-flex align-items-center">
+                                                    <h5 class="mb-0">Personal Trainer Name</h5>
+                                                    <div class="ms-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFFF00" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <h6 class="text-muted mb-0 ms-2">4.0 (2 rating)</h6>
+                                                </div>
+
+                                                <div class="personal-activity mt-2 ">
+                                                    <div class="personal-icons d-flex align-items-center bg-light rounded-2 p-2 w-auto">
+                                                        <i class="feather-map-pin text-black"></i>
+                                                        <h6 class="text-black mb-0 ms-2">180, Estern Avenue, United States</h6>
+                                                    </div>
+                                                </div>
+
+                                                <div class="hello-park shortDescription">
+                                                    <p>My name is Zhi Sun, I started my professional training career at Equinox Midtown, and worked hard to become a high end tier trainer. I had the opportunity to work with clients of varying levels of fitness. I am originally from Syracuse, NY and I decided to move to the city around 2017. I took a chance and risk to move to a big city and pursue my passion as a full time fitness trainer. </p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Right column -->
+                                            <div class="col">
+                                                <div id="priceText">
+                                                    <h6 class="text-muted">Price</h6>
+                                                    <h5>60.000đ/hr</h5>
+                                                </div>
+                                                <div>
+                                                    <button id="viewProfile" class="btn btn-primary font-weight-bold" type="button" style="font-size: 95%">View Profile</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -301,13 +350,10 @@
                     </div>
                 </div>
             </div>
-
             <footer>
-                <p>Copyright © 2022 Dreamguys.</p>
+                <p>Copyright © 2022 Gym On.</p>
             </footer>
-
         </div>
-
     </div>
 
 
@@ -319,14 +365,24 @@
     <script src="../../assets/js/feather.min.js"></script>
 
     <script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<<<<<<< HEAD
-
-    <script src="../../assets/js/script.js"></script>
-=======
 
     <script src="../../assets/js/script.js"></script>
 
->>>>>>> origin/development
+    <script>
+        $(document).ready(function() {
+            $('.shortDescription').each(function() {
+                var maxLength = 200;
+                var text = $(this).text();
+                if (text.length > maxLength) {
+                    var trimmedText = text.substr(0, maxLength);
+                    $(this).text(trimmedText + '...');
+                }
+            });
+        });
+
+        var personalTrainerList = ${personalTrainerList}
+        console.log(personalTrainerList);
+    </script>
 </body>
 
 </html>

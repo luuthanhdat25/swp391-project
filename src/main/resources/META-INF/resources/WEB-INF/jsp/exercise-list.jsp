@@ -2,7 +2,10 @@
 <%@ include file="common/header.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<<<<<<< HEAD
 <head><link rel="stylesheet" href="../../assets/plugins/bootstrap/css/bootstrap.min.css"></head>
+=======
+>>>>>>> origin/development
 
 <body>
     <div class="main-wrapper">
@@ -174,6 +177,7 @@
 
         </div>
 
+<<<<<<< HEAD
 
 <%--        <div class="sidebar" id="sidebar">--%>
 <%--            <div class="sidebar-inner slimscroll">--%>
@@ -447,7 +451,31 @@
 <%--                </div>--%>
 <%--            </div>--%>
 <%--        </div>--%>
-
+=======
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">
+                            <span>Main Menu</span>
+                        </li>
+                        <li>
+                            <a href="/"><i class="feather-grid"></i> <span> Home</span></a>
+                        </li>
+                        <li>
+                            <a href="/personal-trainer/"><i class="fas fa-graduation-cap"></i> <span>Find Personal Trainer</span> </a>
+                        </li>
+                        <li  class="submenu active">
+                            <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>Exercise Wiki</span></a>
+                        </li>
+<%--                        <li>--%>
+<%--                            <a href="/nutrition/"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>--%>
+<%--                        </li>--%>
+                    </ul>
+                </div>
+            </div>
+        </div>
+>>>>>>> origin/development
 
         <div class="page-wrapper">
             <div class="content container-fluid">
@@ -463,11 +491,13 @@
                 <div class="container mb-3">
                     <form id="search-exercise" class="d-flex align-items-center">
                         <input id="searchInput" type="text" class="form-control" placeholder="Search here">
+<<<<<<< HEAD
                         <button id="search-exercise-button" class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+=======
+                        <button id="search-exercise-button" class="btn btn-primary w-auto h-100" type="submit"><i class="fas fa-search"></i></button>
+>>>>>>> origin/development
                     </form>
                 </div>
-
-
 
 
                 <div class="card report-card">
@@ -545,6 +575,103 @@
                                                 </div>
                                                 <button type="submit" class="btn w-100 btn-primary submit-filter">Apply</button>
                                                 <button id="reset-difficulty" type="reset" class="btn w-100 btn-grey">Reset</button>
+<<<<<<< HEAD
+=======
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multipleSelection">
+                                            <div class="selectBox">
+                                                <p class="mb-0">Equipment</p>
+                                                <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
+                                            </div>
+                                            <div id="checkBoxes">
+                                                <div class="selectBox-cont">
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Stationary bike" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Stationary bike
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Elliptical machine" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Elliptical machine
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Rowing machine" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Rowing machine
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Free weights" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Free weights
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Resistance bands" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Resistance bands
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Kettlebells" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Kettlebells
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Bench press" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Bench press
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Leg press machine" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Leg press machine
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Pull-up bar" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Pull-up bar
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Dumbbell" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Dumbbell
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Barbells" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Barbells
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Exercise ball" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Exercise ball
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Yoga mat" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Yoga mat
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Jump rope" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Jump rope
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Medicine ball" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Medicine ball
+                                                    </label>
+                                                    <label class="custom_check w-100">
+                                                        <input type="checkbox" name="Foam roller" class="equipment">
+                                                        <span class="checkmark"></span>
+                                                        Foam roller
+                                                    </label>
+                                                </div>
+                                                <button type="submit" class="btn w-100 btn-primary submit-filter">Apply</button>
+                                                <button id="reset-equipment" type="reset" class="btn w-100 btn-grey">Reset</button>
+>>>>>>> origin/development
                                             </div>
                                         </div>
                                     </li>
@@ -554,6 +681,7 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 <div class="card invoices-tabs-card border-0">
                     <div class="card-body card-body pt-0 pb-0">
                         <div class="invoices-main-tabs border-0 pb-0">
@@ -629,6 +757,39 @@
                     </li>
                 </ul>
             </div>
+=======
+<%--                <div class="card invoices-tabs-card border-0">--%>
+<%--                    <div class="card-body card-body pt-0 pb-0">--%>
+<%--                        <div class="invoices-main-tabs border-0 pb-0">--%>
+<%--                            <div class="row align-items-center">--%>
+<%--                                <div class="col-lg-12 col-md-12">--%>
+<%--                                    <div class="invoices-settings-btn invoices-settings-btn-one">--%>
+<%--                                        <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+
+                    <div id="exerciseContainer" class="d-flex"></div>
+
+<%--                <div>--%>
+<%--                    <ul class="pagination mb-4">--%>
+<%--                        <li class="page-item disabled">--%>
+<%--                            <a class="page-link" href="#" tabindex="-1">Previous</a>--%>
+<%--                        </li>--%>
+<%--                        <li class="page-item active">--%>
+<%--                            <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>--%>
+<%--                        </li>--%>
+<%--                        <li class="page-item"><a class="page-link" href="#">2</a></li>--%>
+<%--                        <li class="page-item"><a class="page-link" href="#">3</a></li>--%>
+<%--                        <li class="page-item">--%>
+<%--                            <a class="page-link" href="#">Next</a>--%>
+<%--                        </li>--%>
+<%--                    </ul>--%>
+<%--                </div>--%>
+>>>>>>> origin/development
             </div>
         </div>
     </div>
@@ -655,19 +816,34 @@
     <script>
         // Function to generate HTML for exercise cards
         function generateExerciseCards(exerciseList) {
+<<<<<<< HEAD
             var cardHtml = '';
             exerciseList.forEach(function(exercise) {
                 cardHtml += '<div class="col-sm-6 col-lg-4 col-xl-3 d-flex">' +
+=======
+            var defaultIconUrl = 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg';
+            var cardHtml = '';
+            exerciseList.forEach(function(exercise) {
+                cardHtml += '<div class="col-lg-3 col-xl-3 m-2 rounded-3">' +
+>>>>>>> origin/development
                     '<div class="card invoices-grid-card w-100">' +
                     '<div class="card-header d-flex justify-content-between align-items-center">' +
                     '<a href="/exercise/details?id=' + exercise.id + '" class="invoice-grid-link text-decoration-none">' + exercise.name + '</a>' +
                     '<a href="view-invoice.html" class="avatar avatar-sm me-2 avatar-img rounded-circle">' +
+<<<<<<< HEAD
                     '<img class="rounded-circle" src="https://icons.veryicon.com/png/o/miscellaneous/commonly-used-icon-1/personal-25.png" alt="Edit Avatar">' +
+=======
+                    '<img class="rounded-circle" src="' +  'https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-1/426550388_1093431275117966_2445071136543330602_n.jpg?stp=dst-jpg_p320x320&_nc_cat=108&ccb=1-7&_nc_sid=5740b7&_nc_ohc=PVboOVasR0EAX94BvC9&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfAMa4QeO4QY-dCi0093TSNiV0_fculKKi1ibh2DlU2UiA&oe=65E3F442' + '" alt="Edit Avatar">' +
+>>>>>>> origin/development
                     '</a>' +
                     '</div>' +
                     '<div class="container position-relative">' +
                     '<a href="/exercise/details?id=' + exercise.id + '" class="text-decoration-none text-dark d-block position-relative">' +
+<<<<<<< HEAD
                     '<img class="w-100 mb-2" src="' + exercise.imageDescription + '" alt="User Image">' +
+=======
+                    '<img class="w-100 mb-2" src="' + (exercise.imageDescription || defaultIconUrl) + '" alt="User Image">' +
+>>>>>>> origin/development
                     '<div class="position-absolute top-0 end-0">';
 
                 var backgroundColor = 'bg-success';
@@ -683,6 +859,7 @@
                     '</div>' +
                     '<div class="card-body">';
 
+<<<<<<< HEAD
                 var types = exercise.type.split(' ');
                 types.forEach(function(word) {
                     cardHtml += '<div style="display: inline-block;">' +
@@ -690,11 +867,27 @@
                         '</div>';
                 });
 
+=======
+                cardHtml += '<div style="display: inline-block;">' +
+                    '<h2 class="w-auto p-1 m-1 bg-info text-white rounded small" style="font-size: 15px;">' + exercise.type + '</h2>' +
+                    '</div>';
+
+                cardHtml += '<div style="display: inline-block;">' +
+                    '<h2 class="w-auto p-1 m-1 bg-secondary text-white rounded small" style="font-size: 15px;">' + exercise.equipment + '</h2>' +
+                    '</div>';
+>>>>>>> origin/development
                 cardHtml += '</div></div></div>';
             });
             return cardHtml;
         }
 
+<<<<<<< HEAD
+=======
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+        console.log(csrfToken)
+        console.log(csrfHeader)
+>>>>>>> origin/development
 
         function sendFilterJSON(filterObject) {
             var filterJSON = JSON.stringify(filterObject);
@@ -702,6 +895,12 @@
             $.ajax({
                 url: '/api/exercises/search',
                 type: 'POST',
+<<<<<<< HEAD
+=======
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+>>>>>>> origin/development
                 data: filterJSON,
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
@@ -724,15 +923,30 @@
                 return $(this).attr('name');
             }).get();
 
+<<<<<<< HEAD
+=======
+            filterObject.equipments = $('.equipment:checked').map(function() {
+                return $(this).attr('name');
+            }).get();
+
+>>>>>>> origin/development
             sendFilterJSON(filterObject);
         }
     </script>
 
     <script>
+<<<<<<< HEAD
         // Start call when page is loaded
         var exerciseList = ${exerciseList};
         document.getElementById('exerciseContainer').innerHTML = generateExerciseCards(exerciseList);
         console.log(exerciseList);
+=======
+        $(document).ready(function() {
+            var exerciseList = ${exerciseList};
+            document.getElementById('exerciseContainer').innerHTML = generateExerciseCards(exerciseList);
+            console.log(exerciseList);
+        })
+>>>>>>> origin/development
     </script>
 
     <script>
@@ -768,6 +982,15 @@
                 $('.difficulty').prop('checked', false);
                 sendFilterRequest()
             });
+<<<<<<< HEAD
+=======
+
+            // Reset equipment
+            $('#reset-equipment').click(function() {
+                $('.equipment').prop('checked', false);
+                sendFilterRequest()
+            });
+>>>>>>> origin/development
         });
     </script>
 

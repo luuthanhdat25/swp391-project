@@ -483,7 +483,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <div class="schedule-selects">
-                                <form action="/view-personal-schedule" method="get">
+                                <form action="/selectWeek" method="get">
                                     <select id="yearSelect" class="form-select" onchange="updateWeekOptions()">
                                         <!-- Year options will be added dynamically -->
                                     </select>
@@ -806,7 +806,6 @@
         generateWeekOptions(selectedYear);
     }
 
-    // Function to handle selection change
     function onSelectionChange() {
         var weekSelect = document.getElementById("weekSelect");
         var yearSelect = document.getElementById("yearSelect");
@@ -820,6 +819,38 @@
         // Redirect to the new URL, causing the page to refresh
         window.location.href = newUrl;
     }
+
+    // Function to parse query parameters from URL
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] === variable) {
+                return pair[1];
+            }
+        }
+        return null;
+    }
+
+    // Function to set dropdown values from URL parameters
+    function setDropdownValuesFromUrl() {
+        var weekSelect = document.getElementById("weekSelect");
+        var yearSelect = document.getElementById("yearSelect");
+
+        var weekParam = getQueryVariable("week");
+        var yearParam = getQueryVariable("year");
+
+        if (weekParam !== null) {
+            weekSelect.value = weekParam;
+        }
+        if (yearParam !== null) {
+            yearSelect.value = yearParam;
+        }
+    }
+
+    // Call the function to set dropdown values when the page loads
+    window.onload = setDropdownValuesFromUrl;
 
     // Call functions to generate options when the page loads
     generateWeekOptions(new Date().getFullYear());

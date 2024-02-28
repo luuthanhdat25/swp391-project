@@ -1,7 +1,9 @@
 package com.swpproject.application.controller;
 
+import org.apache.jasper.tagplugins.jstl.core.Redirect;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
 
@@ -14,13 +16,14 @@ public class PersonalScheduleController {
         return "view-schedule"; // Return the view name
     }
 
-    @GetMapping(value = "/view-personal-schedule", params = {"week", "year"})
-    public String showPersonalScheduleWithParams(@RequestParam("week") String week, @RequestParam("year") String year) {
-        // Use the week and year values in your controller logic
-        System.out.println("Week: " + week);
-        System.out.println("Year: " + year);
+    @GetMapping(value = "/selectWeek", params = {"week", "year"})
+    public String showPersonalScheduleWithParams(@RequestParam("week") String week,
+                                                 @RequestParam("year") String year,
+                                                 RedirectAttributes attributes) {
+        attributes.addAttribute("week", week);
+        attributes.addAttribute("year", year);
 
-        // Add your controller logic here
-        return "redirect:/view-personal-schedule"; // Return the view name
+        return "redirect:/view-personal-schedule"; // Redirect with parameters
     }
+
 }

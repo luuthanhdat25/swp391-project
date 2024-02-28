@@ -20,25 +20,18 @@ public class AccountLoginController {
     @Autowired
     private AccountService accountService;
 
-
-    @RequestMapping("/custom-login")
-    public String index() {
-        return "index";
-    }
-
     @RequestMapping(value = "/login", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String showloginForm() {
         return "login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String loginAccount(@RequestParam String email, @RequestParam String password,
-                               RedirectAttributes redirectAttributes) {
+    public String loginAccount(@RequestParam String email, @RequestParam String password) {
+        System.out.println("@RequestParam --> " + email + "          " + password);
         Optional<Account> account = accountService.findAccountByEmail(email);
         if(account.isPresent() && password.equals(account.get().getPassword())) {
             return "welcome";
         } else
-            redirectAttributes.addFlashAttribute("fLogin", "Oops! Invalid login. Retry or use 'Forgot Password.' Contact support if needed. Thank you.");
         return "redirect:/login";
     }
 }

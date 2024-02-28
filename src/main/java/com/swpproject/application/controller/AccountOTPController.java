@@ -52,7 +52,7 @@ public class AccountOTPController {
             accountService.save((Account)session.getAttribute("account"));
             redirectAttributes.addFlashAttribute("MSG","Account created successfully! " +
                     "You can login into website now!");
-            session.setAttribute("sysOtp",null);
+            return "redirect:/login";
         } else {
             redirectAttributes.addFlashAttribute("MSG","Incorrect OTP Code! Try again.");
         }

@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Objects;
+
 // View PT, detail - Trình
 @Entity
 public class PersonalTrainer {
@@ -20,21 +23,26 @@ public class PersonalTrainer {
     private Boolean is_active;
     private String description;
     @OneToOne
-    @JoinColumn(name="id", nullable = false)
+    @JoinColumn(name="account_id", referencedColumnName = "Id")
     private Account account;
 
-    public PersonalTrainer() {
-    }
+    @OneToMany(mappedBy = "personalTrainer")
+    private List<Certificate> certificateList;
 
-    public PersonalTrainer(Integer id, Account account, String bankName, String bankNumber, Double weight, Double height, Double price, String description) {
+    public PersonalTrainer() {}
+
+    public PersonalTrainer(Integer id, String bankName, String bankNumber, Double weight, Double height, Double price, Double balance, Boolean is_active, String description, Account account, List<Certificate> certificateList) {
         this.id = id;
-        this.account = account;
         this.bankName = bankName;
         this.bankNumber = bankNumber;
         this.weight = weight;
         this.height = height;
         this.price = price;
+        this.balance = balance;
+        this.is_active = is_active;
         this.description = description;
+        this.account = account;
+        this.certificateList = certificateList;
     }
 
     public Integer getId() {
@@ -43,14 +51,6 @@ public class PersonalTrainer {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 
     public String getBankName() {
@@ -101,6 +101,14 @@ public class PersonalTrainer {
         this.balance = balance;
     }
 
+    public Boolean getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(Boolean is_active) {
+        this.is_active = is_active;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -109,16 +117,45 @@ public class PersonalTrainer {
         this.description = description;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public List<Certificate> getCertificateList() {
+        return certificateList;
+    }
+
+    public void setCertificateList(List<Certificate> certificateList) {
+        this.certificateList = certificateList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PersonalTrainer that)) return false;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getBankName(), that.getBankName()) && Objects.equals(getBankNumber(), that.getBankNumber()) && Objects.equals(getWeight(), that.getWeight()) && Objects.equals(getHeight(), that.getHeight()) && Objects.equals(getPrice(), that.getPrice()) && Objects.equals(getBalance(), that.getBalance()) && Objects.equals(getIs_active(), that.getIs_active()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getAccount(), that.getAccount()) && Objects.equals(getCertificateList(), that.getCertificateList());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getBankName(), getBankNumber(), getWeight(), getHeight(), getPrice(), getBalance(), getIs_active(), getDescription(), getAccount(), getCertificateList());
+    }
+
     @Override
     public String toString() {
         return "PersonalTrainer{" +
                 "id=" + id +
-                ", account=" + account +
                 ", bankName='" + bankName + '\'' +
                 ", bankNumber='" + bankNumber + '\'' +
                 ", weight=" + weight +
                 ", height=" + height +
                 ", price=" + price +
+                ", balance=" + balance +
+                ", is_active=" + is_active +
                 ", description='" + description + '\'' +
                 '}';
     }

@@ -31,16 +31,12 @@ public class Account {
     private Role role;
     private Boolean isBan;
     private String image;
-    @OneToOne
-    @JoinColumn(name="personal_trainer_id", nullable = false)
+    @OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
     private PersonalTrainer personalTrainer;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="gymer_id",nullable = false)
+    @OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
     private Gymer gymer;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn()
-    private List<Certificate> certificateList;
+
 
     public Account() {}
 

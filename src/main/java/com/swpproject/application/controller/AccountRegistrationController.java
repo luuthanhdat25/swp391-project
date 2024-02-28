@@ -48,34 +48,40 @@ public class AccountRegistrationController {
     public String registerAccount(@ModelAttribute("account") Account account,
                                   @RequestParam String rptPassword,
                                   RedirectAttributes redirectAttributes,
+                                  ModelMap model,
                                   HttpSession session) {
 
-        System.out.println(account);
+        session.setAttribute("account",account);
+        session.setAttribute("rptPassword",rptPassword);
         // Check if fullName contains any number or special character
         if (!account.getFullName().matches("^[a-zA-Z ]+$")) {
             redirectAttributes.addFlashAttribute("MSG", "Please enter a valid full name. " +
                                                                                  "The full name should only contain alphabet characters and spaces.");
+            session.setAttribute("fullname", "fullname");
             return "redirect:/registration";
         }
-
+        session.removeAttribute("fullname");
         // Check if the email is already taken
         if (accountService.findAccountByEmail(account.getEmail()).isPresent()) {
             redirectAttributes.addFlashAttribute("MSG", "This email is already taken!");
+            session.setAttribute("email", "email");
             return "redirect:/registration";
         }
-
+        session.removeAttribute("email");
         // Check if passwords match
         if (!account.getPassword().equals(rptPassword)) {
             redirectAttributes.addFlashAttribute("MSG", "Repeat password does not match!");
+            session.setAttribute("fRptPassword", "fRptPassword");
             return "redirect:/registration";
         }
-
+        session.removeAttribute("fRptPassword");
         // Check if birthday exceed or equal today
         if(LocalDate.now().isBefore(account.getBirthday())) {
             redirectAttributes.addFlashAttribute("MSG", "Birthday must not exceed today!");
+            session.setAttribute("birthday", "birthday");
             return "redirect:/registration";
         }
-
+        session.removeAttribute("birthday");
         account.setBan(false);
         session.setAttribute("account",account);
         return "redirect:/otp";

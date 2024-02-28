@@ -1,8 +1,7 @@
 package com.swpproject.application.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+
 @Entity
 public class Gymer {
     @Id
@@ -10,9 +9,9 @@ public class Gymer {
     private Double weight;
     private Double height;
     private String goal;
-    @OneToOne(mappedBy = "gymer")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="account", referencedColumnName = "Id")
     private Account account;
-
     public Gymer() {}
 
     public Gymer(Integer id, Double weight, Double height, String goal, Account account) {

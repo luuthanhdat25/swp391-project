@@ -5,10 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class LandingPageController {
+public class OAuth2LoginController {
 
-    @RequestMapping(value= "/",method = RequestMethod.GET, produces = "text/html; charset= UTF-8")
-    public String index() {
-        return "index";
+    @RequestMapping(value = "/oauth2-login", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    public String showOAuth2LoginForm() {
+        return "oauth2-login";
     }
+
 }

@@ -21,7 +21,7 @@ public class ExerciseRepository {
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, exercise.getName(), exercise.getType(), exercise.getDescription(),
                 exercise.getLevel(), exercise.getEquipment(), exercise.getVideoDescription(),
-                exercise.getImageDescription(), exercise.getPersonalTrainer().getId(), exercise.isPrivate());
+                exercise.getImageDescription(), exercise.getPersonalTrainer().getPtId(), exercise.isPrivate());
         return exercise;
     }
 

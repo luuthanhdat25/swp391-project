@@ -2,50 +2,52 @@ package com.swpproject.application.model;
 import org.springframework.data.relational.core.mapping.Table;
 import jakarta.persistence.*;
 
+import jakarta.persistence.*;
+import org.springframework.data.relational.core.mapping.Table;
+
 @Entity
-@Table(name = "gymer")
+@Table(name = "GYMER")
 public class Gymer {
+
     @Id
-    private Integer id;
-    private Double weight;
-    private Double height;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "GYMER_ID")
+    private Integer gymerId;
+
+    @Column(name = "[WEIGHT]")
+    private Float weight;
+
+    @Column(name = "HEIGHT")
+    private Float height;
+
+    @Column(name = "GOAL", columnDefinition = "NVARCHAR(MAX)")
     private String goal;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="account_id")
+    @OneToOne
+    @JoinColumn(name = "ACCOUNT_ID", nullable = false)
     private Account account;
 
-    public Gymer() {}
-
-    public Gymer(Integer id, Double weight, Double height, String goal, Account account) {
-        this.id = id;
-        this.weight = weight;
-        this.height = height;
-        this.goal = goal;
-        this.account = account;
+    public Integer getGymerId() {
+        return gymerId;
     }
 
-    public Integer getId() {
-        return id;
+    public void setGymerId(Integer gymerId) {
+        this.gymerId = gymerId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Double getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
     }
 
-    public Double getHeight() {
+    public Float getHeight() {
         return height;
     }
 
-    public void setHeight(Double height) {
+    public void setHeight(Float height) {
         this.height = height;
     }
 
@@ -63,16 +65,5 @@ public class Gymer {
 
     public void setAccount(Account account) {
         this.account = account;
-    }
-
-    @Override
-    public String toString() {
-        return "Gymer{" +
-                "id=" + id +
-                ", weight=" + weight +
-                ", height=" + height +
-                ", goal='" + goal + '\'' +
-                ", account=" + account +
-                '}';
     }
 }

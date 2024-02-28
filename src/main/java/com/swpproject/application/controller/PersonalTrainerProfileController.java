@@ -32,7 +32,7 @@ public class PersonalTrainerProfileController {
     @RequestMapping(value = "/personal-trainer/profile/update-profile", method = RequestMethod.POST)
     public String updateProfile(ModelMap model, PersonalTrainer personalTrainer) {
         personalTrainerRepository.save(personalTrainer);
-        System.out.println(personalTrainer.getId());
+        System.out.println(personalTrainer.getPtId());
         return "redirect:/";
     }
 }

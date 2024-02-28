@@ -216,6 +216,11 @@
                             <div class="col-lg-4">
                                 <div class="student-personals-grp">
                                     <div class="card">
+<<<<<<< HEAD
+                                        <div class="card-body">
+                                            <img class="w-100 mb-2" src="${exercise.imageDescription}" style="border-radius: .25rem;" alt="User Image">
+                                            <div class="d-flex mt-md-2">
+=======
                                         <div class="card-body position-relative">
                                             <img id="exerciseImage" class="w-100 mb-2" src="${exercise.imageDescription ? exercise.imageDescription : 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg'}" style="border-radius: .25rem;" alt="User Image">
 
@@ -224,6 +229,7 @@
                                             </a>
 
                                             <div class="mt-md-2">
+>>>>>>> origin/development
                                                 <c:set var="backgroundColor" value="bg-success" />
                                                 <c:choose>
                                                     <c:when test="${exercise.level eq 'Intermediate'}">
@@ -234,6 +240,16 @@
                                                     </c:when>
                                                 </c:choose>
 
+<<<<<<< HEAD
+                                                <h2 class="m-100 p-1 ${backgroundColor} text-white rounded" style="font-size: 1rem">${exercise.level}</h2>
+                                                <h2 class="m-100 m-l-5 p-1 bg-info text-white rounded" style="font-size: 1rem">${exercise.type}</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+=======
                                                 <h2 class="m-100 p-1 ${backgroundColor} text-white rounded" style="font-size: 1rem">Level: ${exercise.level}</h2>
                                                 <h2 class="m-100 p-1 bg-info text-white rounded" style="font-size: 1rem">Affected Muscle: ${exercise.type}</h2>
                                                 <h2 class="m-100 p-1 bg-secondary text-white rounded" style="font-size: 1rem">Equipment: ${exercise.equipment}</h2>
@@ -244,12 +260,22 @@
                                 </div>
                             </div>
 
+>>>>>>> origin/development
                             <div class="col-lg-8">
                                 <div class="student-personals-grp">
                                     <div class="card mb-0">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center heading-detail">
                                                 <h2>${exercise.name}</h2>
+<<<<<<< HEAD
+                                                <a href="/exercise/details/edit?id=0" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
+                                            </div>
+
+
+                                            <div class="embed-responsive embed-responsive-16by9 w-100">
+                                                <iframe  src="https://www.youtube.com/embed/VmB1G1K7v94?si=sXUOXtLXqPeqOHik" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                            </div>
+=======
 <%--                                                <a href="/exercise/details/edit?id=0" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>--%>
                                             </div>
                                             <hr>
@@ -261,6 +287,7 @@
                                             </div>
 
                                             <hr>
+>>>>>>> origin/development
 
                                             <div class="hello-park  mt-md-4">
                                                 <h2>Description</h2>
@@ -292,9 +319,14 @@
     <script src="../../assets/js/feather.min.js"></script>
 
     <script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<<<<<<< HEAD
+
+    <script src="../../assets/js/script.js"></script>
+=======
 
     <script src="../../assets/js/script.js"></script>
 
+>>>>>>> origin/development
 </body>
 
 </html>

@@ -3,29 +3,79 @@ package com.swpproject.application.model;
 import jakarta.persistence.*;
 
 import java.util.Arrays;
-
+import org.springframework.data.relational.core.mapping.Table;
 @Entity
-@Table(name = "CERTIFICATE")
+@Table(name = "certificate")
 public class Certificate {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CERTIFICATE_ID")
-    private Integer certificateId;
-
-    @Column(name = "TITLE", nullable = false)
+    private Integer id;
     private String title;
-
-    @Column(name = "ORGANIZER", nullable = false)
     private String organizer;
-
-    @Lob
-    @Column(name = "[IMAGE]", nullable = false)
+    @Lob // use to store varbinary in db
     private byte[] image;
 
-    @ManyToOne
-    @JoinColumn(name = "PT_ID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "personal_trainer_id", nullable = false)
     private PersonalTrainer personalTrainer;
 
-    // Getter and setter methods
+    public Certificate() {}
+
+    public Certificate(Integer id, String title, String organizer, byte[] image, PersonalTrainer personalTrainer) {
+        this.id = id;
+        this.title = title;
+        this.organizer = organizer;
+        this.image = image;
+        this.personalTrainer = personalTrainer;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(String organizer) {
+        this.organizer = organizer;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public PersonalTrainer getPersonalTrainer() {
+        return personalTrainer;
+    }
+
+    public void setPersonalTrainer(PersonalTrainer personalTrainer) {
+        this.personalTrainer = personalTrainer;
+    }
+
+    @Override
+    public String toString() {
+        return "Certificate{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", organizer='" + organizer + '\'' +
+                ", image=" + Arrays.toString(image) +
+                ", personalTrainer=" + personalTrainer +
+                '}';
+    }
 }

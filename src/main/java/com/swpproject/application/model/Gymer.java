@@ -1,4 +1,6 @@
 package com.swpproject.application.model;
+import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.*;
 
 import jakarta.persistence.*;
 import org.springframework.data.relational.core.mapping.Table;

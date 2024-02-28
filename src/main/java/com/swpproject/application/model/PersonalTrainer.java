@@ -9,48 +9,50 @@ import java.util.Objects;
 
 // View PT, detail - Trình
 @Entity
+@Table(name = "PERSONAL_TRAINER")
 public class PersonalTrainer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "PT_ID")
+    private Integer ptId;
+
+    @Column(name = "BANK_NAME")
     private String bankName;
+
+    @Column(name = "BANK_NUMBER")
     private String bankNumber;
-    private Double weight;
-    private Double height;
-    private Double price;
-    private Double balance;
-    private Boolean is_active;
+
+    @Column(name = "[DESC]")
     private String description;
+
+    @Column(name = "IS_ACTIVE", columnDefinition = "BIT DEFAULT 0")
+    private Boolean isActive;
+
+    @Column(name = "PRICE")
+    private Integer price;
+
     @OneToOne
-    @JoinColumn(name="account_id", referencedColumnName = "Id")
+    @JoinColumn(name = "ACCOUNT_ID", nullable = false)
     private Account account;
 
-    @OneToMany(mappedBy = "personalTrainer")
-    private List<Certificate> certificateList;
+    @OneToOne(mappedBy = "personalTrainer", cascade = CascadeType.ALL)
+    private Certificate certificate;
 
-    public PersonalTrainer() {}
-
-    public PersonalTrainer(Integer id, String bankName, String bankNumber, Double weight, Double height, Double price, Double balance, Boolean is_active, String description, Account account, List<Certificate> certificateList) {
-        this.id = id;
-        this.bankName = bankName;
-        this.bankNumber = bankNumber;
-        this.weight = weight;
-        this.height = height;
-        this.price = price;
-        this.balance = balance;
-        this.is_active = is_active;
-        this.description = description;
-        this.account = account;
-        this.certificateList = certificateList;
-    }
-
-    public Integer getId() {
-        return id;
+    public Integer getPtId() {
+        return ptId;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public String getBankName() {
@@ -67,46 +69,6 @@ public class PersonalTrainer {
 
     public void setBankNumber(String bankNumber) {
         this.bankNumber = bankNumber;
-    }
-
-    public Double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Double weight) {
-        this.weight = weight;
-    }
-
-    public Double getHeight() {
-        return height;
-    }
-
-    public void setHeight(Double height) {
-        this.height = height;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
-
-    public Boolean getIs_active() {
-        return is_active;
-    }
-
-    public void setIs_active(Boolean is_active) {
-        this.is_active = is_active;
     }
 
     public String getDescription() {
@@ -145,18 +107,35 @@ public class PersonalTrainer {
         return Objects.hash(getId(), getBankName(), getBankNumber(), getWeight(), getHeight(), getPrice(), getBalance(), getIs_active(), getDescription(), getAccount(), getCertificateList());
     }
 
-    @Override
-    public String toString() {
-        return "PersonalTrainer{" +
-                "id=" + id +
-                ", bankName='" + bankName + '\'' +
-                ", bankNumber='" + bankNumber + '\'' +
-                ", weight=" + weight +
-                ", height=" + height +
-                ", price=" + price +
-                ", balance=" + balance +
-                ", is_active=" + is_active +
-                ", description='" + description + '\'' +
-                '}';
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Certificate getCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(Certificate certificate) {
+        this.certificate = certificate;
     }
 }

@@ -1,8 +1,7 @@
 package com.swpproject.application.controller.personal_trainer;
 
-import com.swpproject.application.model.Exercise;
 import com.swpproject.application.model.PersonalTrainer;
-import com.swpproject.application.others.JsonUntils;
+import com.swpproject.application.utils.JsonUtils;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.PersonalTrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class PersonalTrainerListController {
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getPersonalTrainerListPage(ModelMap model) {
         List<PersonalTrainer> list = personalTrainerRepository.findAll();
-        String json = JsonUntils.jsonConvert(list);
+        String json = JsonUtils.jsonConvert(list);
         model.addAttribute("personalTrainerList", json);
         return "personal-trainer-list";
     }

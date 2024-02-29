@@ -7,6 +7,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                             <div class="card-body">
+                                <%--@elvariable id="account" type=""--%>
                                 <form:form action="${pageContext.request.contextPath}/registration" method="post" modelAttribute="account">
                                     <a href="javascript:history.go(-1)" class="back-btn"><i
                                             class="feather-chevron-left"></i> Back</a>
@@ -17,26 +18,30 @@
                                         <div class="col-12 col-sm-12">
                                             <div class="form-group local-forms">
                                                 <label>Fullname <span class="login-danger">*</span></label>
-                                                <input type="text" class="form-control" placeholder="Enter Fullname" name="fullName" value="${account.fullName}" required>
+                                                <input type="text" type="email" style="${not empty fullname ? 'border: 1px solid red' : ''}"
+                                                       class="form-control" placeholder="Enter Fullname" name="fullName" value="${account.fullName}" required>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-12">
                                             <div class="form-group local-forms">
                                                 <label>Email<span class="login-danger">*</span></label>
-                                                <input type="email" class="form-control" placeholder="Enter Email" name="email" value="${account.email}" required>
+                                                <input type="email" style="${not empty email ? 'border: 1px solid red' : ''}"
+                                                       class="form-control" placeholder="Enter Email" name="email" value="${account.email}" required>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-12">
                                             <div class="form-group local-forms">
                                                 <label>Password <span class="login-danger">*</span></label>
-                                                <input class="form-control pass-input" type="text" placeholder="Enter Password" name="password" value="${account.password}" required>
+                                                <input class="form-control pass-input" style="${not empty password ? 'border: 1px solid red' : ''}"
+                                                       type="text" placeholder="Enter Password" name="password" value="${account.password}" required>
                                                 <span class="profile-views feather-eye toggle-password"></span>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-12">
                                             <div class="form-group local-forms">
                                                 <label>Repeat Password <span class="login-danger">*</span></label>
-                                                <input class="form-control pass-input" type="text" placeholder="Repeat Password" name="rptPassword" value="${rptPassword}" required>
+                                                <input class="form-control pass-input" style="${not empty fRptPassword ? 'border: 1px solid red' : ''}"
+                                                       type="text" placeholder="Repeat Password" name="rptPassword" value="${rptPassword}" required>
                                                 <span class="profile-views feather-eye toggle-password"></span>
                                             </div>
                                         </div>
@@ -53,7 +58,8 @@
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms calendar-icon">
                                                 <label>Birthday<span class="login-danger">*</span></label>
-                                                <input class="form-control datetimepicker" type="date"
+                                                <input class="form-control datetimepicker"
+                                                       type="date" style="${not empty birthday ? 'border: 1px solid red' : ''}"
                                                        placeholder="DD-MM-YYYY" name="birthday" value="${account.birthday}" required>
                                             </div>
                                         </div>

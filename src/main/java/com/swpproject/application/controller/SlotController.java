@@ -2,9 +2,8 @@ package com.swpproject.application.controller;
 
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.PersonalTrainer;
-import com.swpproject.application.model.SchedulePersonalTrainerEntity;
-import com.swpproject.application.model.SlotExcerciseEntity;
-import com.swpproject.application.service.AccountServiceImpl;
+import com.swpproject.application.model.SchedulePersonalTrainer;
+import com.swpproject.application.service.impl.AccountServiceImpl;
 import com.swpproject.application.service.PersonalTrainerService;
 import com.swpproject.application.service.SchedulePersonalTrainerService;
 import com.swpproject.application.service.SlotExcerciseEntityService;
@@ -89,9 +88,9 @@ public class SlotController {
         Integer year = (Integer) session.getAttribute("year");
         PersonalTrainer  personalTrainer = new PersonalTrainer();
                 personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(accountId);
-        SchedulePersonalTrainerEntity schedulePersonalTrainerEntity = schedulePersonalTrainerService.findScheduleByPTId(personalTrainer.getPtId());
+        SchedulePersonalTrainer schedulePersonalTrainerEntity = schedulePersonalTrainerService.findScheduleByPtId(personalTrainer.getId());
 
-        System.out.println("PT ID : "+personalTrainer.getPtId());
+        System.out.println("PT ID : "+ personalTrainer.getId());
         System.out.println(" ScheduleID: "+schedulePersonalTrainerEntity.getScheduleId());
         if (accountId != null) {
             // Do something with accountId, such as storing it in the session

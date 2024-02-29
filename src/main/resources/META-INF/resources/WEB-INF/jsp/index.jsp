@@ -6,17 +6,17 @@
 
         <div class="header-left">
             <a href="index.html" class="logo">
-<<<<<<< HEAD
+
                 <img src="/META-INF/resources/assets/img/logo.png" alt="Logo">
             </a>
             <a href="index.html" class="logo logo-small">
                 <img src="/META-INF/resources/assets/img/logo-small.png" alt="Logo" width="30" height="30">
-=======
+
                 <img src="../../assets/img/logo.png" alt="Logo">
             </a>
             <a href="index.html" class="logo logo-small">
                 <img src="../../assets/img/logo-small.png" alt="Logo" width="30" height="30">
->>>>>>> origin/development
+
             </a>
         </div>
         <div class="menu-toggle">
@@ -48,7 +48,7 @@
                         <span>Main Menu</span>
                     </li>
                     <li class="submenu active">
-<<<<<<< HEAD
+
                         <a href="#"><i class="feather-grid"></i> <span> Dashboard</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
@@ -130,11 +130,11 @@
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-<<<<<<< HEAD
+
                         <img class="d-block img-fluid" src="/META-INF/resources/assets/img/hero-1.jpg" alt="First slide">
-=======
+
                         <img class="d-block img-fluid" src="../../assets/img/hero-1.jpg" alt="First slide">
->>>>>>> origin/development
+
                         <div class="col-lg-12">
                             <div class="hero-text">
                                 <h2>Gym On</h2>
@@ -144,11 +144,11 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-<<<<<<< HEAD
+
                         <img class="d-block img-fluid" src="/META-INF/resources/assets/img/hero-2.jpg" alt="Second slide">
-=======
+
                         <img class="d-block img-fluid" src="../../assets/img/hero-2.jpg" alt="Second slide">
->>>>>>> origin/development
+
                         <div class="col-lg-12">
                             <div class="hero-text">
                                 <h2>Gym On</h2>
@@ -158,11 +158,11 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-<<<<<<< HEAD
+
                         <img class="d-block img-fluid" src="/META-INF/resources/assets/img/hero-3.jpg" alt="Third slide">
-=======
+
                         <img class="d-block img-fluid" src="../../assets/img/hero-3.jpg" alt="Third slide">
->>>>>>> origin/development
+
                         <div class="col-lg-12">
                             <div class="hero-text">
                                 <h2>Gym On</h2>
@@ -229,11 +229,11 @@
                 <div class="row">
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
-<<<<<<< HEAD
+
                             <img src="/META-INF/resources/assets/img/chose-icon-1.png" alt="">
-=======
+
                             <img src="../../assets/img/chose-icon-1.png" alt="">
->>>>>>> origin/development
+
                             <h5>Support 24/24</h5>
                             <p>One of the best ways to make a great vacation quickly horrible is to choose the wrong
                                 accommodations for your trip. </p>
@@ -241,11 +241,11 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
-<<<<<<< HEAD
+
                             <img src="/META-INF/resources/assets/img/chose-icon-2.png" alt="">
-=======
+
                             <img src="../../assets/img/chose-icon-2.png" alt="">
->>>>>>> origin/development
+
                             <h5>Our trainer</h5>
                             <p>If you are an infrequent traveler you may need some tips to keep the wife happy while
                                 you are
@@ -254,11 +254,11 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
-<<<<<<< HEAD
+
                             <img src="/META-INF/resources/assets/img/chose-icon-3.png" alt="">
-=======
+
                             <img src="../../assets/img/chose-icon-3.png" alt="">
->>>>>>> origin/development
+
                             <h5>Personalized sessions</h5>
                             <p>To succeed at any endeavor, you must stay the course…no matter what the cost! Here
                                 are some
@@ -267,11 +267,11 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
-<<<<<<< HEAD
+
                             <img src="/META-INF/resources/assets/img/chose-icon-4.png" alt="">
-=======
+
                             <img src="../../assets/img/chose-icon-4.png" alt="">
->>>>>>> origin/development
+
                             <h5>Our equipment</h5>
                             <p>Rugby and Stratford-upon-Avon. Additionally, there are many things to see and do in
                                 and
@@ -280,11 +280,11 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
-<<<<<<< HEAD
+
                             <img src="/META-INF/resources/assets/img/chose-icon-5.png" alt="">
-=======
+
                             <img src="../../assets/img/chose-icon-5.png" alt="">
->>>>>>> origin/development
+
                             <h5>Classes daily</h5>
                             <p>We would just not have the will in us to go about our daily lives. Its motivation
                                 that helps
@@ -293,11 +293,11 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
-<<<<<<< HEAD
+
                             <img src="/META-INF/resources/assets/img/chose-icon-6.png" alt="">
-=======
+
                             <img src="../../assets/img/chose-icon-6.png" alt="">
->>>>>>> origin/development
+
                             <h5>Focus on your health</h5>
                             <p>But there is only so far we can go within the constraints of a family budget in
                                 building the

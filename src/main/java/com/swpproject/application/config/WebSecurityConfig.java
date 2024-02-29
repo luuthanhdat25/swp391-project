@@ -13,9 +13,9 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(req -> req.requestMatchers("/**", "/login")
-            .permitAll()
-            .anyRequest()
-            .authenticated())
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
                 .formLogin(form -> form.loginPage("/login")
                         .defaultSuccessUrl("/welcome")
                         .usernameParameter("email")

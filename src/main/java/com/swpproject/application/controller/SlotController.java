@@ -20,7 +20,7 @@ import java.util.List;
 public class SlotController {
 
     @Autowired
-    private SlotExcerciseEntityService slotExcerciseEntiryService;
+    private SlotExcerciseEntityService slotExcerciseEntityService;
 
     @Autowired
     private AccountServiceImpl accountService;

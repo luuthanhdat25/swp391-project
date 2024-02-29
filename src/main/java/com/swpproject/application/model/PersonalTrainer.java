@@ -44,4 +44,17 @@ public class PersonalTrainer {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "personalTrainer", cascade = CascadeType.ALL)
     private List<Certificate> certificates;
 
+    @Override
+    public String toString() {
+        return "PersonalTrainer{" +
+                "id=" + id +
+                ", bankName='" + bankName + '\'' +
+                ", bankNumber='" + bankNumber + '\'' +
+                ", description='" + description + '\'' +
+                ", isActive=" + isActive +
+                ", price=" + price +
+                ", account=" + account +
+                ", certificates=" + certificates +
+                '}';
+    }
 }

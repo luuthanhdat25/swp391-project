@@ -1,9 +1,8 @@
 package com.swpproject.application.controller.exercise;
 
 import com.swpproject.application.model.Exercise;
-import com.swpproject.application.others.ImageUtils;
-import com.swpproject.application.others.JsonUntils;
 import com.swpproject.application.repository.ExerciseRepository;
+import com.swpproject.application.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,7 +66,7 @@ public class ExerciseController {
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseListPage(ModelMap model) {
         List<Exercise> exercises = exerciseRepository.findAll();
-        String json = JsonUntils.jsonConvert(exercises);
+        String json = JsonUtils.jsonConvert(exercises);
         model.addAttribute("exerciseList", json);
         return "exercise-list";
     }

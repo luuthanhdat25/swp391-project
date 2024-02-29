@@ -1,7 +1,8 @@
-package com.swpproject.application.service;
+package com.swpproject.application.service.impl;
 
 import com.swpproject.application.model.Account;
 import com.swpproject.application.repository.AccountRepository;
+import com.swpproject.application.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountRepository accountRepository;

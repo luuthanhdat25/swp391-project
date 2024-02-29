@@ -1,4 +1,7 @@
-package com.swpproject.application.others;
+package com.swpproject.application.utils;
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -6,6 +9,7 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ImageUtils {
     public static final int BITE_SIZE = 4 * 1024;
 

@@ -1,102 +1,47 @@
 package com.swpproject.application.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
-// View PT, detail - Trình
+import java.util.List;
+import java.util.Objects;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Data
 @Entity
-@Table(name = "PERSONAL_TRAINER")
+@Table(name = "personal_trainer")
 public class PersonalTrainer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PT_ID")
-    private Integer ptId;
+    @Column(name = "id")
+    private Integer id;
 
-    @Column(name = "BANK_NAME")
+    @Column(name = "bank_name")
     private String bankName;
 
-    @Column(name = "BANK_NUMBER")
+    @Column(name = "bank_number")
     private String bankNumber;
 
-    @Column(name = "[DESC]")
+    @Column(name = "[desc]")
     private String description;
 
-    @Column(name = "IS_ACTIVE", columnDefinition = "BIT DEFAULT 0")
+    @Column(name = "is_active", columnDefinition = "BIT DEFAULT 0")
     private Boolean isActive;
 
-    @Column(name = "PRICE")
+    @Column(name = "price")
     private Integer price;
 
     @OneToOne
-    @JoinColumn(name = "ACCOUNT_ID", nullable = false)
+    @JoinColumn(name = "account_id",referencedColumnName = "id", nullable = false)
     private Account account;
 
-    @OneToOne(mappedBy = "personalTrainer", cascade = CascadeType.ALL)
-    private Certificate certificate;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "personalTrainer", cascade = CascadeType.ALL)
+    private List<Certificate> certificates;
 
-    public Integer getPtId() {
-        return ptId;
-    }
-
-    public void setPtId(Integer ptId) {
-        this.ptId = ptId;
-    }
-
-    public String getBankName() {
-        return bankName;
-    }
-
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
-    }
-
-    public String getBankNumber() {
-        return bankNumber;
-    }
-
-    public void setBankNumber(String bankNumber) {
-        this.bankNumber = bankNumber;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public Certificate getCertificate() {
-        return certificate;
-    }
-
-    public void setCertificate(Certificate certificate) {
-        this.certificate = certificate;
-    }
 }

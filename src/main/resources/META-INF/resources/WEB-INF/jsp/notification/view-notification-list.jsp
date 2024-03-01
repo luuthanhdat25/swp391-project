@@ -34,9 +34,10 @@
             <button class="btn btn-rounded btn-outline-danger"><a href="login">Login</a></button>
             <button class="btn btn-rounded btn-outline-danger"><a href="/registration">Sign up</a></button>
         </ul>
-
+        <form action="view-creating-notification-detail" method="GET">
+           <button type="submit" style="height: 50px; width: 50px; background-color: #3c763d;" class="btn btn-success">Add</button>
+        </form>
     </div>
-
     <div>
         <div class="sidebar" id="sidebar" style="width: 30%; background-color: #adb5bd;">
             <div class="sidebar-inner slimscroll">
@@ -76,48 +77,30 @@
                          <div class="d-flex justify-content-between align-items-center">
                              <img class="rounded-circle" style="width: 80px;" src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"/>
                              <div class="d-flex flex-column" style="margin-left: 15px;">
-                                 <h2 class="fw-bold text-primary" style="margin-bottom: 0px;">Thai Bao Personal Trainer</h2>
-                                 <div class="d-flex justify-content-between align-items-center" style="margin-top: 10px;">
-                                     <h6 class="fw-bold" style="margin-bottom: 5px;">${NotificationDetail.title}</h6>
-                                     12:10
+                                 <div class="d-flex justify-content-between align-items-center" style="margin: 10px 0 10px 0;">
+                                     <h2 class="fw-bold text-primary" style="margin-bottom: 0px;"> Nguyen Thai Bao</h2>
+                                     ${NotificationDetail.timeStamp}
                                  </div>
+                                 <h6 class="fw-bold" style="margin-bottom: 5px;">${NotificationDetail.title}</h6>
                              </div>
                          </div>
                      </div>
-                     <button type="button" style="height: 50px; width: 100px; background-color: #3c763d;" class="btn btn-success">Remove</button>
+                     <form action="delete-notification-detail" method="GET">
+                         <input type="hidden" name="deleteNotificationID" value="${NotificationDetail.id}"/>
+                          <button type="button" class="btn btn-success" style="height: 50px; width: 150px; background-color: #3c763d;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height=19 fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+                              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+                            </svg> Remove
+                          </button>
+                     </form>
                  </div>
 
-                <div class="notification-header d-flex justify-content-between align-items-center" style="margin-top: 10px; padding: 10px;">
+                <div class="notification-header d-flex justify-content-between align-items-center" style="margin-top: 10px; padding: 50px;">
                      <div class="d-flex justify-content-between align-items-center">
-                         <p>${NotificationDetail.content}</p>
+                         <div>${NotificationDetail.content}</div>
                      </div>
                  </div>
-
-                 <%--<div class="notification-header d-flex justify-content-between align-items-center" style="margin-top: 10px; padding: 10px;">
-                     <div class="d-flex justify-content-between align-items-center">
-                        Dear Luu Thanh Dat,<br><br>
-
-                        I, Nguyen Thai Bao, as your personal trainer, acknowledge and agree to your request<br>
-                        for the training course. I am confident that I can accommodate the time slots for training<br>
-                        as per your requirements.<br>
-
-                        Below are the details for the course payment:<br><br>
-
-                        Duration: 3 month (20/4/2024  to 20/7/2024)<br>
-                        Total Cost: 3.600.000 VND<br>
-                        Payment Method: VNPAY<br>
-                        Payment link: payment.com/vnpay<br><br>
-
-                        Please ensure that the payment is made prior to the commencement of the training<br>
-                        sessions to secure your spot. Once the payment is processed, we can proceed with<br>
-                        scheduling the training sessions at your convenience.<br><br>
-
-                        Best regards,<br><br>
-
-                        Nguyen Thai Bao<br>
-                        [Your Contact Information]<br>
-                     </div>
-                 </div>--%>
             </div>
        </div>
     </div>

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.zip.DataFormatException;
 
@@ -30,13 +32,8 @@ public class ExerciseController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getExerciseListPage(ModelMap model) throws DataFormatException, IOException {
+    public String getExerciseListPage(ModelMap model){
         List<Exercise> exercises = exerciseRepository.findAll();
-        for(Exercise exercise : exercises) {
-            if(exercise.getImageDescription() != null) {
-                exercise.setImageDescription(ImageUtils.decompressImage(exercise.getImageDescription()));
-            }
-        }
         String json = JsonUtils.jsonConvert(exercises);
         model.addAttribute("exerciseList", json);
         return "exercise-list";
@@ -78,7 +75,7 @@ public class ExerciseController {
         exercise.setLevel(level);
         exercise.setEquipment(equipment);
         exercise.setVideoDescription(youtubeLink);
-        exercise.setImageDescription(ImageUtils.compressImage(image.getBytes()));
+        exercise.setImageDescription(image.getBytes());
         exercise.setPrivate(isPrivate);
 
         PersonalTrainer personalTrainerExample = personalTrainerRepository.findAll().getFirst();

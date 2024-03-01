@@ -207,11 +207,10 @@
                     </div>
                 </div>
 
-                <div class="container mb-3">
-                    <form id="search-exercise" class="d-flex align-items-center">
+                <div class="mt-3">
+                    <form id="search-exercise" class="w-100 d-flex">
                         <input id="searchInput" type="text" class="form-control" placeholder="Search here">
-
-                        <button id="search-exercise-button" class="btn btn-primary w-auto h-100" type="submit"><i class="fas fa-search"></i></button>
+                        <button id="search-exercise-button" class="btn btn-primary h-auto" type="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
 
@@ -393,7 +392,6 @@
                         </div>
                     </div>
                 </div>
-
 <%--                <div class="card invoices-tabs-card border-0">--%>
 <%--                    <div class="card-body card-body pt-0 pb-0">--%>
 <%--                        <div class="invoices-main-tabs border-0 pb-0">--%>
@@ -464,7 +462,7 @@
                     '</div>' +
                     '<div class="container position-relative">' +
                     '<a href="/exercise/details?id=' + exercise.id + '" class="text-decoration-none text-dark d-block position-relative">' +
-                    '<img class="w-100 mb-2" src="' + (exercise.imageDescription || defaultIconUrl) + '" alt="User Image">' +
+                    '<img class="w-100 mb-2 rounded-2" src="data:image/jpeg;base64,' + (exercise.imageDescription || defaultIconUrl) + '" alt="User Image">' +
                     '<div class="position-absolute top-0 end-0">';
 
                 var backgroundColor = 'bg-success';
@@ -587,6 +585,7 @@
             });
         });
     </script>
+
 
 </body>
 

@@ -12,7 +12,6 @@ public class PersonalScheduleController {
     @GetMapping(value = "/view-personal-schedule")
     public String showPersonalSchedule() {
         // Add your controller logic here
-
         return "view-schedule"; // Return the view name
     }
 
@@ -20,10 +19,10 @@ public class PersonalScheduleController {
     public String showPersonalScheduleWithParams(@RequestParam("week") String week,
                                                  @RequestParam("year") String year,
                                                  RedirectAttributes attributes) {
+        System.out.println("week: "+week+" year: "+year);
         attributes.addAttribute("week", week);
         attributes.addAttribute("year", year);
 
         return "redirect:/view-personal-schedule"; // Redirect with parameters
     }
-
 }

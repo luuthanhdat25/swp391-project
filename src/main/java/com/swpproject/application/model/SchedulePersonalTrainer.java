@@ -15,8 +15,8 @@ public class SchedulePersonalTrainer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SCHEDULE_ID")
-    private Long scheduleId;
+    @Column(name = "id")
+    private Integer id;
 
     // Thêm các thuộc tính khác của bảng SchedulePersonalTrainerEntity nếu cần
 

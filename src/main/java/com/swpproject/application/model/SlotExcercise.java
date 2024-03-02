@@ -15,16 +15,16 @@ public class SlotExcercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String day;
-    private int start_hour;
-    private int end_hour;
+    private String start_hour;
+    private String end_hour;
 
     private boolean is_pending;
     private String attendant_status;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
-    private SchedulePersonalTrainer schedulePersonalTrainer;
+    private Schedule schedule;
 }

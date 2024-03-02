@@ -5,8 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SchedulePersonalTrainerRepository extends JpaRepository<SchedulePersonalTrainer,Long> {
-
-    // TODO: đặt lại tên hàm --> findAllSchedulesByPTId
-    public SchedulePersonalTrainer findAllByPersonalTrainerPtId(Integer id);
+public interface SchedulePersonalTrainerRepository extends JpaRepository<SchedulePersonalTrainer,Integer> {
+    public SchedulePersonalTrainer findSchedulePersonalTrainerById(Integer id);
 }

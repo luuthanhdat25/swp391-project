@@ -16,7 +16,7 @@ public class PersonalTrainerService {
         personalTrainerRepository.save(personalTrainer);
     }
     public PersonalTrainer findPersonalTrainerByAccountID(int accountId){
-        Optional<PersonalTrainer> personalTrainerOptional = personalTrainerRepository.findByAccount_AccountId(accountId);
+        Optional<PersonalTrainer> personalTrainerOptional = personalTrainerRepository.findPersonalTrainerById(accountId);
         return personalTrainerOptional.orElse(null);
     }
 }

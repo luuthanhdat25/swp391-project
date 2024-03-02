@@ -91,7 +91,7 @@ public class SlotController {
         SchedulePersonalTrainer schedulePersonalTrainerEntity = schedulePersonalTrainerService.findScheduleByPtId(personalTrainer.getId());
 
         System.out.println("PT ID : "+ personalTrainer.getId());
-        System.out.println(" ScheduleID: "+schedulePersonalTrainerEntity.getScheduleId());
+        System.out.println(" ScheduleID: "+schedulePersonalTrainerEntity.getId());
         if (accountId != null) {
             // Do something with accountId, such as storing it in the session
             System.out.println("accountId: " + accountId);
@@ -100,7 +100,6 @@ public class SlotController {
         }
         else {
             System.out.println("accountId: "+ accountId);
-
         }
 
         // Add week and year to the model if available

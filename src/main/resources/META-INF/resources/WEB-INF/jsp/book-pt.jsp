@@ -28,11 +28,9 @@
             </form>
         </div>
 
-
         <a class="mobile_btn" id="mobile_btn">
             <i class="fas fa-bars"></i>
         </a>
-
 
         <ul class="nav user-menu">
             <li class="nav-item dropdown language-drop me-2">
@@ -165,9 +163,7 @@
                     <a class="dropdown-item" href="login.html">Logout</a>
                 </div>
             </li>
-
         </ul>
-
     </div>
 
 
@@ -467,15 +463,100 @@
                             <h5 class="card-title">Request form</h5>
                         </div>
                         <div class="card-body">
-<%--                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">--%>
-
+                            <form action="" method="post">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <form id="weekForm" action="/bookPT1" method="GET">
-                                            <select id="week" class="form-control" name="week"
-                                                    onchange="this.form.submit()">
-                                                <!-- Options will be generated dynamically by JavaScript -->
+                                        <h5 class="card-title">Purpose details</h5>
+                                        <div class="form-group">
+                                            <label>Goals:</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description:</label>
+                                            <textarea rows="5" cols="5" class="form-control"
+                                                      placeholder="Details about your goals"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Training time:</label>
+                                            <select class="select">
+                                                <option selected disabled>Select Training Time</option>
+                                                <option value="1">1 months</option>
+                                                <option value="2">3 months</option>
+                                                <option value="3">6 months</option>
                                             </select>
+                                        </div>
+                                        <div class="invoice-total-card" id="invoiceTotalCard" style="display: none;">
+                                            <div class="invoice-total-box">
+                                                <div class="invoice-total-inner">
+                                                    <p>Training slot <span>20</span></p>
+                                                    <p>Slot duration<span>2 hours</span></p>
+                                                    <p>Training fee<span>$3,300.00</span></p>
+                                                    <p class="mb-0">Total amount: <span>$3,300.00</span></p>
+                                                </div>
+                                                <div class="invoice-total-footer">
+                                                    <h4>Total Amount <span>$143,300.00</span></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5 class="card-title">Personal Trainer information</h5>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Full Name:</label>
+                                                    <input type="text" placeholder="${pt.account.fullName}" readonly
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Birthday:</label>
+                                                    <input type="text" placeholder="${pt.account.birthday}" readonly
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Gender:</label>
+                                                    <input type="text" placeholder="${pt.account.gender}" readonly
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Phone:</label>
+                                                    <input type="text" placeholder="${pt.account.phone}" readonly
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Email:</label>
+                                                    <input type="text" placeholder="${pt.account.email}" readonly
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Address line:</label>
+                                                    <input type="text" placeholder="${pt.account.address}" readonly
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h5 class="card-title">Choose your training schedule</h5>
+                                    <div class="col-md-2">
+                                        <form action="/SelectWeek" method="get">
                                             <select id="year" class="form-control" name="year"
                                                     onchange="updateWeeks()">
                                                 <!-- Thay đổi dải số năm tùy ý -->
@@ -486,88 +567,12 @@
                                                     }
                                                 </script>
                                             </select>
-                                            <input type="hidden" id="accountId" name="accountId" value="${accountId}">
+                                            <select id="week" class="form-control" name="week"
+                                                    onchange="this.form.submit()">
+                                                <!-- Options will be generated dynamically by JavaScript -->
+                                            </select>
                                         </form>
-                                        <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
-                                        <h5 class="card-title">Purpose details</h5>
-                                        <c:forEach var="field" items="${['Goals', 'Description', 'Training Time']}">
-                                            <div class="form-group">
-                                                <label>${field}:</label>
-                                                <c:choose>
-                                                    <c:when test="${field eq 'Training Time'}">
-                                                        <select class="form-control">
-                                                            <option disabled>Select Training Time</option>
-                                                            <option value="1">1 month</option>
-                                                            <option value="2">3 months</option>
-                                                            <option value="3">6 months</option>
-                                                        </select>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <input name="${field.toLowerCase()}" type="text"
-                                                               class="form-control">
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </div>
-                                        </c:forEach>
                                     </div>
-                                    <div class="col-md-6">
-                                        <h5 class="card-title">Personal Trainer information</h5>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Full Name:</label>
-                                                    <input type="text" placeholder="Michael Scofield" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Age:</label>
-                                                    <input type="text" placeholder="31" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Gender:</label>
-                                                    <input type="text" placeholder="Male" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Phone:</label>
-                                                    <input type="text" placeholder="0971700427" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Email:</label>
-                                                    <input type="text" placeholder="michal@gmail.com" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Address line:</label>
-                                                    <input type="text" placeholder="Was" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-
-                                    <h5 class="card-title">Choose your training schedule</h5>
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
@@ -595,7 +600,8 @@
                                         <tbody>
                                         <c:forEach begin="5" end="21" var="hour" step="2">
                                             <tr>
-                                                <td class="time-column">${hour}:00 - ${hour + 2}:00</td>
+                                                <td style="width: 150px;" class="time-column">${hour}:00 - ${hour + 2}:00
+                                                </td>
                                                 <c:forEach var="day"
                                                            items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
                                                     <c:set var="disabled" value="false"/>
@@ -619,10 +625,11 @@
                                     </table>
                                 </div>
                                 <div>
-                                    <button type="submit" class="btn btn-primary" onclick="saveCheckedSlots()">Send
+                                    <button style="width: 10%;" type="submit" class="btn btn-primary"
+                                            onclick="saveCheckedSlots()">Send
                                     </button>
                                 </div>
-                            </form:form>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -632,7 +639,6 @@
         <footer>
             <p>Copyright © 2022 Dreamguys.</p>
         </footer>
-
     </div>
 
 </div>
@@ -667,8 +673,91 @@
             })
             .catch(error => console.error('Error:', error));
     }
-
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectElement = document.querySelector('.select');
+        const invoiceTotalCard = document.getElementById('invoiceTotalCard');
+
+        // Function to show or hide the invoice total card based on selected option
+        function toggleInvoiceTotalCard() {
+            if (selectElement.value === null || selectElement.value === "") {
+                invoiceTotalCard.style.display = 'none';
+            } else {
+                invoiceTotalCard.style.display = 'block';
+            }
+        }
+
+        // Event listener for changes in the select element
+        selectElement.addEventListener('change', toggleInvoiceTotalCard);
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        var currentDate = moment();
+
+        // Set the default selected values for year and week
+        var currentYear = currentDate.isoWeekYear();
+        var currentWeek = currentDate.isoWeek();
+
+        // Set the default selected options
+        $("#year").val(currentYear);
+        $("#week").val(currentWeek);
+
+        generateWeeks(); // Generate weeks based on the current year
+
+        updateTable(); // Update table content when the page is loaded
+
+        // Event listener for changes in the year and week selects
+        $("#year, #week").change(function () {
+            updateTable(); // Update table content when the year or week changes
+        });
+    });
+
+    function generateWeeks() {
+        var year = $("#year").val();
+        var weeks = [];
+
+        for (var i = 1; i <= 52; i++) {
+            var startOfWeek = moment().isoWeekYear(year).isoWeek(i).startOf('isoWeek');
+            var endOfWeek = moment().isoWeekYear(year).isoWeek(i).endOf('isoWeek');
+            var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');
+            weeks.push("<option value='" +i+ "'>" + weekText + "</option>");
+        }
+
+        $("#week").html(weeks.join(""));
+    }
+
+    // Function to update the table content
+    function updateTable() {
+        // Retrieve selected year and week
+        var year = $("#year").val();
+        var week = $("#week").val();
+
+        // Send AJAX request to load file with the selected week
+        $.ajax({
+            type: "POST",
+            url: "/SelectWeek", // Update to the correct URL
+            data: {
+                week: week,
+                year: year,
+            },
+            contentType: 'application/x-www-form-urlencoded;charset=UTF-8', // Set the content type
+            success: function (response) {
+                // Handle response, e.g., update page content
+                console.log(response);
+            },
+            error: function (error) {
+                console.error("Error loading file:", error);
+            }
+        });
+    }
+</script>
+
+
+
 <script src="assets/js/jquery-3.6.0.min.js"></script>
 
 <script src="assets/js/popper.min.js"></script>
@@ -676,7 +765,7 @@
 
 <script src="assets/js/feather.min.js"></script>
 
-<script src="assets/js/jquery.slimscroll.min.js"></script>
+<script src="assets/js/ jquery.slimscroll.min.js"></script>
 
 <script src="assets/js/moment.min.js"></script>
 <script src="assets/js/bootstrap-datetimepicker.min.js"></script>

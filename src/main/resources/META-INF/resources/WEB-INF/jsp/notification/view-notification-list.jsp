@@ -34,14 +34,14 @@
             <button class="btn btn-rounded btn-outline-danger"><a href="login">Login</a></button>
             <button class="btn btn-rounded btn-outline-danger"><a href="/registration">Sign up</a></button>
         </ul>
-        <form action="view-creating-notification-detail" method="GET">
+        <form action="admin-home" method="GET">
            <button type="submit" style="height: 50px; width: 50px; background-color: #3c763d;" class="btn btn-success">Add</button>
         </form>
     </div>
     <div>
         <div class="sidebar" id="sidebar" style="width: 31%; background-color: #adb5bd;">
             <div class="sidebar-inner slimscroll">
-                <p class="h6" style="padding-left: 20px; margin-top: 10px;">Notifications</p>
+                <p class="h6" style="padding-left: 9px; margin-top: 10px;">Notifications</p>
                <ul id="sidebar-menu" class="sidebar-menu" style="padding: 2px 9px 9px 9px;">
 
                    <c:forEach var="notification" items="${NotificationList}">
@@ -81,7 +81,7 @@
                      <div class="d-flex justify-content-between align-items-center">
                          <div class="d-flex justify-content-between align-items-center">
                              <img class="rounded-circle" style="width: 80px;" src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"/>
-                             <div class="d-flex flex-column" style="margin-left: 15px; width: 650px;">
+                             <div class="d-flex flex-column" style="margin-left: 15px; width: 640px;">
                                  <div class="d-flex justify-content-between align-items-center" style="margin: 10px 0 0px 0;">
                                      <h2 class="fw-bold text-primary" style="margin-bottom: 0px;"> Nguyen Thai Bao</h2>
                                      <div class="d-flex justify-content-between" style="font-style: italic;">

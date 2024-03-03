@@ -23,6 +23,14 @@ public class NotificationController {
     @Autowired private NotificationRepository notificationRepository;
     @Autowired private AccountRepository accountRepository;
 
+
+    @RequestMapping(value = "/admin-home", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    public String viewAdminHome(ModelMap modelMap) {
+        List<Notification> notifications = notificationRepository.findAll();
+        modelMap.addAttribute("NotificationList", notifications);
+        return "admin/admin-home";
+    }
+
     @RequestMapping(value = "/view-notification-list", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getNotificationList(ModelMap modelMap) {
         List<Notification> notifications = notificationRepository.findAll();

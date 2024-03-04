@@ -14,8 +14,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/exercises")
 public class ExerciseSearchController {
-    @Autowired
-    private ExerciseRepository exerciseRepository;
+    private final ExerciseRepository exerciseRepository;
+
+    public ExerciseSearchController(ExerciseRepository exerciseRepository) {
+        this.exerciseRepository = exerciseRepository;
+    }
 
     @PostMapping("/search")
     public ResponseEntity<List<Exercise>> searchExercise(@RequestBody FilterObject filterObject) {
@@ -27,7 +30,7 @@ public class ExerciseSearchController {
         return ResponseEntity.ok().body(exercises);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/sas", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Exercise>> getExerciseList() {
         List<Exercise> exercises = exerciseRepository.findAll();
         return ResponseEntity.ok().body(exercises);

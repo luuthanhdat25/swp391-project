@@ -1,4 +1,4 @@
-package com.swpproject.application.controller;
+package com.swpproject.application.controller.personal_trainer;
 
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.PersonalTrainerRepository;
@@ -19,7 +19,6 @@ public class PersonalTrainerProfileController {
     public PersonalTrainerProfileController(PersonalTrainerRepository personalTrainerRepository) {
         this.personalTrainerRepository = personalTrainerRepository;
     }
-
 
     @RequestMapping(value = "/personal-trainer/profile/update-profile", method = RequestMethod.GET)
     public String updateProfile(@RequestParam int id, ModelMap model) {

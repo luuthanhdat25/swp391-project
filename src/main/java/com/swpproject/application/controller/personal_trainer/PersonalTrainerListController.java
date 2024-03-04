@@ -7,6 +7,7 @@ import com.swpproject.application.repository.PersonalTrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,10 +16,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/personal-trainer")
 public class PersonalTrainerListController {
-    @Autowired
-    private PersonalTrainerRepository personalTrainerRepository;
-    @Autowired
-    private AccountRepository accountRepository;
+    private final PersonalTrainerRepository personalTrainerRepository;
+    private final AccountRepository accountRepository;
+
+    public PersonalTrainerListController(AccountRepository accountRepository, PersonalTrainerRepository personalTrainerRepository) {
+        this.accountRepository = accountRepository;
+        this.personalTrainerRepository = personalTrainerRepository;
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getPersonalTrainerListPage(ModelMap model) {
@@ -26,5 +30,10 @@ public class PersonalTrainerListController {
         String json = JsonUtils.jsonConvert(list);
         model.addAttribute("personalTrainerList", json);
         return "personal-trainer-list";
+    }
+
+        @GetMapping(name="view-details",produces = "text/html; charset=UTF-8")
+    public String view_profile_details() {
+        return "pt-profile-details";
     }
 }

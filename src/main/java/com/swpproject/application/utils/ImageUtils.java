@@ -11,39 +11,27 @@ import java.util.zip.Inflater;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ImageUtils {
-    public static final int BITE_SIZE = 4 * 1024;
 
-    public static byte[] compressImage(byte[] data) throws IOException {
-        Deflater deflater = new Deflater();
-        deflater.setLevel(Deflater.BEST_COMPRESSION);
-        deflater.setInput(data);
-        deflater.finish();
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-        byte[] tmp = new byte[BITE_SIZE];
-
-        while(!deflater.finished()) {
-            int size = deflater.deflate(tmp);
-            outputStream.write(tmp,0, size);
-        }
-
-        outputStream.close();
-
-        return outputStream.toByteArray();
-    }
-
-    public static byte[] decompressImage(byte[] data) throws DataFormatException, IOException {
-        Inflater inflater = new Inflater();
-        inflater.setInput(data);
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-        byte[] tmp = new byte[BITE_SIZE];
-
-        while (!inflater.finished()) {
-            int count = inflater.inflate(tmp);
-            outputStream.write(tmp, 0, count);
-        }
-
-        outputStream.close();
-
-        return outputStream.toByteArray();
-    }
+//    public static byte[] compressImage(byte[] data) throws IOException {
+//        LZ4Compressor compressor = LZ4Factory.fastestInstance().fastCompressor();
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//        LZ4BlockOutputStream compressedOutputStream = new LZ4BlockOutputStream(outputStream, 4096, compressor);
+//        compressedOutputStream.write(data);
+//        compressedOutputStream.close();
+//        return outputStream.toByteArray();
+//    }
+//
+//    public static byte[] decompressImage(byte[] data) throws DataFormatException, IOException {
+//        LZ4FastDecompressor decompressor = LZ4Factory.fastestInstance().fastDecompressor();
+//        ByteArrayInputStream inputStream = new ByteArrayInputStream(data);
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//        LZ4BlockInputStream compressedInputStream = new LZ4BlockInputStream(inputStream, decompressor);
+//        byte[] buffer = new byte[4096];
+//        int bytesRead;
+//        while ((bytesRead = compressedInputStream.read(buffer)) != -1) {
+//            outputStream.write(buffer, 0, bytesRead);
+//        }
+//        compressedInputStream.close();
+//        return outputStream.toByteArray();
+//    }
 }

@@ -21,7 +21,7 @@ public class SlotExeRepository {
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, slotExercise.getAttendant_status(), slotExercise.getDay(), slotExercise.getWeek(),
                 slotExercise.getYear(), slotExercise.getStart_hour(), slotExercise.getEnd_hour(),
-                slotExercise.is_pending(), slotExercise.getSchedule().getId());
+                slotExercise.isPending(), slotExercise.getSchedule().getId());
         return slotExercise;
     }
 

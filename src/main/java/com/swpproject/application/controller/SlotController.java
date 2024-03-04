@@ -1,5 +1,6 @@
 package com.swpproject.application.controller;
 
+import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.model.SchedulePersonalTrainer;
@@ -73,7 +74,7 @@ public class SlotController {
 
     @RequestMapping(value = "viewPT")
     public String viewPTList(Model model){
-        List<Account> personalTrainers = accountService.findAccountByRole("PT");
+        List<Account> personalTrainers = accountService.findAccountByRole(Role.PT);
         model.addAttribute("personalTrainers", personalTrainers);
 
         return "viewAllPersonalTrainer";

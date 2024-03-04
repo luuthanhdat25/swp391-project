@@ -20,13 +20,13 @@ public class SlotExcerciseEntityService {
     public void SaveSlotExcercise(SlotExercise slotExerciseEntity){
         slotExcerciseEntityRepository.save(slotExerciseEntity);
     }
-    public List<SlotExcercise> getSlotByWeekYear(Long personalTrainerId,int week,int year){
-        return slotExcerciseEntityRepository.getSlotExcerciseBySchedulePersonalTrainer_ScheduleIdAndWeekAndYear(personalTrainerId, week, year);
+    public List<SlotExercise> getSlotByWeekYear(Long personalTrainerId,int week,int year){
+        return slotExcerciseEntityRepository.getSlotExcerciseBySchedule_IdAndWeekAndYear(personalTrainerId, week, year);
     }
-    public List<SlotExcercise> getSlotExcercises( Integer schedulePersonalTrainerId,
+    public List<SlotExercise> getSlotExcercises( Integer schedulePersonalTrainerId,
                                                   Integer gymeid,
                                                   boolean isPending){
-        return slotExcerciseEntityRepository.findAllBySchedulePersonalTrainer_ScheduleIdAndGymer_GymerIdAndIsPending(schedulePersonalTrainerId,gymeid,isPending);
+        return slotExcerciseEntityRepository.findAllBySchedule_IdAndGymer_GymerIdAndIsPending(schedulePersonalTrainerId,gymeid,isPending);
     }
 
 }

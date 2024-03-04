@@ -22,10 +22,20 @@ public class SlotExercise {
     private String end_hour;
     private int week;
     private int year;
-    private boolean is_pending;
+    private boolean isPending;
     private String attendant_status;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
+
+    @ManyToOne
+    @JoinColumn(name = "personal_trainer_id", nullable = false)
+    private PersonalTrainer personalTrainer;
+
+
+    @ManyToOne
+    @JoinColumn(name = "gymer_id", nullable = false)
+    private Gymer gymer;
+
 }

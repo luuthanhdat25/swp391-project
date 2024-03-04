@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExcercise,Long> {
-    public List<SlotExcercise> getSlotExcerciseBySchedulePersonalTrainer_ScheduleIdAndWeekAndYear(Long ScheduleId,int week,int year);
-    public List<SlotExcercise> findAllBySchedulePersonalTrainer_ScheduleIdAndGymer_GymerIdAndIsPending(
+public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercise,Long> {
+    public List<SlotExercise> getSlotExcerciseBySchedule_IdAndWeekAndYear(Long ScheduleId,int week,int year);
+    public List<SlotExercise> findAllBySchedule_IdAndGymer_GymerIdAndIsPending(
             Integer schedulePersonalTrainerId,
             Integer gymeid,
             boolean isPending

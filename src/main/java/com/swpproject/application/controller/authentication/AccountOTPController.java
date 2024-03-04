@@ -4,6 +4,7 @@ import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Gymer;
 import com.swpproject.application.model.PersonalTrainer;
+import com.swpproject.application.model.SchedulePersonalTrainer;
 import com.swpproject.application.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

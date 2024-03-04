@@ -1,14 +1,20 @@
 package com.swpproject.application.controller;
 
-import org.apache.jasper.tagplugins.jstl.core.Redirect;
+import com.swpproject.application.model.SlotExercise;
+import com.swpproject.application.repository.SlotExeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Map;
+import java.util.List;
 
 @Controller
 public class PersonalScheduleController {
+
+    @Autowired
+    private SlotExeRepository slotExeRepository;
     @GetMapping(value = "/view-personal-schedule")
     public String showPersonalSchedule() {
         // Add your controller logic here
@@ -16,13 +22,14 @@ public class PersonalScheduleController {
     }
 
     @GetMapping(value = "/selectWeek", params = {"week", "year"})
-    public String showPersonalScheduleWithParams(@RequestParam("week") String week,
-                                                 @RequestParam("year") String year,
-                                                 RedirectAttributes attributes) {
-        System.out.println("week: "+week+" year: "+year);
-        attributes.addAttribute("week", week);
-        attributes.addAttribute("year", year);
-
-        return "redirect:/view-personal-schedule"; // Redirect with parameters
+    public String showPersonalScheduleWithParams(@RequestParam("week") int week,
+                                                 @RequestParam("year") int year,
+                                                 RedirectAttributes attributes, Model model) {
+        List<SlotExercise> slotExercises = slotExeRepository.findAll();
+        slotExercises.forEach(System.out::println);
+        String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        model.addAttribute("slotExercises", slotExercises);
+        model.addAttribute("daysOfWeek", daysOfWeek);
+        return "redirect:/view-personal-schedule?year=" + year + "&week=" + week;
     }
 }

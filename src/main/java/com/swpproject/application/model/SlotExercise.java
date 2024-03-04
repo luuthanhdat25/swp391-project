@@ -11,16 +11,17 @@ import org.springframework.data.relational.core.mapping.Table;
 @Data
 @Entity
 @Table(name = "slot_exercise")
-public class SlotExcercise {
+public class SlotExercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String day;
     private String start_hour;
     private String end_hour;
-
+    private int week;
+    private int year;
     private boolean is_pending;
     private String attendant_status;
 

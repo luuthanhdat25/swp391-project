@@ -467,161 +467,113 @@
                             <h5 class="card-title">Request form</h5>
                         </div>
                         <div class="card-body">
-<%--                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">--%>
+                            <%--                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">--%>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <form id="weekForm" action="/bookPT1" method="GET">
-                                            <select id="week" class="form-control" name="week"
-                                                    onchange="this.form.submit()">
-                                                <!-- Options will be generated dynamically by JavaScript -->
-                                            </select>
-                                            <select id="year" class="form-control" name="year"
-                                                    onchange="updateWeeks()">
-                                                <!-- Thay đổi dải số năm tùy ý -->
-                                                <script>
-                                                    var currentYear = new Date().getFullYear();
-                                                    for (var i = currentYear; i >= currentYear - 10; i--) {
-                                                        document.write("<option value='" + i + "'>" + i + "</option>");
-                                                    }
-                                                </script>
-                                            </select>
-                                            <input type="hidden" id="accountId" name="accountId" value="${accountId}">
-                                        </form>
-                                        <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
-                                         <h5 class="card-title">Purpose details</h5>
-                                        <c:forEach var="field" items="${['Goals', 'Description', 'Training Time']}">
+                            <div class="row">
+                                <div class="col-md-6">
+
+
+                                    <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
+                                    <h5 class="card-title">Purpose details</h5>
+                                        <div class="form-group">
+                                            <label>Gymer Name:</label>
+                                            <input type="text" class="form-control" disabled value="${account.fullName}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email:</label>
+                                            <input type="text" class="form-control" disabled value="${account.email}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>BirthDay:</label>
+                                            <input type="text" class="form-control" disabled value="${account.getBirthdateString()}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Address:</label>
+                                            <input type="text" class="form-control" disabled value="${account.address}">
+                                        </div>
+                                        <div class="invoice-total-card" id="invoiceTotalCard" style="display: none;">
+                                            <div class="invoice-total-box">
+                                                <div class="invoice-total-inner">
+                                                    <p>Training slot <span>20</span></p>
+                                                    <p>Slot duration<span>2 hours</span></p>
+                                                    <p>Training fee<span>$3,300.00</span></p>
+                                                    <p class="mb-0">Total amount: <span>$3,300.00</span></p>
+                                                </div>
+                                                <div class="invoice-total-footer">
+                                                    <h4>Total Amount <span>$143,300.00</span></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>${field}:</label>
-                                                <c:choose>
-                                                    <c:when test="${field eq 'Training Time'}">
-                                                        <select class="form-control" name="TrainingTime">
-                                                            <option disabled>Select Training Time</option>
-                                                            <option value="1">1 month</option>
-                                                            <option value="2">3 months</option>
-                                                            <option value="3">6 months</option>
-                                                        </select>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <input name="${field.toLowerCase()}" type="text"
-                                                               class="form-control">
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5 class="card-title">Personal Trainer information</h5>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Full Name:</label>
-                                                    <input type="text" placeholder="Michael Scofield" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Age:</label>
-                                                    <input type="text" placeholder="31" readonly
-                                                           class="form-control">
-                                                </div>
+                                                <label>Height:</label>
+                                                <input type="text" placeholder="${gymer.height}" readonly
+                                                       class="form-control">
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Gender:</label>
-                                                    <input type="text" placeholder="Male" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Phone:</label>
-                                                    <input type="text" placeholder="0971700427" readonly
-                                                           class="form-control">
-                                                </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Weight:</label>
+                                                <input type="text" placeholder="${gymer.weight}" readonly
+                                                       class="form-control">
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Email:</label>
-                                                    <input type="text" placeholder="michal@gmail.com" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Address line:</label>
-                                                    <input type="text" placeholder="Was" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
-                                <div class="row">
-
-                                    <h5 class="card-title">Choose your training schedule</h5>
-                                    <table class="table table-bordered">
-                                        <thead>
+                            </div>
+                            <div class="row">
+                                <h5 class="card-title">Choose your training schedule</h5>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th rowspan="2">
+                                        </th>
+                                        <th align="center">Mon</th>
+                                        <th align="center">Tue</th>
+                                        <th align="center">Wed</th>
+                                        <th align="center">Thu</th>
+                                        <th align="center">Fri</th>
+                                        <th align="center">Sat</th>
+                                        <th align="center">Sun</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach begin="5" end="21" var="hour" step="2">
                                         <tr>
-                                            <th rowspan="2">
-
-                                            </th>
-                                            <th align="center">Mon</th>
-                                            <th align="center">Tue</th>
-                                            <th align="center">Wed</th>
-                                            <th align="center">Thu</th>
-                                            <th align="center">Fri</th>
-                                            <th align="center">Sat</th>
-                                            <th align="center">Sun</th>
-                                        </tr>
-                                        <tr id="dayRow">
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <c:forEach begin="5" end="21" var="hour" step="2">
-                                            <tr>
-                                                <td class="time-column">${hour}:00 - ${hour + 2}:00</td>
-                                                <c:forEach var="day"
-                                                           items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
-                                                    <c:set var="disabled" value="false"/>
-                                                    <c:forEach items="${allSlots}" var="scheduleSlot">
-                                                        <c:if test="${scheduleSlot.start_hour == hour && scheduleSlot.end_hour == hour + 2 && scheduleSlot.day eq day.toLowerCase()
+                                            <td class="time-column">${hour}:00 - ${hour + 2}:00</td>
+                                            <c:forEach var="day"
+                                                       items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
+                                                <c:set var="disabled" value="false"/>
+                                                <c:forEach items="${allSlots}" var="scheduleSlot">
+                                                    <c:if test="${scheduleSlot.start_hour == hour && scheduleSlot.end_hour == hour + 2 && scheduleSlot.day eq day.toLowerCase()
                                                         }">
-                                                            <c:set var="disabled" value="true"/>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                    <td>
-                                                        <input type="checkbox" name="checkedSlots"
-                                                               value="${day.toLowerCase()}-${hour}-${hour + 2}"
-                                                               <c:if test="${disabled}">disabled="disabled"</c:if>
-                                                               id="${day.toLowerCase()}-${hour}${hour + 2}">
-                                                        <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
-                                                    </td>
+                                                        <c:set var="disabled" value="true"/>
+                                                    </c:if>
                                                 </c:forEach>
-                                            </tr>
-                                        </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-primary" onclick="saveCheckedSlots()">Send
-                                    </button>
-                                </div>
+                                                <td>
+                                                    <input type="checkbox" name="checkedSlots"
+                                                           value="${day.toLowerCase()}-${hour}-${hour + 2}"
+                                                           <c:if test="${disabled}">disabled="disabled"</c:if>
+                                                           id="${day.toLowerCase()}-${hour}${hour + 2}">
+                                                    <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
+                                                </td>
+                                            </c:forEach>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Accept
+
+                                </button>
+                                <button type="button" class="btn btn-primary">Decline
+
+                                </button>
+                            </div>
                             </form:form>
                         </div>
                     </div>

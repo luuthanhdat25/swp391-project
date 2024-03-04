@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -59,4 +60,25 @@ public class Account {
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Gymer gymer;
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId=" + accountId +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", gender=" + gender +
+                ", phone='" + phone + '\'' +
+                ", birthday=" + birthday +
+                ", address='" + address + '\'' +
+                ", role=" + role +
+                ", isBan=" + isBan +
+                ", avatarImage=" + Arrays.toString(avatarImage) +
+                ", personalTrainer=" + personalTrainer +
+                ", gymer=" + gymer +
+                '}';
+    }
+    public String getBirthdateString(){
+        return this.birthday.toString();
+    }
 }

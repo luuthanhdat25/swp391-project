@@ -1,5 +1,6 @@
 package com.swpproject.application.service;
 
+import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ public interface AccountService {
 
     List<Account> getAccounts();
     Optional<Account> findAccountByEmail(String email);
-    List<Account> findAccountByRole(String role);
+    List<Account> findAccountByRole(Role role);
     Account loginByEmail(String email,String password);
     void save(Account account);
 

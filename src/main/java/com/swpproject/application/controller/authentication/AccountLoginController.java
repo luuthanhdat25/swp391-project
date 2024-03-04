@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Optional;
 
 @Controller
-public class AccountLoginController {
+public class  AccountLoginController {
 
     @Autowired
     private AccountService accountService;
@@ -28,8 +28,7 @@ public class AccountLoginController {
                                RedirectAttributes redirectAttributes, HttpSession session) {
         Optional<Account> account = accountService.findAccountByEmail(email);
         if(account.isPresent() && password.equals(account.get().getPassword())) {
-            session.setAttribute("scheduleSlots", account);
-
+            session.setAttribute("Users", account);
             return "welcome";
         } else
         return "redirect:/login";

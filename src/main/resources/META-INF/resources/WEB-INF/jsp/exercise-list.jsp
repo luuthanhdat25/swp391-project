@@ -490,31 +490,25 @@
             return cardHtml;
         }
 
-        var csrfToken = $("meta[name='_csrf']").attr("content");
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        console.log(csrfToken)
-        console.log(csrfHeader)
-
         function sendFilterJSON(filterObject) {
             var filterJSON = JSON.stringify(filterObject);
             console.log(filterJSON);
             $.ajax({
                 url: '/api/exercises/search',
                 type: 'POST',
-
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader(csrfHeader, csrfToken);
-                },
                 data: filterJSON,
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function(response) {
                     document.getElementById('exerciseContainer').innerHTML = generateExerciseCards(response);
+                    console.log(response)
                 },
-                error: function(xhr, status, error) {
+                error: function(status, error) {
+                    // Xử lý lỗi ở đây nếu cần
                 }
             });
         }
+
 
         function sendFilterRequest(){
             var filterObject = {};

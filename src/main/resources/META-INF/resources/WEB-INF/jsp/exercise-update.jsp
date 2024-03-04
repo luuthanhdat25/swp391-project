@@ -175,10 +175,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-sub-header">
-                                <h3 class="page-title">Exercise Create</h3>
+                                <h3 class="page-title">Exercise Update</h3>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="/exercise/">Exercise</a></li>
-                                    <li class="breadcrumb-item active">Exercise Create</li>
+                                    <li class="breadcrumb-item active">Exercise Update</li>
                                 </ul>
                             </div>
                         </div>
@@ -192,7 +192,7 @@
                                     <div class="card mb-0">
                                         <div class="card-body">
 
-                                            <form:form id="exerciseForm" action="/exercise/create" method="post" enctype="multipart/form-data">
+                                            <form:form id="exerciseForm" action="/exercise/edit" method="post" enctype="multipart/form-data">
                                                 <div class="row mt-3">
                                                     <div class="w-50 col-md-6">
                                                         <input type="text" name="exerciseName" class="form-control" value='<c:out value="${exercise.name}" />' placeholder="Exercise Name" />

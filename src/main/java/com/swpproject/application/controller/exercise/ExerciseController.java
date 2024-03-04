@@ -5,6 +5,10 @@ import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.ExerciseRepository;
 import com.swpproject.application.repository.PersonalTrainerRepository;
 import com.swpproject.application.utils.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,12 +29,12 @@ public class ExerciseController {
     private final ExerciseRepository exerciseRepository;
     private final PersonalTrainerRepository personalTrainerRepository;
 
-    @Autowired
     public ExerciseController(ExerciseRepository exerciseRepository, PersonalTrainerRepository personalTrainerRepository) {
         this.exerciseRepository = exerciseRepository;
         this.personalTrainerRepository = personalTrainerRepository;
     }
 
+    //Get view exercise list
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseListPage(ModelMap model){
         List<Exercise> exercises = exerciseRepository.findAll();
@@ -39,44 +43,33 @@ public class ExerciseController {
         return "exercise-list";
     }
 
-
-
+    //Get view exercise details
     @RequestMapping(value = "/details", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseDetailsPage(@RequestParam int id, ModelMap model) {
         Exercise exercise = exerciseRepository.findById(id);
-        model.addAttribute("exercise", exercise);
+        String json = JsonUtils.jsonConvert(exercise);
+        model.addAttribute("exercise", json);
         return "exercise-details";
     }
 
-
-    //----------------------------------------------------------------Create Exercise
+    //Get view create exercise
     @RequestMapping(value = "/create", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getCreateExercisePage() {
         return "exercise-create";
     }
 
+    //Post create exercise data
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String createExercise(@RequestParam("exerciseName") String exerciseName,
-                                 @RequestParam("levelRadio") String level,
-                                 @RequestParam("equipment") String equipment,
-                                 @RequestParam("muscle") String muscle,
-                                 @RequestParam("image") MultipartFile image,
-                                 @RequestParam("youtubeLink") String youtubeLink,
-                                 @RequestParam("exerciseDescription") String exerciseDescription,
-                                 @RequestParam(value = "privacy", required = false) String privacy,
-                                 Model model) throws IOException {
-
-        boolean isPrivate = (privacy != null && privacy.equals("private"));
-
+    public String createExercise(@ModelAttribute ExerciseDTO exerciseDTO, Model model) throws IOException {
         Exercise exercise = new Exercise();
-        exercise.setName(exerciseName);
-        exercise.setType(muscle);
-        exercise.setDescription(exerciseDescription);
-        exercise.setLevel(level);
-        exercise.setEquipment(equipment);
-        exercise.setVideoDescription(youtubeLink);
-        exercise.setImageDescription(image.getBytes());
-        exercise.setPrivate(isPrivate);
+        exercise.setName(exerciseDTO.getExerciseName());
+        exercise.setType(exerciseDTO.getMuscle());
+        exercise.setDescription(exerciseDTO.getExerciseDescription());
+        exercise.setLevel(exerciseDTO.getLevelRadio());
+        exercise.setEquipment(exerciseDTO.getEquipment());
+        exercise.setVideoDescription(exerciseDTO.getYoutubeLink());
+        exercise.setImageDescription(exerciseDTO.getImage().getBytes());
+        exercise.setPrivate(exerciseDTO.isPrivacy());
 
         PersonalTrainer personalTrainerExample = personalTrainerRepository.findAll().getFirst();
         exercise.setPersonalTrainer(personalTrainerExample);
@@ -85,17 +78,16 @@ public class ExerciseController {
         return "exercise-list";
     }
 
-    //----------------------------------------------------------------
 
-
-    //----------------------------------------------------------------Edit the exercise
+    //Get update view exercise
     @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseDetailsEditPage(@RequestParam int id, ModelMap model) {
         Exercise exercise = exerciseRepository.findById(id);
         model.addAttribute("exercise", exercise);
-        return "exercise-details-edit";
+        return "exercise-update";
     }
 
+    //Post update exercise data
     @RequestMapping(value = "/details/edit", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
     public String editExercise(@RequestParam Exercise exercise, ModelMap model) {
         //
@@ -103,4 +95,20 @@ public class ExerciseController {
     }
     //----------------------------------------------------------------
 }
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+class ExerciseDTO {
+    private String exerciseName;
+    private String levelRadio;
+    private String equipment;
+    private String muscle;
+    private MultipartFile image;
+    private String youtubeLink;
+    private String exerciseDescription;
+    private boolean privacy;
+}
+
 

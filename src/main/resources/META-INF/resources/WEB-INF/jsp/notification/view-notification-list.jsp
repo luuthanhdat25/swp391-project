@@ -34,7 +34,7 @@
             <button class="btn btn-rounded btn-outline-danger"><a href="login">Login</a></button>
             <button class="btn btn-rounded btn-outline-danger"><a href="/registration">Sign up</a></button>
         </ul>
-        <form action="admin-home" method="GET">
+        <form action="admin-home/manage-notification" method="GET">
            <button type="submit" style="height: 50px; width: 50px; background-color: #3c763d;" class="btn btn-success">Add</button>
         </form>
     </div>

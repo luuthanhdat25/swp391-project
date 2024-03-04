@@ -33,6 +33,13 @@ public class ReportController {
 		super();
 		this.reportRepository = reportRepository;
 	}
+	@RequestMapping(value = "/admin-home/manage-report", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    public String viewManageReport(ModelMap modelMap) {
+        List<Report> reports = reportRepository.findAll();
+        modelMap.addAttribute("ReportLists", reports);
+        return "admin/admin-home-manage-report";
+    }
+
 	@RequestMapping(value = "add-report", method = RequestMethod.GET)
 	public String addNewReport(HttpServletRequest request,
 			@RequestParam(name = "Reason") int reasonId) {
@@ -52,6 +59,7 @@ public class ReportController {
 		reportRepository.save(report);
 		return "redirect:view-report-list-and-detail";
 	}
+
 	@RequestMapping(value = "view-report-list-and-detail", method = RequestMethod.GET)
 	public String viewReportListAndDetail(ModelMap model, Report report,
 			@RequestParam(name = "papeNo", defaultValue = "1") int papeNo,
@@ -70,6 +78,7 @@ public class ReportController {
 		model.addAttribute("CurrentPage", papeNo);
 		return "report/ViewReportList";
 	}
+
 	@RequestMapping(value = "delete-report", method = RequestMethod.GET)
 	public String deleteReport(@RequestParam int id) {
 		reportRepository.deleteById(id);

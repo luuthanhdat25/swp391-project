@@ -10,9 +10,10 @@ import java.util.Optional;
 public interface AccountService {
 
     List<Account> getAccounts();
-    Optional<Account> findAccountByEmail(String email);
+    Optional<Account> getAccountByEmail(String email);
     List<Account> findAccountByRole(String role);
     Account loginByEmail(String email,String password);
     void save(Account account);
+    Boolean existsByEmail(String email);
 
 }

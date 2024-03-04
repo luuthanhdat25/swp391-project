@@ -19,7 +19,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer accountId;
+    private Integer id;
 
     @Column(name = "fullname", nullable = false)
     private String fullName;
@@ -58,5 +58,8 @@ public class Account {
 
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Gymer gymer;
+
+    public Account(String email, String password) {
+    }
 
 }

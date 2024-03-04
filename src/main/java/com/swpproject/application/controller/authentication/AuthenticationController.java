@@ -9,17 +9,16 @@ import com.swpproject.application.service.PersonalTrainerService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import com.swpproject.application.enums.*;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Random;
 
 @RequestMapping("/auth")
 @Controller
-public class AccountLoginController {
+public class AuthenticationController {
 
     @Autowired
     private AccountService accountService;
@@ -28,32 +27,97 @@ public class AccountLoginController {
     @Autowired
     private PersonalTrainerService personalTrainerService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String showloginForm() {
-        return "login";
+    @ModelAttribute("roles")
+    public Role[] getRoles() {
+        return Role.values();
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+    @ModelAttribute("genders")
+    public Gender[] getGenders() {
+        return Gender.values();
+    }
+
+    // REGISTRATION
+    @GetMapping(value = "/registration", produces = "text/html; charset=UTF-8")
+    public String showRegistrationForm() {
+        return "authentication/registration";
+    }
+
+    @PostMapping("/registration")
+    public String registerAccount(@ModelAttribute("account") Account account,
+                                  @RequestParam String rptPassword,
+                                  RedirectAttributes redirectAttributes,
+                                  HttpSession session) {
+
+        session.setAttribute("account",account);
+        session.setAttribute("rptPassword",rptPassword);
+        // Check if fullName contains any number or special character
+        if (!account.getFullName().matches("^[a-zA-Z ]+$")) {
+            redirectAttributes.addFlashAttribute("MSG", "Please enter a valid full name. " +
+                    "The full name should only contain alphabet characters and spaces.");
+            session.setAttribute("fullname", "fullname");
+            return "redirect:/auth/registration";
+        }
+        session.removeAttribute("fullname");
+        // Check if the email is already taken
+        if (accountService.getAccountByEmail(account.getEmail()).isPresent()) {
+            redirectAttributes.addFlashAttribute("MSG", "This email is already taken!");
+            session.setAttribute("email", "email");
+            return "redirect:/auth/registration";
+        }
+        session.removeAttribute("email");
+        // Check if passwords match
+        if (!account.getPassword().equals(rptPassword)) {
+            redirectAttributes.addFlashAttribute("MSG", "Repeat password does not match!");
+            session.setAttribute("fRptPassword", "fRptPassword");
+            return "redirect:/auth/registration";
+        }
+        session.removeAttribute("fRptPassword");
+        // Check if birthday exceed or equal today
+        if(LocalDate.now().isBefore(account.getBirthday())) {
+            redirectAttributes.addFlashAttribute("MSG", "Birthday must not exceed today!");
+            session.setAttribute("birthday", "birthday");
+            return "redirect:/auth/registration";
+        }
+        session.removeAttribute("birthday");
+        account.setIsBan(false);
+        session.setAttribute("account",account);
+        return "redirect:/auth/otp";
+    }
+
+
+
+    // LOGIN
+    @GetMapping("/login")
+    public String showloginForm() {
+        return "authentication/login";
+    }
+
+    @PostMapping("/login")
     public String loginAccount(@RequestParam String email, @RequestParam String password,
                                RedirectAttributes redirectAttributes, HttpSession session) {
         Optional<Account> account = accountService.getAccountByEmail(email);
         if(account.isPresent() && password.equals(account.get().getPassword())) {
             session.setAttribute("scheduleSlots", account);
-
+            session.removeAttribute("email");
+            session.removeAttribute("password");
             return "welcome";
-        } else
-        return "redirect:/login";
+        } else {
+            session.setAttribute("email",email);
+            session.setAttribute("password",password);
+            return "redirect:/auth/login?failed";
+        }
     }
 
     // LOG-OUT
-    @RequestMapping(name = "/logout", method = RequestMethod.GET)
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
     }
 
     // SEND-OTP
-    @RequestMapping(value="/otp", method = RequestMethod.GET,produces = "text/html; charset= UTF-8")
+    @GetMapping("/otp")
     public String index(HttpSession session) {
         if(session.getAttribute("sysOtp")==null) {
             Account account = (Account) session.getAttribute("account");
@@ -62,10 +126,10 @@ public class AccountLoginController {
             emailService.sendOTPEmail(account.getEmail(), otp);
             session.setAttribute("sysOtp", otp);
         }
-        return "otp";
+        return "authentication/otp";
     }
 
-    @RequestMapping(value="/otp", method = RequestMethod.POST,produces = "text/html; charset= UTF-8")
+    @PostMapping("/otp")
     public String verifiOtp(RedirectAttributes redirectAttributes, HttpSession session,
                             @RequestParam String digit1,
                             @RequestParam String digit2,
@@ -92,10 +156,10 @@ public class AccountLoginController {
 //            schedulePersonalTrainerService.save(schedulePersonalTrainerEntity);
             redirectAttributes.addFlashAttribute("MSG","Account created successfully! " +
                     "You can login into website now!");
-            return "redirect:/login";
+            return "redirect:/auth/login?successfully";
         } else {
             redirectAttributes.addFlashAttribute("MSG","Incorrect OTP Code! Try again.");
         }
-        return "redirect:/otp";
+        return "redirect:/auth/otp";
     }
 }

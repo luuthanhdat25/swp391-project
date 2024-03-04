@@ -1,4 +1,7 @@
 <%@ include file="common/header.jspf" %>
+<%@ include file="common/sidebar.jspf" %>
+
+<body>
 
 <div class="main-wrapper">
 
@@ -6,17 +9,10 @@
 
         <div class="header-left">
             <a href="index.html" class="logo">
-<<<<<<< HEAD
-                <img src="/META-INF/resources/assets/img/logo.png" alt="Logo">
+                <img src="assets/img/logo.png" alt="Logo">
             </a>
             <a href="index.html" class="logo logo-small">
-                <img src="/META-INF/resources/assets/img/logo-small.png" alt="Logo" width="30" height="30">
-=======
-                <img src="../../assets/img/logo.png" alt="Logo">
-            </a>
-            <a href="index.html" class="logo logo-small">
-                <img src="../../assets/img/logo-small.png" alt="Logo" width="30" height="30">
->>>>>>> origin/development
+                <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
             </a>
         </div>
         <div class="menu-toggle">
@@ -33,96 +29,10 @@
         </div>
 
         <ul class="nav user-menu">
-            <button class="btn btn-rounded btn-outline-danger"><a href="login">Login</a></button>
-            <button class="btn btn-rounded btn-outline-danger"><a href="/registration">Sign up</a></button>
+            <button class="btn btn-rounded btn-outline-danger"><a href="/auth/login">Login</a></button>
+            <button class="btn btn-rounded btn-outline-danger"><a href="/auth/registration">Sign up</a></button>
         </ul>
 
-    </div>
-
-
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-inner slimscroll">
-            <div id="sidebar-menu" class="sidebar-menu">
-                <ul>
-                    <li class="menu-title">
-                        <span>Main Menu</span>
-                    </li>
-                    <li class="submenu active">
-<<<<<<< HEAD
-                        <a href="#"><i class="feather-grid"></i> <span> Dashboard</span> <span
-                                class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="index.html" class="active">Admin Dashboard</a></li>
-                            <li><a href="teacher-dashboard.html">Teacher Dashboard</a></li>
-                            <li><a href="student-dashboard.html">Student Dashboard</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="#"><i class="fas fa-graduation-cap"></i> <span> Students</span> <span
-                                class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="students.html">Student List</a></li>
-                            <li><a href="student-details.html">Student View</a></li>
-                            <li><a href="add-student.html">Student Add</a></li>
-                            <li><a href="edit-student.html">Student Edit</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span
-                                class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="teachers.html">Teacher List</a></li>
-                            <li><a href="teacher-details.html">Teacher View</a></li>
-                            <li><a href="add-teacher.html">Teacher Add</a></li>
-                            <li><a href="edit-teacher.html">Teacher Edit</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="#"><i class="fas fa-building"></i> <span> Departments</span> <span
-                                class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="departments.html">Department List</a></li>
-                            <li><a href="add-department.html">Department Add</a></li>
-                            <li><a href="edit-department.html">Department Edit</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="#"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span
-                                class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="subjects.html">Subject List</a></li>
-                            <li><a href="add-subject.html">Subject Add</a></li>
-                            <li><a href="edit-subject.html">Subject Edit</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="#"><i class="fas fa-clipboard"></i> <span> Invoices</span> <span
-                                class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="invoices.html">Invoices List</a></li>
-                            <li><a href="invoice-grid.html">Invoices Grid</a></li>
-                            <li><a href="add-invoice.html">Add Invoices</a></li>
-                            <li><a href="edit-invoice.html">Edit Invoices</a></li>
-                            <li><a href="view-invoice.html">Invoices Details</a></li>
-                            <li><a href="invoices-settings.html">Invoices Settings</a></li>
-                        </ul>
-                    </li>
-=======
-                        <a href="#"><i class="feather-grid"></i> <span> Home</span></a>
-                    </li>
-                    <li>
-                        <a href="/personal-trainer/"><i class="fas fa-graduation-cap"></i> <span>Find Personal Trainer</span> </a>
-                    </li>
-                    <li>
-                        <a href="/exercise/"><i class="fas fa-chalkboard-teacher"></i> <span>Exercise Wiki</span></a>
-                    </li>
-<%--                    <li>--%>
-<%--                        <a href="/nutrition/"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>--%>
-<%--                    </li>--%>
->>>>>>> origin/development
-                </ul>
-            </div>
-        </div>
     </div>
 
     <div class="page-wrapper">
@@ -130,11 +40,7 @@
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-<<<<<<< HEAD
-                        <img class="d-block img-fluid" src="/META-INF/resources/assets/img/hero-1.jpg" alt="First slide">
-=======
-                        <img class="d-block img-fluid" src="../../assets/img/hero-1.jpg" alt="First slide">
->>>>>>> origin/development
+                        <img class="d-block img-fluid" src="assets/img/hero-1.jpg" alt="First slide">
                         <div class="col-lg-12">
                             <div class="hero-text">
                                 <h2>Gym On</h2>
@@ -144,11 +50,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-<<<<<<< HEAD
-                        <img class="d-block img-fluid" src="/META-INF/resources/assets/img/hero-2.jpg" alt="Second slide">
-=======
-                        <img class="d-block img-fluid" src="../../assets/img/hero-2.jpg" alt="Second slide">
->>>>>>> origin/development
+                        <img class="d-block img-fluid" src="assets/img/hero-2.jpg" alt="Second slide">
                         <div class="col-lg-12">
                             <div class="hero-text">
                                 <h2>Gym On</h2>
@@ -158,11 +60,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-<<<<<<< HEAD
-                        <img class="d-block img-fluid" src="/META-INF/resources/assets/img/hero-3.jpg" alt="Third slide">
-=======
-                        <img class="d-block img-fluid" src="../../assets/img/hero-3.jpg" alt="Third slide">
->>>>>>> origin/development
+                        <img class="d-block img-fluid" src="assets/img/hero-3.jpg" alt="Third slide">
                         <div class="col-lg-12">
                             <div class="hero-text">
                                 <h2>Gym On</h2>
@@ -187,8 +85,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
-                        <div style="background-image: url(/assets/img/feature-1.jpg);" class="feature-item set-bg"
-                             data-setbg="/assets/img/feature-1.jpg">
+                        <div style="background-image: url(assets/img/feature-1.jpg);" class="feature-item set-bg"
+                             data-setbg="assets/img/feature-1.jpg">
                             <h3>NUTRITION TRACKING</h3>
                             <p>Stay on top of your nutritional goals effortlessly.<br />Explore the world of
                                 nutrition tracking with Gym On</p>
@@ -196,8 +94,8 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div style="background-image: url(/assets/img/feature-2.jpg);" class="feature-item set-bg"
-                             data-setbg="//assets/img/feature-2.jpg">
+                        <div style="background-image: url(assets/img/feature-2.jpg);" class="feature-item set-bg"
+                             data-setbg="/assets/img/feature-2.jpg">
                             <h3>PERSONAL TRAINING</h3>
                             <p>Achieve your fitness objectives with tailored workout plans <br /> designed by
                                 certified personal trainers.</p>
@@ -205,9 +103,9 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div style="background-image: url(/assets/img/feature-3.jpg);" class="feature-item set-bg"
-                             data-setbg="/assets/img/feature-3.jpg">
-                            <h3>EXERCISE?NUTRITION</h3>
+                        <div style="background-image: url(assets/img/feature-3.jpg);" class="feature-item set-bg"
+                             data-setbg="assets/img/feature-3.jpg">
+                            <h3>EXERCISE & NUTRITION</h3>
                             <p>Seamlessly integrate your exercise and nutrition routines <br /> for a holistic
                                 approach to well-being.</p>
                             <a href="#" class="primary-btn f-btn">Read More</a>
@@ -229,11 +127,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
-<<<<<<< HEAD
-                            <img src="/META-INF/resources/assets/img/chose-icon-1.png" alt="">
-=======
-                            <img src="../../assets/img/chose-icon-1.png" alt="">
->>>>>>> origin/development
+                            <img src="assets/img/chose-icon-1.png" alt="">
                             <h5>Support 24/24</h5>
                             <p>One of the best ways to make a great vacation quickly horrible is to choose the wrong
                                 accommodations for your trip. </p>
@@ -241,11 +135,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
-<<<<<<< HEAD
-                            <img src="/META-INF/resources/assets/img/chose-icon-2.png" alt="">
-=======
-                            <img src="../../assets/img/chose-icon-2.png" alt="">
->>>>>>> origin/development
+                            <img src="assets/img/chose-icon-2.png" alt="">
                             <h5>Our trainer</h5>
                             <p>If you are an infrequent traveler you may need some tips to keep the wife happy while
                                 you are
@@ -254,11 +144,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
-<<<<<<< HEAD
-                            <img src="/META-INF/resources/assets/img/chose-icon-3.png" alt="">
-=======
-                            <img src="../../assets/img/chose-icon-3.png" alt="">
->>>>>>> origin/development
+                            <img src="assets/img/chose-icon-3.png" alt="">
                             <h5>Personalized sessions</h5>
                             <p>To succeed at any endeavor, you must stay the course…no matter what the cost! Here
                                 are some
@@ -267,11 +153,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
-<<<<<<< HEAD
-                            <img src="/META-INF/resources/assets/img/chose-icon-4.png" alt="">
-=======
-                            <img src="../../assets/img/chose-icon-4.png" alt="">
->>>>>>> origin/development
+                            <img src="assets/img/chose-icon-4.png" alt="">
                             <h5>Our equipment</h5>
                             <p>Rugby and Stratford-upon-Avon. Additionally, there are many things to see and do in
                                 and
@@ -280,11 +162,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
-<<<<<<< HEAD
-                            <img src="/META-INF/resources/assets/img/chose-icon-5.png" alt="">
-=======
-                            <img src="../../assets/img/chose-icon-5.png" alt="">
->>>>>>> origin/development
+                            <img src="assets/img/chose-icon-5.png" alt="">
                             <h5>Classes daily</h5>
                             <p>We would just not have the will in us to go about our daily lives. Its motivation
                                 that helps
@@ -293,11 +171,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
-<<<<<<< HEAD
-                            <img src="/META-INF/resources/assets/img/chose-icon-6.png" alt="">
-=======
-                            <img src="../../assets/img/chose-icon-6.png" alt="">
->>>>>>> origin/development
+                            <img src="assets/img/chose-icon-6.png" alt="">
                             <h5>Focus on your health</h5>
                             <p>But there is only so far we can go within the constraints of a family budget in
                                 building the
@@ -308,7 +182,7 @@
             </div>
         </section>
         <section class="classes-section">
-            <div style="background-image: url(/assets/img/classes-title-bg.jpg);" class="class-title set-bg">
+            <div style="background-image: url(assets/img/classes-title-bg.jpg);" class="class-title set-bg">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-7 m-auto text-center">
@@ -323,7 +197,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3 col-sm-6">
-                        <div style="background-image: url(/assets/img/class-1.jpg);" class="classes-item set-bg">
+                        <div style="background-image: url(assets/img/class-1.jpg);" class="classes-item set-bg">
                             <h4>Crossfit Level 1</h4>
                             <p>Sufferers around the globe will be happy to hear that there are sleep apnea remedies.
                             </p>
@@ -331,7 +205,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
-                        <div style="background-image: url(/assets/img/class-2.jpg);" class="classes-item set-bg">
+                        <div style="background-image: url(assets/img/class-2.jpg);" class="classes-item set-bg">
                             <h4>BootCamp</h4>
                             <p>The oil, also called linseed oil, has many industrial uses – it is an important
                                 ingredient
@@ -340,14 +214,14 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
-                        <div style="background-image: url(/assets/img/class-3.jpg);" class="classes-item set-bg">
+                        <div style="background-image: url(assets/img/class-3.jpg);" class="classes-item set-bg">
                             <h4>Energy Blast</h4>
                             <p>It is a very common occurrence like cold or fever depending upon your lifestyle. </p>
                             <a href="#" class="primary-btn class-btn">Read More</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
-                        <div style="background-image: url(/assets/img/class-4.jpg);" class="classes-item set-bg">
+                        <div style="background-image: url(assets/img/class-4.jpg);" class="classes-item set-bg">
                             <h4>CLASSIC BODY BALANCE</h4>
                             <p>The procedure is usually a preferred alternative to photorefractive keratectomy,</p>
                             <a href="#" class="primary-btn class-btn">Read More</a>
@@ -358,4 +232,22 @@
         </section>
     </div>
 </div>
-<%@ include file="common/script.jspf" %>
+<script>
+    $(document).ready(function(){
+        // Add a function to handle the carousel slide event
+        $('#carouselExampleFade').on('slide.bs.carousel', function () {
+            // Move the hero-text to the center of the active slide
+            $('.carousel-item.active .hero-text').css('transform', 'translate(-50%, -50%)');
+        });
+    });
+</script>
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/feather.min.js"></script>
+<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="assets/plugins/apexchart/apexcharts.min.js"></script>
+<script src="assets/plugins/apexchart/chart-data.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+
+</html>

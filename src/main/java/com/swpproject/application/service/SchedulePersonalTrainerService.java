@@ -13,6 +13,6 @@ public class SchedulePersonalTrainerService {
         personalTrainerRepository.save(schedulePersonalTrainerEntity);
     }
     public SchedulePersonalTrainer findScheduleByPtId(Integer id){
-        return personalTrainerRepository.findAllByPersonalTrainerPtId(id);
+        return personalTrainerRepository.findAllByPersonalTrainerId(id);
     }
 }

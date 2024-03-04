@@ -135,6 +135,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
+
                             <img src="assets/img/chose-icon-2.png" alt="">
                             <h5>Our trainer</h5>
                             <p>If you are an infrequent traveler you may need some tips to keep the wife happy while

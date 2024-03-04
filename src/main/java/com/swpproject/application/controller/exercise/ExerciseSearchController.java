@@ -14,8 +14,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/exercises")
 public class ExerciseSearchController {
-    @Autowired
-    private ExerciseRepository exerciseRepository;
+    private final ExerciseRepository exerciseRepository;
+
+    public ExerciseSearchController(ExerciseRepository exerciseRepository) {
+        this.exerciseRepository = exerciseRepository;
+    }
 
     @PostMapping("/search")
     public ResponseEntity<List<Exercise>> searchExercise(@RequestBody FilterObject filterObject) {

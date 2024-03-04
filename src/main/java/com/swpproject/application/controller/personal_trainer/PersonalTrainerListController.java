@@ -16,10 +16,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/personal-trainer")
 public class PersonalTrainerListController {
-    @Autowired
-    private PersonalTrainerRepository personalTrainerRepository;
-    @Autowired
-    private AccountRepository accountRepository;
+    private final PersonalTrainerRepository personalTrainerRepository;
+    private final AccountRepository accountRepository;
+
+    public PersonalTrainerListController(AccountRepository accountRepository, PersonalTrainerRepository personalTrainerRepository) {
+        this.accountRepository = accountRepository;
+        this.personalTrainerRepository = personalTrainerRepository;
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getPersonalTrainerListPage(ModelMap model) {

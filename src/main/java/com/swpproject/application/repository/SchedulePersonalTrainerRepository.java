@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SchedulePersonalTrainerRepository extends JpaRepository<SchedulePersonalTrainer,Long> {
 
+    // TODO: đặt lại tên hàm --> findAllSchedulesByPTId
     public SchedulePersonalTrainer findAllByPersonalTrainerId(Integer id);
 }

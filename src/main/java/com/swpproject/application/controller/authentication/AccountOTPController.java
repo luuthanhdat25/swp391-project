@@ -2,7 +2,6 @@ package com.swpproject.application.controller.authentication;
 
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.PersonalTrainer;
-import com.swpproject.application.model.SchedulePersonalTrainer;
 import com.swpproject.application.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +57,8 @@ public class AccountOTPController {
             PersonalTrainer personalTrainer = new PersonalTrainer();
             personalTrainer.setAccount((Account)session.getAttribute("account"));
             personalTrainerService.save(personalTrainer);
-            SchedulePersonalTrainer schedulePersonalTrainerEntity = new SchedulePersonalTrainer();
-            schedulePersonalTrainerEntity.setPersonalTrainer(personalTrainer);
+//            SchedulePersonalTrainer schedulePersonalTrainerEntity = new SchedulePersonalTrainer();
+//            schedulePersonalTrainerEntity.setPersonalTrainer(personalTrainer);
 //            schedulePersonalTrainerService.save(schedulePersonalTrainerEntity);
             redirectAttributes.addFlashAttribute("MSG","Account created successfully! " +
                     "You can login into website now!");

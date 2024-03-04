@@ -5,12 +5,12 @@
         <div class="container">
             <div class="loginbox">
                 <div class="login-left">
-                    <img class="img-fluid" src="/META-INF/resources/assets/img/login.png" alt="Logo">
+                    <img class="img-fluid" src="/assets/img/login.png" alt="Logo">
                 </div>
                 <div class="login-right">
                     <div class="login-right-wrap">
                         <h1>Welcome User!</h1>
-                        <p class="account-subtitle">Need an account? <a href="/registration">Sign Up</a></p>
+                        <p class="account-subtitle">Need an account? <a href="/auth/registration">Sign Up</a></p>
                         <h2>Sign in</h2>
 
                         <form:form action="${pageContext.request.contextPath}/login" method="post">

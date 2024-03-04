@@ -28,7 +28,7 @@ public class PersonalTrainer {
     @Column(name = "bank_number")
     private String bankNumber;
 
-    @Column(name = "[desc]")
+    @Column(name = "[desc]", columnDefinition = "varchar(MAX)")
     private String description;
 
     @Column(name = "is_active", columnDefinition = "BIT DEFAULT 0")

@@ -20,7 +20,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer accountId;
+    private Integer id;
 
     @Column(name = "fullname", nullable = false)
     private String fullName;
@@ -63,7 +63,7 @@ public class Account {
     @Override
     public String toString() {
         return "Account{" +
-                "accountId=" + accountId +
+                "accountId=" + id+
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
@@ -81,4 +81,7 @@ public class Account {
     public String getBirthdateString(){
         return this.birthday.toString();
     }
+    public Account(String email, String password) {
+    }
+
 }

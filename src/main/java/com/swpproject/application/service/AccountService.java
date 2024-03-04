@@ -13,7 +13,9 @@ public interface AccountService {
     List<Account> getAccounts();
     Optional<Account> findAccountByEmail(String email);
     List<Account> findAccountByRole(Role role);
+    Optional<Account> getAccountByEmail(String email);
+
     Account loginByEmail(String email,String password);
     void save(Account account);
-
+    Boolean existsByEmail(String email);
 }

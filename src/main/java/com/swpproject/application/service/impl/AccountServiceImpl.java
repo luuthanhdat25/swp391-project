@@ -9,9 +9,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
 public class AccountServiceImpl implements AccountService {
+
+
 
 
     @Autowired
@@ -23,21 +26,25 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Optional<Account> findAccountByEmail(String email) {
+    public Optional<Account> getAccountByEmail(String email) {
         return accountRepository.findAccountByEmail(email);
     }
-
+    @Override
+    public Optional<Account> findAccountByEmail(String email) {
+        return Optional.empty();
+    }
 
     public  List<Account> findAccountByRole(Role role){
         return accountRepository.findAccountByRole(role);
     }
+
 
     @Override
     public Account loginByEmail(String email, String password) {
         Optional<Account> optAccount = accountRepository.findAccountByEmail(email);
         if (optAccount.isPresent()) {
             Account account = optAccount.get();
-            if (account.getPassword().equals(password)) {
+            if (account.getPassword().equalsIgnoreCase(password)) {
                 return account;
             } else {
                 throw new IllegalArgumentException("Incorrect password");
@@ -50,6 +57,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void save(Account account) {
         accountRepository.save(account);
+    }
+
+    @Override
+    public Boolean existsByEmail(String email) {
+        return accountRepository.existsByEmail(email);
     }
 
 }

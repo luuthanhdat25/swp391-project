@@ -1,4 +1,4 @@
-<%@ include file="common/header.jspf" %>
+<%@ include file="../common/header.jspf" %>
 <body>
 <div class="main-wrapper login-body">
     <div class="login-wrapper">
@@ -8,7 +8,7 @@
                     <div class="col-sm-12">
                             <div class="card-body">
                                 <%--@elvariable id="account" type=""--%>
-                                <form:form action="${pageContext.request.contextPath}/registration" method="post" modelAttribute="account">
+                                <form:form action="${pageContext.request.contextPath}/auth/registration" method="post" modelAttribute="account">
                                     <a href="javascript:history.go(-1)" class="back-btn"><i
                                             class="feather-chevron-left"></i> Back</a>
                                     <div class="row">
@@ -33,7 +33,7 @@
                                             <div class="form-group local-forms">
                                                 <label>Password <span class="login-danger">*</span></label>
                                                 <input class="form-control pass-input" style="${not empty password ? 'border: 1px solid red' : ''}"
-                                                       type="text" placeholder="Enter Password" name="password" value="${account.password}" required>
+                                                       type="password" placeholder="Enter Password" name="password" value="${account.password}" required>
                                                 <span class="profile-views feather-eye toggle-password"></span>
                                             </div>
                                         </div>
@@ -41,7 +41,7 @@
                                             <div class="form-group local-forms">
                                                 <label>Repeat Password <span class="login-danger">*</span></label>
                                                 <input class="form-control pass-input" style="${not empty fRptPassword ? 'border: 1px solid red' : ''}"
-                                                       type="text" placeholder="Repeat Password" name="rptPassword" value="${rptPassword}" required>
+                                                       type="password" placeholder="Repeat Password" name="rptPassword" value="${rptPassword}" required>
                                                 <span class="profile-views feather-eye toggle-password"></span>
                                             </div>
                                         </div>
@@ -95,4 +95,4 @@
         </div>
     </div>
 </div>
-<%@ include file="common/script.jspf" %>
+<%@ include file="../common/script.jspf" %>

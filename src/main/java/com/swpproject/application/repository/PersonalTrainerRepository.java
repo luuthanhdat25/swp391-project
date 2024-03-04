@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface PersonalTrainerRepository extends JpaRepository<PersonalTrainer, Integer> {
-    Optional<PersonalTrainer> findByAccount_AccountId(Integer accountId);
+    Optional<PersonalTrainer> findByAccountId(Integer accountId);
 }

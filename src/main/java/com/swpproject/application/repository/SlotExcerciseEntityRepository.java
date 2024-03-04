@@ -14,6 +14,6 @@ public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExcerci
             Integer gymeid,
             boolean isPending
     );
-    
+
 
 }

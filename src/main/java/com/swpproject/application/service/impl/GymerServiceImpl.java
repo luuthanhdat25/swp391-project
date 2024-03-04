@@ -15,7 +15,7 @@ public class GymerServiceImpl implements GymerService {
     private GymerRepository gymerRepository;
     @Override
     public Gymer GetGymerProifile(Integer AccountId) {
-        return gymerRepository.findGymerByAccount_AccountId(AccountId);
+        return gymerRepository.findGymerByAccount_Id(AccountId);
     }
     @Override
     public void SaveGymer(Gymer gymer) {

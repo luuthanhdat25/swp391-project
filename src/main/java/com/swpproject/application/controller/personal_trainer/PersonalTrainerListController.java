@@ -7,6 +7,7 @@ import com.swpproject.application.repository.PersonalTrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -29,5 +30,10 @@ public class PersonalTrainerListController {
         String json = JsonUtils.jsonConvert(list);
         model.addAttribute("personalTrainerList", json);
         return "personal-trainer-list";
+    }
+
+        @GetMapping(name="view-details",produces = "text/html; charset=UTF-8")
+    public String view_profile_details() {
+        return "pt-profile-details";
     }
 }

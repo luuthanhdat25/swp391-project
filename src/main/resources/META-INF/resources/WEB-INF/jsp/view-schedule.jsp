@@ -183,9 +183,7 @@
                     <a class="dropdown-item" href="login.html">Logout</a>
                 </div>
             </li>
-
         </ul>
-
     </div>
 
 
@@ -469,7 +467,7 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col">
-                        <h3 class="page-title">Book a Personal Trainer</h3>
+                        <h3 class="page-title">My Schedule</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                             <li class="breadcrumb-item active">Booking</li>
@@ -484,11 +482,19 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <div class="schedule-selects">
                                 <form action="/selectWeek" method="get">
-                                    <select id="yearSelect" class="form-select" onchange="updateWeekOptions()">
-                                        <!-- Year options will be added dynamically -->
+                                    <select id="year" class="form-control" name="year"
+                                            onchange="updateWeeks()">
+                                        <!-- Thay đổi dải số năm tùy ý -->
+                                        <script>
+                                            var currentYear = new Date().getFullYear();
+                                            for (var i = currentYear; i >= currentYear - 10; i--) {
+                                                document.write("<option value='" + i + "'>" + i + "</option>");
+                                            }
+                                        </script>
                                     </select>
-                                    <select id="weekSelect" class="form-select" onchange="onSelectionChange()">
-                                        <!-- Week options will be added dynamically -->
+                                    <select id="week" class="form-control" name="week"
+                                            onchange="this.form.submit()">
+                                        <!-- Options will be generated dynamically by JavaScript -->
                                     </select>
                                 </form>
                             </div>
@@ -731,7 +737,6 @@
 
                                 <div class="cd-schedule__cover-layer"></div>
                             </div> <!-- .cd-schedule -->
-
                         </div>
 
                     </div>
@@ -755,107 +760,96 @@
 <script src="../../assets/js/script.js"></script>
 <script src="../../assets/js/util.js"></script>
 <script src="../../assets/js/main.js"></script>
+<script src="assets/js/moment.min.js"></script>
+<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+
 <script>
-    // Function to generate week options
-    function generateWeekOptions(year) {
-        var weekSelect = document.getElementById("weekSelect");
-        var options = "";
+    function generateWeeks() {
+        var year = $("#year").val();
+        var weeks = [];
 
-        var currentDate = new Date(year, 0, 1); // Start from January 1st of the given year
-        var lastDate = new Date(year + 1, 0, 0); // End at December 31st of the given year
-
-        // Move currentDate to the first Monday of the year
-        currentDate.setDate(currentDate.getDate() + (8 - currentDate.getDay()) % 7);
-
-        while (currentDate < lastDate) {
-            var weekStart = new Date(currentDate);
-            var weekEnd = new Date(currentDate);
-            weekEnd.setDate(weekEnd.getDate() + 6);
-
-            var weekStartDay = weekStart.getDate().toString().padStart(2, '0');
-            var weekStartMonth = (weekStart.getMonth() + 1).toString().padStart(2, '0');
-            var weekEndDay = weekEnd.getDate().toString().padStart(2, '0');
-            var weekEndMonth = (weekEnd.getMonth() + 1).toString().padStart(2, '0');
-
-            var weekRange = weekStartDay + "/" + weekStartMonth + "-" + weekEndDay + "/" + weekEndMonth;
-            options += "<option value='" + weekRange + "'>" + weekRange + "</option>";
-
-            currentDate.setDate(currentDate.getDate() + 7); // Move to the next week
+        for (var i = 1; i <= 52; i++) {
+            var startOfWeek = moment().year(year).isoWeek(i).startOf('isoWeek');
+            var endOfWeek = moment().year(year).isoWeek(i).endOf('isoWeek');
+            var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');
+            weeks.push("<option value='" +i+ "'>" + weekText + "</option>");
         }
 
-        weekSelect.innerHTML = options;
+        $("#week").html(weeks.join(""));
     }
 
-    // Function to generate year options
-    function generateYearOptions() {
-        var yearSelect = document.getElementById("yearSelect");
-        var options = "";
-        var currentYear = new Date().getFullYear();
+    $(document).ready(function () {
+        var currentDate = moment();
 
-        for (var i = currentYear; i <= currentYear + 5; i++) {
-            options += "<option value='" + i + "'>" + i + "</option>";
+        // Set giá trị năm tương ứng với ngày hiện tại
+
+        generateWeeks();
+
+        // Extract week parameter from the URL and set it as the selected value
+        var urlParams = new URLSearchParams(window.location.search);
+        var weekParam = urlParams.get('week');
+
+        var yearParam = urlParams.get('year');
+
+        if (weekParam && yearParam) {
+            $("#week").val(weekParam);
+            $("#year").val(yearParam);
+        } else {
+            $("#year").val(currentDate.year);
+            $("#week").val(currentDate.isoWeek());
         }
 
-        yearSelect.innerHTML = options;
+        updateTable(); // Cập nhật bảng khi trang web được tải
+    });
+
+    // Sự kiện khi thay đổi khung chọn năm
+    $("#year").change(function () {
+        generateWeeks();
+        updateTable(); // Cập nhật bảng khi thay đổi năm
+    });
+
+    // Hàm để cập nhật bảng khi người dùng chọn tuần mới
+    function updateTable() {
+        updateDays();   // Cập nhật giá trị ngày của từng thứ trong tuần
+        var year = $("#year").val();
+        var week = $("#week").val();
+
+        // Gửi AJAX request để load lại file với tham số tuần
+        $.ajax({
+            type: "POST",
+            url: "/SelectWeek", // Update to the correct URL
+            data: {
+                week: week,
+                year: year,
+            },
+            contentType: 'application/x-www-form-urlencoded;charset=UTF-8', // Explicitly set the content type
+            success: function (response) {
+                // Xử lý response, ví dụ: cập nhật nội dung trang
+                // response có thể là HTML, JSON, hoặc bất kỳ định dạng dữ liệu nào khác
+                console.log(response);
+            },
+            error: function (error) {
+                console.error("Error loading file:", error);
+            }
+        });
     }
 
-    // Function to update week options based on selected year
-    function updateWeekOptions() {
-        var yearSelect = document.getElementById("yearSelect");
-        var selectedYear = parseInt(yearSelect.value);
-        generateWeekOptions(selectedYear);
-    }
+    // Hàm để cập nhật giá trị ngày của từng thứ trong tuần
+    function updateDays() {
+        var year = $("#year").val();
+        var week = $("#week").val();
 
-    function onSelectionChange() {
-        var weekSelect = document.getElementById("weekSelect");
-        var yearSelect = document.getElementById("yearSelect");
+        if (year && week) {
+            var startOfWeek = moment().year(year).isoWeek(week).startOf('isoWeek');
 
-        var selectedWeek = weekSelect.value; // Extracting the starting day of the week
-        var selectedYear = yearSelect.value;
-
-        // Construct the URL with the selected week and year values
-        var newUrl = window.location.pathname + "?week=" + selectedWeek + "&year=" + selectedYear;
-
-        // Redirect to the new URL, causing the page to refresh
-        window.location.href = newUrl;
-    }
-
-    // Function to parse query parameters from URL
-    function getQueryVariable(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split("=");
-            if (pair[0] === variable) {
-                return pair[1];
+            // Cập nhật giá trị ngày trong từng thứ của tuần
+            for (var i = 0; i <= 6; i++) {
+                var day = startOfWeek.clone().add(i, 'days');
+                $("#dayRow th:eq(" + i + ")").text(day.format('DD/MM'));
             }
         }
-        return null;
     }
-
-    // Function to set dropdown values from URL parameters
-    function setDropdownValuesFromUrl() {
-        var weekSelect = document.getElementById("weekSelect");
-        var yearSelect = document.getElementById("yearSelect");
-
-        var weekParam = getQueryVariable("week");
-        var yearParam = getQueryVariable("year");
-
-        if (weekParam !== null) {
-            weekSelect.value = weekParam;
-        }
-        if (yearParam !== null) {
-            yearSelect.value = yearParam;
-        }
-    }
-
-    // Call the function to set dropdown values when the page loads
-    window.onload = setDropdownValuesFromUrl;
-
-    // Call functions to generate options when the page loads
-    generateWeekOptions(new Date().getFullYear());
-    generateYearOptions();
-
 </script>
 </body>
 

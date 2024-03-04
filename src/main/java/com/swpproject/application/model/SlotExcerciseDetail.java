@@ -9,13 +9,11 @@ import lombok.*;
 @Setter
 @Data
 @Entity
-@Table(name = "Slot_excercise_detail")
+@Table(name = "slot_exercise_detail")
 public class SlotExcerciseDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
 
 }

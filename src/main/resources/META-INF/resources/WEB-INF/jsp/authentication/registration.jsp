@@ -1,4 +1,4 @@
-<%@ include file="common/header.jspf" %>
+<%@ include file="../common/header.jspf" %>
 <body>
 <div class="main-wrapper login-body">
     <div class="login-wrapper">
@@ -95,4 +95,4 @@
         </div>
     </div>
 </div>
-<%@ include file="common/script.jspf" %>
+<%@ include file="../common/script.jspf" %>

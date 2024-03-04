@@ -6,10 +6,10 @@
                     <span>GymOn Wiki</span>
                 </li>
                 <li>
-                    <a href="/exercise/"><i class="fas fa-chalkboard-teacher"></i> <span>Exercise Wiki</span></a>
+                    <a href="/exercise/"><i class="fas fa-dumbbell"></i> <span>Exercise Wiki</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>Nutrition Wiki</span></a>
+                    <a href="#"><i class="fe fe-activity"></i> <span>Nutrition Wiki</span></a>
                 </li>
                 <li class="menu-title">
                     <span>GymOn Schedule</span>
@@ -24,11 +24,11 @@
                     <span>GymOn Services</span>
                 </li>
                 <li>
-                    <a href="/personal-trainer/"><i class="fas fa-graduation-cap"></i> <span>Find Personal Trainer</span> </a>
+                    <a href="/personal-trainer/"><i class="fas fa-search"></i> <span>Find Personal Trainer</span> </a>
                 </li>
 
                 <li>
-                    <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>Order History</span></a>
+                    <a href="#"><i class="fas fa-history"></i> <span>Order History</span></a>
                 </li>
                 <li class="submenu">
                     <a href="#"><i class="feather-grid"></i> <span>Tracking & Statistics</span> <span

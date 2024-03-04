@@ -1,11 +1,11 @@
-<%@ include file="common/header.jspf" %>
+<%@ include file="../common/header.jspf" %>
 <body>
 <div class="main-wrapper login-body">
     <div class="login-wrapper">
         <div class="container">
             <div class="loginbox">
                 <div class="login-left">
-                    <img class="img-fluid" src="assets/img/login.png" alt="Logo">
+                    <img class="img-fluid" src="/assets/img/login.png" alt="Logo">
                 </div>
                 <div class="login-right">
                     <div class="login-right-wrap">
@@ -36,7 +36,7 @@
         </div>
     </div>
 </div>
-<%@ include file="common/script.jspf" %>
+<%@ include file="../common/script.jspf" %>
 
 <script>
     $(document).ready(function () {

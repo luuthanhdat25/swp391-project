@@ -17,7 +17,7 @@
 		<java.version>21</java.version>
 		<junit.jupiter.version>5.9.1</junit.jupiter.version>
 		<junit.platform.version>1.9.1</junit.platform.version>
-		<spring-security.version>6.2.2</spring-security.version>
+<!--		<spring-security.version>6.2.2</spring-security.version>-->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -137,24 +137,14 @@
 		</dependency>
 
 		<!-- Keep OAuth2 and Security dependencies -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-client</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-oauth2-client</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-security</artifactId>-->
+<!--		</dependency>-->
 
 		<!-- Java Mail Support Sending -->
 		<dependency>
@@ -165,7 +155,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
-			<version>3.2.2</version>
+			<version>3.2.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -185,23 +175,23 @@
 		</dependency>
 
 		<!-- JWT -->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-api</artifactId>
-			<version>0.11.5</version>
-		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-impl</artifactId>
-			<version>0.11.5</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-jackson</artifactId>
-			<version>0.11.5</version>
-			<scope>runtime</scope>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>io.jsonwebtoken</groupId>-->
+<!--			<artifactId>jjwt-api</artifactId>-->
+<!--			<version>0.11.5</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>io.jsonwebtoken</groupId>-->
+<!--			<artifactId>jjwt-impl</artifactId>-->
+<!--			<version>0.11.5</version>-->
+<!--			<scope>runtime</scope>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>io.jsonwebtoken</groupId>-->
+<!--			<artifactId>jjwt-jackson</artifactId>-->
+<!--			<version>0.11.5</version>-->
+<!--			<scope>runtime</scope>-->
+<!--		</dependency>-->
 	</dependencies>
 	<build>
 		<plugins>

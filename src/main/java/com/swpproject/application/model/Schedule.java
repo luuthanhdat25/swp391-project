@@ -1,10 +1,7 @@
 package com.swpproject.application.model;
 
 import jakarta.persistence.*;
-<<<<<<< HEAD
 import lombok.*;
-=======
->>>>>>> 24d78f3928785903a9dec8925d215273a41baffc
 
 @NoArgsConstructor
 @AllArgsConstructor

@@ -25,6 +25,51 @@
     <link rel="stylesheet" href="../../assets/plugins/datatables/datatables.min.css">
 
     <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/styleSliderBar.css">
+<%--    --%>
+<%--    <style>--%>
+<%--        .bar{--%>
+<%--            height: 10px;--%>
+<%--            border-radius: 5px;--%>
+<%--            position: relative;--%>
+<%--        }--%>
+
+<%--        .sliderBar{--%>
+<%--            background: #ddd;--%>
+<%--            position: relative;--%>
+<%--        }--%>
+
+<%--        .sliderBar .progressBar{--%>
+<%--            background-color: #0d6efd;--%>
+<%--            left: 0%;--%>
+<%--            right: 0%;--%>
+<%--            position: absolute;--%>
+<%--        }--%>
+
+<%--        .range-input{--%>
+<%--            position: relative;--%>
+<%--        }--%>
+
+<%--        .range-input input{--%>
+<%--            top: -10px;--%>
+<%--            height: 10px;--%>
+<%--            width: 100%;--%>
+<%--            background: none;--%>
+<%--            -webkit-appearance: none;--%>
+<%--            pointer-events: none;--%>
+<%--            position: absolute;--%>
+<%--        }--%>
+
+<%--        input[type="range"]::-webkit-slider-thumb{--%>
+<%--            height: 20px;--%>
+<%--            width: 20px;--%>
+<%--            border-radius: 50%;--%>
+<%--            pointer-events: auto;--%>
+<%--            -webkit-appearance: none;--%>
+<%--            background-color: #0d6efd;--%>
+<%--        }--%>
+<%--    </style>--%>
+
 </head>
 
 <body>
@@ -251,29 +296,52 @@
                                                 </div>
                                             </div>
 
-                                            <div class="personal-activity">
-                                                <div class="mb-3 w-100">
-                                                    <label for="priceSlider" class="form-label">Price</label>
-                                                    <input type="range" class="form-range" id="priceSlider">
-                                                    <div class="input-group mt-3">
-                                                        <input type="number" class="form-control" id="priceMin" placeholder="Min">
-                                                        <span class="input-group-text">to</span>
-                                                        <input type="number" class="form-control" id="priceMax" placeholder="Max">
-                                                        <button id="submitPrice" class="btn btn-primary" type="button">></button>
+                                            <div class="mb-3 w-100">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex">
+                                                        <i class="far fa-money-bill-alt text-primary"></i>
+                                                        <h6 class="px-2">Price</h6>
                                                     </div>
+                                                    <h6 class="font-weight-light" id="price-preview">0 - 500.000đ</h6>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <div class="sliderBar bar" id="priceProgressBar">
+                                                        <div class="progressBar bar"></div>
+                                                    </div>
+                                                    <div class="range-input" id="priceSliderBar">
+                                                        <input type="range" class="range-min" id="minRange" min="0" max="500000" value="0">
+                                                        <input type="range" class="range-max" min="0" max="500000" value="500000">
+                                                    </div>
+                                                </div>
+
+                                                <div class="input-group mt-3" id="priceInput">
+                                                    <input type="number" class="form-control" id="priceMinInput" placeholder="Min" value="0">
+                                                    <span class="input-group-text">-</span>
+                                                    <input type="number" class="form-control" id="priceMaxInput" placeholder="Max" value="500000">
+                                                    <button id="submitPrice" class="btn btn-primary" type="button">></button>
                                                 </div>
                                             </div>
 
-                                            <div class="personal-activity">
-                                                <div class="mb-3 w-100">
-                                                    <label for="distanceSlider" class="form-label">Distance</label>
-                                                    <input type="range" class="form-range" id="distanceSlider">
-                                                    <div class="input-group mt-3">
-                                                        <input type="number" class="form-control" id="distanceMin" placeholder="Min">
-                                                        <span class="input-group-text">to</span>
-                                                        <input type="number" class="form-control" id="distanceMax" placeholder="Max">
-                                                        <button id="submitDistance" class="btn btn-primary" type="button">></button>
+                                            <div class="mb-3 w-100">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex">
+                                                        <i class="feather-map-pin text-primary"></i>
+                                                        <h6 class="px-2">Distance</h6>
                                                     </div>
+                                                    <h6 class="font-weight-light" id="distance-preview">Within 100km</h6>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <div class="sliderBar bar" id="distanceProgressBar">
+                                                        <div class="progressBar bar"></div>
+                                                    </div>
+                                                    <div class="range-input" id="distanceSliderBar">
+                                                        <input type="range" class="range-max" min="0" max="100" value="100">
+                                                    </div>
+                                                </div>
+
+                                                <div class="input-group mt-3" id="distanceInput">
+                                                    <input type="number" class="form-control" id="distanceMaxInput" placeholder="Within" value="100">
+                                                    <button id="submitDistance" class="btn btn-primary" type="button">></button>
                                                 </div>
                                             </div>
                                             <div class="personal-activity">
@@ -336,96 +404,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="student-personals-grp mt-3">
-                                    <div class="card mb-0">
-                                        <div class="card-body row">
-                                            <!-- Left column -->
-                                            <div class="col">
-                                                <img class="w-100 rounded-circle" src="../../assets/img/profiles/avatar-18.jpg" alt="Profile">
-                                            </div>
 
-                                            <!-- Middle column -->
-                                            <div class="col-lg-8">
-                                                <div class="heading-detail d-flex align-items-center">
-                                                    <h5 class="mb-0">Personal Trainer Name</h5>
-                                                    <div class="ms-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFFF00" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                                        </svg>
-                                                    </div>
-                                                    <h6 class="text-muted mb-0 ms-2">4.0 (2 rating)</h6>
-                                                </div>
-
-                                                <div class="personal-activity mt-2 ">
-                                                    <div class="personal-icons d-flex align-items-center bg-light rounded-2 p-2 w-auto">
-                                                        <i class="feather-map-pin text-black"></i>
-                                                        <h6 class="text-black mb-0 ms-2">180, Estern Avenue, United States</h6>
-                                                    </div>
-                                                </div>
-
-                                                <div class="hello-park shortDescription">
-                                                    <p>My name is Zhi Sun, I started my professional training career at Equinox Midtown, and worked hard to become a high end tier trainer. I had the opportunity to work with clients of varying levels of fitness. I am originally from Syracuse, NY and I decided to move to the city around 2017. I took a chance and risk to move to a big city and pursue my passion as a full time fitness trainer. </p>
-                                                </div>
-                                            </div>
-
-                                            <!-- Right column -->
-                                            <div class="col">
-                                                <div id="priceText">
-                                                    <h6 class="text-muted">Price</h6>
-                                                    <h5>60.000đ/hr</h5>
-                                                </div>
-                                                <div>
-                                                    <button id="viewProfile" class="btn btn-primary font-weight-bold" type="button" style="font-size: 95%">View Profile</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="student-personals-grp mt-3">
-                                    <div class="card mb-0">
-                                        <div class="card-body row">
-                                            <!-- Left column -->
-                                            <div class="col">
-                                                <img class="w-100 rounded-circle" src="../../assets/img/profiles/avatar-18.jpg" alt="Profile">
-                                            </div>
-
-                                            <!-- Middle column -->
-                                            <div class="col-lg-8">
-                                                <div class="heading-detail d-flex align-items-center">
-                                                    <h5 class="mb-0">Personal Trainer Name</h5>
-                                                    <div class="ms-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFFF00" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                                        </svg>
-                                                    </div>
-                                                    <h6 class="text-muted mb-0 ms-2">4.0 (2 rating)</h6>
-                                                </div>
-
-                                                <div class="personal-activity mt-2 ">
-                                                    <div class="personal-icons d-flex align-items-center bg-light rounded-2 p-2 w-auto">
-                                                        <i class="feather-map-pin text-black"></i>
-                                                        <h6 class="text-black mb-0 ms-2">180, Estern Avenue, United States</h6>
-                                                    </div>
-                                                </div>
-
-                                                <div class="hello-park shortDescription">
-                                                    <p>My name is Zhi Sun, I started my professional training career at Equinox Midtown, and worked hard to become a high end tier trainer. I had the opportunity to work with clients of varying levels of fitness. I am originally from Syracuse, NY and I decided to move to the city around 2017. I took a chance and risk to move to a big city and pursue my passion as a full time fitness trainer. </p>
-                                                </div>
-                                            </div>
-
-                                            <!-- Right column -->
-                                            <div class="col">
-                                                <div id="priceText">
-                                                    <h6 class="text-muted">Price</h6>
-                                                    <h5>60.000đ/hr</h5>
-                                                </div>
-                                                <div>
-                                                    <button id="viewProfile" class="btn btn-primary font-weight-bold" type="button" style="font-size: 95%">View Profile</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -449,66 +428,68 @@
 
     <script src="../../assets/js/script.js"></script>
 
-<%--    <script>--%>
-<%--        function generatePersonalTrainers(personalTrainerList) {--%>
-<%--            const container = $('<div class="student-personals-grp"></div>');--%>
 
-<%--            personalTrainerList.forEach(personalTrainer => {--%>
-<%--                const card = $('<div class="card mb-0"></div>');--%>
 
-<%--                const cardBody = $('<div class="card-body row"></div>');--%>
+    <script>
+        function generatePersonalTrainers(personalTrainerList) {
+            const container = $('<div class="student-personals-grp"></div>');
 
-<%--                // Left column (Image)--%>
-<%--                const leftColumn = $('<div class="col"></div>');--%>
-<%--                const image = $('<img class="w-100 rounded-circle" alt="Profile">').attr('src', '../../assets/img/profiles/avatar-18.jpg');--%>
-<%--                leftColumn.append(image);--%>
+            personalTrainerList.forEach(personalTrainer => {
+                const card = $('<div class="card mb-0"></div>');
 
-<%--                // Middle column (Details)--%>
-<%--                const middleColumn = $('<div class="col-lg-8"></div>');--%>
-<%--                const headingDetail = $('<div class="heading-detail d-flex align-items-center"></div>');--%>
-<%--                const trainerName = $('<h5 class="mb-0"></h5>').text(personalTrainer);--%>
-<%--                const ratingContainer = $('<div></div>');--%>
-<%--                const rating = $('<h6 class="text-muted mb-0 ms-2"></h6>').text(`${personalTrainer.rating} (${personalTrainer.ratingCount} rating)`);--%>
-<%--                ratingContainer.append(rating);--%>
-<%--                headingDetail.append(trainerName, ratingContainer);--%>
-<%--                const personalActivity = $('<div class="personal-activity mt-2"></div>');--%>
-<%--                const personalIcons = $('<div class="personal-icons d-flex align-items-center bg-light rounded-2 p-2 w-auto"></div>');--%>
-<%--                const locationIcon = $('<i class="feather-map-pin text-black"></i>');--%>
-<%--                const locationText = $('<h6 class="text-black mb-0 ms-2"></h6>').text(personalTrainer.location);--%>
-<%--                personalIcons.append(locationIcon, locationText);--%>
-<%--                personalActivity.append(personalIcons);--%>
-<%--                const description = $('<div class="hello-park shortDescription"></div>');--%>
-<%--                const descriptionParagraph = $('<p></p>').text(personalTrainer.description);--%>
-<%--                description.append(descriptionParagraph);--%>
-<%--                middleColumn.append(headingDetail, personalActivity, description);--%>
+                const cardBody = $('<div class="card-body row"></div>');
 
-<%--                // Right column (Price and Button)--%>
-<%--                const rightColumn = $('<div class="col"></div>');--%>
-<%--                const priceText = $('<div></div>');--%>
-<%--                const priceHeading = $('<h6 class="text-muted">Price</h6>');--%>
-<%--                const price = $('<h5></h5>').text(personalTrainer.price);--%>
-<%--                priceText.append(priceHeading, price);--%>
-<%--                const viewProfileButton = $('<button class="btn btn-primary font-weight-bold" type="button" style="font-size: 95%">View Profile</button>');--%>
-<%--                rightColumn.append(priceText, viewProfileButton);--%>
+                // Left column (Image)
+                const leftColumn = $('<div class="col"></div>');
+                const image = $('<img class="w-100 rounded-circle" alt="Profile">').attr('src', '../../assets/img/profiles/avatar-18.jpg');
+                leftColumn.append(image);
 
-<%--                // Append columns to card body--%>
-<%--                cardBody.append(leftColumn, middleColumn, rightColumn);--%>
+                // Middle column (Details)
+                const middleColumn = $('<div class="col-lg-8"></div>');
+                const headingDetail = $('<div class="heading-detail d-flex align-items-center"></div>');
+                const trainerName = $('<h5 class="mb-0"></h5>').text(personalTrainer);
+                const ratingContainer = $('<div></div>');
+                const rating = $('<h6 class="text-muted mb-0 ms-2"></h6>').text(`${personalTrainer.rating} (${personalTrainer.ratingCount} rating)`);
+                ratingContainer.append(rating);
+                headingDetail.append(trainerName, ratingContainer);
+                const personalActivity = $('<div class="personal-activity mt-2"></div>');
+                const personalIcons = $('<div class="personal-icons d-flex align-items-center bg-light rounded-2 p-2 w-auto"></div>');
+                const locationIcon = $('<i class="feather-map-pin text-black"></i>');
+                const locationText = $('<h6 class="text-black mb-0 ms-2"></h6>').text(personalTrainer.location);
+                personalIcons.append(locationIcon, locationText);
+                personalActivity.append(personalIcons);
+                const description = $('<div class="hello-park shortDescription"></div>');
+                const descriptionParagraph = $('<p></p>').text(personalTrainer.description);
+                description.append(descriptionParagraph);
+                middleColumn.append(headingDetail, personalActivity, description);
 
-<%--                // Append card body to card--%>
-<%--                card.append(cardBody);--%>
+                // Right column (Price and Button)
+                const rightColumn = $('<div class="col"></div>');
+                const priceText = $('<div></div>');
+                const priceHeading = $('<h6 class="text-muted">Price</h6>');
+                const price = $('<h5></h5>').text(personalTrainer.price);
+                priceText.append(priceHeading, price);
+                const viewProfileButton = $('<button class="btn btn-primary font-weight-bold" type="button" style="font-size: 95%">View Profile</button>');
+                rightColumn.append(priceText, viewProfileButton);
 
-<%--                // Append card to container--%>
-<%--                container.append(card);--%>
-<%--            });--%>
+                // Append columns to card body
+                cardBody.append(leftColumn, middleColumn, rightColumn);
 
-<%--            return container;--%>
-<%--        }--%>
+                // Append card body to card
+                card.append(cardBody);
 
-<%--        var personalTrainerList = ${personalTrainerList};--%>
-<%--        console.log(personalTrainerList)--%>
-<%--        const personalTrainersContainer = generatePersonalTrainers(personalTrainerList);--%>
-<%--        $('#personalTrainerContainer').html(personalTrainersContainer);--%>
-<%--    </script>--%>
+                // Append card to container
+                container.append(card);
+            });
+
+            return container;
+        }
+
+        var personalTrainerList = ${personalTrainerList};
+        console.log(personalTrainerList)
+        const personalTrainersContainer = generatePersonalTrainers(personalTrainerList);
+        $('#personalTrainerContainer').html(personalTrainersContainer);
+    </script>
 
     <script>
         $(document).ready(function() {
@@ -524,6 +505,150 @@
 
         var personalTrainerList = ${personalTrainerList}
             console.log(personalTrainerList);
+    </script>
+
+    <script>
+        var distanceProgressBar = document.querySelector("#distanceProgressBar .progressBar");
+        var distanceSliderBar = document.querySelector("#distanceSliderBar input");
+        var distanceInput = document.querySelectorAll("#distanceInput input");
+        var distancePreview = document.querySelector("#distance-preview");
+
+        distanceSliderBar.addEventListener("input", function() {
+            let maxVal = parseInt(distanceSliderBar.value);
+
+            distanceInput.forEach(input => {
+                input.value = maxVal;
+            });
+
+            distanceProgressBar.style.right = (100 - (maxVal / distanceSliderBar.max) * 100) + "%";
+            distancePreview.textContent = 'Within ' + maxVal + 'km';
+        });
+
+        distanceInput.forEach(input => {
+            input.addEventListener('input', function() {
+                let val = input.value ? parseInt(input.value) : 0;
+
+                if (val <= 0) {
+                    val = 0;
+                }else if( val >= 100){
+                    val = 100;
+                }
+
+                input.value = val;
+                distanceSliderBar.value = val;
+                distanceProgressBar.style.right = (100 - (val / distanceSliderBar.max) * 100) + "%";
+                distancePreview.textContent = 'Within ' + val + 'km';
+            });
+        });
+
+    </script>
+
+    <script>
+        function formatNumberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function setupFilter(progressBar, sliderBars, inputs, gap, previewText) {
+            sliderBars.forEach(function(input) {
+                input.addEventListener("input", function(e) {
+                    var minVal = parseInt(sliderBars[0].value);
+                    var maxVal = parseInt(sliderBars[1].value);
+
+                    if (maxVal - minVal < gap) {
+                        if (e.target === sliderBars[0]) {
+                            sliderBars[0].value = maxVal - gap;
+                            minVal = parseInt(sliderBars[0].value);
+                        }
+                        if (e.target === sliderBars[1]) {
+                            sliderBars[1].value = minVal + gap;
+                            maxVal = parseInt(sliderBars[1].value);
+                        }
+                    }
+
+                    inputs[0].value = minVal;
+                    inputs[1].value = maxVal;
+                    progressBar.style.left = (minVal / sliderBars[0].max) * 100 + "%";
+                    progressBar.style.right = 100 - (maxVal / sliderBars[1].max) * 100 + "%";
+                    previewText.textContent = formatNumberWithCommas(minVal) + ' - ' + formatNumberWithCommas(maxVal) + 'đ';
+                });
+            });
+
+            inputs.forEach(function(input, index) {
+                input.addEventListener("input", function(e) {
+                    var minVal = parseInt(inputs[0].value);
+                    var maxVal = parseInt(inputs[1].value);
+
+                    if ((maxVal - minVal >= gap) && maxVal <= sliderBars[1].max) {
+                        if (index === 0) {
+                            sliderBars[0].value = minVal;
+                            progressBar.style.left = (minVal / sliderBars[0].max) * 100 + "%";
+                        }
+                        if (index === 1) {
+                            sliderBars[1].value = maxVal;
+                            progressBar.style.right = 100 - (maxVal / sliderBars[1].max) * 100 + "%";
+                        }
+                        previewText.textContent = formatNumberWithCommas(minVal) + ' - ' + formatNumberWithCommas(maxVal) + 'đ';
+                    }
+                });
+            });
+
+        }
+
+        var priceProgressBar = document.querySelector("#priceProgressBar .progressBar");
+        var priceSliderBar = document.querySelectorAll("#priceSliderBar input");
+        var priceInput = document.querySelectorAll("#priceInput input");
+        var pricePreview = document.querySelector("#price-preview");
+        var priceGap = 50000;
+
+        setupFilter(priceProgressBar, priceSliderBar, priceInput, priceGap, pricePreview);
+
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Function to handle search
+            function handleSearch() {
+                var searchName = $("#searchInput").val();
+                var priceMin = $("#priceMinInput").val();
+                var priceMax = $("#priceMaxInput").val();
+                var distanceMax = $("#distanceMaxInput").val();
+                var gender = $("#genderSelect").val();
+
+                var searchData = {
+                    "searchName": searchName,
+                    "priceMin": priceMin,
+                    "priceMax": priceMax,
+                    "distanceMax": distanceMax,
+                    "gender": gender
+                };
+
+                console.log(JSON.stringify(searchData));
+            }
+
+            // Handle search name input and submit on enter
+            $("#searchInput").keypress(function(event) {
+                if (event.which == 13) {
+                    event.preventDefault();
+                    handleSearch();
+                }
+            });
+
+            // Handle price submit
+            $("#submitPrice").click(function() {
+                handleSearch();
+            });
+
+            // Handle distance submit
+            $("#submitDistance").click(function() {
+                handleSearch();
+            });
+
+            // Handle gender selection change
+            $("#genderSelect").change(function() {
+                handleSearch();
+            });
+        });
+
     </script>
 </body>
 

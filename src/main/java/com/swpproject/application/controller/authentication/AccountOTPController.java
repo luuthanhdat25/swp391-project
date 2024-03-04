@@ -1,6 +1,8 @@
 package com.swpproject.application.controller.authentication;
 
+import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
+import com.swpproject.application.model.Gymer;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.service.*;
 import jakarta.servlet.http.HttpSession;
@@ -20,8 +22,12 @@ public class AccountOTPController {
     private EmailService emailService;
     @Autowired
     private PersonalTrainerService personalTrainerService;
-//    @Autowired
-//    private SchedulePersonalTrainerService schedulePersonalTrainerService;
+    @Autowired
+    private SchedulePersonalTrainerService schedulePersonalTrainerService;
+    @Autowired
+    private GymerService gymerService;
+
+
 
     @RequestMapping(value="/otp", method = RequestMethod.GET,produces = "text/html; charset= UTF-8")
     public String index(HttpSession session) {
@@ -54,12 +60,21 @@ public class AccountOTPController {
         System.out.println("sysOtp --> " + sysOtp + "userOtp --> " + userOtp);
         if(sysOtp.equals(userOtp)) {
             accountService.save((Account)session.getAttribute("account"));
-            PersonalTrainer personalTrainer = new PersonalTrainer();
-            personalTrainer.setAccount((Account)session.getAttribute("account"));
-            personalTrainerService.save(personalTrainer);
-//            SchedulePersonalTrainer schedulePersonalTrainerEntity = new SchedulePersonalTrainer();
-//            schedulePersonalTrainerEntity.setPersonalTrainer(personalTrainer);
-//            schedulePersonalTrainerService.save(schedulePersonalTrainerEntity);
+
+
+            if(((Account) session.getAttribute("account")).getRole().equals(Role.PT)){
+                PersonalTrainer personalTrainer = new PersonalTrainer();
+                personalTrainer.setAccount((Account)session.getAttribute("account"));
+                personalTrainerService.save(personalTrainer);
+                SchedulePersonalTrainer schedulePersonalTrainerEntity = new SchedulePersonalTrainer();
+                schedulePersonalTrainerEntity.setPersonalTrainer(personalTrainer);
+                schedulePersonalTrainerService.save(schedulePersonalTrainerEntity);
+            } else if (((Account) session.getAttribute("account")).getRole().equals(Role.GYMER)) {
+                Gymer gymer = new Gymer();
+                gymer.setAccount((Account)session.getAttribute("account"));
+                gymerService.SaveGymer(gymer);
+            }
+
             redirectAttributes.addFlashAttribute("MSG","Account created successfully! " +
                     "You can login into website now!");
             return "redirect:/login";

@@ -606,7 +606,7 @@
                                                            items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
                                                     <c:set var="disabled" value="false"/>
                                                     <c:forEach items="${allSlots}" var="scheduleSlot">
-                                                        <c:if test="${scheduleSlot.startHour == hour && scheduleSlot.endHour == hour + 2 && scheduleSlot.day eq day.toLowerCase()
+                                                        <c:if test="${scheduleSlot.start_hour == hour && scheduleSlot.end_hour == hour + 2 && scheduleSlot.day eq day.toLowerCase()
                                                         }">
                                                             <c:set var="disabled" value="true"/>
                                                         </c:if>

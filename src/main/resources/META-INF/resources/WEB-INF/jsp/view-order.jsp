@@ -451,7 +451,7 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col">
-                        <h3 class="page-title">Book a Personal Trainer</h3>
+                        <h3 class="page-title">Book Request</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                             <li class="breadcrumb-item active">Booking</li>
@@ -467,162 +467,33 @@
                             <h5 class="card-title">Request form</h5>
                         </div>
                         <div class="card-body">
-<%--                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">--%>
+                            <c:if test="${not empty OrderRequestList}">
+                                <table border="1">
+                                    <thead>
+                                    <tr>
+                                        <th>Name Gymer</th>
+                                        <th>Titile</th>
+                                        <th>Description</th>
+                                        <th>Request Detail</th>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <form id="weekForm" action="/bookPT1" method="GET">
-                                            <select id="week" class="form-control" name="week"
-                                                    onchange="this.form.submit()">
-                                                <!-- Options will be generated dynamically by JavaScript -->
-                                            </select>
-                                            <select id="year" class="form-control" name="year"
-                                                    onchange="updateWeeks()">
-                                                <!-- Thay đổi dải số năm tùy ý -->
-                                                <script>
-                                                    var currentYear = new Date().getFullYear();
-                                                    for (var i = currentYear; i >= currentYear - 10; i--) {
-                                                        document.write("<option value='" + i + "'>" + i + "</option>");
-                                                    }
-                                                </script>
-                                            </select>
-                                            <input type="hidden" id="accountId" name="accountId" value="${accountId}">
-                                        </form>
-                                        <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
-                                         <h5 class="card-title">Purpose details</h5>
-                                        <c:forEach var="field" items="${['Goals', 'Description', 'Training Time']}">
-                                            <div class="form-group">
-                                                <label>${field}:</label>
-                                                <c:choose>
-                                                    <c:when test="${field eq 'Training Time'}">
-                                                        <select class="form-control" name="TrainingTime">
-                                                            <option disabled>Select Training Time</option>
-                                                            <option value="1">1 month</option>
-                                                            <option value="2">3 months</option>
-                                                            <option value="3">6 months</option>
-                                                        </select>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <input name="${field.toLowerCase()}" type="text"
-                                                               class="form-control">
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5 class="card-title">Personal Trainer information</h5>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Full Name:</label>
-                                                    <input type="text" placeholder="Michael Scofield" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Age:</label>
-                                                    <input type="text" placeholder="31" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Gender:</label>
-                                                    <input type="text" placeholder="Male" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Phone:</label>
-                                                    <input type="text" placeholder="0971700427" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Email:</label>
-                                                    <input type="text" placeholder="michal@gmail.com" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Address line:</label>
-                                                    <input type="text" placeholder="Was" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-
-                                    <h5 class="card-title">Choose your training schedule</h5>
-                                    <table class="table table-bordered">
-                                        <thead>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="order" items="${OrderRequestList}">
                                         <tr>
-                                            <th rowspan="2">
+                                            <td>${order.getGymerName()}</td>
+                                            <td>${order.title}</td>
+                                            <td>${order.description}</td>
+                                            <td><a href="/Order-Request?order_id=${order.order_id}">Book</a></td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </c:if>
 
-                                            </th>
-                                            <th align="center">Mon</th>
-                                            <th align="center">Tue</th>
-                                            <th align="center">Wed</th>
-                                            <th align="center">Thu</th>
-                                            <th align="center">Fri</th>
-                                            <th align="center">Sat</th>
-                                            <th align="center">Sun</th>
-                                        </tr>
-                                        <tr id="dayRow">
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <c:forEach begin="5" end="21" var="hour" step="2">
-                                            <tr>
-                                                <td class="time-column">${hour}:00 - ${hour + 2}:00</td>
-                                                <c:forEach var="day"
-                                                           items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
-                                                    <c:set var="disabled" value="false"/>
-                                                    <c:forEach items="${allSlots}" var="scheduleSlot">
-                                                        <c:if test="${scheduleSlot.start_hour == hour && scheduleSlot.end_hour == hour + 2 && scheduleSlot.day eq day.toLowerCase()
-                                                        }">
-                                                            <c:set var="disabled" value="true"/>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                    <td>
-                                                        <input type="checkbox" name="checkedSlots"
-                                                               value="${day.toLowerCase()}-${hour}-${hour + 2}"
-                                                               <c:if test="${disabled}">disabled="disabled"</c:if>
-                                                               id="${day.toLowerCase()}-${hour}${hour + 2}">
-                                                        <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
-                                                    </td>
-                                                </c:forEach>
-                                            </tr>
-                                        </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-primary" onclick="saveCheckedSlots()">Send
-                                    </button>
-                                </div>
-                            </form:form>
+                            <c:if test="${empty OrderRequestList}">
+                                <p>No Order yet.</p>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -636,53 +507,15 @@
     </div>
 
 </div>
-<script>
-    function saveCheckedSlots() {
-        var checkboxes = document.getElementsByName("checkedSlots");
-        var checkedValues = [];
 
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                checkedValues.push(checkboxes[i].value);
-            }
-        }
-
-        var jsonBody = JSON.stringify(checkedValues);
-
-        fetch('/api/save-checked', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: jsonBody,
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Xử lý phản hồi từ server (nếu cần)
-            })
-            .catch(error => console.error('Error:', error));
-    }
-
-</script>
-<script src="assets/js/jquery-3.6.0.min.js"></script>
-
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-
-<script src="assets/js/feather.min.js"></script>
-
-<script src="assets/js/jquery.slimscroll.min.js"></script>
-
-<script src="assets/js/moment.min.js"></script>
-<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
-
-<script src="assets/js/jquery-ui.min.js"></script>
-<script src="assets/js/scriptBook.js"></script>
+<script src="../../theme2/js/scriptBook.js"></script>
+<script src="../../theme2/js/jquery-3.6.0.min.js"></script>
+<script src="../../theme2/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../theme2/js/feather.min.js"></script>
+<script src="../../theme2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../../theme2/plugins/apexchart/apexcharts.min.js"></script>
+<script src="../../theme2/plugins/apexchart/chart-data.js"></script>
+<script src="../../theme2/js/script.js"></script>
 </body>
 
 </html>

@@ -35,6 +35,22 @@
 
     </div>
 
+                        <a href="#"><i class="feather-grid"></i> <span> Home</span></a>
+                    </li>
+                    <li>
+                        <a href="/personal-trainer/"><i class="fas fa-graduation-cap"></i> <span>Find Personal Trainer</span> </a>
+                    </li>
+                    <li>
+                        <a href="/exercise/"><i class="fas fa-chalkboard-teacher"></i> <span>Exercise Wiki</span></a>
+                    </li>
+<%--                    <li>--%>
+<%--                        <a href="/nutrition/"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>--%>
+<%--                    </li>--%>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <div class="page-wrapper">
         <div class="card">
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">

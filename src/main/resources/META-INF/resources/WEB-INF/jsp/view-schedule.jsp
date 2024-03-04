@@ -1,5 +1,23 @@
-<%@include file="common/header.jspf" %>
-<link rel="stylesheet" href="../../assets/css/styleBook.css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Admin Dashboard</title>
+    <script>document.getElementsByTagName("html")[0].className += " js";</script>
+    <link rel="shortcut icon" href="../../assets/img/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/plugins/feather/feather.css">
+    <link rel="stylesheet" href="../../assets/plugins/icons/flags/flags.css">
+    <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/style1.css">
+</head>
+
 <body>
 
 <div class="main-wrapper">
@@ -463,167 +481,259 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">Request form</h5>
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="schedule-selects">
+                                <form action="/selectWeek" method="get">
+                                    <select id="yearSelect" class="form-select" onchange="updateWeekOptions()">
+                                        <!-- Year options will be added dynamically -->
+                                    </select>
+                                    <select id="weekSelect" class="form-select" onchange="onSelectionChange()">
+                                        <!-- Week options will be added dynamically -->
+                                    </select>
+                                </form>
+                            </div>
+                            <button id="addSlot" type="submit" class="btn btn-primary">Add new slot</button>
                         </div>
+
+
                         <div class="card-body">
-<%--                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">--%>
+                            <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
+                                <div class="cd-schedule__timeline">
+                                    <ul>
+                                        <li><span>05:00</span></li>
+                                        <li><span>06:00</span></li>
+                                        <li><span>07:00</span></li>
+                                        <li><span>08:00</span></li>
+                                        <li><span>09:00</span></li>
+                                        <li><span>10:00</span></li>
+                                        <li><span>11:00</span></li>
+                                        <li><span>12:00</span></li>
+                                        <li><span>13:00</span></li>
+                                        <li><span>14:00</span></li>
+                                        <li><span>15:00</span></li>
+                                        <li><span>16:00</span></li>
+                                        <li><span>17:00</span></li>
+                                        <li><span>18:00</span></li>
+                                        <li><span>19:00</span></li>
+                                        <li><span>20:00</span></li>
+                                        <li><span>21:00</span></li>
+                                        <li><span>22:00</span></li>
+                                        <li><span>23:00</span></li>
+                                    </ul>
+                                </div> <!-- .cd-schedule__timeline -->
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <form id="weekForm" action="/bookPT1" method="GET">
-                                            <select id="week" class="form-control" name="week"
-                                                    onchange="this.form.submit()">
-                                                <!-- Options will be generated dynamically by JavaScript -->
-                                            </select>
-                                            <select id="year" class="form-control" name="year"
-                                                    onchange="updateWeeks()">
-                                                <!-- Thay đổi dải số năm tùy ý -->
-                                                <script>
-                                                    var currentYear = new Date().getFullYear();
-                                                    for (var i = currentYear; i >= currentYear - 10; i--) {
-                                                        document.write("<option value='" + i + "'>" + i + "</option>");
-                                                    }
-                                                </script>
-                                            </select>
-                                            <input type="hidden" id="accountId" name="accountId" value="${accountId}">
-                                        </form>
-                                        <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
-                                         <h5 class="card-title">Purpose details</h5>
-                                        <c:forEach var="field" items="${['Goals', 'Description', 'Training Time']}">
-                                            <div class="form-group">
-                                                <label>${field}:</label>
-                                                <c:choose>
-                                                    <c:when test="${field eq 'Training Time'}">
-                                                        <select class="form-control" name="TrainingTime">
-                                                            <option disabled>Select Training Time</option>
-                                                            <option value="1">1 month</option>
-                                                            <option value="2">3 months</option>
-                                                            <option value="3">6 months</option>
-                                                        </select>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <input name="${field.toLowerCase()}" type="text"
-                                                               class="form-control">
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </div>
-                                        </c:forEach>
+                                <div class="cd-schedule__events">
+                                    <ul>
+                                        <li class="cd-schedule__group">
+                                            <div class="cd-schedule__top-info"><span>Monday</span></div>
+
+                                            <ul>
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="05:00" data-end="07:00" data-content="event-abs-circuit" data-event="event-2" href="#0">
+                                                        <em class="cd-schedule__name">Abs Circuit</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="09:00" data-end="11:00" data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                                        <em class="cd-schedule__name">Rowing Workout</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="13:00" data-end="15:00"  data-content="event-yoga-1" data-event="event-3" href="#0">
+                                                        <em class="cd-schedule__name">Yoga Level 1</em>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="cd-schedule__group">
+                                            <div class="cd-schedule__top-info"><span>Tuesday</span></div>
+
+                                            <ul>
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="05:00" data-end="07:00"  data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                                        <em class="cd-schedule__name">Rowing Workout</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="08:00" data-end="10:00"  data-content="event-restorative-yoga" data-event="event-4" href="#0">
+                                                        <em class="cd-schedule__name">Restorative Yoga</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="13:00" data-end="15:00" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                                        <em class="cd-schedule__name">Abs Circuit</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="19:00" data-end="21:00"  data-content="event-yoga-1" data-event="event-3" href="#0">
+                                                        <em class="cd-schedule__name">Yoga Level 1</em>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="cd-schedule__group">
+                                            <div class="cd-schedule__top-info"><span>Wednesday</span></div>
+
+                                            <ul>
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="07:00" data-end="09:00" data-content="event-restorative-yoga" data-event="event-4" href="#0">
+                                                        <em class="cd-schedule__name">Restorative Yoga</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="10:00" data-end="12:00" data-content="event-yoga-1" data-event="event-3" href="#0">
+                                                        <em class="cd-schedule__name">Yoga Level 1</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="12:00" data-end="13:45"  data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                                        <em class="cd-schedule__name">Rowing Workout sda sd s sdsd sd sd s sd</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="13:45" data-end="15:00" data-content="event-yoga-1" data-event="event-3" href="#0">
+                                                        <em class="cd-schedule__name">Yoga Level 1</em>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="cd-schedule__group">
+                                            <div class="cd-schedule__top-info"><span>Thursday</span></div>
+
+                                            <ul>
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="09:00" data-end="10:30" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                                        <em class="cd-schedule__name">Abs Circuit</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="12:00" data-end="13:45" data-content="event-restorative-yoga" data-event="event-4" href="#0">
+                                                        <em class="cd-schedule__name">Restorative Yoga</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="15:00" data-end="16:30" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                                        <em class="cd-schedule__name">Abs Circuit</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="17:00" data-end="18:30"  data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                                        <em class="cd-schedule__name">Rowing Workout</em>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="cd-schedule__group">
+                                            <div class="cd-schedule__top-info"><span>Friday</span></div>
+
+                                            <ul>
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="05:00" data-end="07:00"  data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                                        <em class="cd-schedule__name">Rowing Workout</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="13:00" data-end="14:30" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                                        <em class="cd-schedule__name">Abs Circuit</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="15:00" data-end="17:00"  data-content="event-yoga-1" data-event="event-3" href="#0">
+                                                        <em class="cd-schedule__name">Yoga Level 1</em>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="cd-schedule__group">
+                                            <div class="cd-schedule__top-info"><span>Saturday</span></div>
+
+                                            <ul>
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="07:00" data-end="09:00"  data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                                        <em class="cd-schedule__name">Rowing Workout</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="11:00" data-end="14:00" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                                        <em class="cd-schedule__name">Abs Circuit</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="15:00" data-end="16:30"  data-content="event-yoga-1" data-event="event-3" href="#0">
+                                                        <em class="cd-schedule__name">Yoga Level 1</em>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="cd-schedule__group">
+                                            <div class="cd-schedule__top-info"><span>Sunday</span></div>
+
+                                            <ul>
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="06:00" data-end="08:00"  data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                                        <em class="cd-schedule__name">Rowing Workout</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="12:30" data-end="14:00" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                                        <em class="cd-schedule__name">Abs Circuit</em>
+                                                    </a>
+                                                </li>
+
+                                                <li class="cd-schedule__event">
+                                                    <a data-start="15:00" data-end="16:45"  data-content="event-yoga-1" data-event="event-3" href="#0">
+                                                        <em class="cd-schedule__name">Yoga Level 1 </em>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="cd-schedule-modal">
+                                    <header class="cd-schedule-modal__header">
+                                        <div class="cd-schedule-modal__content">
+                                            <span class="cd-schedule-modal__date"></span>
+                                            <h3 class="cd-schedule-modal__name"></h3>
+                                        </div>
+                                        <div class="cd-schedule-modal__header-bg"></div>
+                                    </header>
+
+                                    <div class="cd-schedule-modal__body">
+                                        <div class="cd-schedule-modal__event-info"></div>
+                                        <div class="cd-schedule-modal__body-bg"></div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <h5 class="card-title">Personal Trainer information</h5>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Full Name:</label>
-                                                    <input type="text" placeholder="Michael Scofield" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Age:</label>
-                                                    <input type="text" placeholder="31" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Gender:</label>
-                                                    <input type="text" placeholder="Male" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Phone:</label>
-                                                    <input type="text" placeholder="0971700427" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Email:</label>
-                                                    <input type="text" placeholder="michal@gmail.com" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Address line:</label>
-                                                    <input type="text" placeholder="Was" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                    </div>
+                                    <a href="#0" class="cd-schedule-modal__close text-replace">Close</a>
                                 </div>
-                                <div class="row">
 
-                                    <h5 class="card-title">Choose your training schedule</h5>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th rowspan="2">
+                                <div class="cd-schedule__cover-layer"></div>
+                            </div> <!-- .cd-schedule -->
 
-                                            </th>
-                                            <th align="center">Mon</th>
-                                            <th align="center">Tue</th>
-                                            <th align="center">Wed</th>
-                                            <th align="center">Thu</th>
-                                            <th align="center">Fri</th>
-                                            <th align="center">Sat</th>
-                                            <th align="center">Sun</th>
-                                        </tr>
-                                        <tr id="dayRow">
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <c:forEach begin="5" end="21" var="hour" step="2">
-                                            <tr>
-                                                <td class="time-column">${hour}:00 - ${hour + 2}:00</td>
-                                                <c:forEach var="day"
-                                                           items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
-                                                    <c:set var="disabled" value="false"/>
-                                                    <c:forEach items="${allSlots}" var="scheduleSlot">
-                                                        <c:if test="${scheduleSlot.start_hour == hour && scheduleSlot.end_hour == hour + 2 && scheduleSlot.day eq day.toLowerCase()
-                                                        }">
-                                                            <c:set var="disabled" value="true"/>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                    <td>
-                                                        <input type="checkbox" name="checkedSlots"
-                                                               value="${day.toLowerCase()}-${hour}-${hour + 2}"
-                                                               <c:if test="${disabled}">disabled="disabled"</c:if>
-                                                               id="${day.toLowerCase()}-${hour}${hour + 2}">
-                                                        <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
-                                                    </td>
-                                                </c:forEach>
-                                            </tr>
-                                        </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-primary" onclick="saveCheckedSlots()">Send
-                                    </button>
-                                </div>
-                            </form:form>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -636,53 +746,117 @@
     </div>
 
 </div>
+<script src="../../assets/js/jquery-3.6.0.min.js"></script>
+<script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/feather.min.js"></script>
+<script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../../assets/plugins/apexchart/apexcharts.min.js"></script>
+<script src="../../assets/plugins/apexchart/chart-data.js"></script>
+<script src="../../assets/js/script.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
 <script>
-    function saveCheckedSlots() {
-        var checkboxes = document.getElementsByName("checkedSlots");
-        var checkedValues = [];
+    // Function to generate week options
+    function generateWeekOptions(year) {
+        var weekSelect = document.getElementById("weekSelect");
+        var options = "";
 
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                checkedValues.push(checkboxes[i].value);
-            }
+        var currentDate = new Date(year, 0, 1); // Start from January 1st of the given year
+        var lastDate = new Date(year + 1, 0, 0); // End at December 31st of the given year
+
+        // Move currentDate to the first Monday of the year
+        currentDate.setDate(currentDate.getDate() + (8 - currentDate.getDay()) % 7);
+
+        while (currentDate < lastDate) {
+            var weekStart = new Date(currentDate);
+            var weekEnd = new Date(currentDate);
+            weekEnd.setDate(weekEnd.getDate() + 6);
+
+            var weekStartDay = weekStart.getDate().toString().padStart(2, '0');
+            var weekStartMonth = (weekStart.getMonth() + 1).toString().padStart(2, '0');
+            var weekEndDay = weekEnd.getDate().toString().padStart(2, '0');
+            var weekEndMonth = (weekEnd.getMonth() + 1).toString().padStart(2, '0');
+
+            var weekRange = weekStartDay + "/" + weekStartMonth + "-" + weekEndDay + "/" + weekEndMonth;
+            options += "<option value='" + weekRange + "'>" + weekRange + "</option>";
+
+            currentDate.setDate(currentDate.getDate() + 7); // Move to the next week
         }
 
-        var jsonBody = JSON.stringify(checkedValues);
-
-        fetch('/api/save-checked', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: jsonBody,
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Xử lý phản hồi từ server (nếu cần)
-            })
-            .catch(error => console.error('Error:', error));
+        weekSelect.innerHTML = options;
     }
 
+    // Function to generate year options
+    function generateYearOptions() {
+        var yearSelect = document.getElementById("yearSelect");
+        var options = "";
+        var currentYear = new Date().getFullYear();
+
+        for (var i = currentYear; i <= currentYear + 5; i++) {
+            options += "<option value='" + i + "'>" + i + "</option>";
+        }
+
+        yearSelect.innerHTML = options;
+    }
+
+    // Function to update week options based on selected year
+    function updateWeekOptions() {
+        var yearSelect = document.getElementById("yearSelect");
+        var selectedYear = parseInt(yearSelect.value);
+        generateWeekOptions(selectedYear);
+    }
+
+    function onSelectionChange() {
+        var weekSelect = document.getElementById("weekSelect");
+        var yearSelect = document.getElementById("yearSelect");
+
+        var selectedWeek = weekSelect.value; // Extracting the starting day of the week
+        var selectedYear = yearSelect.value;
+
+        // Construct the URL with the selected week and year values
+        var newUrl = window.location.pathname + "?week=" + selectedWeek + "&year=" + selectedYear;
+
+        // Redirect to the new URL, causing the page to refresh
+        window.location.href = newUrl;
+    }
+
+    // Function to parse query parameters from URL
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] === variable) {
+                return pair[1];
+            }
+        }
+        return null;
+    }
+
+    // Function to set dropdown values from URL parameters
+    function setDropdownValuesFromUrl() {
+        var weekSelect = document.getElementById("weekSelect");
+        var yearSelect = document.getElementById("yearSelect");
+
+        var weekParam = getQueryVariable("week");
+        var yearParam = getQueryVariable("year");
+
+        if (weekParam !== null) {
+            weekSelect.value = weekParam;
+        }
+        if (yearParam !== null) {
+            yearSelect.value = yearParam;
+        }
+    }
+
+    // Call the function to set dropdown values when the page loads
+    window.onload = setDropdownValuesFromUrl;
+
+    // Call functions to generate options when the page loads
+    generateWeekOptions(new Date().getFullYear());
+    generateYearOptions();
+
 </script>
-<script src="assets/js/jquery-3.6.0.min.js"></script>
-
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-
-<script src="assets/js/feather.min.js"></script>
-
-<script src="assets/js/jquery.slimscroll.min.js"></script>
-
-<script src="assets/js/moment.min.js"></script>
-<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
-
-<script src="assets/js/jquery-ui.min.js"></script>
-<script src="assets/js/scriptBook.js"></script>
 </body>
 
 </html>

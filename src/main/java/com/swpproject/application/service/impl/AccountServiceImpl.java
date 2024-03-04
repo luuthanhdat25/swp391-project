@@ -1,5 +1,6 @@
 package com.swpproject.application.service.impl;
 
+import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.service.AccountService;
@@ -13,6 +14,9 @@ import java.util.logging.Logger;
 @Service
 public class AccountServiceImpl implements AccountService {
 
+
+
+
     @Autowired
     private AccountRepository accountRepository;
 
@@ -25,11 +29,15 @@ public class AccountServiceImpl implements AccountService {
     public Optional<Account> getAccountByEmail(String email) {
         return accountRepository.findAccountByEmail(email);
     }
+    @Override
+    public Optional<Account> findAccountByEmail(String email) {
+        return Optional.empty();
+    }
 
-
-    public  List<Account> findAccountByRole(String role){
+    public  List<Account> findAccountByRole(Role role){
         return accountRepository.findAccountByRole(role);
     }
+
 
     @Override
     public Account loginByEmail(String email, String password) {

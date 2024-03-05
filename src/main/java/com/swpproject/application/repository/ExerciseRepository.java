@@ -24,7 +24,7 @@ public class ExerciseRepository {
                 exercise.getDescription(),
                 exercise.getEquipment(),
                 exercise.getImageDescription(),
-                exercise.isPrivate(),
+                exercise.getIsPrivate(),
                 exercise.getLevel(),
                 exercise.getName(),
                 exercise.getType(),

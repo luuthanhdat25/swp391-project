@@ -39,9 +39,6 @@ public class ExerciseController {
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseListPage(ModelMap model){
         List<Exercise> exercises = exerciseRepository.findAll();
-        for(Exercise exercise : exercises){
-            System.out.println(exercise.getId() + " is" + exercise.isPrivate());
-        }
         String json = JsonUtils.jsonConvert(exercises);
         model.addAttribute("exerciseList", json);
         return "exercise-list";
@@ -75,8 +72,8 @@ public class ExerciseController {
         exercise.setImageDescription(exerciseDTO.getImage().getBytes());
 
         String isPrivateString = exerciseDTO.getIsPrivate().toLowerCase();
-        boolean isPrivateBoolean = isPrivateString == "true";
-        exercise.setPrivate(isPrivateBoolean);
+        int isPrivateBoolean = isPrivateString.equals("true") ? 1 : 0;
+        exercise.setIsPrivate(isPrivateBoolean);
 
         PersonalTrainer personalTrainerExample = personalTrainerRepository.findAll().getFirst();
         exercise.setPersonalTrainer(personalTrainerExample);

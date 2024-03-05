@@ -287,7 +287,7 @@
 
                                                 <div class="mt-3">
                                                     <div class="form-check">
-                                                        <input id="exercisePrivate" class="form-check-input" type="checkbox" id="flexCheckDefault" name="isPrivate" >
+                                                        <input id="exercisePrivate" class="form-check-input" type="checkbox" id="flexCheckDefault" name="isPrivate" disabled>
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             Private (Only you and the gymer working with you can see)
                                                         </label>
@@ -309,7 +309,7 @@
                                                     <button type="submit" class="btn btn-primary me-2">
                                                         Update
                                                     </button>
-                                                    <a href="edit-invoice.html" class="btn btn-danger">
+                                                    <a id="cancelButton" href="edit-invoice.html" class="btn btn-danger">
                                                         Cancel
                                                     </a>
                                                 </div>
@@ -364,7 +364,8 @@
             $('#previewImage').show();
 
             $('#exerciseDescription').val(exercise.description);
-            $('#exercisePrivate').prop('checked', exercise.private);
+            $('#exercisePrivate').prop('checked', exercise.isPrivate === 1);
+            $('#cancelButton').attr("href", "/exercise/details?id=" + exercise.id);
         })
 
         $('#youtubeLink').val(exercise.videoDescription);

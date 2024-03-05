@@ -1,4 +1,5 @@
 <%@ include file="common/header.jspf" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <body>
     <div class="main-wrapper">
@@ -192,7 +193,7 @@
                                     <div class="card mb-0">
                                         <div class="card-body">
 
-                                            <form:form id="exerciseForm" action="/exercise/edit" method="post" enctype="multipart/form-data">
+                                            <form id="exerciseForm" action="/exercise/details/edit" method="post" enctype="multipart/form-data">
                                                 <div class="row mt-3">
                                                     <div class="w-50 col-md-6">
                                                         <input id="exerciseName" type="text" name="exerciseName" class="form-control" placeholder="Exercise Name" />
@@ -313,7 +314,7 @@
                                                         Cancel
                                                     </a>
                                                 </div>
-                                            </form:form>
+                                            </form>
 
                                         </div>
                                     </div>
@@ -344,197 +345,12 @@
 
     <script src="../../assets/js/script.js"></script>
 
-    <script>
-        var exercise = ${exercise};
-        $(document).ready(function(){
-            console.log(exercise);
-            $('#exerciseName').val(exercise.name);
-            $('#exerciseType select[name="muscle"]').val(exercise.type);
-            $('#exerciseEquipment select[name="equipment"]').val(exercise.equipment);
 
-            var levels = ['Beginner', 'Intermediate', 'Advanced'];
-            levels.forEach(function(level) {
-                var $radio = $('#' + level.toLowerCase() + 'Radio');
-                if (exercise.level === level) {
-                    $radio.prop('checked', true);
-                }
-            });
-
-            $('#previewImage').attr('src',"data:image/jpeg;base64," + exercise.imageDescription);
-            $('#previewImage').show();
-
-            $('#exerciseDescription').val(exercise.description);
-            $('#exercisePrivate').prop('checked', exercise.isPrivate === 1);
-            $('#cancelButton').attr("href", "/exercise/details?id=" + exercise.id);
-        })
-
-        $('#youtubeLink').val(exercise.videoDescription);
-
-        var youtubeLink = exercise.videoDescription;
-        var videoId = extractVideoId(youtubeLink);
-
-        // Youtuve link
-        function extractVideoId(url) {
-            var regex = /^(?:(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11}))/;
-            var match = url.match(regex);
-            return match ? match[1] : null;
-        }
-
-        function changeVideo() {
-            var youtubeLink = $('#youtubeLink').val();
-            var videoId = extractVideoId(youtubeLink);
-
-            if (videoId) {
-                $('#playerContainer').show();
-                player.loadVideoById(videoId);
-            } else {
-                alert("Invalid YouTube link. Please enter a valid link.");
-            }
-        }
-
-        $(document).ready(function() {
-            if (videoId) {
-                var tag = $('<script>', {
-                    src: 'https://www.youtube.com/iframe_api'
-                });
-                $('script:first').before(tag);
-
-                window.onYouTubeIframeAPIReady = function() {
-                    player = new YT.Player('player', {
-                        height: '270',
-                        width: '480',
-                        playerVars: {
-                            'playsinline': 1,
-                        },
-                        videoId: videoId,
-                        events: {
-                            'onReady': onPlayerReady,
-                            'onStateChange': onPlayerStateChange
-                        }
-                    });
-                };
-
-                function onPlayerReady(event) {
-                    event.target.playVideo();
-                }
-
-                function onPlayerStateChange(event) {
-                    if (event.data == YT.PlayerState.PLAYING && !done) {
-                        setTimeout(stopVideo, 6000);
-                        done = true;
-                    }
-                }
-
-                if (videoId) {
-                    $('#playerContainer').show();
-                    player.loadVideoById(videoId);
-                } else {
-                    alert("Invalid YouTube link. Please enter a valid link.");
-                }
-            } else {
-                // Invalid YouTube link
-                console.error("Invalid YouTube link. Please enter a valid link.");
-            }
-        });
-
-        $('#changeVideoBtn').on('click', changeVideo);
-
-    </script>
-
-    <script>
-        // Image preview
-        $(document).ready(function() {
-            $('#chooseImageButton').click(function() {
-                $('#imageInput').click();
-            });
-
-            $('#imageInput').change(function() {
-                var file = this.files[0];
-                if (file) {
-                    if (file.size > 10 * 1024 * 1024) {
-                        alert("The image size exceeds 10MB limit.");
-                        return;
-                    }
-
-                    var fileType = file.type;
-                    if (fileType !== 'image/jpeg' && fileType !== 'image/png') {
-                        alert("Please choose a valid image file (JPEG or PNG).");
-                        return;
-                    }
-
-                    var reader = new FileReader();
-                    reader.onload = function(event) {
-                        $('#previewImage').attr('src', event.target.result);
-                        $('#previewImage').show();
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        });
-    </script>
-
-
-    <script>
-        $(document).ready(function() {
-            $('#exerciseForm').submit(function(event) {
-                var errors = false;
-
-                if ($('input[name="exerciseName"]').val().trim() === '') {
-                    $('#exerciseNameError').text('Exercise Name is required');
-                    errors = true;
-                } else {
-                    $('#exerciseNameError').text('');
-                }
-
-                if (!$('input[name="levelRadio"]:checked').val()) {
-                    $('#levelError').text('Please select a level');
-                    errors = true;
-                } else {
-                    $('#levelError').text('');
-                }
-
-                if ($('select[name="equipment"]').val() === 'None') {
-                    $('#equipmentError').text('Please select an equipment');
-                    errors = true;
-                } else {
-                    $('#equipmentError').text('');
-                }
-
-                if ($('select[name="muscle"]').val() === 'None') {
-                    $('#muscleError').text('Please select an affected muscle');
-                    errors = true;
-                } else {
-                    $('#muscleError').text('');
-                }
-
-                if ($('input[name="image"]').val() === '') {
-                    $('#imageError').text('Please choose an image');
-                    errors = true;
-                } else {
-                    $('#imageError').text('');
-                }
-
-                if ($('#youtubeLink').val().trim() === '') {
-                    $('#youtubeLinkError').text('YouTube URL is required');
-                    errors = true;
-                } else {
-                    $('#youtubeLinkError').text('');
-                }
-
-                if ($('#exerciseDescription').val().trim() === '') {
-                    $('#exerciseDescriptionError').text('Exercise Description is required');
-                    errors = true;
-                } else {
-                    $('#exerciseDescriptionError').text('');
-                }
-
-                if (errors) {
-                    event.preventDefault();
-                }
-            });
-        });
-
-    </script>
+    <script>var exercise = ${exercise};</script>
+    <script src="../../assets/js/exercise/update/exercise-update-load-old-data.js"></script>
+    <script src="../../assets/js/exercise/update/exercise-update-youtube-change.js"></script>
+    <script src="../../assets/js/exercise/update/exercise-update-image-change.js"></script>
+    <script src="../../assets/js/exercise/update/exercise-update-submit-handler.js"></script>
 </body>
 
 </html>

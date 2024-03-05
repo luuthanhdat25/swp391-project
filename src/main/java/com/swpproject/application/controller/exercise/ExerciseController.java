@@ -5,6 +5,8 @@ import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.ExerciseRepository;
 import com.swpproject.application.repository.PersonalTrainerRepository;
 import com.swpproject.application.utils.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -71,8 +73,8 @@ public class ExerciseController {
         exercise.setVideoDescription(exerciseDTO.getYoutubeLink());
         exercise.setImageDescription(exerciseDTO.getImage().getBytes());
 
-        String isPrivateString = exerciseDTO.getIsPrivate().toLowerCase();
-        int isPrivateBoolean = isPrivateString.equals("true") ? 1 : 0;
+        String isPrivateString = exerciseDTO.getIsPrivate();
+        int isPrivateBoolean = isPrivateString == null ? 0 : 1;
         exercise.setIsPrivate(isPrivateBoolean);
 
         PersonalTrainer personalTrainerExample = personalTrainerRepository.findAll().getFirst();
@@ -85,7 +87,11 @@ public class ExerciseController {
 
     //Get update view exercise
     @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getExerciseDetailsEditPage(@RequestParam int id, ModelMap model) {
+    public String getExerciseDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
+        // Lưu id vào session
+        HttpSession session = request.getSession();
+        session.setAttribute("exerciseId", id);
+
         Exercise exercise = exerciseRepository.findById(id);
         String json = JsonUtils.jsonConvert(exercise);
         model.addAttribute("exercise", json);
@@ -94,9 +100,26 @@ public class ExerciseController {
 
     //Post update exercise data
     @RequestMapping(value = "/details/edit", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String editExercise(@RequestParam Exercise exercise, ModelMap model) {
-        //
-        return "exercise-details-edit";
+    public String editExercise(@ModelAttribute ExerciseDTO exerciseDTO, HttpServletRequest request, Model model) throws IOException {
+        HttpSession session = request.getSession();
+        Integer id = (Integer) session.getAttribute("exerciseId");
+
+        if (id != null) {
+            Exercise exercise = exerciseRepository.findById(id);
+            exercise.setName(exerciseDTO.getExerciseName());
+            exercise.setType(exerciseDTO.getMuscle());
+            exercise.setDescription(exerciseDTO.getExerciseDescription());
+            exercise.setLevel(exerciseDTO.getLevelRadio());
+            exercise.setEquipment(exerciseDTO.getEquipment());
+            exercise.setVideoDescription(exerciseDTO.getYoutubeLink());
+            if(exerciseDTO.getImage().getBytes().length != 0) exercise.setImageDescription(exerciseDTO.getImage().getBytes());
+            exerciseRepository.update(exercise);
+
+            session.removeAttribute("exerciseId");
+            return "redirect:/exercise/details?id=" + id;
+        } else {
+            return "redirect:/error";
+        }
     }
 }
 

@@ -215,7 +215,7 @@
                                             <div class="d-flex justify-content-between align-items-center heading-detail">
                                                 <h2 id="exerciseName"></h2>
 
-<%--                                                <a href="/exercise/details/edit?id=0" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>--%>
+                                                <a id="editButton" href="" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
                                             </div>
                                             <hr>
 
@@ -252,9 +252,9 @@
 
     <script src="../../assets/js/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            var exercise = ${exercise};
+        var exercise = ${exercise};
 
+        $(document).ready(function() {
             $('#exerciseImage').html('<img class="w-100 mb-2" src="data:image/jpeg;base64,' + exercise.imageDescription + '" style="border-radius: .25rem;" alt="Exercise Image">');
 
             var level = '';
@@ -271,22 +271,19 @@
                 '<h2 class="m-100 p-1 bg-secondary text-white rounded" id="equipment" style="font-size: 1rem">Equipment: ' + exercise.equipment + '</h2>');
 
             $('#exerciseName').append(exercise.name);
-
+            $('#editButton').attr('href', '/exercise/details/edit?id=' + exercise.id);
             $('#exerciseDescription').append(exercise.description);
         });
-    </script>
 
-    <script>
-        // YouTube link extraction function
+
+        var youtubeLink = exercise.videoDescription;
+        var videoId = extractVideoId(youtubeLink);
+
         function extractVideoId(url) {
             var regex = /^(?:(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11}))/;
             var match = url.match(regex);
             return match ? match[1] : null;
         }
-
-        var exercise = ${exercise};
-        var youtubeLink = exercise.videoDescription;
-        var videoId = extractVideoId(youtubeLink);
 
         $(document).ready(function() {
             if (videoId) {
@@ -301,8 +298,6 @@
                         width: '480',
                         playerVars: {
                             'playsinline': 1,
-                            // 'autoplay': 1, // Autoplay the video
-                            // 'mute': 1 // Mute the video
                         },
                         videoId: videoId,
                         events: {

@@ -195,22 +195,21 @@
                                             <form:form id="exerciseForm" action="/exercise/edit" method="post" enctype="multipart/form-data">
                                                 <div class="row mt-3">
                                                     <div class="w-50 col-md-6">
-                                                        <input type="text" name="exerciseName" class="form-control" value='<c:out value="${exercise.name}" />' placeholder="Exercise Name" />
+                                                        <input id="exerciseName" type="text" name="exerciseName" class="form-control" placeholder="Exercise Name" />
                                                     </div>
 
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6" id="exerciseLevel">
                                                         <div class="mb-2">Level</div>
-
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="levelRadio" id="beginnerRadio" value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">checked</c:if>>
+                                                            <input class="form-check-input" type="radio" name="levelRadio" id="beginnerRadio" value="Beginner">
                                                             <label class="form-check-label" for="beginnerRadio">Beginner</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="levelRadio" id="intermediateRadio" value="Intermediate" <c:if test="${exercise.level eq 'Intermediate'}">checked</c:if>>
+                                                            <input class="form-check-input" type="radio" name="levelRadio" id="intermediateRadio" value="Intermediate">
                                                             <label class="form-check-label" for="intermediateRadio">Intermediate</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="levelRadio" id="advancedRadio" value="Advanced" <c:if test="${exercise.level eq 'Advanced'}">checked</c:if>>
+                                                            <input class="form-check-input" type="radio" name="levelRadio" id="advancedRadio" value="Advanced">
                                                             <label class="form-check-label" for="advancedRadio">Advanced</label>
                                                         </div>
                                                     </div>
@@ -220,7 +219,7 @@
 
                                                 <div class="row mt-3">
                                                     <div class="col-md-6">
-                                                        <div>
+                                                        <div id="exerciseType">
                                                             <div class="mb-2">Affected Muscle</div>
                                                             <select class="form-select" aria-label="Default select example" name="muscle">
                                                                 <option selected value="None">None</option>
@@ -237,7 +236,7 @@
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <div>
+                                                        <div id="exerciseEquipment">
                                                             <div class="mb-2">Equipment</div>
                                                             <select class="form-select" aria-label="Default select example" name="equipment">
                                                                 <option selected value="None">None</option>
@@ -288,7 +287,7 @@
 
                                                 <div class="mt-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" name="privacy">
+                                                        <input id="exercisePrivate" class="form-check-input" type="checkbox" id="flexCheckDefault" name="isPrivate" >
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             Private (Only you and the gymer working with you can see)
                                                         </label>
@@ -308,7 +307,7 @@
 
                                                 <div class="d-flex mt-3">
                                                     <button type="submit" class="btn btn-primary me-2">
-                                                        Create
+                                                        Update
                                                     </button>
                                                     <a href="edit-invoice.html" class="btn btn-danger">
                                                         Cancel
@@ -346,6 +345,102 @@
     <script src="../../assets/js/script.js"></script>
 
     <script>
+        var exercise = ${exercise};
+        $(document).ready(function(){
+            console.log(exercise);
+            $('#exerciseName').val(exercise.name);
+            $('#exerciseType select[name="muscle"]').val(exercise.type);
+            $('#exerciseEquipment select[name="equipment"]').val(exercise.equipment);
+
+            var levels = ['Beginner', 'Intermediate', 'Advanced'];
+            levels.forEach(function(level) {
+                var $radio = $('#' + level.toLowerCase() + 'Radio');
+                if (exercise.level === level) {
+                    $radio.prop('checked', true);
+                }
+            });
+
+            $('#previewImage').attr('src',"data:image/jpeg;base64," + exercise.imageDescription);
+            $('#previewImage').show();
+
+            $('#exerciseDescription').val(exercise.description);
+            $('#exercisePrivate').prop('checked', exercise.private);
+        })
+
+        $('#youtubeLink').val(exercise.videoDescription);
+
+        var youtubeLink = exercise.videoDescription;
+        var videoId = extractVideoId(youtubeLink);
+
+        // Youtuve link
+        function extractVideoId(url) {
+            var regex = /^(?:(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11}))/;
+            var match = url.match(regex);
+            return match ? match[1] : null;
+        }
+
+        function changeVideo() {
+            var youtubeLink = $('#youtubeLink').val();
+            var videoId = extractVideoId(youtubeLink);
+
+            if (videoId) {
+                $('#playerContainer').show();
+                player.loadVideoById(videoId);
+            } else {
+                alert("Invalid YouTube link. Please enter a valid link.");
+            }
+        }
+
+        $(document).ready(function() {
+            if (videoId) {
+                var tag = $('<script>', {
+                    src: 'https://www.youtube.com/iframe_api'
+                });
+                $('script:first').before(tag);
+
+                window.onYouTubeIframeAPIReady = function() {
+                    player = new YT.Player('player', {
+                        height: '270',
+                        width: '480',
+                        playerVars: {
+                            'playsinline': 1,
+                        },
+                        videoId: videoId,
+                        events: {
+                            'onReady': onPlayerReady,
+                            'onStateChange': onPlayerStateChange
+                        }
+                    });
+                };
+
+                function onPlayerReady(event) {
+                    event.target.playVideo();
+                }
+
+                function onPlayerStateChange(event) {
+                    if (event.data == YT.PlayerState.PLAYING && !done) {
+                        setTimeout(stopVideo, 6000);
+                        done = true;
+                    }
+                }
+
+                if (videoId) {
+                    $('#playerContainer').show();
+                    player.loadVideoById(videoId);
+                } else {
+                    alert("Invalid YouTube link. Please enter a valid link.");
+                }
+            } else {
+                // Invalid YouTube link
+                console.error("Invalid YouTube link. Please enter a valid link.");
+            }
+        });
+
+        $('#changeVideoBtn').on('click', changeVideo);
+
+    </script>
+
+    <script>
         // Image preview
         $(document).ready(function() {
             $('#chooseImageButton').click(function() {
@@ -377,70 +472,6 @@
         });
     </script>
 
-    <script>
-        // Youtuve link
-        function extractVideoId(url) {
-            var regex = /^(?:(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11}))/;
-            var match = url.match(regex);
-            return match ? match[1] : null;
-        }
-
-        function changeVideo() {
-            var youtubeLink = $('#youtubeLink').val();
-            var videoId = extractVideoId(youtubeLink);
-
-            if (videoId) {
-                $('#playerContainer').show();
-                player.loadVideoById(videoId);
-            } else {
-                alert("Invalid YouTube link. Please enter a valid link.");
-            }
-        }
-
-        $(document).ready(function() {
-            var tag = $('<script>', {
-                src: 'https://www.youtube.com/iframe_api'
-            });
-            $('script:first').before(tag);
-
-            window.onYouTubeIframeAPIReady = function() {
-                player = new YT.Player('player', {
-                    height: '390',
-                    width: '640',
-                    playerVars: {
-                        'playsinline': 1
-                    },
-                    events: {
-                        'onReady': onPlayerReady,
-                        'onStateChange': onPlayerStateChange
-                    }
-                });
-            };
-
-            function onPlayerReady(event) {
-                event.target.playVideo();
-            }
-
-            // The API calls this function when the player's state changes
-            // The function indicates that when playing a video (state=1),
-            // the player should play for six seconds and then stop
-            var done = false;
-            function onPlayerStateChange(event) {
-                if (event.data == YT.PlayerState.PLAYING && !done) {
-                    setTimeout(stopVideo, 6000);
-                    done = true;
-                }
-            }
-
-            // Function to stop the video
-            function stopVideo() {
-                player.stopVideo();
-            }
-
-            // Attach click event to the button
-            $('#changeVideoBtn').on('click', changeVideo);
-        });
-    </script>
 
     <script>
         $(document).ready(function() {

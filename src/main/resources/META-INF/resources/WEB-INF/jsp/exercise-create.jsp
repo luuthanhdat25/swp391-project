@@ -1,4 +1,5 @@
 <%@ include file="common/header.jspf" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <body>
     <div class="main-wrapper">
@@ -288,7 +289,7 @@
 
                                                 <div class="mt-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" name="privacy">
+                                                        <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" name="isPrivate">
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             Private (Only you and the gymer working with you can see)
                                                         </label>
@@ -310,7 +311,7 @@
                                                     <button type="submit" class="btn btn-primary me-2">
                                                         Create
                                                     </button>
-                                                    <a href="edit-invoice.html" class="btn btn-danger">
+                                                    <a href="/exercise/" class="btn btn-danger">
                                                         Cancel
                                                     </a>
                                                 </div>

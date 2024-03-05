@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Locale;
 import java.util.zip.DataFormatException;
 
 
@@ -38,6 +39,9 @@ public class ExerciseController {
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseListPage(ModelMap model){
         List<Exercise> exercises = exerciseRepository.findAll();
+        for(Exercise exercise : exercises){
+            System.out.println(exercise.getId() + " is" + exercise.isPrivate());
+        }
         String json = JsonUtils.jsonConvert(exercises);
         model.addAttribute("exerciseList", json);
         return "exercise-list";
@@ -69,13 +73,16 @@ public class ExerciseController {
         exercise.setEquipment(exerciseDTO.getEquipment());
         exercise.setVideoDescription(exerciseDTO.getYoutubeLink());
         exercise.setImageDescription(exerciseDTO.getImage().getBytes());
-        exercise.setPrivate(exerciseDTO.isPrivacy());
+
+        String isPrivateString = exerciseDTO.getIsPrivate().toLowerCase();
+        boolean isPrivateBoolean = isPrivateString == "true";
+        exercise.setPrivate(isPrivateBoolean);
 
         PersonalTrainer personalTrainerExample = personalTrainerRepository.findAll().getFirst();
         exercise.setPersonalTrainer(personalTrainerExample);
 
         exerciseRepository.save(exercise);
-        return "exercise-list";
+        return "redirect:/exercise/";
     }
 
 
@@ -83,7 +90,8 @@ public class ExerciseController {
     @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseDetailsEditPage(@RequestParam int id, ModelMap model) {
         Exercise exercise = exerciseRepository.findById(id);
-        model.addAttribute("exercise", exercise);
+        String json = JsonUtils.jsonConvert(exercise);
+        model.addAttribute("exercise", json);
         return "exercise-update";
     }
 
@@ -93,7 +101,6 @@ public class ExerciseController {
         //
         return "exercise-details-edit";
     }
-    //----------------------------------------------------------------
 }
 
 @Getter
@@ -108,7 +115,7 @@ class ExerciseDTO {
     private MultipartFile image;
     private String youtubeLink;
     private String exerciseDescription;
-    private boolean privacy;
+    private String isPrivate;
 }
 
 

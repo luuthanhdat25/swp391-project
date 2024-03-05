@@ -392,19 +392,13 @@
                         </div>
                     </div>
                 </div>
-<%--                <div class="card invoices-tabs-card border-0">--%>
-<%--                    <div class="card-body card-body pt-0 pb-0">--%>
-<%--                        <div class="invoices-main-tabs border-0 pb-0">--%>
-<%--                            <div class="row align-items-center">--%>
-<%--                                <div class="col-lg-12 col-md-12">--%>
-<%--                                    <div class="invoices-settings-btn invoices-settings-btn-one">--%>
-<%--                                        <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
+                <div class="card invoices-tabs-card border-0">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="invoices-settings-btn invoices-settings-btn-one">
+                            <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>
+                        </div>
+                    </div>
+                </div>
 
                     <div id="exerciseContainer" class="row"></div>
 

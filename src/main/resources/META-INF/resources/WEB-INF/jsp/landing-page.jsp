@@ -8,10 +8,10 @@
     <div class="header">
 
         <div class="header-left">
-            <a href="index.html" class="logo">
+            <a href="#" class="logo">
                 <img src="assets/img/logo.png" alt="Logo">
             </a>
-            <a href="index.html" class="logo logo-small">
+            <a href="#" class="logo logo-small">
                 <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
             </a>
         </div>
@@ -33,22 +33,6 @@
             <button class="btn btn-rounded btn-outline-danger"><a href="/auth/registration">Sign up</a></button>
         </ul>
 
-    </div>
-
-                        <a href="#"><i class="feather-grid"></i> <span> Home</span></a>
-                    </li>
-                    <li>
-                        <a href="/personal-trainer/"><i class="fas fa-graduation-cap"></i> <span>Find Personal Trainer</span> </a>
-                    </li>
-                    <li>
-                        <a href="/exercise/"><i class="fas fa-chalkboard-teacher"></i> <span>Exercise Wiki</span></a>
-                    </li>
-<%--                    <li>--%>
-<%--                        <a href="/nutrition/"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>--%>
-<%--                    </li>--%>
-                </ul>
-            </div>
-        </div>
     </div>
 
     <div class="page-wrapper">
@@ -151,7 +135,6 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <div class="choose-item">
-
                             <img src="assets/img/chose-icon-2.png" alt="">
                             <h5>Our trainer</h5>
                             <p>If you are an infrequent traveler you may need some tips to keep the wife happy while

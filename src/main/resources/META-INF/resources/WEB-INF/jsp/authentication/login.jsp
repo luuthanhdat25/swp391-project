@@ -31,16 +31,15 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-                                <a href="#">Forgot Password?</a>
+                                <a href="/auth/forgot">Forgot Password?</a>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary btn-block" type="submit">Login</button>
                             </div>
                         </form:form>
 
-
                         <div class="text-danger font-weight-bold"><c:if test="${param.failed != null}">Email or password is not correct. Try again!</c:if></div>
-                        <div class="text-success font-weight-bold"><c:if test="${param.successfully != null}">Your account created successfully!</c:if></div>
+                        <div class="text-success font-weight-bold"><c:if test="${param.successfully != null}">Everything is done! You can login now.</c:if></div>
                         <div class="login-or">
                             <span class="or-line"></span>
                             <span class="span-or">or</span>

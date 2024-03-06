@@ -1,5 +1,6 @@
 package com.swpproject.application.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -15,6 +16,7 @@ import java.util.Objects;
 @Data
 @Entity
 @Table(name = "personal_trainer")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PersonalTrainer {
 
     @Id
@@ -37,8 +39,8 @@ public class PersonalTrainer {
     @Column(name = "price")
     private Integer price;
 
-    @OneToOne
-    @JoinColumn(name = "account_id",referencedColumnName = "id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id",referencedColumnName = "id")
     private Account account;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "personalTrainer", cascade = CascadeType.ALL)

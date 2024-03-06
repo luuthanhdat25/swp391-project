@@ -1,4 +1,5 @@
 <%@ include file="common/header.jspf" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <body>
     <div class="main-wrapper">
@@ -195,11 +196,12 @@
                                             <form:form id="exerciseForm" action="/exercise/create" method="post" enctype="multipart/form-data">
                                                 <div class="row mt-3">
                                                     <div class="w-50 col-md-6">
-                                                        <input type="text" name="exerciseName" class="form-control" value='<c:out value="${exercise.name}" />' placeholder="Exercise Name" />
+                                                        <div>Exercise Name</div>
+                                                        <input type="text" name="exerciseName" class="form-control mt-2" required  placeholder="Exercise Name" />
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <div class="mb-2">Level</div>
+                                                        <div class="mb-2 mt-2">Level</div>
 
                                                         <div class="form-check form-check-inline">
                                                             <input class="form-check-input" type="radio" name="levelRadio" id="beginnerRadio" value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">checked</c:if>>
@@ -274,7 +276,7 @@
 
 
                                                 <div class="mt-4">
-                                                    <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control w-50" name="youtubeLink">
+                                                    <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control w-50" name="youtubeLink" required>
                                                     <button type="button" id="changeVideoBtn" class="btn btn-warning mt-1">Add Video</button>
                                                 </div>
 
@@ -283,12 +285,12 @@
                                                 </div>
 
                                                 <div class="hello-park mt-3">
-                                                    <textarea class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description" name="exerciseDescription"></textarea>
+                                                    <textarea required class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description" name="exerciseDescription"></textarea>
                                                 </div>
 
                                                 <div class="mt-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="private" id="flexCheckDefault" name="privacy">
+                                                        <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" name="isPrivate">
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             Private (Only you and the gymer working with you can see)
                                                         </label>
@@ -310,7 +312,7 @@
                                                     <button type="submit" class="btn btn-primary me-2">
                                                         Create
                                                     </button>
-                                                    <a href="edit-invoice.html" class="btn btn-danger">
+                                                    <a href="/exercise/" class="btn btn-danger">
                                                         Cancel
                                                     </a>
                                                 </div>
@@ -345,164 +347,9 @@
 
     <script src="../../assets/js/script.js"></script>
 
-    <script>
-        // Image preview
-        $(document).ready(function() {
-            $('#chooseImageButton').click(function() {
-                $('#imageInput').click();
-            });
-
-            $('#imageInput').change(function() {
-                var file = this.files[0];
-                if (file) {
-                    if (file.size > 10 * 1024 * 1024) {
-                        alert("The image size exceeds 10MB limit.");
-                        return;
-                    }
-
-                    var fileType = file.type;
-                    if (fileType !== 'image/jpeg' && fileType !== 'image/png') {
-                        alert("Please choose a valid image file (JPEG or PNG).");
-                        return;
-                    }
-
-                    var reader = new FileReader();
-                    reader.onload = function(event) {
-                        $('#previewImage').attr('src', event.target.result);
-                        $('#previewImage').show();
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        });
-    </script>
-
-    <script>
-        // Youtuve link
-        function extractVideoId(url) {
-            var regex = /^(?:(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11}))/;
-            var match = url.match(regex);
-            return match ? match[1] : null;
-        }
-
-        function changeVideo() {
-            var youtubeLink = $('#youtubeLink').val();
-            var videoId = extractVideoId(youtubeLink);
-
-            if (videoId) {
-                $('#playerContainer').show();
-                player.loadVideoById(videoId);
-            } else {
-                alert("Invalid YouTube link. Please enter a valid link.");
-            }
-        }
-
-        $(document).ready(function() {
-            var tag = $('<script>', {
-                src: 'https://www.youtube.com/iframe_api'
-            });
-            $('script:first').before(tag);
-
-            window.onYouTubeIframeAPIReady = function() {
-                player = new YT.Player('player', {
-                    height: '390',
-                    width: '640',
-                    playerVars: {
-                        'playsinline': 1
-                    },
-                    events: {
-                        'onReady': onPlayerReady,
-                        'onStateChange': onPlayerStateChange
-                    }
-                });
-            };
-
-            function onPlayerReady(event) {
-                event.target.playVideo();
-            }
-
-            // The API calls this function when the player's state changes
-            // The function indicates that when playing a video (state=1),
-            // the player should play for six seconds and then stop
-            var done = false;
-            function onPlayerStateChange(event) {
-                if (event.data == YT.PlayerState.PLAYING && !done) {
-                    setTimeout(stopVideo, 6000);
-                    done = true;
-                }
-            }
-
-            // Function to stop the video
-            function stopVideo() {
-                player.stopVideo();
-            }
-
-            // Attach click event to the button
-            $('#changeVideoBtn').on('click', changeVideo);
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#exerciseForm').submit(function(event) {
-                var errors = false;
-
-                if ($('input[name="exerciseName"]').val().trim() === '') {
-                    $('#exerciseNameError').text('Exercise Name is required');
-                    errors = true;
-                } else {
-                    $('#exerciseNameError').text('');
-                }
-
-                if (!$('input[name="levelRadio"]:checked').val()) {
-                    $('#levelError').text('Please select a level');
-                    errors = true;
-                } else {
-                    $('#levelError').text('');
-                }
-
-                if ($('select[name="equipment"]').val() === 'None') {
-                    $('#equipmentError').text('Please select an equipment');
-                    errors = true;
-                } else {
-                    $('#equipmentError').text('');
-                }
-
-                if ($('select[name="muscle"]').val() === 'None') {
-                    $('#muscleError').text('Please select an affected muscle');
-                    errors = true;
-                } else {
-                    $('#muscleError').text('');
-                }
-
-                if ($('input[name="image"]').val() === '') {
-                    $('#imageError').text('Please choose an image');
-                    errors = true;
-                } else {
-                    $('#imageError').text('');
-                }
-
-                if ($('#youtubeLink').val().trim() === '') {
-                    $('#youtubeLinkError').text('YouTube URL is required');
-                    errors = true;
-                } else {
-                    $('#youtubeLinkError').text('');
-                }
-
-                if ($('#exerciseDescription').val().trim() === '') {
-                    $('#exerciseDescriptionError').text('Exercise Description is required');
-                    errors = true;
-                } else {
-                    $('#exerciseDescriptionError').text('');
-                }
-
-                if (errors) {
-                    event.preventDefault();
-                }
-            });
-        });
-
-    </script>
+    <script src="../../assets/js/exercise/create/exercise-create-image-import.js"></script>
+    <script src="../../assets/js/exercise/create/exercise-create-youtube-extract.js"></script>
+<%--    <script src="../../assets/js/exercise/create/exercise-create-submit-handler.js"></script>--%>
 </body>
 
 </html>

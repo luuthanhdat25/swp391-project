@@ -1,6 +1,39 @@
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ include file="common/header.jspf" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Preskool - Teacher Details</title>
+
+    <link rel="shortcut icon" href="../../assets/img/favicon.png">
+
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"
+            rel="stylesheet">
+
+    <link rel="stylesheet" href="../../assets/plugins/bootstrap/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../assets/plugins/feather/feather.css">
+
+    <link rel="stylesheet" href="../../assets/plugins/icons/flags/flags.css">
+
+    <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/all.min.css">
+
+    <link rel="stylesheet" href="../../assets/plugins/datatables/datatables.min.css">
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/styleSliderBar.css">
+    <style>
+        .ex-image {
+            width: 100%;
+            height: 9rem;
+            object-fit: cover;
+        }
+    </style>
+</head>
 
 <body>
     <div class="main-wrapper">
@@ -223,7 +256,7 @@
                                     <li>
                                         <div class="multipleSelection">
                                             <div class="selectBox">
-                                                <p class="mb-0">Category</p>
+                                                <p class="mb-0">Affected Muscle</p>
                                                 <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
                                             </div>
                                             <div id="checkBoxes">
@@ -234,24 +267,34 @@
                                                             Chest
                                                         </label>
                                                         <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Triceps" class="category">
+                                                            <input type="checkbox" name="Back" class="category">
                                                             <span class="checkmark"></span>
-                                                            Triceps
+                                                            Back
                                                         </label>
                                                         <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Biceps" class="category">
+                                                            <input type="checkbox" name="Shoulders" class="category">
                                                             <span class="checkmark"></span>
-                                                            Biceps
+                                                            Shoulders
                                                         </label>
                                                         <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Forearms" class="category">
+                                                            <input type="checkbox" name="Arms" class="category">
                                                             <span class="checkmark"></span>
-                                                            Forearms
+                                                            Arms
                                                         </label>
                                                         <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Cadio" class="category">
+                                                            <input type="checkbox" name="Abs" class="category">
                                                             <span class="checkmark"></span>
-                                                            Cadio
+                                                            Abs
+                                                        </label>
+                                                        <label class="custom_check w-100">
+                                                            <input type="checkbox" name="Legs" class="category">
+                                                            <span class="checkmark"></span>
+                                                            Legs
+                                                        </label>
+                                                        <label class="custom_check w-100">
+                                                            <input type="checkbox" name="Glutes" class="category">
+                                                            <span class="checkmark"></span>
+                                                            Glutes
                                                         </label>
                                                         <label class="custom_check w-100">
                                                             <input type="checkbox" name="Calves" class="category">
@@ -347,9 +390,9 @@
                                                         Pull-up bar
                                                     </label>
                                                     <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Dumbbell" class="equipment">
+                                                        <input type="checkbox" name="Dumbbells" class="equipment">
                                                         <span class="checkmark"></span>
-                                                        Dumbbell
+                                                        Dumbbells
                                                     </label>
                                                     <label class="custom_check w-100">
                                                         <input type="checkbox" name="Barbells" class="equipment">
@@ -392,19 +435,13 @@
                         </div>
                     </div>
                 </div>
-<%--                <div class="card invoices-tabs-card border-0">--%>
-<%--                    <div class="card-body card-body pt-0 pb-0">--%>
-<%--                        <div class="invoices-main-tabs border-0 pb-0">--%>
-<%--                            <div class="row align-items-center">--%>
-<%--                                <div class="col-lg-12 col-md-12">--%>
-<%--                                    <div class="invoices-settings-btn invoices-settings-btn-one">--%>
-<%--                                        <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
+                <div class="card invoices-tabs-card border-0 mt-3">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="invoices-settings-btn invoices-settings-btn-one">
+                            <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>
+                        </div>
+                    </div>
+                </div>
 
                     <div id="exerciseContainer" class="row"></div>
 
@@ -452,17 +489,18 @@
             var defaultIconUrl = 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg';
             var cardHtml = '';
             exerciseList.forEach(function(exercise) {
-                cardHtml += '<div class="col-lg-3 col-xl-3 m-2 rounded-3 col">' +
-                    '<div class="card invoices-grid-card w-100">' +
-                    '<div class="card-header d-flex justify-content-between align-items-center">' +
-                    '<a href="/exercise/details?id=' + exercise.id + '" class="invoice-grid-link text-decoration-none">' + exercise.name + '</a>' +
-                    '<a href="view-invoice.html" class="avatar avatar-sm me-2 avatar-img rounded-circle">' +
-                    '<img class="rounded-circle" src="' +  'https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-1/426550388_1093431275117966_2445071136543330602_n.jpg?stp=dst-jpg_p320x320&_nc_cat=108&ccb=1-7&_nc_sid=5740b7&_nc_ohc=PVboOVasR0EAX94BvC9&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfAMa4QeO4QY-dCi0093TSNiV0_fculKKi1ibh2DlU2UiA&oe=65E3F442' + '" alt="Edit Avatar">' +
-                    '</a>' +
-                    '</div>' +
-                    '<div class="container position-relative">' +
-                    '<a href="/exercise/details?id=' + exercise.id + '" class="text-decoration-none text-dark d-block position-relative">' +
-                    '<img class="w-100 mb-2 rounded-2" src="data:image/jpeg;base64,' + (exercise.imageDescription || defaultIconUrl) + '" alt="User Image">' +
+                cardHtml +=
+                    '<div class="col-lg-3 col mt-3" style="height: 350px;">' +
+                        '<div class="card invoices-grid-card w-100 h-100">' +
+                            '<div class="card-header d-flex justify-content-between align-items-center">' +
+                                '<a href="/exercise/details?id=' + exercise.id + '" class="invoice-grid-link text-decoration-none w-75">' + exercise.name + '</a>' +
+                                '<a href="view-invoice.html" class="avatar avatar-sm me-2 avatar-img rounded-circle" style="height: 3rem; width: 3rem">' +
+                                    '<img class="rounded-circle" src="' +  'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg' + '" alt="Edit Avatar">' +
+                                '</a>' +
+                            '</div>' +
+                        '<div class="container position-relative h-100">' +
+                        '<a href="/exercise/details?id=' + exercise.id + '" class="text-decoration-none text-dark d-block position-relative">' +
+                        '<img class=" w-100 h-100" src="data:image/jpeg;base64,' + (exercise.imageDescription || defaultIconUrl) + '" alt="User Image">' +
                     '<div class="position-absolute top-0 end-0">';
 
                 var backgroundColor = 'bg-success';
@@ -490,31 +528,25 @@
             return cardHtml;
         }
 
-        var csrfToken = $("meta[name='_csrf']").attr("content");
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        console.log(csrfToken)
-        console.log(csrfHeader)
-
         function sendFilterJSON(filterObject) {
             var filterJSON = JSON.stringify(filterObject);
             console.log(filterJSON);
             $.ajax({
                 url: '/api/exercises/search',
                 type: 'POST',
-
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader(csrfHeader, csrfToken);
-                },
                 data: filterJSON,
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function(response) {
                     document.getElementById('exerciseContainer').innerHTML = generateExerciseCards(response);
+                    console.log(response)
                 },
-                error: function(xhr, status, error) {
+                error: function(status, error) {
+                    // Xử lý lỗi ở đây nếu cần
                 }
             });
         }
+
 
         function sendFilterRequest(){
             var filterObject = {};

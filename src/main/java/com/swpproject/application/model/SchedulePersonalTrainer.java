@@ -21,7 +21,7 @@ public class SchedulePersonalTrainer {
     // Thêm các thuộc tính khác của bảng SchedulePersonalTrainerEntity nếu cần
 
     @ManyToOne
-    @JoinColumn(name = "PT_ID", nullable = false)
+    @JoinColumn(name = "PT_ID")
     private PersonalTrainer personalTrainer;
 
 }

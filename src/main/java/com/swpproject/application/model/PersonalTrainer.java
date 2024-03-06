@@ -38,7 +38,7 @@ public class PersonalTrainer {
     private Integer price;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id",referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "account_id",referencedColumnName = "id")
     private Account account;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "personalTrainer", cascade = CascadeType.ALL)

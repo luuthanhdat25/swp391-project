@@ -29,6 +29,6 @@ public class Gymer {
     private String goal;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
 }

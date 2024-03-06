@@ -28,7 +28,8 @@ public class  AccountLoginController {
                                RedirectAttributes redirectAttributes, HttpSession session) {
         Optional<Account> account = accountService.findAccountByEmail(email);
         if(account.isPresent() && password.equals(account.get().getPassword())) {
-            session.setAttribute("account", account);
+            session.setAttribute("account", account.get());
+//            System.out.println("Account Sessiong: "+ account.get().getId());
             return "welcome";
         } else
         return "redirect:/login";

@@ -1,18 +1,19 @@
 package com.swpproject.application.service;
 
-import com.swpproject.application.model.SchedulePersonalTrainer;
-import com.swpproject.application.repository.SchedulePersonalTrainerRepository;
+
+import com.swpproject.application.model.Schedule;
+import com.swpproject.application.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
 public class SchedulePersonalTrainerService {
     @Autowired
-    SchedulePersonalTrainerRepository personalTrainerRepository;
+    ScheduleRepository scheduleRepository;
 
-    public void save(SchedulePersonalTrainer schedulePersonalTrainerEntity){
-        personalTrainerRepository.save(schedulePersonalTrainerEntity);
+    public void save(Schedule schedulePersonalTrainerEntity){
+        scheduleRepository.save(schedulePersonalTrainerEntity);
     }
-    public SchedulePersonalTrainer findScheduleByPtId(Integer id){
-        return personalTrainerRepository.findAllByPersonalTrainerId(id);
+    public Schedule findScheduleByPtId(Integer id){
+        return scheduleRepository.findAllByPersonalTrainer_Id(id);
     }
 }

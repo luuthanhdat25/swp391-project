@@ -1,11 +1,10 @@
 package com.swpproject.application.controller.authentication;
 
+import com.swpproject.application.model.Gymer;
 import com.swpproject.application.model.PersonalTrainer;
-import com.swpproject.application.model.SchedulePersonalTrainer;
-import com.swpproject.application.service.AccountService;
+import com.swpproject.application.model.Schedule;
+import com.swpproject.application.service.*;
 import com.swpproject.application.model.Account;
-import com.swpproject.application.service.EmailService;
-import com.swpproject.application.service.PersonalTrainerService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +25,10 @@ public class AuthenticationController {
     private EmailService emailService;
     @Autowired
     private PersonalTrainerService personalTrainerService;
-
+    @Autowired
+    private SchedulePersonalTrainerService schedulePersonalTrainerService;
+    @Autowired
+    private GymerService gymerService;
     @ModelAttribute("roles")
     public Role[] getRoles() {
         return Role.values();
@@ -98,7 +100,7 @@ public class AuthenticationController {
                                RedirectAttributes redirectAttributes, HttpSession session) {
         Optional<Account> account = accountService.getAccountByEmail(email);
         if(account.isPresent() && password.equals(account.get().getPassword())) {
-            session.setAttribute("scheduleSlots", account);
+            session.setAttribute("account", account.get());
             session.removeAttribute("email");
             session.removeAttribute("password");
             return "welcome";
@@ -148,12 +150,24 @@ public class AuthenticationController {
         System.out.println("sysOtp --> " + sysOtp + "userOtp --> " + userOtp);
         if(sysOtp.equals(userOtp)) {
             accountService.save((Account)session.getAttribute("account"));
-            PersonalTrainer personalTrainer = new PersonalTrainer();
-            personalTrainer.setAccount((Account)session.getAttribute("account"));
-            personalTrainerService.save(personalTrainer);
-            SchedulePersonalTrainer schedulePersonalTrainerEntity = new SchedulePersonalTrainer();
-            schedulePersonalTrainerEntity.setPersonalTrainer(personalTrainer);
-//            schedulePersonalTrainerService.save(schedulePersonalTrainerEntity);
+            if(((Account) session.getAttribute("account")).getRole().equals(Role.PT)){
+                PersonalTrainer personalTrainer = new PersonalTrainer();
+                personalTrainer.setAccount((Account)session.getAttribute("account"));
+                personalTrainerService.save(personalTrainer);
+                Schedule schedulePersonalTrainerEntity = new Schedule();
+                schedulePersonalTrainerEntity.setPersonalTrainer(personalTrainer);
+                schedulePersonalTrainerService.save(schedulePersonalTrainerEntity);
+            } else if (((Account) session.getAttribute("account")).getRole().equals(Role.GYMER)) {
+                Gymer gymer = new Gymer();
+                gymer.setAccount((Account)session.getAttribute("account"));
+                gymerService.SaveGymer(gymer);
+                Schedule scheduleGymerEntity = new Schedule();
+                scheduleGymerEntity.setGymer(gymer);
+                schedulePersonalTrainerService.save(scheduleGymerEntity);
+                gymerService.SaveGymer(gymer);
+            }
+
+
             redirectAttributes.addFlashAttribute("MSG","Account created successfully! " +
                     "You can login into website now!");
             return "redirect:/auth/login?successfully";

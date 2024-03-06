@@ -1,5 +1,6 @@
 package com.swpproject.application.model;
 
+import com.swpproject.application.enums.Attendant;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.relational.core.mapping.Table;
@@ -23,14 +24,14 @@ public class SlotExercise {
     private int week;
     private int year;
     private boolean isPending;
-    private String attendant_status;
+    private Attendant attendantStatus;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
 
     @ManyToOne
-    @JoinColumn(name = "personal_trainer_id", nullable = false)
+    @JoinColumn(name = "personal_trainer_id", nullable = true)
     private PersonalTrainer personalTrainer;
 
 
@@ -38,4 +39,28 @@ public class SlotExercise {
     @JoinColumn(name = "gymer_id", nullable = false)
     private Gymer gymer;
 
+    @ManyToOne
+    @JoinColumn(name = "OrderId", nullable = true)
+    private OrderRequest orderRequest;
+
+    @Override
+    public String toString() {
+        return "SlotExercise{" +
+                "id=" + id +
+                ", day='" + day + '\'' +
+                ", start_hour='" + start_hour + '\'' +
+                ", end_hour='" + end_hour + '\'' +
+                ", week=" + week +
+                ", year=" + year +
+                ", isPending=" + isPending +
+                ", attendantStatus=" + attendantStatus +
+                ", schedule=" + schedule.getId() +
+                ", personalTrainer=" + personalTrainer.getId() +
+                ", gymer=" + gymer.getGymerId() +
+                ", orderRequest=" + orderRequest.getOrder_id() +
+                '}';
+    }
+    public boolean CheckPending(){
+        return this.isPending;
+    }
 }

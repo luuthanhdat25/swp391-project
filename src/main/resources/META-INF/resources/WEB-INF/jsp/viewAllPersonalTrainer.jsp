@@ -481,10 +481,10 @@
                                     <tbody>
                                     <c:forEach var="account" items="${personalTrainers}">
                                         <tr>
-                                            <td>${account.accountId}</td>
+                                            <td>${account.id}</td>
                                             <td>${account.fullName}</td>
                                             <td>${account.email}</td>
-                                            <td><a href="/bookPT1?accountId=${account.accountId}">Book</a></td>
+                                            <td><a href="/bookPT1?accountId=${account.id}">Book</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

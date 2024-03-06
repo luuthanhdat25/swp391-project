@@ -1,4 +1,5 @@
 <%@include file="common/header.jspf" %>
+
 <link rel="stylesheet" href="../../assets/css/styleBook.css">
 <body>
 
@@ -463,22 +464,44 @@
                             <h5 class="card-title">Request form</h5>
                         </div>
                         <div class="card-body">
-                            <form action="" method="post">
+
+
+                            <form action="/bookPT1" method="get">
+                                <select id="year" class="form-control" name="year"
+                                        onchange="updateWeeks()">
+                                    <!-- Thay đổi dải số năm tùy ý -->
+                                    <script>
+                                        var currentYear = new Date().getFullYear();
+                                        for (var i = currentYear; i >= currentYear - 10; i--) {
+                                            document.write("<option value='" + i + "'>" + i + "</option>");
+                                        }
+                                    </script>
+                                </select>
+                                Account Id : ${param.accountId}
+                                <select id="week" class="form-control" name="week"
+                                        onchange="this.form.submit()">
+                                    <!-- Options will be generated dynamically by JavaScript -->
+                                </select>
+
+                                <input type="hidden" name="accountId" value="${param.accountId}">
+                            </form>
+                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <h5 class="card-title">Purpose details</h5>
                                         <div class="form-group">
                                             <label>Goals:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" name="goals">
                                         </div>
                                         <div class="form-group">
                                             <label>Description:</label>
                                             <textarea rows="5" cols="5" class="form-control"
-                                                      placeholder="Details about your goals"></textarea>
+                                                      placeholder="Details about your goals"
+                                                      name="description"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Training time:</label>
-                                            <select class="select">
+                                            <select class="select" name="TrainingTime">
                                                 <option selected disabled>Select Training Time</option>
                                                 <option value="1">1 months</option>
                                                 <option value="2">3 months</option>
@@ -556,22 +579,7 @@
                                 <div class="row">
                                     <h5 class="card-title">Choose your training schedule</h5>
                                     <div class="col-md-2">
-                                        <form action="/SelectWeek" method="get">
-                                            <select id="year" class="form-control" name="year"
-                                                    onchange="updateWeeks()">
-                                                <!-- Thay đổi dải số năm tùy ý -->
-                                                <script>
-                                                    var currentYear = new Date().getFullYear();
-                                                    for (var i = currentYear; i >= currentYear - 10; i--) {
-                                                        document.write("<option value='" + i + "'>" + i + "</option>");
-                                                    }
-                                                </script>
-                                            </select>
-                                            <select id="week" class="form-control" name="week"
-                                                    onchange="this.form.submit()">
-                                                <!-- Options will be generated dynamically by JavaScript -->
-                                            </select>
-                                        </form>
+
                                     </div>
                                     <table class="table table-bordered">
                                         <thead>
@@ -605,12 +613,13 @@
                                                 <c:forEach var="day"
                                                            items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
                                                     <c:set var="disabled" value="false"/>
-                                                    <c:forEach items="${allSlots}" var="scheduleSlot">
-                                                        <c:if test="${scheduleSlot.start_hour == hour && scheduleSlot.end_hour == hour + 2 && scheduleSlot.day eq day.toLowerCase()
-                                                        }">
+                                                    <c:forEach items="${allSlot}" var="Slot">
+                                                        <c:if test="${Slot.start_hour == hour && Slot.end_hour == hour + 2 && Slot.day eq day.toLowerCase()
+                                                        && Slot.CheckPending() == false}">
                                                             <c:set var="disabled" value="true"/>
                                                         </c:if>
                                                     </c:forEach>
+
                                                     <td>
                                                         <input type="checkbox" name="checkedSlots"
                                                                value="${day.toLowerCase()}-${hour}-${hour + 2}"
@@ -629,7 +638,10 @@
                                             onclick="saveCheckedSlots()">Send
                                     </button>
                                 </div>
-                            </form>
+                                <input type="hidden" name="year" value="${param.year}">
+                                <input type="hidden" name="week" value="${param.week}">
+                                <input type="hidden" name="accountId" value="${param.accountId}">
+                            </form:form>
                         </div>
                     </div>
                 </div>
@@ -642,120 +654,119 @@
     </div>
 
 </div>
-<script>
-    function saveCheckedSlots() {
-        var checkboxes = document.getElementsByName("checkedSlots");
-        var checkedValues = [];
+<%--<script>--%>
+<%--    function saveCheckedSlots() {--%>
+<%--        var checkboxes = document.getElementsByName("checkedSlots");--%>
+<%--        var checkedValues = [];--%>
 
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                checkedValues.push(checkboxes[i].value);
-            }
-        }
+<%--        for (var i = 0; i < checkboxes.length; i++) {--%>
+<%--            if (checkboxes[i].checked) {--%>
+<%--                checkedValues.push(checkboxes[i].value);--%>
+<%--            }--%>
+<%--        }--%>
 
-        var jsonBody = JSON.stringify(checkedValues);
+<%--        var jsonBody = JSON.stringify(checkedValues);--%>
 
-        fetch('/api/save-checked', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: jsonBody,
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Xử lý phản hồi từ server (nếu cần)
-            })
-            .catch(error => console.error('Error:', error));
-    }
-</script>
+<%--        fetch('/api/save-checked', {--%>
+<%--            method: 'POST',--%>
+<%--            headers: {--%>
+<%--                'Content-Type': 'application/json',--%>
+<%--            },--%>
+<%--            body: jsonBody,--%>
+<%--        })--%>
+<%--            .then(response => {--%>
+<%--                if (!response.ok) {--%>
+<%--                    throw new Error('Network response was not ok');--%>
+<%--                }--%>
+<%--                return response.json();--%>
+<%--            })--%>
+<%--            .then(data => {--%>
+<%--                // Xử lý phản hồi từ server (nếu cần)--%>
+<%--            })--%>
+<%--            .catch(error => console.error('Error:', error));--%>
+<%--    }--%>
+<%--</script>--%>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const selectElement = document.querySelector('.select');
-        const invoiceTotalCard = document.getElementById('invoiceTotalCard');
+<%--<script>--%>
+<%--    document.addEventListener("DOMContentLoaded", function () {--%>
+<%--        const selectElement = document.querySelector('.select');--%>
+<%--        const invoiceTotalCard = document.getElementById('invoiceTotalCard');--%>
 
-        // Function to show or hide the invoice total card based on selected option
-        function toggleInvoiceTotalCard() {
-            if (selectElement.value === null || selectElement.value === "") {
-                invoiceTotalCard.style.display = 'none';
-            } else {
-                invoiceTotalCard.style.display = 'block';
-            }
-        }
+<%--        // Function to show or hide the invoice total card based on selected option--%>
+<%--        function toggleInvoiceTotalCard() {--%>
+<%--            if (selectElement.value === null || selectElement.value === "") {--%>
+<%--                invoiceTotalCard.style.display = 'none';--%>
+<%--            } else {--%>
+<%--                invoiceTotalCard.style.display = 'block';--%>
+<%--            }--%>
+<%--        }--%>
 
-        // Event listener for changes in the select element
-        selectElement.addEventListener('change', toggleInvoiceTotalCard);
-    });
-</script>
+<%--        // Event listener for changes in the select element--%>
+<%--        selectElement.addEventListener('change', toggleInvoiceTotalCard);--%>
+<%--    });--%>
+<%--</script>--%>
 
-<script>
-    $(document).ready(function () {
-        var currentDate = moment();
+<%--<script>--%>
+<%--    $(document).ready(function () {--%>
+<%--        var currentDate = moment();--%>
 
-        // Set the default selected values for year and week
-        var currentYear = currentDate.isoWeekYear();
-        var currentWeek = currentDate.isoWeek();
+<%--        // Set the default selected values for year and week--%>
+<%--        var currentYear = currentDate.isoWeekYear();--%>
+<%--        var currentWeek = currentDate.isoWeek();--%>
 
-        // Set the default selected options
-        $("#year").val(currentYear);
-        $("#week").val(currentWeek);
+<%--        // Set the default selected options--%>
+<%--        $("#year").val(currentYear);--%>
+<%--        $("#week").val(currentWeek);--%>
 
-        generateWeeks(); // Generate weeks based on the current year
+<%--        generateWeeks(); // Generate weeks based on the current year--%>
 
-        updateTable(); // Update table content when the page is loaded
+<%--        updateTable(); // Update table content when the page is loaded--%>
 
-        // Event listener for changes in the year and week selects
-        $("#year, #week").change(function () {
-            updateTable(); // Update table content when the year or week changes
-        });
-    });
+<%--        // Event listener for changes in the year and week selects--%>
+<%--        $("#year, #week").change(function () {--%>
+<%--            updateTable(); // Update table content when the year or week changes--%>
+<%--        });--%>
+<%--    });--%>
 
-    function generateWeeks() {
-        var year = $("#year").val();
-        var weeks = [];
+<%--    function generateWeeks() {--%>
+<%--        var year = $("#year").val();--%>
+<%--        var weeks = [];--%>
 
-        for (var i = 1; i <= 52; i++) {
-            var startOfWeek = moment().isoWeekYear(year).isoWeek(i).startOf('isoWeek');
-            var endOfWeek = moment().isoWeekYear(year).isoWeek(i).endOf('isoWeek');
-            var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');
-            weeks.push("<option value='" +i+ "'>" + weekText + "</option>");
-        }
+<%--        for (var i = 1; i <= 52; i++) {--%>
+<%--            var startOfWeek = moment().isoWeekYear(year).isoWeek(i).startOf('isoWeek');--%>
+<%--            var endOfWeek = moment().isoWeekYear(year).isoWeek(i).endOf('isoWeek');--%>
+<%--            var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');--%>
+<%--            weeks.push("<option value='" + i + "'>" + weekText + "</option>");--%>
+<%--        }--%>
 
-        $("#week").html(weeks.join(""));
-    }
+<%--        $("#week").html(weeks.join(""));--%>
+<%--    }--%>
 
-    // Function to update the table content
-    function updateTable() {
-        // Retrieve selected year and week
-        var year = $("#year").val();
-        var week = $("#week").val();
+<%--    // Function to update the table content--%>
+<%--    function updateTable() {--%>
+<%--        // Retrieve selected year and week--%>
+<%--        var year = $("#year").val();--%>
+<%--        var week = $("#week").val();--%>
 
-        // Send AJAX request to load file with the selected week
-        $.ajax({
-            type: "POST",
-            url: "/SelectWeek", // Update to the correct URL
-            data: {
-                week: week,
-                year: year,
-            },
-            contentType: 'application/x-www-form-urlencoded;charset=UTF-8', // Set the content type
-            success: function (response) {
-                // Handle response, e.g., update page content
-                console.log(response);
-            },
-            error: function (error) {
-                console.error("Error loading file:", error);
-            }
-        });
-    }
-</script>
-
+<%--        // Send AJAX request to load file with the selected week--%>
+<%--        $.ajax({--%>
+<%--            type: "POST",--%>
+<%--            url: "/SelectWeek", // Update to the correct URL--%>
+<%--            data: {--%>
+<%--                week: week,--%>
+<%--                year: year,--%>
+<%--            },--%>
+<%--            contentType: 'application/x-www-form-urlencoded;charset=UTF-8', // Set the content type--%>
+<%--            success: function (response) {--%>
+<%--                // Handle response, e.g., update page content--%>
+<%--                console.log(response);--%>
+<%--            },--%>
+<%--            error: function (error) {--%>
+<%--                console.error("Error loading file:", error);--%>
+<%--            }--%>
+<%--        });--%>
+<%--    }--%>
+<%--</script>--%>
 
 
 <script src="assets/js/jquery-3.6.0.min.js"></script>

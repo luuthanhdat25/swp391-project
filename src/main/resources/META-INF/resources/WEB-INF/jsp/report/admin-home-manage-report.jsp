@@ -38,7 +38,7 @@
     </div>
     <div>
         <%-- Div này là một sidebar dùng để hiển thị các button:  Manage account, manage notification ... --%>
-            <div class="sidebar" id="sidebar" style="width: 20%; background-color: #adb5bd;">
+            <div class="sidebar" id="sidebar" style="width: 20%;">
                 <div class="sidebar-inner slimscroll">
 
                     <%--Hiển thị tiêu đề của sidebar và danh sách các manage button--%>
@@ -122,7 +122,6 @@
                                 </li>
                             </ul>
                         </nav>
-
                     </div>
             </div>
        </div>

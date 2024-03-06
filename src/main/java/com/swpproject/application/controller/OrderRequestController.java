@@ -36,7 +36,6 @@ public class OrderRequestController {
         return "order-detail";
     }
 
-
     @RequestMapping("order-list")
     public String ViewOrderList(Model model){
         List<OrderRequest> orderRequestList = orderRequestService.getOrderRequest();

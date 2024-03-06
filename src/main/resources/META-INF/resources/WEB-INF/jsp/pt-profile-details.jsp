@@ -49,7 +49,8 @@
                                         <div class="follow-btn-group">
                                             <button type="submit" class="btn btn-info message-btns">Book</button>
                                             <button type="submit" class="btn btn-info message-btns">Inbox</button>
-                                            <button type="submit" class="btn btn-info message-btns">Report</button>
+                                            <button type="submit" class="btn btn-info message-btns"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal">Report</button>
                                         </div>
                                     </div>
                                 </div>
@@ -235,5 +236,13 @@
             </div>
         </div>
     </div>
+
+     <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+         <div class="modal-dialog modal-lg modal-dialog-centered" style = "width: 630px;">
+             <div class="modal-content">
+                 <%@include file = "../../WEB-INF/jsp/report/AddReport.jsp" %>
+             </div>
+         </div>
+     </div>
 </div>
 <%@include file="common/script.jspf"%>

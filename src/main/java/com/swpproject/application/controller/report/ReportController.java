@@ -57,10 +57,10 @@ public class ReportController {
 		report.setDateTime(LocalDateTime.now());
 
 		reportRepository.save(report);
-		return "redirect:view-report-list-and-detail";
+		return "redirect:personal-trainer";
 	}
 
-	@RequestMapping(value = "view-report-list-and-detail", method = RequestMethod.GET)
+	@RequestMapping(value = "admin-home/view-report-list-and-detail", method = RequestMethod.GET)
 	public String viewReportListAndDetail(ModelMap model, Report report,
 			@RequestParam(name = "papeNo", defaultValue = "1") int papeNo,
 			@RequestParam(name = "reportId", defaultValue = "-1") int reportID) {
@@ -76,7 +76,7 @@ public class ReportController {
 		model.put("TemplateReports", templateReports);
 		model.addAttribute("TotalPage", reports.getTotalPages());
 		model.addAttribute("CurrentPage", papeNo);
-		return "report/ViewReportList";
+		return "report/admin-home-view-report-list";
 	}
 
 	@RequestMapping(value = "delete-report", method = RequestMethod.GET)

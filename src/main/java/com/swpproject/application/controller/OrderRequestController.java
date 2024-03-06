@@ -79,8 +79,9 @@ public class OrderRequestController {
         for (SlotExercise slotExercise : slotOrder) {
             System.out.println(slotExercise.toString());
             slotExcerciseEntityService.updateSlotOrderPending(slotExercise.getId(), false);
-
         }
+
+
         return "redirect:/order-list";
     }
 

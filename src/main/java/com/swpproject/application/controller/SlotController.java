@@ -45,6 +45,7 @@ public class SlotController {
                          @RequestParam(name = "accountId", required = false) Integer accountId,
                          @RequestParam(name = "week", required = false) Integer week,
                          @RequestParam(name = "year", required = false) Integer year,
+
                          RedirectAttributes redirectAttributes) {
         PersonalTrainer personalTrainer = new PersonalTrainer();
         personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(accountId);
@@ -55,6 +56,8 @@ public class SlotController {
             System.out.println("accountId: " + accountId);
 
             model.addAttribute("accountId", accountId);
+            model.addAttribute("personalTrainer",personalTrainer);
+            System.out.println("price: "+personalTrainer.getPrice());
             // Other processing related to accountId...
         }
 
@@ -101,6 +104,7 @@ public class SlotController {
                                    @RequestParam("goals") String title,
                                    @RequestParam("description") String desc,
                                    @RequestParam("TrainingTime") int trainingTime,
+                                   @RequestParam(name = "totalPrice", required = false) String totalPrice,
                                    Model model, HttpSession session,
                                    RedirectAttributes redirectAttributes) {
 
@@ -112,7 +116,9 @@ public class SlotController {
         System.out.println("ScheduleID: " + schedulePersonalTrainerEntity.getId());
         System.out.println("accountID: "+accountSession.getId());
         OrderRequest orderRequest = new OrderRequest();
-
+        double doubleValue = Double.parseDouble(totalPrice);
+        Integer totalAmount = (int) doubleValue;
+        System.out.println("Total price: "+totalAmount);
 
         LocalDate currentDate;
         Date StartDateAsDate;
@@ -133,7 +139,7 @@ public class SlotController {
         orderRequest.setTitle(title);
         orderRequest.setGymer(gymerService.GetGymerProifile(2));
         orderRequest.setDescription(desc);
-        orderRequest.setTotal_of_money(12000000);
+        orderRequest.setTotal_of_money(totalAmount);
         System.out.println("goal" + title);
         System.out.println("desc" + desc);
         System.out.println("training time" + trainingTime);

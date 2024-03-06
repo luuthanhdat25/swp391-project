@@ -521,13 +521,7 @@
                                                        class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Weight:</label>
-                                                <input type="text" placeholder="${gymer.weight}" readonly
-                                                       class="form-control">
-                                            </div>
-                                        </div>
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Start Date:</label>

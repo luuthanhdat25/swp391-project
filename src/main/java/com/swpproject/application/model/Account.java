@@ -1,5 +1,6 @@
 package com.swpproject.application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.swpproject.application.enums.Gender;
 import com.swpproject.application.enums.Role;
@@ -55,21 +56,4 @@ public class Account {
     @Lob
     @Column(name = "avatar_image")
     private byte[] avatarImage;
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "accountId=" + id+
-                ", fullName='" + fullName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", gender=" + gender +
-                ", phone='" + phone + '\'' +
-                ", birthday=" + birthday +
-                ", address='" + address + '\'' +
-                ", role=" + role +
-                ", isBan=" + isBan +
-                ", avatarImage=" + Arrays.toString(avatarImage) +
-                '}';
-    }
 }

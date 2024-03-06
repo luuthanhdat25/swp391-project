@@ -16,8 +16,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Certificate {
     @Id
     private Integer id;
-    private String title;
-    private String organizer;
+    private String fileName;
     @Lob
     private byte[] image;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

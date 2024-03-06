@@ -137,7 +137,7 @@ public class SlotController {
         }
         orderRequest.setPersonalTrainer(personalTrainerService.findPersonalTrainerByAccountID(accountId)); //set personal Trainer for order request
         orderRequest.setTitle(title);
-        orderRequest.setGymer(gymerService.GetGymerProifile(2));
+        orderRequest.setGymer(gymerService.getGymerByAccount(accountSession).get());
         orderRequest.setDescription(desc);
         orderRequest.setTotal_of_money(totalAmount);
         System.out.println("goal" + title);
@@ -192,7 +192,7 @@ public class SlotController {
                         slotEntity.setSchedule(schedulePersonalTrainerEntity);
                         slotEntity.setPending(true); // Set your default value
                         slotEntity.setAttendantStatus(Attendant.WAITING);
-                        slotEntity.setGymer(gymerService.GetGymerProifile(accountSession.getId()));
+                        slotEntity.setGymer(gymerService.getGymerByAccount(accountSession).get());
                         slotEntity.setPersonalTrainer(personalTrainer);
                         slotEntity.setOrderRequest(orderRequest);
                         // Set Slot value

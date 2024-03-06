@@ -351,7 +351,7 @@
     <script src="../../assets/js/exercise/update/exercise-update-load-old-data.js"></script>
     <script src="../../assets/js/exercise/update/exercise-update-youtube-change.js"></script>
     <script src="../../assets/js/exercise/update/exercise-update-image-change.js"></script>
-    <script src="../../assets/js/exercise/update/exercise-update-submit-handler.js"></script>
+<%--    <script src="../../assets/js/exercise/update/exercise-update-submit-handler.js"></script>--%>
 </body>
 
 </html>

@@ -15,7 +15,7 @@
                     <span>GymOn Schedule</span>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>Personal Schedule</span></a>
+                    <a href="/view-personal-schedule"><i class="fas fa-chalkboard-teacher"></i> <span>Personal Schedule</span></a>
                 </li>
                 <li>
                     <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>Paid Schedule</span></a>

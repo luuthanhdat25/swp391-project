@@ -34,9 +34,8 @@ public class SlotExercise {
     @JoinColumn(name = "personal_trainer_id", nullable = true)
     private PersonalTrainer personalTrainer;
 
-
     @ManyToOne
-    @JoinColumn(name = "gymer_id", nullable = false)
+    @JoinColumn(name = "gymer_id", nullable = true)
     private Gymer gymer;
 
     @ManyToOne

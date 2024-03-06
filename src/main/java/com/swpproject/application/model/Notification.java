@@ -17,6 +17,7 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
+
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String content;
     private LocalDateTime timeStamp;

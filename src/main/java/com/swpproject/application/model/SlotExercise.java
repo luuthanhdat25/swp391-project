@@ -11,20 +11,31 @@ import org.springframework.data.relational.core.mapping.Table;
 @Data
 @Entity
 @Table(name = "slot_exercise")
-public class SlotExcercise {
+public class SlotExercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String day;
-    private int start_hour;
-    private int end_hour;
-
-    private boolean is_pending;
+    private String start_hour;
+    private String end_hour;
+    private int week;
+    private int year;
+    private boolean isPending;
     private String attendant_status;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
-    private SchedulePersonalTrainer schedulePersonalTrainer;
+    private Schedule schedule;
+
+    @ManyToOne
+    @JoinColumn(name = "personal_trainer_id", nullable = false)
+    private PersonalTrainer personalTrainer;
+
+
+    @ManyToOne
+    @JoinColumn(name = "gymer_id", nullable = false)
+    private Gymer gymer;
+
 }

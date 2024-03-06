@@ -1,5 +1,6 @@
 package com.swpproject.application.repository;
 
+import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,8 +15,9 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     Optional<Account> findAccountByEmail(String email);
 
-    @Query("SELECT a FROM Account a WHERE a.role = :role")
-    List<Account> findAccountByRole(String role);
+    
+    List<Account> findAccountByRole(Role role);
+
 
     Boolean existsByEmail(String email);
 

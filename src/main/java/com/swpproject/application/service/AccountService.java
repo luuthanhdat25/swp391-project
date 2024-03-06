@@ -1,5 +1,6 @@
 package com.swpproject.application.service;
 
+import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;

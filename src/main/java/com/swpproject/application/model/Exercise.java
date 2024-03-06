@@ -28,5 +28,5 @@ public class Exercise {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "personal_trainer_id")
     private PersonalTrainer personalTrainer;
-    private boolean isPrivate;
+    private int isPrivate;
 }

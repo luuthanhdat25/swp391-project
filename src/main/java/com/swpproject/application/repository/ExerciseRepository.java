@@ -1,6 +1,7 @@
 package com.swpproject.application.repository;
 
 import com.swpproject.application.model.Exercise;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,11 +18,18 @@ public class ExerciseRepository {
     }
 
     public Exercise save(Exercise exercise) {
-        String sql = "INSERT INTO exercise (name, type, description, level, equipment, video_description, image_description, personal_trainer_id, is_private) " +
+        String sql = "INSERT INTO exercise (description, equipment, image_description, is_private, level, name, type, video_description, personal_trainer_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, exercise.getName(), exercise.getType(), exercise.getDescription(),
-                exercise.getLevel(), exercise.getEquipment(), exercise.getVideoDescription(),
-                exercise.getImageDescription(), exercise.getPersonalTrainer(), exercise.isPrivate());
+        jdbcTemplate.update(sql,
+                exercise.getDescription(),
+                exercise.getEquipment(),
+                exercise.getImageDescription(),
+                exercise.getIsPrivate(),
+                exercise.getLevel(),
+                exercise.getName(),
+                exercise.getType(),
+                exercise.getVideoDescription(),
+                exercise.getPersonalTrainer().getId());
         return exercise;
     }
 
@@ -39,4 +47,22 @@ public class ExerciseRepository {
         String sql = "DELETE FROM exercise WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
+
+    public void update(Exercise exercise) {
+        String sql = "UPDATE exercise SET description = ?, equipment = ?, image_description = ?, level = ?, name = ?, type = ?, video_description = ? WHERE id = ?";
+        jdbcTemplate.update(sql,
+                exercise.getDescription(),
+                exercise.getEquipment(),
+                exercise.getImageDescription(),
+                exercise.getLevel(),
+                exercise.getName(),
+                exercise.getType(),
+                exercise.getVideoDescription(),
+                exercise.getId());
+    }
 }
+
+//@Repository
+//public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {
+//}
+

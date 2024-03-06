@@ -1,5 +1,6 @@
 package com.swpproject.application.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -15,6 +16,7 @@ import java.util.Objects;
 @Data
 @Entity
 @Table(name = "personal_trainer")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PersonalTrainer {
 
     @Id
@@ -28,7 +30,7 @@ public class PersonalTrainer {
     @Column(name = "bank_number")
     private String bankNumber;
 
-    @Column(name = "[desc]")
+    @Column(name = "[desc]", columnDefinition = "varchar(MAX)")
     private String description;
 
     @Column(name = "is_active", columnDefinition = "BIT DEFAULT 0")
@@ -44,4 +46,17 @@ public class PersonalTrainer {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "personalTrainer", cascade = CascadeType.ALL)
     private List<Certificate> certificates;
 
+    @Override
+    public String toString() {
+        return "PersonalTrainer{" +
+                "id=" + id +
+                ", bankName='" + bankName + '\'' +
+                ", bankNumber='" + bankNumber + '\'' +
+                ", description='" + description + '\'' +
+                ", isActive=" + isActive +
+                ", price=" + price +
+                ", account=" + account +
+                ", certificates=" + certificates +
+                '}';
+    }
 }

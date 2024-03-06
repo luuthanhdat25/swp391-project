@@ -176,10 +176,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-sub-header">
-                                <h3 class="page-title">Exercise Create</h3>
+                                <h3 class="page-title">Nutrition Create</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/exercise/">Exercise</a></li>
-                                    <li class="breadcrumb-item active">Exercise Create</li>
+                                    <li class="breadcrumb-item"><a href="/nutrition/">Nutrition</a></li>
+                                    <li class="breadcrumb-item active">Nutrition Create</li>
                                 </ul>
                             </div>
                         </div>
@@ -193,74 +193,30 @@
                                     <div class="card mb-0">
                                         <div class="card-body">
 
-                                            <form:form id="exerciseForm" action="/exercise/create" method="post" enctype="multipart/form-data">
+                                            <form id="nutritionForm" action="/nutrition/create" name="nutritionForm" method="post" enctype="multipart/form-data">
                                                 <div class="row mt-3">
                                                     <div class="w-50 col-md-6">
-                                                        <div>Exercise Name</div>
-                                                        <input type="text" name="exerciseName" class="form-control mt-2" required  placeholder="Exercise Name" />
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="mb-2 mt-2">Level</div>
-
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="levelRadio" id="beginnerRadio" value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">checked</c:if>>
-                                                            <label class="form-check-label" for="beginnerRadio">Beginner</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="levelRadio" id="intermediateRadio" value="Intermediate" <c:if test="${exercise.level eq 'Intermediate'}">checked</c:if>>
-                                                            <label class="form-check-label" for="intermediateRadio">Intermediate</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="levelRadio" id="advancedRadio" value="Advanced" <c:if test="${exercise.level eq 'Advanced'}">checked</c:if>>
-                                                            <label class="form-check-label" for="advancedRadio">Advanced</label>
-                                                        </div>
+                                                        <div>Nutrition Name</div>
+                                                        <input type="text" name="nutritionName" id="nutritionName" class="form-control mt-2" placeholder="Nutrition Name" />
                                                     </div>
                                                 </div>
 
-
-
                                                 <div class="row mt-3">
-                                                    <div class="col-md-6">
-                                                        <div>
-                                                            <div class="mb-2">Affected Muscle</div>
-                                                            <select class="form-select" aria-label="Default select example" name="muscle">
-                                                                <option selected value="None">None</option>
-                                                                <option value="Chest">Chest</option>
-                                                                <option value="Back">Back</option>
-                                                                <option value="Shoulders">Shoulders</option>
-                                                                <option value="Arms">Arms</option>
-                                                                <option value="Abs">Abs</option>
-                                                                <option value="Legs">Legs</option>
-                                                                <option value="Glutes">Glutes</option>
-                                                                <option value="Calves">Calves</option>
-                                                            </select>
-                                                        </div>
+                                                    <div class="col">
+                                                        <div>Calories</div>
+                                                        <input name="calories" id="caloryInput" min="0" type="number"  class="form-control mt-2" placeholder="Number calories" />
                                                     </div>
-
-                                                    <div class="col-md-6">
-                                                        <div>
-                                                            <div class="mb-2">Equipment</div>
-                                                            <select class="form-select" aria-label="Default select example" name="equipment">
-                                                                <option selected value="None">None</option>
-                                                                <option value="Stationary bike">Stationary bike</option>
-                                                                <option value="Elliptical machine">Elliptical machine</option>
-                                                                <option value="Rowing machine">Rowing machine</option>
-                                                                <option value="Free weights">Free weights</option>
-                                                                <option value="Resistance bands">Resistance bands</option>
-                                                                <option value="Kettlebells">Kettlebells</option>
-                                                                <option value="Bench press">Bench press</option>
-                                                                <option value="Leg press machine">Leg press machine</option>
-                                                                <option value="Pull-up bar">Pull-up bar</option>
-                                                                <option value="Dumbbells">Dumbbells</option>
-                                                                <option value="Barbells">Barbells</option>
-                                                                <option value="Exercise ball">Exercise ball</option>
-                                                                <option value="Yoga mat">Yoga mat</option>
-                                                                <option value="Jump rope">Jump rope</option>
-                                                                <option value="Medicine ball">Medicine ball</option>
-                                                                <option value="Foam roller">Foam roller</option>
-                                                            </select>
-                                                        </div>
+                                                    <div class="col">
+                                                        <div>Protein</div>
+                                                        <input name="protein" id="proteinInput" min="0" type="number"  class="form-control mt-2" placeholder="Number protein" />
+                                                    </div>
+                                                    <div class="col">
+                                                        <div>Fat</div>
+                                                        <input name="fat" id="fatInput" min="0" type="number"  class="form-control mt-2" placeholder="Number fat" />
+                                                    </div>
+                                                    <div class="col">
+                                                        <div>Carb</div>
+                                                        <input name="carb" id="carbInput" min="0" type="number"  class="form-control mt-2" placeholder="Number carb" />
                                                     </div>
                                                 </div>
 
@@ -275,22 +231,9 @@
                                                 </div>
 
 
-                                                <div class="mt-4">
-                                                    <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control w-50" name="youtubeLink" required>
-                                                    <button type="button" id="changeVideoBtn" class="btn btn-warning mt-1">Add Video</button>
-                                                </div>
-
-                                                <div id="playerContainer" style="display: none;" class="mt-2">
-                                                    <div id="player"></div>
-                                                </div>
-
-                                                <div class="hello-park mt-3">
-                                                    <textarea required class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description" name="exerciseDescription"></textarea>
-                                                </div>
-
                                                 <div class="mt-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" name="isPrivate">
+                                                        <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" name="isPrivate" disabled>
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             Private (Only you and the gymer working with you can see)
                                                         </label>
@@ -298,25 +241,24 @@
                                                 </div>
 
                                                 <div id="errorMessages">
-                                                    <p id="exerciseNameError" class="text-danger"></p>
-                                                    <p id="levelError" class="text-danger"></p>
-                                                    <p id="equipmentError" class="text-danger"></p>
-                                                    <p id="muscleError" class="text-danger"></p>
+                                                    <p id="nutritionNameError" class="text-danger"></p>
+                                                    <p id="caloryError" class="text-danger"></p>
+                                                    <p id="proteinError" class="text-danger"></p>
+                                                    <p id="fatError" class="text-danger"></p>
+                                                    <p id="carbError" class="text-danger"></p>
                                                     <p id="imageError" class="text-danger"></p>
-                                                    <p id="youtubeLinkError" class="text-danger"></p>
-                                                    <p id="exerciseDescriptionError" class="text-danger"></p>
                                                 </div>
 
 
                                                 <div class="d-flex mt-3">
                                                     <button type="submit" class="btn btn-primary me-2">
-                                                        Create
+                                                        Update
                                                     </button>
-                                                    <a href="/exercise/" class="btn btn-danger">
+                                                    <a id="cancelButton" href="" class="btn btn-danger">
                                                         Cancel
                                                     </a>
                                                 </div>
-                                            </form:form>
+                                            </form>
 
                                         </div>
                                     </div>
@@ -347,9 +289,56 @@
 
     <script src="../../assets/js/script.js"></script>
 
+    <script>
+        var nutrition = ${nutrition}
+    </script>
+
+<%--    <script src="../../assets/js/nutrition/create/nutrition-create-submit-handler.js"></script>--%>
+    <script>
+        $(document).ready(function() {
+            $('#nutritionForm').submit(function(event) {
+                var isValid = true;
+
+                // Mảng chứa thông tin về các trường cần kiểm tra
+                var fieldsToCheck = [
+                    { id: 'nutritionName', errorMessageId: 'nutritionNameError', errorMessage: 'Nutrition Name is required' },
+                    { id: 'caloryInput', errorMessageId: 'caloryError', errorMessage: 'Calories is required' },
+                    { id: 'proteinInput', errorMessageId: 'proteinError', errorMessage: 'Protein is required' },
+                    { id: 'fatInput', errorMessageId: 'fatError', errorMessage: 'Fat is required' },
+                    { id: 'carbInput', errorMessageId: 'carbError', errorMessage: 'Carb is required' }
+                ];
+
+                // Lặp qua mảng các trường và kiểm tra
+                fieldsToCheck.forEach(function(field) {
+                    var fieldValue = $('#' + field.id).val().trim();
+                    if (fieldValue === '') {
+                        $('#' + field.errorMessageId).text(field.errorMessage);
+                        isValid = false;
+                    } else {
+                        $('#' + field.errorMessageId).text('');
+                    }
+                });
+
+                // Kiểm tra hình ảnh
+                var image = $('#imageInput').val();
+                if (!image) {
+                    $('#imageError').text('Image is required');
+                    isValid = false;
+                } else {
+                    $('#imageError').text('');
+                }
+
+                // Check if all required fields are filled
+                if (!isValid) {
+                    event.preventDefault(); // Prevent form submission if validation fails
+                }
+            });
+        });
+
+
+    </script>
     <script src="../../assets/js/exercise/create/exercise-create-image-import.js"></script>
-    <script src="../../assets/js/exercise/create/exercise-create-youtube-extract.js"></script>
-    <script src="../../assets/js/exercise/create/exercise-create-submit-handler.js"></script>
+    <script src="../../assets/js/nutrition/update/nutrition-update-load-old-data.js"></script>
 </body>
 
 </html>

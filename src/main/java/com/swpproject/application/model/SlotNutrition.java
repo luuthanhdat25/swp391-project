@@ -10,8 +10,8 @@ import org.springframework.data.relational.core.mapping.Table;
 @Setter
 @Data
 @Entity
-@Table(name = "slot_exercise")
-public class SlotExercise {
+@Table(name = "slot_nutrition")
+public class SlotNutrition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,19 +22,9 @@ public class SlotExercise {
     private String end_hour;
     private int week;
     private int year;
-    private boolean isPending;
-    private String attendant_status;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
-
-    @ManyToOne
-    @JoinColumn(name = "personal_trainer_id", nullable = true)
-    private PersonalTrainer personalTrainer;
-
-    @ManyToOne
-    @JoinColumn(name = "gymer_id", nullable = true)
-    private Gymer gymer;
 
 }

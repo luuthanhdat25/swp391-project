@@ -109,3 +109,33 @@ function saveCheckboxData(slot, day, isChecked) {
     // Update the hidden input value
     document.getElementById('selectedSlotsAndDays').value = selectedSlotsAndDays.join(',');
 }
+$(document).ready(function () {
+    // Event handler for the Training Time select change
+    $('#trainingTimeSelect').change(function () {
+        // Get selected training time value
+        var trainingTime = parseInt($(this).val());
+
+        // Get the Training fee from the hidden input field
+        var trainingFee = parseInt($('#trainingFee').text()); // Extract the value from the span
+
+        // Get the Training slot per week
+        var trainingSlotPerWeek = 5; // Change this value as needed
+
+        // Calculate total amount based on the selected training time
+        var totalAmount;
+        if (trainingTime === 1) {
+            totalAmount = trainingFee * trainingSlotPerWeek * 4;
+        } else if (trainingTime === 2) {
+            totalAmount = trainingFee * trainingSlotPerWeek * 3 * 4;
+        } else if (trainingTime === 3) {
+            totalAmount = trainingFee * trainingSlotPerWeek * 6 * 4;
+        } else {
+            // Handle invalid or default case
+            totalAmount = 0;
+        }
+
+        // Update the Total Amount span
+        $('#totalAmountSpan').text('$' + totalAmount.toFixed(2)); // Format as currency
+        $('#totalPrice').val(totalAmount.toFixed(2));
+    });
+});

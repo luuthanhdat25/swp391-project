@@ -1,5 +1,6 @@
 package com.swpproject.application.model;
 
+import com.swpproject.application.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.relational.core.mapping.Table;
@@ -22,7 +23,7 @@ public class OrderRequest {
     private Date datetime_start;
     private Date datetime_end;
     private int total_of_money;
-
+    private OrderStatus status;
     @ManyToOne
     @JoinColumn(name = "Gymer_ID",referencedColumnName = "id",nullable = false)
     private Gymer gymer;

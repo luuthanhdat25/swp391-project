@@ -115,12 +115,14 @@ public class AuthenticationController {
     public String authCertificates() {
         return "authentication/upload-certificate";
     }
+
     @PostMapping("/certificate")
     public String uploadImages(@RequestParam("file1") MultipartFile file1,
                                @RequestParam("file2") MultipartFile file2,
                                @RequestParam("file3") MultipartFile file3) {
 
         try {
+            System.out.println(file1.getOriginalFilename() + file1.getBytes());
             certificateService.save(file1.getOriginalFilename(), file1.getBytes());
             certificateService.save(file2.getOriginalFilename(), file2.getBytes());
             certificateService.save(file3.getOriginalFilename(), file3.getBytes());
@@ -200,6 +202,8 @@ public class AuthenticationController {
                 personalTrainerService.save(personalTrainer);
                 SchedulePersonalTrainer schedulePersonalTrainerEntity = new SchedulePersonalTrainer();
                 schedulePersonalTrainerEntity.setPersonalTrainer(personalTrainer);
+
+                session.setAttribute("personalTrainer", personalTrainer);
                 return "redirect:/auth/certificate";
             } else {
                 Gymer gymer = new Gymer();

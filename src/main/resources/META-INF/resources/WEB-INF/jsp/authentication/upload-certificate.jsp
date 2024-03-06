@@ -1,7 +1,7 @@
 <%@ include file="../common/header.jspf" %>
 
 <div class="container" style="position: relative">
-<form:form action="/uploadImages" method="post" enctype="multipart/form-data">
+<form:form action="${pageContext.request.contextPath}/auth/certificate" method="post" enctype="multipart/form-data">
     <div class="form">
         <h2>Personal Trainer must upload 3 lastest certificates</h2>
         <div class="grid">

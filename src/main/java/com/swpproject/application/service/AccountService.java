@@ -17,7 +17,7 @@ public interface AccountService {
     Optional<Account> getAccountByEmail(String email);
 
     @Transactional
-    List<Account> findAccountByRole(String role);
+    List<Account> findAccountByRole(Role role);
 
     @Transactional
     Account loginByEmail(String email, String password);

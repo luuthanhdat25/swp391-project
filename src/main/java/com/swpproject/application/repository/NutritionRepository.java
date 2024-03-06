@@ -26,7 +26,7 @@ public class NutritionRepository {
     }
 
     public Nutrition findById(Integer id) {
-        String sql = "SELECT * FROM nutrition WHERE id = ?";
+        String sql = "SELECT * FROM nutrition WHERE nutrition_id = ?";
         return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Nutrition.class), id);
     }
 

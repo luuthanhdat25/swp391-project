@@ -196,11 +196,12 @@
                                             <form id="exerciseForm" action="/exercise/details/edit" method="post" enctype="multipart/form-data">
                                                 <div class="row mt-3">
                                                     <div class="w-50 col-md-6">
-                                                        <input id="exerciseName" type="text" name="exerciseName" class="form-control" placeholder="Exercise Name" />
+                                                        <div>Exercise Name</div>
+                                                        <input id="exerciseName" type="text" name="exerciseName" class="form-control mt-2" placeholder="Exercise Name" />
                                                     </div>
 
                                                     <div class="col-md-6" id="exerciseLevel">
-                                                        <div class="mb-2">Level</div>
+                                                        <div class="mb-2 mt-2">Level</div>
                                                         <div class="form-check form-check-inline">
                                                             <input class="form-check-input" type="radio" name="levelRadio" id="beginnerRadio" value="Beginner">
                                                             <label class="form-check-label" for="beginnerRadio">Beginner</label>

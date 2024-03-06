@@ -1,22 +1,23 @@
 package com.swpproject.application.controller.nutrition;
 
-    import com.swpproject.application.model.Exercise;
 import com.swpproject.application.model.Nutrition;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.PersonalTrainerRepository;
 import com.swpproject.application.utils.JsonUtils;
 import com.swpproject.application.repository.NutritionRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -37,7 +38,6 @@ public class NutritionController {
     public String getExerciseListPage(ModelMap model) {
         List<Nutrition> list = nutritionRepository.findAll();
         String json = JsonUtils.jsonConvert(list);
-        System.out.println(json);
         model.addAttribute("nutritionList", json);
         return "nutrition-list";
     }
@@ -67,6 +67,18 @@ public class NutritionController {
 
         nutritionRepository.save(nutrition);
         return "redirect:/nutrition/";
+    }
+
+    //Get update view nutrition
+    @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    public String getExerciseDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
+        HttpSession session = request.getSession();
+        session.setAttribute("nutritionId", id);
+
+        Nutrition nutrition = nutritionRepository.findById(id);
+        String json = JsonUtils.jsonConvert(nutrition);
+        model.addAttribute("nutrition", json);
+        return "nutrition-update";
     }
 }
 

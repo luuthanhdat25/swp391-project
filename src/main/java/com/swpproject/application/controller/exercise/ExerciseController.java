@@ -88,7 +88,6 @@ public class ExerciseController {
     //Get update view exercise
     @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
-        // Lưu id vào session
         HttpSession session = request.getSession();
         session.setAttribute("exerciseId", id);
 

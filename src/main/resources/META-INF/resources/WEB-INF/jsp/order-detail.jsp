@@ -473,7 +473,7 @@
                                 <div class="col-md-6">
 
 
-                                    <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
+                                    <form:form action="${pageContext.request.contextPath}/accept-order" method="post">
                                     <h5 class="card-title">Purpose details</h5>
                                         <div class="form-group">
                                             <label>Gymer Name:</label>
@@ -521,6 +521,21 @@
                                                        class="form-control">
                                             </div>
                                         </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Start Date:</label>
+                                                <input type="text" placeholder="${DateStart}" readonly
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>End Date:</label>
+                                                <input type="text" placeholder="${DateEnd}" readonly
+                                                       class="form-control">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -543,7 +558,8 @@
                                     <tbody>
                                     <c:forEach begin="5" end="21" var="hour" step="2">
                                         <tr>
-                                            <td class="time-column">${hour}:00 - ${hour + 2}:00</td>
+                                            <td style="width: 150px;" class="time-column">${hour}:00 - ${hour + 2}:00
+                                            </td>
                                             <c:forEach var="day"
                                                        items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
                                                 <c:set var="disabled" value="false"/>
@@ -566,6 +582,9 @@
                                     </tbody>
                                 </table>
                             </div>
+
+
+
                             <div>
                                 <button type="submit" class="btn btn-primary">Accept
 
@@ -574,6 +593,12 @@
 
                                 </button>
                             </div>
+                                ${MSG}
+                                <input type="hidden" name="order" value="${param.order_id}">
+                                <c:forEach var="slot" items="${allSlots}" varStatus="loop">
+                                    <input type="hidden" name="slotOrder" value="${slot.id}" />
+                                </c:forEach>
+
                             </form:form>
                         </div>
                     </div>

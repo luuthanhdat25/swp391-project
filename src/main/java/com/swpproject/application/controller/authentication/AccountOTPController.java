@@ -4,7 +4,7 @@ import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Gymer;
 import com.swpproject.application.model.PersonalTrainer;
-import com.swpproject.application.model.SchedulePersonalTrainer;
+import com.swpproject.application.model.Schedule;
 import com.swpproject.application.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,12 +67,15 @@ public class AccountOTPController {
                 PersonalTrainer personalTrainer = new PersonalTrainer();
                 personalTrainer.setAccount((Account)session.getAttribute("account"));
                 personalTrainerService.save(personalTrainer);
-                SchedulePersonalTrainer schedulePersonalTrainerEntity = new SchedulePersonalTrainer();
+                Schedule schedulePersonalTrainerEntity = new Schedule();
                 schedulePersonalTrainerEntity.setPersonalTrainer(personalTrainer);
                 schedulePersonalTrainerService.save(schedulePersonalTrainerEntity);
             } else if (((Account) session.getAttribute("account")).getRole().equals(Role.GYMER)) {
                 Gymer gymer = new Gymer();
                 gymer.setAccount((Account)session.getAttribute("account"));
+                Schedule scheduleGymerEntity = new Schedule();
+                scheduleGymerEntity.setGymer(gymer);
+                schedulePersonalTrainerService.save(scheduleGymerEntity);
                 gymerService.SaveGymer(gymer);
             }
 

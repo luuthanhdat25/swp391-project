@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
     Optional<Schedule> findScheduleById(Integer id);
+    public Schedule findAllByPersonalTrainer_Id(Integer id);
+
 }

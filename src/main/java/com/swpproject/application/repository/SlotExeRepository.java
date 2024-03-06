@@ -19,7 +19,7 @@ public class SlotExeRepository {
     public SlotExercise save(SlotExercise slotExercise) {
         String sql = "INSERT INTO slot_exercise (attendant_status, day, week, year, start_hour, end_hour, is_pending, schedule_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, slotExercise.getAttendant_status(), slotExercise.getDay(), slotExercise.getWeek(),
+        jdbcTemplate.update(sql, slotExercise.getAttendantStatus(), slotExercise.getDay(), slotExercise.getWeek(),
                 slotExercise.getYear(), slotExercise.getStart_hour(), slotExercise.getEnd_hour(),
                 slotExercise.isPending(), slotExercise.getSchedule().getId());
         return slotExercise;

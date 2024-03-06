@@ -1,4 +1,5 @@
 <%@include file="common/header.jspf" %>
+
 <link rel="stylesheet" href="../../assets/css/styleBook.css">
 <body>
 
@@ -463,22 +464,45 @@
                             <h5 class="card-title">Request form</h5>
                         </div>
                         <div class="card-body">
-                            <form action="" method="post">
+
+                            <div class="col-md-2">
+                                <form action="/bookPT1" method="get">
+                                    <select id="year" class="form-control" name="year"
+                                            onchange="updateWeeks()">
+                                        <!-- Thay đổi dải số năm tùy ý -->
+                                        <script>
+                                            var currentYear = new Date().getFullYear();
+                                            for (var i = currentYear; i >= currentYear - 10; i--) {
+                                                document.write("<option value='" + i + "'>" + i + "</option>");
+                                            }
+                                        </script>
+                                    </select>
+
+                                    <select id="week" class="form-control" name="week"
+                                            onchange="this.form.submit()">
+                                        <!-- Options will be generated dynamically by JavaScript -->
+                                    </select>
+                                    <input type="hidden" name="accountId" value="${param.accountId}">
+                                </form>
+                            </div>
+
+                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <h5 class="card-title">Purpose details</h5>
                                         <div class="form-group">
                                             <label>Goals:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" name="goals">
                                         </div>
                                         <div class="form-group">
                                             <label>Description:</label>
                                             <textarea rows="5" cols="5" class="form-control"
-                                                      placeholder="Details about your goals"></textarea>
+                                                      placeholder="Details about your goals"
+                                                      name="description"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Training time:</label>
-                                            <select class="select">
+                                            <select class="select" name="TrainingTime" id="trainingTimeSelect">
                                                 <option selected disabled>Select Training Time</option>
                                                 <option value="1">1 months</option>
                                                 <option value="2">3 months</option>
@@ -488,13 +512,13 @@
                                         <div class="invoice-total-card" id="invoiceTotalCard" style="display: none;">
                                             <div class="invoice-total-box">
                                                 <div class="invoice-total-inner">
-                                                    <p>Training slot <span>20</span></p>
+                                                    <p>Training slot per week <span>5</span></p>
                                                     <p>Slot duration<span>2 hours</span></p>
-                                                    <p>Training fee<span>$3,300.00</span></p>
-                                                    <p class="mb-0">Total amount: <span>$3,300.00</span></p>
+                                                    <p>Training fee<span id="trainingFee">${personalTrainer.price}</span></p>
                                                 </div>
                                                 <div class="invoice-total-footer">
-                                                    <h4>Total Amount <span>$143,300.00</span></h4>
+                                                    <h4>Total Amount <span id="totalAmountSpan">$0.00</span></h4>
+                                                    <input type="hidden" id="totalPrice" name="totalPrice" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -556,22 +580,7 @@
                                 <div class="row">
                                     <h5 class="card-title">Choose your training schedule</h5>
                                     <div class="col-md-2">
-                                        <form action="/SelectWeek" method="get">
-                                            <select id="year" class="form-control" name="year"
-                                                    onchange="updateWeeks()">
-                                                <!-- Thay đổi dải số năm tùy ý -->
-                                                <script>
-                                                    var currentYear = new Date().getFullYear();
-                                                    for (var i = currentYear; i >= currentYear - 10; i--) {
-                                                        document.write("<option value='" + i + "'>" + i + "</option>");
-                                                    }
-                                                </script>
-                                            </select>
-                                            <select id="week" class="form-control" name="week"
-                                                    onchange="this.form.submit()">
-                                                <!-- Options will be generated dynamically by JavaScript -->
-                                            </select>
-                                        </form>
+
                                     </div>
                                     <table class="table table-bordered">
                                         <thead>
@@ -605,12 +614,13 @@
                                                 <c:forEach var="day"
                                                            items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
                                                     <c:set var="disabled" value="false"/>
-                                                    <c:forEach items="${allSlots}" var="scheduleSlot">
-                                                        <c:if test="${scheduleSlot.start_hour == hour && scheduleSlot.end_hour == hour + 2 && scheduleSlot.day eq day.toLowerCase()
-                                                        }">
+                                                    <c:forEach items="${allSlot}" var="Slot">
+                                                        <c:if test="${Slot.start_hour == hour && Slot.end_hour == hour + 2 && Slot.day eq day.toLowerCase()
+                                                        && Slot.CheckPending() == false}">
                                                             <c:set var="disabled" value="true"/>
                                                         </c:if>
                                                     </c:forEach>
+
                                                     <td>
                                                         <input type="checkbox" name="checkedSlots"
                                                                value="${day.toLowerCase()}-${hour}-${hour + 2}"
@@ -629,7 +639,10 @@
                                             onclick="saveCheckedSlots()">Send
                                     </button>
                                 </div>
-                            </form>
+                                <input type="hidden" name="year" value="${param.year}">
+                                <input type="hidden" name="week" value="${param.week}">
+                                <input type="hidden" name="accountId" value="${param.accountId}">
+                            </form:form>
                         </div>
                     </div>
                 </div>
@@ -724,7 +737,7 @@
             var startOfWeek = moment().isoWeekYear(year).isoWeek(i).startOf('isoWeek');
             var endOfWeek = moment().isoWeekYear(year).isoWeek(i).endOf('isoWeek');
             var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');
-            weeks.push("<option value='" +i+ "'>" + weekText + "</option>");
+            weeks.push("<option value='" + i + "'>" + weekText + "</option>");
         }
 
         $("#week").html(weeks.join(""));
@@ -755,7 +768,6 @@
         });
     }
 </script>
-
 
 
 <script src="assets/js/jquery-3.6.0.min.js"></script>

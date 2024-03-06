@@ -1,14 +1,15 @@
-package com.swpproject.application.service;
+package com.swpproject.application.service.impl;
 
 import com.swpproject.application.model.Schedule;
 import com.swpproject.application.repository.ScheduleRepository;
+import com.swpproject.application.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 @Service
-public class ScheduleServiceImplement implements ScheduleService{
+public class ScheduleServiceImplement implements ScheduleService {
 
     @Autowired
     private ScheduleRepository scheduleRepository;
@@ -24,7 +25,6 @@ public class ScheduleServiceImplement implements ScheduleService{
     }
 
     @Override
-    public void save(Schedule schedule) {
-        scheduleRepository.save(schedule);
+    public void save(Schedule schedule) {scheduleRepository.save(schedule);
     }
 }

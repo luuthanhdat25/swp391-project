@@ -12,7 +12,7 @@
                         <h1>OTP Verification</h1>
                         <p>A OTP Code with 6 digits already sent to your email.</p>
                         <b style="margin: 0">Enter OTP:</b>
-                        <form:form action="otp" method="POST" onsubmit="concatenateDigits()" class="digit-group" data-group-name="digits" data-autosubmit="false" modelAttribute="account" autocomplete="off">
+                        <form:form action="otp" method="POST" onsubmit="concatenateDigits()" class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
                             <input type="text" id="digit1" name="digit1" data-next="digit2" required/>
                             <input type="text" id="digit2" name="digit2" data-next="digit3" data-previous="digit1" required/>
                             <input type="text" id="digit3" name="digit3" data-next="digit4" data-previous="digit2" required/>

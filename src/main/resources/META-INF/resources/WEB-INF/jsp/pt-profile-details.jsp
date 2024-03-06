@@ -38,9 +38,10 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 d-flex align-items-center">
                                         <div class="follow-btn-group">
-                                            <a id="personalTrainerBook" href="#" class="btn btn-info message-btns">Book</a>
-                                            <a href="#" class="btn btn-info message-btns">Inbox</a>
-                                            <a href="#" class="btn btn-info message-btns">Report</a>
+                                            <button type="submit" class="btn btn-info message-btns">Book</button>
+                                            <button type="submit" class="btn btn-info message-btns">Inbox</button>
+                                            <button type="submit" class="btn btn-info message-btns"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal">Report</button>
                                         </div>
                                     </div>
                                 </div>
@@ -221,6 +222,14 @@
             </div>
         </div>
     </div>
+
+     <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+         <div class="modal-dialog modal-lg modal-dialog-centered" style = "width: 630px;">
+             <div class="modal-content">
+                 <%@include file = "../../WEB-INF/jsp/report/AddReport.jsp" %>
+             </div>
+         </div>
+     </div>
 </div>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script src="../../assets/js/jquery-3.6.0.min.js"></script>

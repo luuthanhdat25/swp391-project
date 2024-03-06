@@ -69,72 +69,74 @@
 
         <%-- Div này hiển thị notification's list khi user click vào "Manage notification" button --%>
             <div class="page-wrapper d-flex flex-column align-items-center"
-                 style="width: 80%; float: right; background-color: #7c7c7c; padding-top: 70px;">
+                 style="width: 80%; height: fit-content; float: right; padding: 70px 0 40px 0;">
 
-                <div class="notification-detail d-flex justify-content-center">
-                    <div class="d-flex flex-column" style="width: 80%; margin-top: 80px;">
+                <div class="notification-detail d-flex flex-column align-items-center">
+                    <div style="width: 95%; height: auto; background-color: #FFFFFF;
+                                border: 1px solid #4c4c4c; border-radius: 6px;
+                                padding: 10px; font-size: 20px; color: #4c4c4c;  text-align: center;">
+                        Manage notification
+                    </div>
+
+                    <div class="d-flex flex-column" style="width: 94%; margin-top: 50px;">
 
                         <%--Div chứa thanh search và "add notification" button--%>
                         <div class="d-flex justify-content-between align-items-center">
-                            <nav class="navbar navbar-light"> <%--Search box--%>
-                                <div class="container-fluid">
-                                    <form class="d-flex">
-                                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                        <button class="btn btn-outline-success" type="submit">Search</button>
-                                    </form>
-                                </div>
-                            </nav>
-                            <form action="view-creating-notification-detail" method="GET"> " <%--Add notification" button--%>
-                                <button type="submit" style="height: 50px; width: 180px; background-color: #3c763d;" class="btn btn-success">Add Notification</button>
+                            <div class="input-group" style="width: 50%;">
+                                <input type="text" class="form-control" style="border: 1px solid #4c4c4c;" placeholder="Enter notification's title">
+                                <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                            </div>
+
+                            <form action="view-creating-notification-detail" method="GET"> <%--Add notification" button--%>
+                                <button type="submit" style="height: 50px; width: 164px; background-color: #3c763d;" class="btn btn-success">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                                      <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0"/>
+                                    </svg>  add notification
+                                </button>
                             </form>
                         </div>
 
                         <%--Table hiển thị notification's list--%>
                         <table class="table table-hover">
-                            <thead class="table-light">
+                            <thead class="table-dark">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Title</th>
+                                    <th scope="col">Reason</th>
                                     <th scope="col">TimeStamp</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="notification" items="${NotificationList}" varStatus="loop">
+                               <c:forEach var="report" items="${ReportLists}">
                                     <tr>
-                                        <th scope="row">${loop.index + 1}</th>
-                                        <td><div class="text-truncate" style="max-width: 300px;">${notification.title}</div></td>
-                                        <td class="d-flex justify-content-between" style="font-style: italic; width: 150px;">
-                                            <div>${notification.timeStamp.getHour()}:${notification.timeStamp.getMinute()}</div>
-                                            <div>${notification.timeStamp.getDayOfMonth()}/${notification.timeStamp.getMonthValue()}/${notification.timeStamp.getYear()}</div>
-                                        </td>
-                                        <td>
-                                            <button type="submit" class="btn btn-danger" style="height: 40px; width: 100px;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height=19 fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
-                                                  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
-                                                </svg>
-                                                Remove
-                                            </button>
-                                        </td>
+                                        <th scope="row">${report.id}</th>
+                                        <td><div class="text-truncate" style="max-width: 300px;">${report.title}</div></td>
+                                        <td>${report.dateTime}</td>
+                                        <td><button type="submit" class="btn btn-success" style="height: 50px; width: 110px; background-color: #3c763d;">Remove</button></td>
                                     </tr>
-                                </c:forEach>
+                               </c:forEach>
                             </tbody>
                         </table>
 
                         <%--Phân trang--%>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item disabled">
-                                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        <nav aria-label="Page navigation example" style = "height: 20px; margin: 20px 0 20px 0;">
+                           <ul class="pagination justify-content-center ">
+                             <%
+                                int totalPage = (int)request.getAttribute("TotalPage");
+                                int currentPage = (int)request.getAttribute("CurrentPage");
+                             %>
+                             <li class="page-item <%= currentPage - 1 < 1 ? "disabled" : "" %>">
+                                <a class="page-link" href="view-report-list-and-detail?papeNo=<%=currentPage - 1%>">Previous</a>
+                             </li>
+                             <% for (int i = currentPage; i <= Math.min(totalPage, currentPage + 3); i++) { %>
+                                <li class="page-item <%= i == currentPage ? "disabled" : "" %>">
+                                   <a class="page-link" href="view-report-list-and-detail?papeNo=<%=i%>"><%=i%></a>
                                 </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                  <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
+                             <% } %>
+                             <li class="page-item <%= currentPage + 1 > totalPage ? "disabled" : "" %>">
+                                <a class="page-link" href="view-report-list-and-detail?papeNo=<%=currentPage + 1%>">Next</a>
+                             </li>
+                           </ul>
                         </nav>
 
                     </div>

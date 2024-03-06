@@ -2,6 +2,7 @@ package com.swpproject.application.service.impl;
 
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
+import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,6 @@ import java.util.logging.Logger;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-
-
-
 
     @Autowired
     private AccountRepository accountRepository;
@@ -29,11 +27,8 @@ public class AccountServiceImpl implements AccountService {
     public Optional<Account> getAccountByEmail(String email) {
         return accountRepository.findAccountByEmail(email);
     }
-    @Override
-    public Optional<Account> findAccountByEmail(String email) {
-        return Optional.empty();
-    }
 
+    @Override
     public  List<Account> findAccountByRole(Role role){
         return accountRepository.findAccountByRole(role);
     }

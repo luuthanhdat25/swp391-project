@@ -1,7 +1,7 @@
 package com.swpproject.application.enums;
 
 public enum Attendant {
-    PRESEBNT("PRESENT"),WAITING("WAITING"),ABSENT("ABSENT");
+    PRESENT("PRESENT"),WAITING("WAITING"),ABSENT("ABSENT");
     private final String desc;
 
 

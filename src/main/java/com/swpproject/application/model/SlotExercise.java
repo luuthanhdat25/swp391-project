@@ -42,23 +42,6 @@ public class SlotExercise {
     @JoinColumn(name = "OrderId", nullable = true)
     private OrderRequest orderRequest;
 
-    @Override
-    public String toString() {
-        return "SlotExercise{" +
-                "id=" + id +
-                ", day='" + day + '\'' +
-                ", start_hour='" + start_hour + '\'' +
-                ", end_hour='" + end_hour + '\'' +
-                ", week=" + week +
-                ", year=" + year +
-                ", isPending=" + isPending +
-                ", attendantStatus=" + attendantStatus +
-                ", schedule=" + schedule.getId() +
-                ", personalTrainer=" + personalTrainer.getId() +
-                ", gymer=" + gymer.getGymerId() +
-                ", orderRequest=" + orderRequest.getOrder_id() +
-                '}';
-    }
     public boolean CheckPending(){
         return this.isPending;
     }

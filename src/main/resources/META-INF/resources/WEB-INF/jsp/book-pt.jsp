@@ -625,7 +625,8 @@
                                                         <input type="checkbox" name="checkedSlots"
                                                                value="${day.toLowerCase()}-${hour}-${hour + 2}"
                                                                <c:if test="${disabled}">disabled="disabled"</c:if>
-                                                               id="${day.toLowerCase()}-${hour}${hour + 2}">
+                                                               id="${day.toLowerCase()}-${hour}${hour + 2}"
+                                                               onchange="limitSlots(this)">
                                                         <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
                                                     </td>
                                                 </c:forEach>
@@ -633,6 +634,9 @@
                                         </c:forEach>
                                         </tbody>
                                     </table>
+                                </div>
+                                <div id="warningMessage" style="display: none; color: red;">
+                                    Use just select 5 slot
                                 </div>
                                 <div>
                                     <button style="width: 10%;" type="submit" class="btn btn-primary"

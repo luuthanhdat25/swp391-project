@@ -139,3 +139,19 @@ $(document).ready(function () {
         $('#totalPrice').val(totalAmount.toFixed(2));
     });
 });
+
+var selectedSlots = 0;
+
+function limitSlots(checkbox) {
+    if (checkbox.checked) {
+        if (selectedSlots >= 5) {
+            document.getElementById("warningMessage").style.display = "block";
+            checkbox.checked = false;
+        } else {
+            selectedSlots++;
+        }
+    } else {
+        selectedSlots--;
+        document.getElementById("warningMessage").style.display = "none";
+    }
+}

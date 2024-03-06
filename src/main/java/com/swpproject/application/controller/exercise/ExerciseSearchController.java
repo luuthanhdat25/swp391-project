@@ -35,6 +35,12 @@ public class ExerciseSearchController {
         return ResponseEntity.ok().body(exercises);
     }
 
+    @PostMapping("/")
+    public ResponseEntity<List<Exercise>> searchExercise() {
+        List<Exercise> exercises = exerciseRepository.findAll();
+        return ResponseEntity.ok().body(exercises);
+    }
+
     private List<Exercise> findByNameContaining(String keyword, List<Exercise> exercises) {
         if(keyword == null) return exercises;
         String finalKeyword = keyword.toLowerCase();

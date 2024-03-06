@@ -254,7 +254,7 @@
                                                     <button type="submit" class="btn btn-primary me-2">
                                                         Create
                                                     </button>
-                                                    <a href="/exercise/" class="btn btn-danger">
+                                                    <a href="/nutrition/" class="btn btn-danger">
                                                         Cancel
                                                     </a>
                                                 </div>

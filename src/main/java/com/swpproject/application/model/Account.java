@@ -1,5 +1,6 @@
 package com.swpproject.application.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.swpproject.application.enums.Gender;
 import com.swpproject.application.enums.Role;
 import jakarta.persistence.*;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 @Data
 @Entity
 @Table(name = "account")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Account {
 
     @Id
@@ -54,12 +56,6 @@ public class Account {
     @Column(name = "avatar_image")
     private byte[] avatarImage;
 
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    PersonalTrainer personalTrainer;
-
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Gymer gymer;
-
     @Override
     public String toString() {
         return "Account{" +
@@ -74,14 +70,6 @@ public class Account {
                 ", role=" + role +
                 ", isBan=" + isBan +
                 ", avatarImage=" + Arrays.toString(avatarImage) +
-                ", personalTrainer=" + personalTrainer +
-                ", gymer=" + gymer +
                 '}';
     }
-    public String getBirthdateString(){
-        return this.birthday.toString();
-    }
-    public Account(String email, String password) {
-    }
-
 }

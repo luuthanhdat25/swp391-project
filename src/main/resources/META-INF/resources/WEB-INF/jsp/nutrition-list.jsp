@@ -26,6 +26,14 @@
 
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/styleSliderBar.css">
+    <style>
+        .rounded-image {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 
 <body>
@@ -34,193 +42,9 @@
 
     <div class="header">
 
-        <div class="header-left">
-            <a href="index.html" class="logo">
-                <img src="../../assets/img/logo.png" alt="Logo">
-            </a>
-            <a href="index.html" class="logo logo-small">
-                <img src="../../assets/img/logo-small.png" alt="Logo" width="30" height="30">
-            </a>
-        </div>
-
-        <div class="menu-toggle">
-            <a href="javascript:void(0);" id="toggle_btn">
-                <i class="fas fa-bars"></i>
-            </a>
-        </div>
-
-        <div class="top-nav-search">
-            <form>
-                <input type="text" class="form-control" placeholder="Search here">
-                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-            </form>
-        </div>
-
-
-        <a class="mobile_btn" id="mobile_btn">
-            <i class="fas fa-bars"></i>
-        </a>
-
-
-        <ul class="nav user-menu">
-            <li class="nav-item dropdown language-drop me-2">
-                <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                    <img src="../../assets/img/icons/header-icon-01.svg" alt="">
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="javascript:;"><i class="flag flag-lr me-2"></i>English</a>
-                    <a class="dropdown-item" href="javascript:;"><i class="flag flag-bl me-2"></i>Francais</a>
-                    <a class="dropdown-item" href="javascript:;"><i class="flag flag-cn me-2"></i>Turkce</a>
-                </div>
-            </li>
-
-            <li class="nav-item dropdown noti-dropdown me-2">
-                <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                    <img src="../../assets/img/icons/header-icon-05.svg" alt="">
-                </a>
-                <div class="dropdown-menu notifications">
-                    <div class="topnav-dropdown-header">
-                        <span class="notification-title">Notifications</span>
-                        <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
-                    </div>
-                    <div class="noti-content">
-                        <ul class="notification-list">
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media d-flex">
-                                            <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image"
-                                                     src="../../assets/img/profiles/avatar-02.jpg">
-                                            </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">Carlson Tech</span> has
-                                                approved <span class="noti-title">your estimate</span></p>
-                                            <p class="noti-time"><span class="notification-time">4 mins ago</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media d-flex">
-                                            <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image"
-                                                     src="../../assets/img/profiles/avatar-11.jpg">
-                                            </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">International Software
-                                                        Inc</span> has sent you a invoice in the amount of <span
-                                                    class="noti-title">$218</span></p>
-                                            <p class="noti-time"><span class="notification-time">6 mins ago</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media d-flex">
-                                            <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image"
-                                                     src="../../assets/img/profiles/avatar-17.jpg">
-                                            </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">John Hendry</span> sent
-                                                a cancellation request <span class="noti-title">Apple iPhone
-                                                        XR</span></p>
-                                            <p class="noti-time"><span class="notification-time">8 mins ago</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media d-flex">
-                                            <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image"
-                                                     src="../../assets/img/profiles/avatar-13.jpg">
-                                            </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">Mercury Software
-                                                        Inc</span> added a new product <span class="noti-title">Apple
-                                                        MacBook Pro</span></p>
-                                            <p class="noti-time"><span class="notification-time">12 mins ago</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="topnav-dropdown-footer">
-                        <a href="#">View all Notifications</a>
-                    </div>
-                </div>
-            </li>
-
-            <li class="nav-item zoom-screen me-2">
-                <a href="#" class="nav-link header-nav-list">
-                    <img src="../../assets/img/icons/header-icon-04.svg" alt="">
-                </a>
-            </li>
-
-            <li class="nav-item dropdown has-arrow new-user-menus">
-                <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                        <span class="user-img">
-                            <img class="rounded-circle" src="../../assets/img/profiles/avatar-01.jpg" width="31"
-                                 alt="Soeng Souy">
-                            <div class="user-text">
-                                <h6>Soeng Souy</h6>
-                                <p class="text-muted mb-0">Administrator</p>
-                            </div>
-                        </span>
-                </a>
-                <div class="dropdown-menu">
-                    <div class="user-header">
-                        <div class="avatar avatar-sm">
-                            <img src="../../assets/img/profiles/avatar-01.jpg" alt="User Image"
-                                 class="avatar-img rounded-circle">
-                        </div>
-                        <div class="user-text">
-                            <h6>Soeng Souy</h6>
-                            <p class="text-muted mb-0">Administrator</p>
-                        </div>
-                    </div>
-                    <a class="dropdown-item" href="profile.html">My Profile</a>
-                    <a class="dropdown-item" href="inbox.html">Inbox</a>
-                    <a class="dropdown-item" href="login.html">Logout</a>
-                </div>
-            </li>
-
-        </ul>
 
     </div>
 
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-inner slimscroll">
-            <div id="sidebar-menu" class="sidebar-menu">
-                <ul>
-                    <li class="menu-title">
-                        <span>Main Menu</span>
-                    </li>
-                    <li>
-                        <a href="/"><i class="feather-grid"></i> <span> Home</span></a>
-                    </li>
-                    <li  class="submenu active">
-                        <a href="#"><i class="fas fa-graduation-cap"></i> <span>Find Personal Trainer</span> </a>
-                    </li>
-                    <li>
-                        <a href="/exercise/"><i class="fas fa-chalkboard-teacher"></i> <span>Exercise Wiki</span></a>
-                    </li>
-                    <%--                        <li>--%>
-                    <%--                            <a href="/nutrition/"><i class="fas fa-building"></i><span>Nutrition Wiki</span> </a>--%>
-                    <%--                        </li>--%>
-                </ul>
-            </div>
-        </div>
-    </div>
 
 
     <div class="page-wrapper">
@@ -373,190 +197,12 @@
                                                     <th>Author</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="teacher-details.html"
-                                                               class="avatar avatar-sm me-2"><img
-                                                                    class="avatar-img rounded-circle"
-                                                                    src="https://lh3.googleusercontent.com/proxy/l7v9o_LIhbLcwWxejszL_7EhaUXVR9pBS2DoZ81tEuwJqPPTZPYwO3MJrd1SSk6g9kEyhmb1pPJcOtTlnNQrdRNcK3TBAJPc73aKzAU"
-                                                                    alt="User Image"></a>
-                                                            <a href="teacher-details.html">Banana</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td><a href="teacher-details.html"
-                                                           class="avatar avatar-sm me-2"><img
-                                                            class="avatar-img rounded-circle"
-                                                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg"
-                                                            alt="User Image"></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="teacher-details.html"
-                                                               class="avatar avatar-sm me-2"><img
-                                                                    class="avatar-img rounded-circle"
-                                                                    src="https://lh3.googleusercontent.com/proxy/l7v9o_LIhbLcwWxejszL_7EhaUXVR9pBS2DoZ81tEuwJqPPTZPYwO3MJrd1SSk6g9kEyhmb1pPJcOtTlnNQrdRNcK3TBAJPc73aKzAU"
-                                                                    alt="User Image"></a>
-                                                            <a href="teacher-details.html">Banana</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td><a href="teacher-details.html"
-                                                           class="avatar avatar-sm me-2"><img
-                                                            class="avatar-img rounded-circle"
-                                                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg"
-                                                            alt="User Image"></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="teacher-details.html"
-                                                               class="avatar avatar-sm me-2"><img
-                                                                    class="avatar-img rounded-circle"
-                                                                    src="https://lh3.googleusercontent.com/proxy/l7v9o_LIhbLcwWxejszL_7EhaUXVR9pBS2DoZ81tEuwJqPPTZPYwO3MJrd1SSk6g9kEyhmb1pPJcOtTlnNQrdRNcK3TBAJPc73aKzAU"
-                                                                    alt="User Image"></a>
-                                                            <a href="teacher-details.html">Banana</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td><a href="teacher-details.html"
-                                                           class="avatar avatar-sm me-2"><img
-                                                            class="avatar-img rounded-circle"
-                                                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg"
-                                                            alt="User Image"></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="teacher-details.html"
-                                                               class="avatar avatar-sm me-2"><img
-                                                                    class="avatar-img rounded-circle"
-                                                                    src="https://lh3.googleusercontent.com/proxy/l7v9o_LIhbLcwWxejszL_7EhaUXVR9pBS2DoZ81tEuwJqPPTZPYwO3MJrd1SSk6g9kEyhmb1pPJcOtTlnNQrdRNcK3TBAJPc73aKzAU"
-                                                                    alt="User Image"></a>
-                                                            <a href="teacher-details.html">Banana</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td><a href="teacher-details.html"
-                                                           class="avatar avatar-sm me-2"><img
-                                                            class="avatar-img rounded-circle"
-                                                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg"
-                                                            alt="User Image"></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="teacher-details.html"
-                                                               class="avatar avatar-sm me-2"><img
-                                                                    class="avatar-img rounded-circle"
-                                                                    src="https://lh3.googleusercontent.com/proxy/l7v9o_LIhbLcwWxejszL_7EhaUXVR9pBS2DoZ81tEuwJqPPTZPYwO3MJrd1SSk6g9kEyhmb1pPJcOtTlnNQrdRNcK3TBAJPc73aKzAU"
-                                                                    alt="User Image"></a>
-                                                            <a href="teacher-details.html">Banana</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td><a href="teacher-details.html"
-                                                           class="avatar avatar-sm me-2"><img
-                                                            class="avatar-img rounded-circle"
-                                                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg"
-                                                            alt="User Image"></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="teacher-details.html"
-                                                               class="avatar avatar-sm me-2"><img
-                                                                    class="avatar-img rounded-circle"
-                                                                    src="https://lh3.googleusercontent.com/proxy/l7v9o_LIhbLcwWxejszL_7EhaUXVR9pBS2DoZ81tEuwJqPPTZPYwO3MJrd1SSk6g9kEyhmb1pPJcOtTlnNQrdRNcK3TBAJPc73aKzAU"
-                                                                    alt="User Image"></a>
-                                                            <a href="teacher-details.html">Banana</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td><a href="teacher-details.html"
-                                                           class="avatar avatar-sm me-2"><img
-                                                            class="avatar-img rounded-circle"
-                                                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg"
-                                                            alt="User Image"></a>
-                                                    </td>
-                                                </tr>
+                                                <tbody id="nutritionTableBody">
+
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-<%--                                    <div class="card-body row">--%>
-<%--                                        <!-- Left column -->--%>
-<%--                                        <div class="col">--%>
-<%--                                            <img class="w-100 rounded-circle" src="../../assets/img/profiles/avatar-18.jpg" alt="Profile">--%>
-<%--                                        </div>--%>
-
-<%--                                        <!-- Middle column -->--%>
-<%--                                        <div class="col-lg-8">--%>
-<%--                                            <div class="heading-detail d-flex align-items-center">--%>
-<%--                                                <h5 class="mb-0">Personal Trainer Name</h5>--%>
-<%--                                                <div class="ms-2">--%>
-<%--                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFFF00" class="bi bi-star-fill" viewBox="0 0 16 16">--%>
-<%--                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>--%>
-<%--                                                    </svg>--%>
-<%--                                                </div>--%>
-<%--                                                <h6 class="text-muted mb-0 ms-2">4.0 (2 rating)</h6>--%>
-<%--                                            </div>--%>
-
-<%--                                            <div class="personal-activity mt-2 ">--%>
-<%--                                                <div class="personal-icons d-flex align-items-center bg-light rounded-2 p-2 w-auto">--%>
-<%--                                                    <i class="feather-map-pin text-black"></i>--%>
-<%--                                                    <h6 class="text-black mb-0 ms-2">180, Estern Avenue, United States</h6>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-
-<%--                                            <div class="hello-park shortDescription">--%>
-<%--                                                <p>My name is Zhi Sun, I started my professional training career at Equinox Midtown, and worked hard to become a high end tier trainer. I had the opportunity to work with clients of varying levels of fitness. I am originally from Syracuse, NY and I decided to move to the city around 2017. I took a chance and risk to move to a big city and pursue my passion as a full time fitness trainer. </p>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-
-<%--                                        <!-- Right column -->--%>
-<%--                                        <div class="col">--%>
-<%--                                            <div id="caloText">--%>
-<%--                                                <h6 class="text-muted">calo</h6>--%>
-<%--                                                <h5>60.000đ/hr</h5>--%>
-<%--                                            </div>--%>
-<%--                                            <div>--%>
-<%--                                                <button id="viewProfile" class="btn btn-primary font-weight-bold" type="button" style="font-size: 95%">View Profile</button>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
                                 </div>
                             </div>
 
@@ -565,8 +211,39 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body row">
+                        <div class="col-8">
+                            <img class="w-100 mb-2" style="object-fit: cover;" id="modal-image" src="" alt="Nutrition Image">
+                        </div>
+                        <div class="col-4">
+                            <p id="modal-calo"></p>
+                            <p id="modal-protein"></p>
+                            <p id="modal-fat"></p>
+                            <p id="modal-carb"></p>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a id="editButton" href="" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <footer>
-            <p>Copyright © 2022 Gym On.</p>
+            <p>Copyright © 2024 Gym On.</p>
         </footer>
     </div>
 </div>
@@ -582,6 +259,66 @@
 <script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
 <script src="../../assets/js/script.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var nutritionList = ${nutritionList};
+        var tbody = $('.star-student tbody');
+        var defaultIconUrl = 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg';
+
+        $.each(nutritionList, function(index, nutrition) {
+            var row = '<tr>' +
+                '<td>' + (index + 1) + '</td>' +
+                '<td>' +
+                '<h2 class="table-avatar">' +
+                '<a href="#" class="me-2 nutrition-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + nutrition.name + '" data-calo="' + nutrition.caloIn + '" data-protein="' + nutrition.protein + '" data-fat="' + nutrition.fat + '" data-carb="' + nutrition.carb + '" data-image="' + (nutrition.imageDescription || defaultIconUrl) + '" data-id="' + nutrition.nutritionId + '">' +
+                    '<img class=" rounded-image" src="data:image/jpeg;base64,' + (nutrition.imageDescription || defaultIconUrl) + '" alt="User Image">' +
+                    '<p class="m-0 ms-2">' + nutrition.name + '</p>' +
+                '</a>' +
+
+                '</h2>' +
+                '</td>' +
+                '<td>' + nutrition.caloIn + '</td>' +
+                '<td>' + nutrition.protein + '</td>' +
+                '<td>' + nutrition.fat + '</td>' +
+                '<td>' + nutrition.carb + '</td>' +
+                '<td>' +
+                '<a href="#" class="avatar avatar-sm me-2 nutrition-detail" data-bs-toggle="modal" data-bs-target="#exampleModal">' +
+                '<img class="avatar-img rounded-circle" src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg" alt="User Image">' +
+                '</a>' +
+                '</td>' +
+                '</tr>';
+            tbody.append(row);
+        });
+
+        // Sự kiện khi nhấn vào thẻ <a> với class "nutrition-detail"
+        $('.star-student').on('click', '.nutrition-detail', function(event) {
+            event.preventDefault();
+            var modal = $('#exampleModal');
+            var name = $(this).data('name');
+            var calo = $(this).data('calo');
+            var protein = $(this).data('protein');
+            var fat = $(this).data('fat');
+            var carb = $(this).data('carb');
+            var image = $(this).data('image');
+            var id = $(this).data('id');
+
+            modal.find('.modal-title').text(name);
+            modal.find('#modal-image').attr('src', 'data:image/jpeg;base64,' + image);
+            modal.find('#modal-calo').text('Calories: ' + calo);
+            modal.find('#modal-protein').text('Protein: ' + protein);
+            modal.find('#modal-fat').text('Fat: ' + fat);
+            modal.find('#modal-carb').text('Carbohydrates: ' + carb);
+            $('#editButton').attr('href', '/nutrition/details/edit?id=' + id);
+            $('#exampleModal').modal('show');
+        });
+
+    });
+
+
+
+
+</script>
 
 <script>
     function formatNumberWithCommas(number) {

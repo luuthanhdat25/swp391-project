@@ -1,8 +1,7 @@
 package com.swpproject.application.controller.paymemt;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PaymentController {
@@ -18,20 +17,19 @@ public class PaymentController {
         if(paymentStrategy == null) setPaymentStrategy(new VNPayPayment());
 
         if (paymentStrategy != null) {
-            return paymentStrategy.processPayment(amountPay);
+            return "redirect:" + paymentStrategy.processPayment(amountPay);
         } else {
             System.out.println("No payment strategy selected.");
             return null;
         }
     }
 
-    @RequestMapping(value = "/paysuccess", method = RequestMethod.GET)
-    public String successPayment() {
-        return "pay-success";
-    }
-
-    @RequestMapping(value = "/payfail", method = RequestMethod.GET)
-    public String failPayment() {
-        return "pay-fail";
+    @GetMapping("/pay/result")
+    public String successPayment(@RequestParam("vnp_ResponseCode") String responseCode) {
+        if ("00".equals(responseCode)) {
+            return "pay-success";
+        } else {
+            return "pay-fail";
+        }
     }
 }

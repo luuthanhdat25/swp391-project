@@ -1,5 +1,7 @@
 <%@ include file="common/header.jspf" %>
-<%@ include file="common/head.jspf" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<%--<%@ include file="common/head.jspf" %>--%>
 <%@ include file="common/sidebar.jspf" %>
 
 <body>
@@ -13,43 +15,32 @@
                         <div class="col-md-12">
                             <div class="student-profile-head">
                                 <div class="profile-bg-img">
-                                    <img src="assets/img/profile-bg.jpg" alt="Profile">
+                                    <img src="../../assets/img/profile-bg.jpg" alt="Profile">
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4">
                                         <div class="profile-user-box">
                                             <div class="profile-user-img">
-                                                <img src="assets/img/profiles/avatar-18.jpg" alt="Profile">
-                                                <div class="form-group students-up-files profile-edit-icon mb-0">
-                                                    <div class="uplod d-flex">
-                                                        <label class="file-upload profile-upbtn mb-0">
-                                                            <i class="feather-edit-3"></i><input type="file">
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                                <img src="../../assets/img/profiles/avatar-18.jpg" alt="Profile">
                                             </div>
                                             <div class="names-profiles">
-                                                <h4>Joe Kelley</h4>
+                                                <h4 class="personalTrainerName"></h4>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2 d-flex align-items-center">
                                         <div class="follow-group">
                                             <div class="students-follows">
-                                                <h5>Number</h5>
-                                                <h4>2850</h4>
-                                            </div>
-                                            <div class="students-follows">
                                                 <h5>Price</h5>
-                                                <h4>2850</h4>
+                                                <h4 id="personalTrainerPrice"></h4>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 d-flex align-items-center">
                                         <div class="follow-btn-group">
-                                            <button type="submit" class="btn btn-info message-btns">Book</button>
-                                            <button type="submit" class="btn btn-info message-btns">Inbox</button>
-                                            <button type="submit" class="btn btn-info message-btns">Report</button>
+                                            <a id="personalTrainerBook" href="#" class="btn btn-info message-btns">Book</a>
+                                            <a href="#" class="btn btn-info message-btns">Inbox</a>
+                                            <a href="#" class="btn btn-info message-btns">Report</a>
                                         </div>
                                     </div>
                                 </div>
@@ -61,9 +52,6 @@
                             <div class="student-personals-grp">
                                 <div class="card">
                                     <div class="card-body">
-                                        <a style="position: absolute; right: 5px; top: 2px" class="edit-link" data-bs-toggle="modal"
-                                           href="#edit_personal_details"><i
-                                                class="far fa-edit me-1"></i>Edit</a>
                                         <div style="display: flex" class="heading-detail">
                                             <h4>Personal Details</h4>
 
@@ -74,7 +62,7 @@
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Name</h4>
-                                                <h5>Joe Kelley</h5>
+                                                <h5 class="personalTrainerName"></h5>
                                             </div>
                                         </div>
                                         <div class="personal-activity">
@@ -83,7 +71,7 @@
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Mobile</h4>
-                                                <h5>+21 510-237-1901</h5>
+                                                <h5 id="personalTrainerPhone"></h5>
                                             </div>
                                         </div>
                                         <div class="personal-activity">
@@ -92,7 +80,7 @@
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Date of Birth</h4>
-                                                <h5>12 Jun 1995</h5>
+                                                <h5 id="personalTrainerBirth"></h5>
                                             </div>
                                         </div>
                                         <div class="personal-activity">
@@ -101,9 +89,7 @@
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Email</h4>
-                                                <h5><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                                                       data-cfemail="d4bebbb194b3b9b5bdb8fab7bbb9">[email&#160;protected]</a>
-                                                </h5>
+                                                <h5 id="personalTrainerEmail"></h5>
                                             </div>
                                         </div>
                                         <div class="personal-activity">
@@ -112,7 +98,7 @@
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Gender</h4>
-                                                <h5>Female</h5>
+                                                <h5 id="personalTrainerGender"></h5>
                                             </div>
                                         </div>
                                         <div class="personal-activity mb-0">
@@ -121,7 +107,7 @@
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Address</h4>
-                                                <h5>180, Estern Avenue, United States</h5>
+                                                <h5 id="personalTrainerAddress"></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -151,19 +137,19 @@
                                             </ol>
                                             <div class="carousel-inner" role="listbox">
                                                 <div class="carousel-item active">
-                                                    <img class="d-block img-fluid" src="assets/img/certificates/certificate1.jpg"
+                                                    <img class="d-block img-fluid" src="../../assets/img/certificates/certificate1.jpg"
                                                          alt="First slide">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img class="d-block img-fluid" src="assets/img/certificates/certificate2.jpg"
+                                                    <img class="d-block img-fluid" src="../../assets/img/certificates/certificate2.jpg"
                                                          alt="Second slide">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img class="d-block img-fluid" src="assets/img/certificates/certificate3.jpg"
+                                                    <img class="d-block img-fluid" src="../../assets/img/certificates/certificate3.jpg"
                                                          alt="Third slide">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img class="d-block img-fluid" src="assets/img/certificates/certificate4.png"
+                                                    <img class="d-block img-fluid" src="../../assets/img/certificates/certificate4.png"
                                                          alt="Fourth slide">
                                                 </div>
                                             </div>
@@ -195,7 +181,7 @@
                                             <div class="comment">
                                                 <div class="comment-author">
                                                     <img class="avatar" alt=""
-                                                         src="assets/img/profiles/avatar-13.jpg">
+                                                         src="../../assets/img/profiles/avatar-13.jpg">
                                                 </div>
                                                 <div class="comment-block">
                                                     <div class="comment-by">
@@ -236,4 +222,31 @@
         </div>
     </div>
 </div>
-<%@include file="common/script.jspf"%>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="../../assets/js/jquery-3.6.0.min.js"></script>
+<script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/feather.min.js"></script>
+<script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../../assets/plugins/apexchart/apexcharts.min.js"></script>
+<script src="../../assets/plugins/apexchart/chart-data.js"></script>
+<script src="../../assets/plugins/select2/js/select2.min.js"></script>
+<script src="../../assets/js/script.js"></script>
+<script src="../../assets/plugins/moment/moment.min.js"></script>
+<script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
+
+<script>
+    var personalTrainer = ${personaltrainer};
+    console.log(personalTrainer)
+    $(document).ready(function(){
+        $('#personalTrainerBook').attr('href', '/personal-trainer/book?id=' + personalTrainer.id)
+        $('#personalTrainerPrice').html(personalTrainer.price + 'đ')
+        $('.personalTrainerName').html(personalTrainer.fullName)
+        $('#personalTrainerPhone').html(personalTrainer.phone)
+        $('#personalTrainerBirth').html(personalTrainer.birthday)
+        $('#personalTrainerEmail').html(personalTrainer.email)
+        $('#personalTrainerGender').html(personalTrainer.gender)
+        $('#personalTrainerAddress').html(personalTrainer.address)
+    })
+</script>
+</body>
+</html>

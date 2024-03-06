@@ -1,6 +1,7 @@
 package com.swpproject.application.repository;
 
 import com.swpproject.application.model.Account;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,5 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     List<Account> findAccountByRole(String role);
 
     Boolean existsByEmail(String email);
+
 }

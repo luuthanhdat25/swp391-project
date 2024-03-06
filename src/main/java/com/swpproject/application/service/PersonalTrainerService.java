@@ -8,15 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class PersonalTrainerService {
-    @Autowired
-    private PersonalTrainerRepository personalTrainerRepository;
+public interface PersonalTrainerService {
+    public void save(PersonalTrainer personalTrainer);
+    public PersonalTrainer findPersonalTrainerByAccountID(int accountId);
+    public PersonalTrainer findPersonalTrainerByEmail(String email);
 
-    public void save(PersonalTrainer personalTrainer) {
-        personalTrainerRepository.save(personalTrainer);
-    }
-    public PersonalTrainer findPersonalTrainerByAccountID(int accountId){
-        Optional<PersonalTrainer> personalTrainerOptional = personalTrainerRepository.findByAccountId(accountId);
-        return personalTrainerOptional.orElse(null);
-    }
 }

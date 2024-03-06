@@ -1,6 +1,7 @@
 package com.swpproject.application.service.impl;
 
 import com.swpproject.application.model.Account;
+import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;

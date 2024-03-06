@@ -1,5 +1,6 @@
 package com.swpproject.application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.swpproject.application.enums.Gender;
 import com.swpproject.application.enums.Role;
 import jakarta.persistence.*;
@@ -52,14 +53,4 @@ public class Account {
     @Lob
     @Column(name = "avatar_image")
     private byte[] avatarImage;
-
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    PersonalTrainer personalTrainer;
-
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Gymer gymer;
-
-    public Account(String email, String password) {
-    }
-
 }

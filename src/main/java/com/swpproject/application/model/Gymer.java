@@ -14,7 +14,6 @@ import org.springframework.data.relational.core.mapping.Table;
 @Entity
 @Table(name = "gymer")
 public class Gymer {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -29,7 +28,7 @@ public class Gymer {
     @Column(name = "goal", columnDefinition = "NVARCHAR(MAX)")
     private String goal;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
     private Account account;
 }

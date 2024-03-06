@@ -30,7 +30,7 @@ public class PersonalTrainerListController {
     }
 
         @GetMapping(name="view-details",produces = "text/html; charset=UTF-8")
-    public String view_profile_details() {
+        public String view_profile_details() {
         return "pt-profile-details";
     }
 }

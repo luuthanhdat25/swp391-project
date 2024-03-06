@@ -37,7 +37,7 @@ public class PersonalTrainer {
     @Column(name = "price")
     private Integer price;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id",referencedColumnName = "id", nullable = false)
     private Account account;
 

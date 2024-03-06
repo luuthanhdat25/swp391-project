@@ -1,6 +1,7 @@
 package com.swpproject.application.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.swpproject.application.enums.Gender;
 import com.swpproject.application.enums.Role;
 import jakarta.persistence.*;

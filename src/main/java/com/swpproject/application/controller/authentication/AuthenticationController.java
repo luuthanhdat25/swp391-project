@@ -45,8 +45,6 @@ public class AuthenticationController {
     private GymerService gymerService;
     @Autowired
     private SchedulePersonalTrainerService schedulePersonalTrainerService;
-    @Autowired
-    private GymerService gymerService;
     @ModelAttribute("roles")
     public Role[] getRoles() {
         return Role.values();

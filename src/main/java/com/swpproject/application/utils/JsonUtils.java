@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JsonUtils {
-
     public static String jsonConvert(Object object){
         ObjectMapper objectMapper = new ObjectMapper();
         try {

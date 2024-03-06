@@ -11,7 +11,7 @@ import java.util.*;
 
 public class VNPayPayment implements IPaymentStrategy {
     private final String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    private final String vnp_ReturnUrl = "http://localhost:8080/vnpay_jsp/vnpay_return.jsp";
+    private final String vnp_ReturnUrl = "http://localhost:8080/pay/result";
     private final String vnp_TmnCode = "MF67VWQM";
     private final String secretKey = "LVGFYGZZCVDFFLMSPOIPDMEMZOFUACGV";
     private final String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
@@ -19,7 +19,7 @@ public class VNPayPayment implements IPaymentStrategy {
     private final String VNP_VERSION = "2.1.0";
     private final String VNP_PAY_COMMAND = "pay";
     private final String ORDER_TYPE_DEFAULT = "other";
-    private final String BANK_CODE_DEFAULT = "NCB";
+    private final String BANK_CODE_DEFAULT = "";
     private final String LOCALHOST_IP = "127.0.0.1";
     private final String CURRENCY_CODE = "VND";
     private final String LANGUAGE_DEFAULT = "vn";

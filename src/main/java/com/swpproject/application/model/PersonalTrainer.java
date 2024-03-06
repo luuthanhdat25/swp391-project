@@ -1,5 +1,6 @@
 package com.swpproject.application.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -15,6 +16,7 @@ import java.util.Objects;
 @Data
 @Entity
 @Table(name = "personal_trainer")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PersonalTrainer {
 
     @Id

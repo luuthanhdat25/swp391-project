@@ -24,7 +24,7 @@ public class ExerciseRepository {
                 exercise.getDescription(),
                 exercise.getEquipment(),
                 exercise.getImageDescription(),
-                exercise.isPrivate(),
+                exercise.getIsPrivate(),
                 exercise.getLevel(),
                 exercise.getName(),
                 exercise.getType(),
@@ -46,6 +46,19 @@ public class ExerciseRepository {
     public void delete(Integer id) {
         String sql = "DELETE FROM exercise WHERE id = ?";
         jdbcTemplate.update(sql, id);
+    }
+
+    public void update(Exercise exercise) {
+        String sql = "UPDATE exercise SET description = ?, equipment = ?, image_description = ?, level = ?, name = ?, type = ?, video_description = ? WHERE id = ?";
+        jdbcTemplate.update(sql,
+                exercise.getDescription(),
+                exercise.getEquipment(),
+                exercise.getImageDescription(),
+                exercise.getLevel(),
+                exercise.getName(),
+                exercise.getType(),
+                exercise.getVideoDescription(),
+                exercise.getId());
     }
 }
 

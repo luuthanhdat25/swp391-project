@@ -485,25 +485,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label>BirthDay:</label>
-                                            <input type="text" class="form-control" disabled value="${account.getBirthdateString()}">
+                                            <input type="text" class="form-control" disabled value="${account.birthday.toString()}">
                                         </div>
                                         <div class="form-group">
                                             <label>Address:</label>
                                             <input type="text" class="form-control" disabled value="${account.address}">
                                         </div>
-                                        <div class="invoice-total-card" id="invoiceTotalCard" style="display: none;">
-                                            <div class="invoice-total-box">
-                                                <div class="invoice-total-inner">
-                                                    <p>Training slot <span>20</span></p>
-                                                    <p>Slot duration<span>2 hours</span></p>
-                                                    <p>Training fee<span>$3,300.00</span></p>
-                                                    <p class="mb-0">Total amount: <span>$3,300.00</span></p>
-                                                </div>
-                                                <div class="invoice-total-footer">
-                                                    <h4>Total Amount <span>$143,300.00</span></h4>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">

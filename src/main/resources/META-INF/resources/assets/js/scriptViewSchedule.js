@@ -8,10 +8,8 @@ function generateWeeks() {
         var endOfWeek = moment().year(year).isoWeek(i).endOf('isoWeek');
         var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');
 
-        if ((year === currentDate.year() && i >= currentDate.isoWeek()) || year > currentDate.year()) {
-            // Include only future weeks for the current year and all weeks for future years
-            weeks.push("<option value='" + i + "'>" + weekText + "</option>");
-        }
+
+        weeks.push("<option value='" + i + "'>" + weekText + "</option>");
     }
     $("#week").html(weeks.join(""));
 }
@@ -25,7 +23,7 @@ $(document).ready(function () {
     var urlParams = new URLSearchParams(window.location.search);
     var weekParam = urlParams.get('week');
     var yearParam = urlParams.get('year');
-    var accountIdParam = urlParams.get('accountId');
+    // var accountIdParam = urlParams.get('accountId');
     if (weekParam && yearParam) {
         $("#week").val(weekParam);
         $("#year").val(yearParam);
@@ -33,7 +31,7 @@ $(document).ready(function () {
         $("#year").val(currentDate.year);
         $("#week").val(currentDate.isoWeek());
     }
-    $("#accountId").val(accountIdParam);
+    // $("#accountId").val(accountIdParam);
     updateTable(); // Cập nhật bảng khi trang web được tải
 });
 
@@ -52,31 +50,6 @@ $("#week").change(function () {
 // Hàm để cập nhật bảng khi người dùng chọn tuần mới
 function updateTable() {
     updateDays();   // Cập nhật giá trị ngày của từng thứ trong tuần
-    var year = $("#year").val();
-    var week = $("#week").val();
-    var accountId = $("#accountId").val();
-    //
-    // // Update the URL parameters without triggering a page reload
-    //
-    // Gửi AJAX request để load lại file với tham số tuần
-    $.ajax({
-        type: "POST",
-        url: "/bookPT1", // Update to the correct URL
-        data: {
-            week: week,
-            year: year,
-            accountId: accountId
-        },
-        contentType: 'application/x-www-form-urlencoded;charset=UTF-8', // Explicitly set the content type
-        success: function (response) {
-            // Xử lý response, ví dụ: cập nhật nội dung trang
-            // response có thể là HTML, JSON, hoặc bất kỳ định dạng dữ liệu nào khác
-            console.log(response);
-        },
-        error: function (error) {
-            console.error("Error loading file:", error);
-        }
-    });
 }
 
 // Hàm để cập nhật giá trị ngày của từng thứ trong tuần

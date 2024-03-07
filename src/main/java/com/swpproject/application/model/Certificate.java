@@ -15,11 +15,13 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table(name = "certificate")
 public class Certificate {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
-    private String fileName;
     @Lob
+    @Column(name = "image")
     private byte[] image;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "personal_trainer_id", nullable = false)
+    @JoinColumn(name = "personal_trainer_id")
     private PersonalTrainer personalTrainer;
 }

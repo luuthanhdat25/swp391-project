@@ -1,6 +1,8 @@
 package com.swpproject.application.controller;
 
+import com.swpproject.application.controller.notification.SystemNotificationService;
 import com.swpproject.application.enums.Attendant;
+import com.swpproject.application.enums.OrderStatus;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.*;
@@ -34,6 +36,8 @@ public class SlotController {
     private SchedulePersonalTrainerService schedulePersonalTrainerService;
     @Autowired
     private OrderRequestService orderRequestService;
+    @Autowired
+    private SystemNotificationService systemNotificationService;
 
     @RequestMapping(value = "bookPT", method = RequestMethod.GET)
     public String viewSChedulePT() {
@@ -140,32 +144,19 @@ public class SlotController {
         orderRequest.setGymer(gymerService.getGymerByAccount(accountSession).get());
         orderRequest.setDescription(desc);
         orderRequest.setTotal_of_money(totalAmount);
+        orderRequest.setStatus(OrderStatus.Pending);
         System.out.println("goal" + title);
         System.out.println("desc" + desc);
         System.out.println("training time" + trainingTime);
-        switch (trainingTime) {
-            case 1:
+
+
                 currentDate = LocalDate.now();
                 StartDateAsDate = Date.valueOf(currentDate);
-                EndDateAsDate = Date.valueOf(currentDate.plusMonths(1));
+                EndDateAsDate = Date.valueOf(currentDate.plusWeeks(trainingTime));
                 orderRequest.setDatetime_start(StartDateAsDate);
                 orderRequest.setDatetime_end(EndDateAsDate);
-                break;
-            case 2:
-                currentDate = LocalDate.now();
-                StartDateAsDate = Date.valueOf(currentDate);
-                EndDateAsDate = Date.valueOf(currentDate.plusMonths(3));
-                orderRequest.setDatetime_start(StartDateAsDate);
-                orderRequest.setDatetime_end(EndDateAsDate);
-                break;
-            case 3:
-                currentDate = LocalDate.now();
-                StartDateAsDate = Date.valueOf(currentDate);
-                EndDateAsDate = Date.valueOf(currentDate.plusMonths(3));
-                orderRequest.setDatetime_start(StartDateAsDate);
-                orderRequest.setDatetime_end(EndDateAsDate);
-                break;
-        }
+
+
         if (orderRequest != null) {
             orderRequestService.saveOrderRequest(orderRequest);
         }
@@ -216,6 +207,7 @@ public class SlotController {
 
 
         }
+        systemNotificationService.createNotification_NewRequestHiring(gymerService.getGymerByAccount(accountSession).get().getGymerId(), personalTrainer.getId());
         redirectAttributes.addAttribute("accountId", accountId);
         redirectAttributes.addAttribute("week", week);
         redirectAttributes.addAttribute("year", year);

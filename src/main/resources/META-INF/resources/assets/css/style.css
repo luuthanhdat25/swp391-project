@@ -111,6 +111,7 @@ textarea.form-control {
 }
 
 label {
+    width: 100%;
     display: inline-block;
     margin-bottom: .5rem
 }
@@ -11516,7 +11517,7 @@ a.primary-btn.class-btn:hover {
 }
 
 .form {
-    margin:80px 0px 20px;
+    margin:25px 0px 20px;
     padding:0px 50px;
 }
 .form h2 {
@@ -11547,15 +11548,20 @@ a.primary-btn.class-btn:hover {
 }
 .form .grid .form-element div {
     position: relative;
-    height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* text-align: center; */
+    height: 70px;
     margin-top: -40px;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgb(0 0 0);
     text-align: center;
     line-height: 40px;
     font-size: 13px;
     color: #f5f5f5;
     font-weight: 600;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 .form .grid .form-element div span {
     font-size:20px;

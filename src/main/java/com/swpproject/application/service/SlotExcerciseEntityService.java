@@ -46,4 +46,10 @@ public class SlotExcerciseEntityService {
     public List<SlotExercise> getSlotByOrder(Integer orderRequest){
         return slotExcerciseEntityRepository.getSlotExerciseByOrderRequest_OrderId(orderRequest);
     }
+    public List<SlotExercise> getTrainingPTSlot(Integer gymerID,
+                                                Integer week,
+                                                Integer year,
+                                                boolean isPending){
+        return slotExcerciseEntityRepository.getSlotExerciseByGymer_GymerIdAndWeekAndYearAndIsPendingAndPersonalTrainerIsNotNull(gymerID,week,year,isPending);
+    }
 }

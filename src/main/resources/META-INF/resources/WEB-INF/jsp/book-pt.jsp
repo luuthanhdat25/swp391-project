@@ -711,67 +711,6 @@
     });
 </script>
 
-<script>
-    $(document).ready(function () {
-        var currentDate = moment();
-
-        // Set the default selected values for year and week
-        var currentYear = currentDate.isoWeekYear();
-        var currentWeek = currentDate.isoWeek();
-
-        // Set the default selected options
-        $("#year").val(currentYear);
-        $("#week").val(currentWeek);
-
-        generateWeeks(); // Generate weeks based on the current year
-
-        updateTable(); // Update table content when the page is loaded
-
-        // Event listener for changes in the year and week selects
-        $("#year, #week").change(function () {
-            updateTable(); // Update table content when the year or week changes
-        });
-    });
-
-    function generateWeeks() {
-        var year = $("#year").val();
-        var weeks = [];
-
-        for (var i = 1; i <= 52; i++) {
-            var startOfWeek = moment().isoWeekYear(year).isoWeek(i).startOf('isoWeek');
-            var endOfWeek = moment().isoWeekYear(year).isoWeek(i).endOf('isoWeek');
-            var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');
-            weeks.push("<option value='" + i + "'>" + weekText + "</option>");
-        }
-
-        $("#week").html(weeks.join(""));
-    }
-
-    // Function to update the table content
-    function updateTable() {
-        // Retrieve selected year and week
-        var year = $("#year").val();
-        var week = $("#week").val();
-
-        // Send AJAX request to load file with the selected week
-        $.ajax({
-            type: "POST",
-            url: "/SelectWeek", // Update to the correct URL
-            data: {
-                week: week,
-                year: year,
-            },
-            contentType: 'application/x-www-form-urlencoded;charset=UTF-8', // Set the content type
-            success: function (response) {
-                // Handle response, e.g., update page content
-                console.log(response);
-            },
-            error: function (error) {
-                console.error("Error loading file:", error);
-            }
-        });
-    }
-</script>
 
 
 <script src="assets/js/jquery-3.6.0.min.js"></script>

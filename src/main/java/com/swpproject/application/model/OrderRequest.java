@@ -48,4 +48,7 @@ public class OrderRequest {
     public String getGymerName(){
         return this.gymer.getAccount().getFullName();
     }
+    public String getPTName(){
+        return this.personalTrainer.getAccount().getFullName();
+    }
 }

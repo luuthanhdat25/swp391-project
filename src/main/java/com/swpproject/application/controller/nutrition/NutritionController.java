@@ -1,16 +1,13 @@
 package com.swpproject.application.controller.nutrition;
 
 import com.swpproject.application.model.Nutrition;
-import com.swpproject.application.model.PersonalTrainer;
-import com.swpproject.application.repository.PersonalTrainerRepository;
+import com.swpproject.application.model.NutritionDTOIn;
+import com.swpproject.application.model.NutritionDTOOut;
+import com.swpproject.application.service.impl.NutritionServiceIml;
 import com.swpproject.application.utils.JsonUtils;
-import com.swpproject.application.repository.NutritionRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,19 +22,15 @@ import java.util.List;
 @Controller
 @RequestMapping("/nutrition")
 public class NutritionController {
-    private final PersonalTrainerRepository personalTrainerRepository;
-    private final NutritionRepository nutritionRepository;
 
-    public NutritionController(PersonalTrainerRepository personalTrainerRepository, NutritionRepository nutritionRepository) {
-        this.personalTrainerRepository = personalTrainerRepository;
-        this.nutritionRepository = nutritionRepository;
-    }
+    @Autowired
+    private NutritionServiceIml nutritionServiceIml;
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseListPage(ModelMap model) {
-        List<Nutrition> list = nutritionRepository.findAll();
-        String json = JsonUtils.jsonConvert(list);
-        model.addAttribute("nutritionList", json);
+        List<NutritionDTOOut> nutritionDTOOutList = nutritionServiceIml.getNutritionDTOOutList();
+        String nutritionDTOOutListJson = JsonUtils.jsonConvert(nutritionDTOOutList);
+        model.addAttribute("nutritionList", nutritionDTOOutListJson);
         return "nutrition-list";
     }
 
@@ -49,49 +41,41 @@ public class NutritionController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String createExercise(@ModelAttribute NutritionDTO nutritionDTO, Model model) throws IOException {
-        Nutrition nutrition = new Nutrition();
-        nutrition.setName(nutritionDTO.getNutritionName());
-        nutrition.setCaloIn(nutritionDTO.getCalories());
-        nutrition.setProtein(nutritionDTO.getProtein());
-        nutrition.setFat(nutritionDTO.getFat());
-        nutrition.setCarb(nutritionDTO.getCarb());
-        nutrition.setImageDescription(nutritionDTO.getImage().getBytes());
-
-        String isPrivateString = nutritionDTO.getIsPrivate();
-        int isPrivateBoolean = isPrivateString == null ? 0 : 1;
-        nutrition.setIsPrivate(isPrivateBoolean);
-
-        PersonalTrainer personalTrainerExample = personalTrainerRepository.findAll().getFirst();
-        nutrition.setPersonalTrainer(personalTrainerExample);
-
-        nutritionRepository.save(nutrition);
+    public String createExercise(@ModelAttribute NutritionDTOIn nutritionDTOIn, Model model) throws IOException {
+        nutritionServiceIml.create(nutritionDTOIn);
         return "redirect:/nutrition/";
     }
 
     //Get update view nutrition
     @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getExerciseDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
+    public String getNutritionDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
         HttpSession session = request.getSession();
         session.setAttribute("nutritionId", id);
 
-        Nutrition nutrition = nutritionRepository.findById(id);
-        String json = JsonUtils.jsonConvert(nutrition);
+        Nutrition nutrition = nutritionServiceIml.findNutritionById(id).get();
+        NutritionDTOOut nutritionDTOOut = nutrition.getNutritionDTOOut();
+
+        String json = JsonUtils.jsonConvert(nutritionDTOOut);
         model.addAttribute("nutrition", json);
         return "nutrition-update";
     }
+
+    //Post update nutrition data
+    @RequestMapping(value = "/details/edit", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+    public String editNutrition(@ModelAttribute NutritionDTOIn nutritionDTOIn, HttpServletRequest request, Model model) throws IOException {
+        HttpSession session = request.getSession();
+        Integer id = (Integer) session.getAttribute("nutritionId");
+
+        if (id != null) {
+            nutritionServiceIml.update(nutritionDTOIn, id);
+            session.removeAttribute("exerciseId");
+            return "redirect:/nutrition/";
+        } else {
+            return "redirect:/error";
+        }
+    }
 }
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-class NutritionDTO {
-    private String nutritionName;
-    private Float calories;
-    private Float protein;
-    private Float fat;
-    private Float carb;
-    private MultipartFile image;
-    private String isPrivate;
-}
+
+
+

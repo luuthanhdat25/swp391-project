@@ -1,9 +1,13 @@
 package com.swpproject.application.controller;
 
 
+import com.swpproject.application.controller.notification.SystemNotificationService;
+import com.swpproject.application.enums.OrderStatus;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.OrderRequestService;
+import com.swpproject.application.service.PersonalTrainerService;
 import com.swpproject.application.service.SlotExcerciseEntityService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +28,9 @@ public class OrderRequestController {
     private OrderRequestService orderRequestService;
     @Autowired
     private SlotExcerciseEntityService slotExcerciseEntityService;
-
-
+    @Autowired
+    private SystemNotificationService systemNotificationService;
+    @Autowired private PersonalTrainerService personalTrainerService;
     @RequestMapping("Order-Request")
     public String OrderRequest(Model model,
                                @RequestParam("order_id") Integer orderID,
@@ -63,6 +68,7 @@ public class OrderRequestController {
         //check conflic slot with previous accepted slot
         System.out.println(slotOrder.size());
         model.addAttribute( "allSlots", slotOrder);
+        //BAO: notification
 //        redirectAttributes.addAttribute("accountId", accountId);
 //        redirectAttributes.addAttribute("week", week);
 //        redirectAttributes.addAttribute("year", year);
@@ -80,27 +86,45 @@ public class OrderRequestController {
         System.out.println("order ID: " + orderID);
         System.out.println("slotList: " + slotOrder.size());
         OrderRequest orderRequest = orderRequestService.getOrderRequestById(orderID);
+        Gymer gymer = orderRequest.getGymer();
+        PersonalTrainer personalTrainer = orderRequest.getPersonalTrainer();
         System.out.println();
-        if(!MSG.equalsIgnoreCase("")){
+        if(MSG.equalsIgnoreCase("confict schedule")){
             return "redirect:/order-list";
         }else{
-            for (SlotExercise slotExercise : slotOrder) {
-                System.out.println(slotExercise.toString());
-                slotExcerciseEntityService.updateSlotOrderPending(slotExercise.getId(), false);
-            }
+            systemNotificationService.createNotification_AcceptedHiringAndPayment(orderID); //BAO: notification
             redirectAttributes.addAttribute("amountPay",orderRequest.getTotal_of_money());
+            redirectAttributes.addAttribute("orderID",orderID);
             return "redirect:/pay";
         }
-//        return "";
+    }
+
+    @RequestMapping("/accept")
+    public String AcceptDeclineOrder(HttpSession session){
+        OrderRequest orderRequest = (OrderRequest) session.getAttribute("orderPayment");
+        List<SlotExercise> slotOrder = slotExcerciseEntityService.getSlotByOrder(orderRequest.getOrderId());
+        orderRequestService.updateStatusOrder(OrderStatus.OnDoing, orderRequest.getOrderId());
+        for (SlotExercise slotExercise : slotOrder) {
+            System.out.println(slotExercise.toString());
+            slotExcerciseEntityService.updateSlotOrderPending(slotExercise.getId(), false);
+        }
+        session.removeAttribute("orderPayment");
+        return "redirect:/Schedule-by-pt";
     }
 
     @RequestMapping("order-list")
-    public String ViewOrderList(Model model) {
-        List<OrderRequest> orderRequestList = orderRequestService.getOrderRequest();
+    public String ViewOrderList(Model model,HttpSession session) {
+        Account account = (Account) session.getAttribute("account");
+        PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(account.getId());
+        List<OrderRequest> orderRequestList = orderRequestService.getOrderRequestList(personalTrainer);
         System.out.println(orderRequestList.size());
-
         model.addAttribute("OrderRequestList", orderRequestList);
-
+        for (OrderRequest orderRequest : orderRequestList) {
+            Gymer gymer = orderRequest.getGymer();
+            Account accountGymer = gymer.getAccount();
+            model.addAttribute("gymer",gymer);
+            model.addAttribute("accountOrder",accountGymer);
+        }
         return "view-order";
     }
 

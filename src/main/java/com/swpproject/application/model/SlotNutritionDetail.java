@@ -19,11 +19,11 @@ public class SlotNutritionDetail {
     private int amount;
 
     @ManyToOne
-    @JoinColumn(name = "nutrition_id", nullable = false)
+    @JoinColumn(name = "nutrition_id", nullable = true)
     private Nutrition nutrition;
 
     @ManyToOne
-    @JoinColumn(name = "slot_nutrition_id", nullable = false)
+    @JoinColumn(name = "slot_nutrition_id", nullable = true)
     private SlotNutrition slotNutrition;
 
 }

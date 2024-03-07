@@ -43,10 +43,30 @@ public class PersonalScheduleController {
     @Autowired
     private ScheduleServiceImplement scheduleServiceImplement;
 
+    @GetMapping(value = "/view-pt-schedule")
+    public String showPTSchedule() {
+        return "pt-schedule";
+    }
+
+    @GetMapping(value = "/selectTime", params = {"week", "year"})
+    public String showPTScheduleWithParams(@RequestParam("week") int week,
+                                           @RequestParam("year") int year,
+                                           HttpSession session) {
+        PersonalTrainer personalTrainer = (PersonalTrainer) session.getAttribute("personalTrainer");
+        if (personalTrainer!=null){
+            List<SlotExercise> slotExercises =
+                    slotExeRepository.findSlotExeByPTIdAndIsPending(personalTrainer.getId(),false);
+            session.setAttribute("slotExercises", slotExercises);
+        }
+
+        session.setAttribute("week", week);
+        session.setAttribute("year", year);
+        return "redirect:/view-pt-schedule?year=" + year + "&week=" + week;
+    }
+
     @GetMapping(value = "/view-personal-schedule")
     public String showPersonalSchedule() {
-        // Add your controller logic here
-        return "view-schedule"; // Return the view name
+        return "view-schedule";
     }
 
     @GetMapping(value = "/selectWeek", params = {"week", "year"})
@@ -63,10 +83,6 @@ public class PersonalScheduleController {
             List<SlotNutrition> slotNutritions = slotNutriRepository.findSlotNutriByWeekAndYearAndScheduleId(week, year, scheduleId);
             session.setAttribute("slotNutritions", slotNutritions);
             session.setAttribute("schedule",schedule);
-        } else {
-            PersonalTrainer personalTrainer = (PersonalTrainer) session.getAttribute("personalTrainer");
-            List<SlotExercise> slotExercises = slotExeRepository.findSlotExeByPTIdAndIsPending(personalTrainer.getId(),false);
-            session.setAttribute("slotExercises", slotExercises);
         }
         List<Exercise> exercises = exerciseRepository.findAll();
         session.setAttribute("exercises",exercises);
@@ -80,72 +96,54 @@ public class PersonalScheduleController {
     }
 
     @PostMapping(value = "/view-personal-schedule")
-    public String addSlot(@RequestParam("typeOfSlot") String typeOfSlot,
-                          @RequestParam("day") String day,
-                          @RequestParam("slot") String slot,
-                          @RequestParam(value = "exerciseSet", required = false) String exerciseSet,
-                          @RequestParam(value = "exerciseRep", required = false) String exerciseRep,
-                          @RequestParam(value = "nutritionAmount", required = false) String nutritionAmount,
-                          @RequestParam(value = "exerciseSelect", required = false) List<String> selectedExercises,
-                          @RequestParam(value = "nutritionSelect", required = false) List<String> selectedNutritions,
-                          HttpSession session) {
+    public String addSlot(@RequestParam("typeOfSlot") String typeOfSlot, @RequestParam("day") String day, @RequestParam("slot") String slot, @RequestParam(value = "exerciseSet", required = false) String exerciseSet, @RequestParam(value = "exerciseRep", required = false) String exerciseRep, @RequestParam(value = "nutritionAmount", required = false) String nutritionAmount, @RequestParam(value = "exerciseSelect", required = false) List<String> selectedExercises, @RequestParam(value = "nutritionSelect", required = false) List<String> selectedNutritions, HttpSession session) {
 
         int week = (int) session.getAttribute("week");
         int year = (int) session.getAttribute("year");
         Schedule schedule = (Schedule) session.getAttribute("schedule");
 
         if ("Exercise".equals(typeOfSlot)) {
-            if (selectedExercises != null) {
-                //Create slot exercise
-                SlotExercise slotExercise = new SlotExercise();
-                slotExercise.setDay(day);
-                slotExercise.setWeek(week);
-                slotExercise.setYear(year);
-                String[] startEnd = slot.split("-");
-                slotExercise.setStart_hour(startEnd[0]);
-                slotExercise.setEnd_hour(startEnd[1]);
-                slotExercise.setSchedule(schedule);
-                slotExeRepository.save(slotExercise);
-
-                int i = 0;
-//                for (String idExercise : selectedExercises) {
-//                    //Create slot exercise details
-//                    SlotExerciseDetail slotExerciseDetail = new SlotExerciseDetail();
-//                    Exercise exercise = exerciseRepository.findById(Integer.parseInt(idExercise));
-//                    String[] set = exerciseSet.split(",");
-//                    slotExerciseDetail.setSetExe(Integer.parseInt(set[i]));
+            //Create slot exercise
+            SlotExercise slotExercise = new SlotExercise();
+            slotExercise.setDay(day);
+            slotExercise.setWeek(week);
+            slotExercise.setYear(year);
+            String[] startEnd = slot.split("-");
+            slotExercise.setStart_hour(startEnd[0]);
+            slotExercise.setEnd_hour(startEnd[1]);
+            slotExercise.setSchedule(schedule);
+            slotExeRepository.save(slotExercise);
+//            int i = 0;
+//            for (String idExercise : selectedExercises) {
+//                //Create slot exercise details
+//                SlotExerciseDetail slotExerciseDetail = new SlotExerciseDetail();
+//                Exercise exercise = exerciseRepository.findById(Integer.parseInt(idExercise));
+//                String[] set = exerciseSet.split(",");
+//                slotExerciseDetail.setSetExe(Integer.parseInt(set[i]));
 //
-//                    String[] rep = exerciseRep.split(",");
-//                    slotExerciseDetail.setRep(Integer.parseInt(rep[i]));
+//                String[] rep = exerciseRep.split(",");
+//                slotExerciseDetail.setRep(Integer.parseInt(rep[i]));
 //
-//                    // Set the reference to slotExercise here
-//                    slotExerciseDetail.setSlotExercise(slotExercise);
+//                // Set the reference to slotExercise here
+//                slotExerciseDetail.setSlotExercise(slotExercise);
 //
-//                    slotExerciseDetail.setExercise(exercise);
-//                    slotExeDetailService.save(slotExerciseDetail);
-//                    i++;
-//                }
-            }
-        }
-        else if ("Nutrition".equals(typeOfSlot)) {
-//            if (selectedNutritions != null) {
-//                //Create slot exercise
-//                SlotNutrition slotNutrition = new SlotNutrition();
-//                slotNutrition.setDay(day);
-//                slotNutrition.setWeek(week);
-//                slotNutrition.setYear(year);
-//                String[] startEnd = slot.split("-");
-//                slotNutrition.setStart_hour(startEnd[0]);
-//                slotNutrition.setEnd_hour(startEnd[1]);
-//                slotNutrition.setSchedule(schedule);
-//                for (String nutrition : selectedNutritions) {
-//                    System.out.println("Selected Nutrition: " + nutrition);
-//                }
+//                slotExerciseDetail.setExercise(exercise);
+//                slotExeDetailService.save(slotExerciseDetail);
+//                i++;
 //            }
+        } else if ("Nutrition".equals(typeOfSlot)) {
+            //Create slot exercise
+            SlotNutrition slotNutrition = new SlotNutrition();
+            slotNutrition.setDay(day);
+            slotNutrition.setWeek(week);
+            slotNutrition.setYear(year);
+            String[] startEnd = slot.split("-");
+            slotNutrition.setStart_hour(startEnd[0]);
+            slotNutrition.setEnd_hour(startEnd[1]);
+            slotNutrition.setSchedule(schedule);
+            slotNutriRepository.save(slotNutrition);
         }
-
-        return "redirect:/view-personal-schedule?year=" + year + "&week=" + week;
+        return  "redirect:/selectWeek?week=" + week + "&year=" + year;
     }
-
 }
 

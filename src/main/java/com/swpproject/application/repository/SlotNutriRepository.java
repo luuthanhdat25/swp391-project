@@ -19,7 +19,7 @@ public class SlotNutriRepository {
 
     public SlotNutrition save(SlotNutrition slotNutrition) {
         String sql = "INSERT INTO slot_nutrition (day, week, year, start_hour, end_hour, schedule_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, slotNutrition.getDay(), slotNutrition.getWeek(),
                 slotNutrition.getYear(), slotNutrition.getStart_hour(), slotNutrition.getEnd_hour(),
                 slotNutrition.getSchedule().getId());

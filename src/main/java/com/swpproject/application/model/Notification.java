@@ -11,17 +11,27 @@ import java.time.LocalDateTime;
 @Setter
 @Data
 @Entity
-@Table(name = "notificationTest")
+@Table(name = "notification")
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
+
+    @Column(name = "title", columnDefinition = "NVARCHAR(255)")
     private String title;
 
-    @Column(columnDefinition = "NVARCHAR(MAX)")
+    @Column(name = "content", columnDefinition = "NVARCHAR(MAX)")
     private String content;
+
+    @Column(name = "time_stamp")
     private LocalDateTime timeStamp;
 
-    private int fromAccount;
-    private int toAccount;
+   	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "from_account_id",referencedColumnName = "id", nullable = false)
+	private Account fromAccount;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "to_account_id",referencedColumnName = "id", nullable = false)
+	private Account toAccount;
 }

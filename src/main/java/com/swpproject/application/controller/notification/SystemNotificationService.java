@@ -16,10 +16,14 @@ import java.time.Period;
 
 @Service
 public class SystemNotificationService {
-    @Autowired private AccountRepository accountRepository;
-    @Autowired private NotificationRepository notificationRepository;
-    @Autowired private OrderRequestRepository orderRequestRepository;
-    @Autowired private OrderRequestService orderRequestService;
+    @Autowired
+    private AccountRepository accountRepository;
+    @Autowired
+    private NotificationRepository notificationRepository;
+    @Autowired
+    private OrderRequestRepository orderRequestRepository;
+    @Autowired
+    private OrderRequestService orderRequestService;
 
     //-----------------------------------------------------------------------------------------------------------------------------
     //Notification: When the Personal Trainer accepts Gymer's recruitment request, the system will send a notification
@@ -54,8 +58,6 @@ public class SystemNotificationService {
         Account receiverAccount = orderDetail.getGymer().getAccount();
         Notification paymentNotification = new Notification();
 
-
-
         String NAME_LINK = "Payment link";
         String linkPayment = "http://localhost:8080/pay?amountPay=" + orderDetail.getTotal_of_money() + "&orderID=" + orderDetail.getOrderId();
         StringBuilder linkPaymentHTML = new StringBuilder()
@@ -69,15 +71,15 @@ public class SystemNotificationService {
         paymentNotification.setContent(content);
         paymentNotification.setTitle(TITLE_NOTIFICATION_ACCEPTED_AND_PAYMENT);
         paymentNotification.setTimeStamp(LocalDateTime.now());
-        paymentNotification.setFromAccount(senderAccount.getId());
-        paymentNotification.setToAccount(receiverAccount.getId());
+        paymentNotification.setFromAccount(senderAccount);
+        paymentNotification.setToAccount(receiverAccount);
 
         notificationRepository.save(paymentNotification);
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------
     //Notification: When Guest created an account and login into system in the first time, the system will send a notification
-     public String createNotificationContent_Welcome(Account receiverAccount) {
+    public String createNotificationContent_Welcome(Account receiverAccount) {
         StringBuilder stringBuilder = new StringBuilder()
                 .append("<p><b>Dear </b></p>").append(receiverAccount.getFullName()).append(", <br><br>")
                 .append("<p>Congratulations! Your registration has been successfully completed. Welcome to our fitness and nutrition management system.</p>")
@@ -88,7 +90,8 @@ public class SystemNotificationService {
     }
 
     public void createNotification_Welcome(@RequestParam Integer receiverID) {
-        Account receiverAccount =  accountRepository.findById(receiverID).get();
+        Account receiverAccount = accountRepository.findById(receiverID).get();
+        Account systemAccount = accountRepository.findById(6).get();
         Notification paymentNotification = new Notification();
 
         String TITLE_NOTIFICATION_WELCOME = "Welcome";
@@ -97,15 +100,15 @@ public class SystemNotificationService {
         paymentNotification.setContent(content);
         paymentNotification.setTitle(TITLE_NOTIFICATION_WELCOME);
         paymentNotification.setTimeStamp(LocalDateTime.now());
-        paymentNotification.setFromAccount(0);
-        paymentNotification.setToAccount(receiverID);
+        paymentNotification.setFromAccount(systemAccount);
+        paymentNotification.setToAccount(receiverAccount);
 
         notificationRepository.save(paymentNotification);
     }
 
-     //-----------------------------------------------------------------------------------------------------------------------------
-     //Notification: When Guest created an account and login into system in the first time, the system will send a notification
-     public String createNotificationContent_NewRequestHiring(Account gymerAccount, Account personalTrainerAccount) {
+    //-----------------------------------------------------------------------------------------------------------------------------
+    //Notification: When Guest created an account and login into system in the first time, the system will send a notification
+    public String createNotificationContent_NewRequestHiring(Account gymerAccount, Account personalTrainerAccount) {
         StringBuilder stringBuilder = new StringBuilder()
                 .append("<p><strong>Dear </strong>").append(personalTrainerAccount.getFullName()).append(",</p>")
                 .append("<p>I hope this message finds you well. We're excited to inform you that a new client has expressed interest in training with you. This presents a great opportunity to expand your client base and showcase your expertise.</p>")
@@ -129,8 +132,9 @@ public class SystemNotificationService {
     }
 
     public void createNotification_NewRequestHiring(Integer gymerID, Integer personalTrainerID) {
-        Account gymerAccount =  accountRepository.findById(gymerID).get();
+        Account gymerAccount = accountRepository.findById(gymerID).get();
         Account personalTrainerAccount = accountRepository.findById(personalTrainerID).get();
+        Account systemAccount = accountRepository.findById(6).get();
         Notification requestHiringNotification = new Notification();
 
         String TITLE_NOTIFICATION_NEW_REQUEST_HIRING = "New Client Training Request Notification";
@@ -139,8 +143,8 @@ public class SystemNotificationService {
         requestHiringNotification.setContent(content);
         requestHiringNotification.setTitle(TITLE_NOTIFICATION_NEW_REQUEST_HIRING);
         requestHiringNotification.setTimeStamp(LocalDateTime.now());
-        requestHiringNotification.setFromAccount(0);
-        requestHiringNotification.setToAccount(personalTrainerID);
+        requestHiringNotification.setFromAccount(systemAccount);
+        requestHiringNotification.setToAccount(personalTrainerAccount);
 
         notificationRepository.save(requestHiringNotification);
     }
@@ -148,7 +152,7 @@ public class SystemNotificationService {
     //-----------------------------------------------------------------------------------------------------------------------------
     // Notification: When Guest created an account and login into system in the first time, the system will send a notification
     public String createNotificationContent_DeclineHiring(Account gymerAccount) {
-       StringBuilder stringBuilder = new StringBuilder()
+        StringBuilder stringBuilder = new StringBuilder()
                 .append("<p><strong>Dear </strong>").append(gymerAccount.getFullName()).append(",</p>")
                 .append("<p>We hope this message finds you well. We wanted to update you regarding your recent training request.</p>")
                 .append("<p>After careful consideration, we regret to inform you that the selected personal trainer is currently unavailable and cannot fulfill your request at this time. We understand how important finding the right trainer is, and we apologize for any inconvenience this may cause.</p>")
@@ -159,8 +163,9 @@ public class SystemNotificationService {
     }
 
     public void createNotification_DeclineHiring(@RequestParam Integer gymerID,
-                                                      @RequestParam Integer personalTrainerID) {
-        Account gymerAccount =  accountRepository.findById(gymerID).get();
+                                                 @RequestParam Integer personalTrainerID) {
+        Account gymerAccount = accountRepository.findById(gymerID).get();
+        Account personalTrainerAccount = accountRepository.findById(personalTrainerID).get();
         Notification requestHiringNotification = new Notification();
 
         String TITLE_NOTIFICATION_DECLINE_HIRING = "Important Update Regarding Your Training Request";
@@ -169,8 +174,8 @@ public class SystemNotificationService {
         requestHiringNotification.setContent(content);
         requestHiringNotification.setTitle(TITLE_NOTIFICATION_DECLINE_HIRING);
         requestHiringNotification.setTimeStamp(LocalDateTime.now());
-        requestHiringNotification.setFromAccount(personalTrainerID);
-        requestHiringNotification.setToAccount(gymerID);
+        requestHiringNotification.setFromAccount(personalTrainerAccount);
+        requestHiringNotification.setToAccount(gymerAccount);
 
         notificationRepository.save(requestHiringNotification);
     }
@@ -178,7 +183,7 @@ public class SystemNotificationService {
     //-----------------------------------------------------------------------------------------------------------------------------
     // Notification: When Guest created an account and login into system in the first time, the system will send a notification
     public String createNotificationContent_PaymentSuccess(Account gymerAccount, Account personalTrainerAccount, OrderRequest orderRequest) {
-       StringBuilder stringBuilder = new StringBuilder()
+        StringBuilder stringBuilder = new StringBuilder()
                 .append("<p><strong>Dear </strong>").append(gymerAccount.getFullName()).append(" and ").append(personalTrainerAccount.getFullName()).append(",</p>")
                 .append("<p>We are excited to share that your payment for the upcoming training sessions has been successfully processed.</p>")
                 .append("<p><strong>Payment Details:</strong></p>")
@@ -195,8 +200,10 @@ public class SystemNotificationService {
     }
 
     public void createNotification_PaymentSuccess(Integer gymerID, Integer personalTrainerID, Integer orderID) {
-        Account gymerAccount =  accountRepository.findById(gymerID).get();
+        Account gymerAccount = accountRepository.findById(gymerID).get();
         Account personalTrainerAccount = accountRepository.findById(personalTrainerID).get();
+        Account systemAccount = accountRepository.findById(6).get();
+
         OrderRequest orderRequest = orderRequestRepository.findById(orderID).get();
         Notification paymentSuccessToGymer = new Notification();
 
@@ -206,11 +213,11 @@ public class SystemNotificationService {
         paymentSuccessToGymer.setContent(content);
         paymentSuccessToGymer.setTitle(TITLE_NOTIFICATION_PAYMENT_SUCCESS);
         paymentSuccessToGymer.setTimeStamp(LocalDateTime.now());
-        paymentSuccessToGymer.setFromAccount(0);
-        paymentSuccessToGymer.setToAccount(gymerID);
+        paymentSuccessToGymer.setFromAccount(systemAccount);
+        paymentSuccessToGymer.setToAccount(gymerAccount);
 
         notificationRepository.save(paymentSuccessToGymer);
-        paymentSuccessToGymer.setToAccount(personalTrainerID);
+        paymentSuccessToGymer.setToAccount(personalTrainerAccount);
         notificationRepository.save(paymentSuccessToGymer);
     }
 }

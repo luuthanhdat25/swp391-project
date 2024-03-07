@@ -4,7 +4,6 @@ public class TemplateReport {
 	private int id;
 	private String content;
 
-	public TemplateReport() {}
 	public TemplateReport(int id, String content) {
 		super();
 		this.id = id;

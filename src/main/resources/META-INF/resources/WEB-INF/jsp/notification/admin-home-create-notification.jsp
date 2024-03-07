@@ -48,9 +48,6 @@
                     <p class="h6" style="padding-left: 9px; margin-top: 10px;">Manage</p>
                     <ul id="sidebar-menu" class="sidebar-menu" style="padding: 2px 9px 9px 9px;">
                         <li style="margin-bottom: 4px;">
-                            <a class="input-container" onclick=""> Manage account </a>
-                        </li>
-                        <li style="margin-bottom: 4px;">
                             <a class="input-container" onclick=""> Manage notification </a>
                         </li>
                         <li style="margin-bottom: 4px;">
@@ -58,12 +55,6 @@
                         </li>
                         <li style="margin-bottom: 4px;">
                             <a class="input-container" onclick=""> Manage request </a>
-                        </li>
-                        <li style="margin-bottom: 4px;">
-                           <a class="input-container" onclick=""> Manage exercise </a>
-                        </li>
-                        <li style="margin-bottom: 4px;">
-                             <a class="input-container" onclick=""> Manage exercise </a>
                         </li>
                     </ul>
 
@@ -88,8 +79,8 @@
                           </label>
                         </div>
 
-                        <input type="hidden" name="senderID" value="5" />
-                        <input type="hidden" name="receiverID" value="6" />
+                        <input type="hidden" name="senderID" value="3" />
+                        <input type="hidden" name="receiverID" value="4" />
                         <div class="d-flex justify-content-between" style="width: 200px;">
                             <button type="submit" class="btn-warning">Cancel</button>
                             <button type="submit" class="btn-success">Send Notification</button>

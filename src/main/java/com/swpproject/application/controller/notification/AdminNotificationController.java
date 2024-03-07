@@ -1,8 +1,12 @@
 package com.swpproject.application.controller.notification;
 
+import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Notification;
 import com.swpproject.application.model.Report;
+import com.swpproject.application.repository.AccountRepository;
+import com.swpproject.application.repository.GymerRepository;
 import com.swpproject.application.repository.NotificationRepository;
+import com.swpproject.application.repository.PersonalTrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,6 +26,7 @@ import java.util.stream.Collectors;
 public class AdminNotificationController {
     @Autowired
     private NotificationRepository notificationRepository;
+    @Autowired private AccountRepository accountRepository;
 
     @RequestMapping(value = "/admin-home/manage-notification", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String viewManageNotification(ModelMap modelMap,
@@ -52,7 +57,7 @@ public class AdminNotificationController {
 
             int fromIndex = Math.min((papeNo - 1) * pageSize, notificationFilter.size() - 1);
             int toIndex = Math.min(fromIndex + pageSize - 1, notificationFilter.size() - 1);
-            List<Notification> pageContent = notificationFilter.subList(fromIndex, toIndex);
+            List<Notification> pageContent = notificationFilter.subList(fromIndex, toIndex + 1);
             notifications = new PageImpl<>(pageContent, pageable, notificationFilter.size());
         }
 
@@ -71,14 +76,18 @@ public class AdminNotificationController {
     @RequestMapping(value = "admin-home/create-notification-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String createNotificationDetail(@RequestParam("title") String notificationTitle,
                                            @RequestParam("content") String notificationContent,
-                                           @RequestParam("senderID") int senderId,
-                                           @RequestParam("receiverID") int receiverID) {
+                                           @RequestParam("senderID") Integer senderID,
+                                           @RequestParam("receiverID") Integer receiverID) {
         Notification notification = new Notification();
         notification.setTitle(notificationTitle);
         notification.setContent(notificationContent);
         notification.setTimeStamp(LocalDateTime.now());
-        notification.setFromAccount(senderId);
-        notification.setToAccount(receiverID);
+
+        Account senderAccount = accountRepository.findById(senderID).get();
+        Account receiverAccount = accountRepository.findById(receiverID).get();
+
+        notification.setFromAccount(senderAccount);
+        notification.setToAccount(receiverAccount);
         notificationRepository.save(notification);
         return "forward:manage-notification";
     }

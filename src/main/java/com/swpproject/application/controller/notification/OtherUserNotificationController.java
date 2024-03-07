@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -25,6 +27,7 @@ public class OtherUserNotificationController {
     public String viewNotificationList(ModelMap modelMap,
                                        @RequestParam(name = "notificationId", required = false) Integer notificationId) {
         List<Notification> notifications = notificationRepository.findAll();
+        Collections.sort(notifications, Comparator.comparing(Notification::getTimeStamp).reversed());
 
         if (notificationId != null) {
             Notification notificationDetail = notificationRepository.findById(notificationId).get();

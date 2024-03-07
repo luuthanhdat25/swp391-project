@@ -197,26 +197,26 @@
                                                 <div class="row mt-3">
                                                     <div class="w-50 col-md-6">
                                                         <div>Nutrition Name</div>
-                                                        <input type="text" name="nutritionName" id="nutritionName" class="form-control mt-2" placeholder="Nutrition Name" />
+                                                        <input required type="text" name="nutritionName" id="nutritionName" class="form-control mt-2" placeholder="Nutrition Name" />
                                                     </div>
                                                 </div>
 
                                                 <div class="row mt-3">
                                                     <div class="col">
                                                         <div>Calories</div>
-                                                        <input name="calories" id="caloryInput" min="0" type="number"  class="form-control mt-2" placeholder="Number calories" />
+                                                        <input required name="calories" id="caloryInput" min="0" type="number"  class="form-control mt-2" placeholder="Number calories" />
                                                     </div>
                                                     <div class="col">
                                                         <div>Protein</div>
-                                                        <input name="protein" id="proteinInput" min="0" type="number"  class="form-control mt-2" placeholder="Number protein" />
+                                                        <input required name="protein" id="proteinInput" min="0" type="number"  class="form-control mt-2" placeholder="Number protein" />
                                                     </div>
                                                     <div class="col">
                                                         <div>Fat</div>
-                                                        <input name="fat" id="fatInput" min="0" type="number"  class="form-control mt-2" placeholder="Number fat" />
+                                                        <input required name="fat" id="fatInput" min="0" type="number"  class="form-control mt-2" placeholder="Number fat" />
                                                     </div>
                                                     <div class="col">
                                                         <div>Carb</div>
-                                                        <input name="carb" id="carbInput" min="0" type="number"  class="form-control mt-2" placeholder="Number carb" />
+                                                        <input required name="carb" id="carbInput" min="0" type="number"  class="form-control mt-2" placeholder="Number carb" />
                                                     </div>
                                                 </div>
 
@@ -224,7 +224,7 @@
                                                     <div class="mb-2">Image description</div>
                                                     <button type="button" id="chooseImageButton" class="btn btn-warning">Choose Image</button>
                                                     <br>
-                                                    <input type="file" id="imageInput" style="display: none;" name="image">
+                                                    <input required type="file" id="imageInput" style="display: none;" name="image">
                                                     <div class="mt-2">
                                                         <img id="previewImage"  src="#" alt="Preview" style="display: none;" class="w-50">
                                                     </div>
@@ -295,7 +295,6 @@
             $('#nutritionForm').submit(function(event) {
                 var isValid = true;
 
-                // Mảng chứa thông tin về các trường cần kiểm tra
                 var fieldsToCheck = [
                     { id: 'nutritionName', errorMessageId: 'nutritionNameError', errorMessage: 'Nutrition Name is required' },
                     { id: 'caloryInput', errorMessageId: 'caloryError', errorMessage: 'Calories is required' },
@@ -304,7 +303,6 @@
                     { id: 'carbInput', errorMessageId: 'carbError', errorMessage: 'Carb is required' }
                 ];
 
-                // Lặp qua mảng các trường và kiểm tra
                 fieldsToCheck.forEach(function(field) {
                     var fieldValue = $('#' + field.id).val().trim();
                     if (fieldValue === '') {
@@ -315,21 +313,35 @@
                     }
                 });
 
-                // Kiểm tra hình ảnh
-                var image = $('#imageInput').val();
-                if (!image) {
-                    $('#imageError').text('Image is required');
-                    isValid = false;
-                } else {
-                    $('#imageError').text('');
+                function clearError(field) {
+                    $(field).text('');
                 }
 
-                // Check if all required fields are filled
+                function validateImageSize(input, errorMessage) {
+                    var file = $(input)[0].files[0];
+                    if (file === undefined) {
+                        showError(errorMessage);
+                    } else {
+                        if (file.size > 10 * 1024 * 1024) {
+                            showError(errorMessage);
+                        } else {
+                            clearError(errorMessage);
+                        }
+                    }
+                }
+
+                clearError('#imageError'); // Clear error message before validation
+                validateImageSize('input[name="image"]', '#imageError');
+                if ($('#imageError').val() === '') { // If no error message is shown for image, show a warning
+                    $('#imageError').text('No image selected. Please select an image.');
+                }
+
                 if (!isValid) {
-                    event.preventDefault(); // Prevent form submission if validation fails
+                    event.preventDefault();
                 }
             });
         });
+
 
 
     </script>

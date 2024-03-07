@@ -43,7 +43,7 @@ public class ExerciseController {
         List<Exercise> exercises = exerciseRepository.findAll();
         String json = JsonUtils.jsonConvert(exercises);
         model.addAttribute("exerciseList", json);
-        return "exercise-list";
+        return "exercise/exercise-list";
     }
 
     //Get view exercise details
@@ -111,6 +111,7 @@ public class ExerciseController {
             exercise.setLevel(exerciseDTO.getLevelRadio());
             exercise.setEquipment(exerciseDTO.getEquipment());
             exercise.setVideoDescription(exerciseDTO.getYoutubeLink());
+            System.out.println(exerciseDTO.getImage().getBytes().length);
             if(exerciseDTO.getImage().getBytes().length != 0) exercise.setImageDescription(exerciseDTO.getImage().getBytes());
             exerciseRepository.update(exercise);
 

@@ -198,6 +198,7 @@
                                                     <div class="w-50 col-md-6">
                                                         <div>Exercise Name</div>
                                                         <input id="exerciseName" type="text" name="exerciseName" class="form-control mt-2" placeholder="Exercise Name" />
+                                                        <p id="exerciseNameError" class="text-danger mt-2"></p>
                                                     </div>
 
                                                     <div class="col-md-6" id="exerciseLevel">
@@ -214,6 +215,7 @@
                                                             <input class="form-check-input" type="radio" name="levelRadio" id="advancedRadio" value="Advanced">
                                                             <label class="form-check-label" for="advancedRadio">Advanced</label>
                                                         </div>
+                                                        <p id="levelError" class="text-danger mt-2"></p>
                                                     </div>
                                                 </div>
 
@@ -235,6 +237,7 @@
                                                                 <option value="Calves">Calves</option>
                                                             </select>
                                                         </div>
+                                                        <p id="muscleError" class="text-danger mt-3"></p>
                                                     </div>
 
                                                     <div class="col-md-6">
@@ -265,6 +268,7 @@
 
                                                 <div class="mt-3">
                                                     <div class="mb-2">Image description</div>
+                                                    <p id="imageError" class="text-danger mt-3"></p>
                                                     <button type="button" id="chooseImageButton" class="btn btn-warning">Choose Image</button>
                                                     <br>
                                                     <input type="file" id="imageInput" style="display: none;" name="image">
@@ -276,6 +280,7 @@
 
                                                 <div class="mt-4">
                                                     <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control w-50" name="youtubeLink">
+                                                    <p id="youtubeLinkError" class="text-danger mt-3"></p>
                                                     <button type="button" id="changeVideoBtn" class="btn btn-warning mt-1">Add Video</button>
                                                 </div>
 
@@ -285,6 +290,7 @@
 
                                                 <div class="hello-park mt-3">
                                                     <textarea class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description" name="exerciseDescription"></textarea>
+                                                    <p id="exerciseDescriptionError" class="text-danger mt-3"></p>
                                                 </div>
 
                                                 <div class="mt-3">
@@ -295,17 +301,6 @@
                                                         </label>
                                                     </div>
                                                 </div>
-
-                                                <div id="errorMessages">
-                                                    <p id="exerciseNameError" class="text-danger"></p>
-                                                    <p id="levelError" class="text-danger"></p>
-                                                    <p id="equipmentError" class="text-danger"></p>
-                                                    <p id="muscleError" class="text-danger"></p>
-                                                    <p id="imageError" class="text-danger"></p>
-                                                    <p id="youtubeLinkError" class="text-danger"></p>
-                                                    <p id="exerciseDescriptionError" class="text-danger"></p>
-                                                </div>
-
 
                                                 <div class="d-flex mt-3">
                                                     <button type="submit" class="btn btn-primary me-2">

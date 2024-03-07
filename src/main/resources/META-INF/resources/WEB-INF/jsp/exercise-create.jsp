@@ -193,28 +193,30 @@
                                     <div class="card mb-0">
                                         <div class="card-body">
 
-                                            <form:form id="exerciseForm" action="/exercise/create" method="post" enctype="multipart/form-data">
+                                            <form id="exerciseForm" action="/exercise/create" method="post" enctype="multipart/form-data">
                                                 <div class="row mt-3">
                                                     <div class="w-50 col-md-6">
                                                         <div>Exercise Name</div>
-                                                        <input type="text" name="exerciseName" class="form-control mt-2" required  placeholder="Exercise Name" />
+                                                        <input id="exerciseName" type="text" name="exerciseName" class="form-control mt-2" required  placeholder="Exercise Name" />
+                                                        <p id="exerciseNameError" class="text-danger mt-2"></p>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <div class="mb-2 mt-2">Level</div>
 
-                                                        <div class="form-check form-check-inline">
+                                                        <div class="form-check form-check-inline mt-1">
                                                             <input class="form-check-input" type="radio" name="levelRadio" id="beginnerRadio" value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">checked</c:if>>
                                                             <label class="form-check-label" for="beginnerRadio">Beginner</label>
                                                         </div>
-                                                        <div class="form-check form-check-inline">
+                                                        <div class="form-check form-check-inline mt-1">
                                                             <input class="form-check-input" type="radio" name="levelRadio" id="intermediateRadio" value="Intermediate" <c:if test="${exercise.level eq 'Intermediate'}">checked</c:if>>
                                                             <label class="form-check-label" for="intermediateRadio">Intermediate</label>
                                                         </div>
-                                                        <div class="form-check form-check-inline">
+                                                        <div class="form-check form-check-inline mt-1">
                                                             <input class="form-check-input" type="radio" name="levelRadio" id="advancedRadio" value="Advanced" <c:if test="${exercise.level eq 'Advanced'}">checked</c:if>>
                                                             <label class="form-check-label" for="advancedRadio">Advanced</label>
                                                         </div>
+                                                        <p id="levelError" class="text-danger mt-2"></p>
                                                     </div>
                                                 </div>
 
@@ -235,6 +237,7 @@
                                                                 <option value="Glutes">Glutes</option>
                                                                 <option value="Calves">Calves</option>
                                                             </select>
+                                                            <p id="muscleError" class="text-danger mt-3"></p>
                                                         </div>
                                                     </div>
 
@@ -266,9 +269,10 @@
 
                                                 <div class="mt-3">
                                                     <div class="mb-2">Image description</div>
+                                                    <p id="imageError" class="text-danger mt-3"></p>
                                                     <button type="button" id="chooseImageButton" class="btn btn-warning">Choose Image</button>
                                                     <br>
-                                                    <input type="file" id="imageInput" style="display: none;" name="image">
+                                                    <input type="file" id="imageInput" name="image" style="display: none">
                                                     <div class="mt-2">
                                                         <img id="previewImage"  src="#" alt="Preview" style="display: none;" class="w-50">
                                                     </div>
@@ -277,6 +281,7 @@
 
                                                 <div class="mt-4">
                                                     <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control w-50" name="youtubeLink" required>
+                                                    <p id="youtubeLinkError" class="text-danger mt-3"></p>
                                                     <button type="button" id="changeVideoBtn" class="btn btn-warning mt-1">Add Video</button>
                                                 </div>
 
@@ -285,7 +290,8 @@
                                                 </div>
 
                                                 <div class="hello-park mt-3">
-                                                    <textarea required class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description" name="exerciseDescription"></textarea>
+                                                    <textarea required class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description" name="exerciseDescription" wrap="soft"></textarea>
+                                                    <p id="exerciseDescriptionError" class="text-danger mt-3"></p>
                                                 </div>
 
                                                 <div class="mt-3">
@@ -297,26 +303,11 @@
                                                     </div>
                                                 </div>
 
-                                                <div id="errorMessages">
-                                                    <p id="exerciseNameError" class="text-danger"></p>
-                                                    <p id="levelError" class="text-danger"></p>
-                                                    <p id="equipmentError" class="text-danger"></p>
-                                                    <p id="muscleError" class="text-danger"></p>
-                                                    <p id="imageError" class="text-danger"></p>
-                                                    <p id="youtubeLinkError" class="text-danger"></p>
-                                                    <p id="exerciseDescriptionError" class="text-danger"></p>
-                                                </div>
-
-
                                                 <div class="d-flex mt-3">
-                                                    <button type="submit" class="btn btn-primary me-2">
-                                                        Create
-                                                    </button>
-                                                    <a href="/exercise/" class="btn btn-danger">
-                                                        Cancel
-                                                    </a>
+                                                    <button type="submit" class="btn btn-primary me-2">Create</button>
+                                                    <a href="/exercise/" class="btn btn-danger">Cancel</a>
                                                 </div>
-                                            </form:form>
+                                            </form>
 
                                         </div>
                                     </div>
@@ -336,7 +327,6 @@
     </div>
 
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="../../assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -349,7 +339,7 @@
 
     <script src="../../assets/js/exercise/create/exercise-create-image-import.js"></script>
     <script src="../../assets/js/exercise/create/exercise-create-youtube-extract.js"></script>
-<%--    <script src="../../assets/js/exercise/create/exercise-create-submit-handler.js"></script>--%>
+    <script src="../../assets/js/exercise/create/exercise-create-submit-handler.js"></script>
 </body>
 
 </html>

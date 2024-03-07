@@ -8,6 +8,6 @@ $(document).ready(function(){
 
     $('#previewImage').attr('src',"data:image/jpeg;base64," + nutrition.imageDescription);
     $('#previewImage').show();
-    $('#flexCheckDefault').prop('checked', exercise.isPrivate === 1);
+    $('#nutritionPrivate').prop('checked', nutrition.isPrivate === '1');
     $('#cancelButton').attr("href", "/nutrition/");
 })

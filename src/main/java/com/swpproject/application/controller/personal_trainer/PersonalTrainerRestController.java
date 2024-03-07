@@ -2,7 +2,9 @@ package com.swpproject.application.controller.personal_trainer;
 
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.PersonalTrainerRepository;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/personal_trainer")
+@RequestMapping("/api/personal-trainer")
 public class PersonalTrainerRestController {
     private final PersonalTrainerRepository personalTrainerRepository;
 
@@ -23,19 +27,40 @@ public class PersonalTrainerRestController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<PersonalTrainer>> searchExercise(@RequestBody FilterObject filterObject) {
+    public ResponseEntity<List<PersonalTrainerDTO>> searchExercise(@RequestBody FilterObject filterObject) {
         List<PersonalTrainer> personalTrainerList = personalTrainerRepository.findAll();
         personalTrainerList = filterByName(filterObject.getSearchName(), personalTrainerList);
         personalTrainerList = filterByPrice(filterObject.getPriceMin(), filterObject.getPriceMax(), personalTrainerList);
         personalTrainerList = filterByDistance(filterObject.getDistanceMax(), personalTrainerList);
         personalTrainerList = filterByGender(filterObject.getGender(), personalTrainerList);
-        return ResponseEntity.ok().body(personalTrainerList);
+        List<PersonalTrainerDTO> personalTrainerDTOList = getPersonalTrainerDTOList(personalTrainerList);
+        return ResponseEntity.ok().body(personalTrainerDTOList);
+    }
+
+    private List<PersonalTrainerDTO> getPersonalTrainerDTOList(List<PersonalTrainer> personalTrainerList) {
+        List<PersonalTrainerDTO> personalTrainerDTOList = new ArrayList<>();
+        for(PersonalTrainer personalTrainer: personalTrainerList) {
+            PersonalTrainerDTO dto = new PersonalTrainerDTO();
+            dto.setId(personalTrainer.getId());
+            dto.setDescription(personalTrainer.getDescription());
+            dto.setPrice(personalTrainer.getPrice());
+            dto.setFullName(personalTrainer.getAccount().getFullName());
+            dto.setAddress(personalTrainer.getAccount().getAddress());
+            dto.setGender(personalTrainer.getAccount().getGender().getDesc());
+            dto.setAvatarImage(personalTrainer.getAccount().getAvatarImage());
+            dto.setNumberOfVotes(5);
+            dto.setAverageVotes(4.7f);
+            personalTrainerDTOList.add(dto);
+        }
+        return personalTrainerDTOList;
     }
 
     private List<PersonalTrainer> filterByName(String searchName, List<PersonalTrainer> personalTrainerList) {
         if(searchName.isEmpty()) return personalTrainerList;
+        searchName = searchName.toLowerCase();
+        String finalSearchName = searchName;
         return personalTrainerList.stream()
-                .filter(personalTrainer -> personalTrainer.getAccount().getFullName().contains(searchName))
+                .filter(personalTrainer -> personalTrainer.getAccount().getFullName().toLowerCase().contains(finalSearchName))
                 .collect(Collectors.toList());
     }
 
@@ -68,3 +93,39 @@ class FilterObject {
     private String gender;
 }
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+class PersonalTrainerDTOOut{
+    private Integer id;
+    private String description;
+    private Integer price;
+    private String fullName;
+    private String address;
+    private String gender;
+    private byte[] avatarImage;
+    private int numberOfVotes;
+    private float averageVotes;
+    private String phone;
+    private String birthday;
+    private String email;
+    List<byte[]> certificateList;
+    @Override
+    public String toString() {
+        return "PersonalTrainerDTO{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", fullName='" + fullName + '\'' +
+                ", address='" + address + '\'' +
+                ", gender='" + gender + '\'' +
+                ", avatarImage=" + Arrays.toString(avatarImage) +
+                ", numberOfVotes=" + numberOfVotes +
+                ", averageVotes=" + averageVotes +
+                ", phone='" + phone + '\'' +
+                ", birthday=" + birthday +
+                ", email='" + email + '\'' +
+                '}';
+    }
+}

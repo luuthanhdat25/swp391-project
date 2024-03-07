@@ -1,16 +1,13 @@
 package com.swpproject.application.controller.personal_trainer;
 
-import com.swpproject.application.enums.Gender;
-import com.swpproject.application.model.Exercise;
 import com.swpproject.application.model.PersonalTrainer;
+import com.swpproject.application.service.CertificateService;
 import com.swpproject.application.utils.JsonUtils;
-import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.PersonalTrainerRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,11 +22,14 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/personal-trainer")
-public class PersonalTrainerListController {
+public class PersonalTrainerController {
     private final PersonalTrainerRepository personalTrainerRepository;
 
-    public PersonalTrainerListController(PersonalTrainerRepository personalTrainerRepository) {
+    private final CertificateService certificateService;
+
+    public PersonalTrainerController(PersonalTrainerRepository personalTrainerRepository, CertificateService certificateService) {
         this.personalTrainerRepository = personalTrainerRepository;
+        this.certificateService = certificateService;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
@@ -45,6 +44,7 @@ public class PersonalTrainerListController {
         List<PersonalTrainer> list = personalTrainerRepository.findAll();
         List<PersonalTrainerDTO> personalTrainerDTOList = new ArrayList<>();
         for(PersonalTrainer personalTrainer: list) {
+            List<byte[]> certificatList = certificateService.getAllCertificatesData(personalTrainer);
             PersonalTrainerDTO dto = new PersonalTrainerDTO();
             dto.setId(personalTrainer.getId());
             dto.setDescription(personalTrainer.getDescription());
@@ -55,6 +55,7 @@ public class PersonalTrainerListController {
             dto.setAvatarImage(personalTrainer.getAccount().getAvatarImage());
             dto.setNumberOfVotes(5);
             dto.setAverageVotes(4.7f);
+            dto.setCertificateList(certificateService.getAllCertificatesData(personalTrainer));
             personalTrainerDTOList.add(dto);
         }
         return personalTrainerDTOList;
@@ -70,6 +71,7 @@ public class PersonalTrainerListController {
     }
 
     private PersonalTrainerDTO getPersonalTrainerDTO(PersonalTrainer personalTrainer) {
+        List<byte[]> certificatList = certificateService.getAllCertificatesData(personalTrainer);
         PersonalTrainerDTO dto = new PersonalTrainerDTO();
         dto.setId(personalTrainer.getId());
         dto.setDescription(personalTrainer.getDescription());
@@ -83,8 +85,18 @@ public class PersonalTrainerListController {
         dto.setPhone(personalTrainer.getAccount().getPhone());
         dto.setBirthday(personalTrainer.getAccount().getBirthday().toString());
         dto.setEmail(personalTrainer.getAccount().getEmail());
+        dto.setCertificateList(certificatList);
         return dto;
     }
+
+
+    // UPDATE PROFILE
+    @GetMapping("update")
+    public String showFormUpdate() {
+        return "";
+    }
+
+
 }
 
 @Getter
@@ -104,7 +116,7 @@ class PersonalTrainerDTO{
     private String phone;
     private String birthday;
     private String email;
-
+    List<byte[]> certificateList;
     @Override
     public String toString() {
         return "PersonalTrainerDTO{" +

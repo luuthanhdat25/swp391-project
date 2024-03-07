@@ -15,7 +15,9 @@ $(document).ready(function(){
     $('#previewImage').attr('src',"data:image/jpeg;base64," + exercise.imageDescription);
     $('#previewImage').show();
     $('#youtubeLink').val(exercise.videoDescription);
-    $('#exerciseDescription').val(exercise.description);
+    var exerciseDescription = exercise.description;
+    exerciseDescription = exerciseDescription.replace(/<br\s*\/?>/mg,"\n");
+    $('#exerciseDescription').val(exerciseDescription);
     $('#exercisePrivate').prop('checked', exercise.isPrivate === 1);
     $('#cancelButton').attr("href", "/exercise/details?id=" + exercise.id);
 })

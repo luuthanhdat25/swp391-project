@@ -129,4 +129,12 @@ public class OrderRequestController {
     }
 
 
+    @RequestMapping(value = "/decline-order")
+    public String declineOrder(@RequestParam("orderId")Integer orderId ){
+        slotExcerciseEntityService.deleteSlot(orderId);
+        orderRequestService.deleteOrder(orderId);
+        return "redirect:/order-list";
+    }
+
+
 }

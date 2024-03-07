@@ -372,7 +372,6 @@
     </div>
 
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="../../assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -382,7 +381,6 @@
     <script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <script src="../../assets/js/script.js"></script>
-
 
 
     <script>
@@ -429,23 +427,18 @@
                 viewProfileButton.click(function() {
                     window.location.href = `/personal-trainer/details?id=` + personalTrainer.id;
                 });
-                // Append columns to card body
                 cardBody.append(leftColumn, middleColumn, rightColumn);
-
-                // Append card body to card
                 card.append(cardBody);
-
-                // Append card to container
                 container.append(card);
             });
 
-            return container;
+            $('#personalTrainerContainer').html(container);
         }
 
         var personalTrainerList = ${personalTrainerList};
         console.log(personalTrainerList)
-        const personalTrainersContainer = generatePersonalTrainers(personalTrainerList);
-        $('#personalTrainerContainer').html(personalTrainersContainer);
+        generatePersonalTrainers(personalTrainerList);
+
     </script>
 
     <script>
@@ -459,9 +452,6 @@
                 }
             });
         });
-
-        var personalTrainerList = ${personalTrainerList}
-            console.log(personalTrainerList);
     </script>
 
     <script>
@@ -562,26 +552,41 @@
     </script>
 
     <script>
+        function handleSearch() {
+            var searchName = $("#searchInput").val();
+            var priceMin = $("#priceMinInput").val();
+            var priceMax = $("#priceMaxInput").val();
+            var distanceMax = $("#distanceMaxInput").val();
+            var gender = $("#genderSelect").val();
+
+            var searchData = {
+                "searchName": searchName,
+                "priceMin": priceMin,
+                "priceMax": priceMax,
+                "distanceMax": distanceMax,
+                "gender": gender
+            };
+
+
+            console.log(JSON.stringify(searchData));
+
+            $.ajax({
+                type: "POST",
+                url: "/api/personal-trainer/search",
+                contentType: "application/json",
+                data: JSON.stringify(searchData),
+                success: function(response) {
+                    console.log(response);
+                    generatePersonalTrainers(response)
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
         $(document).ready(function() {
             // Function to handle search
-            function handleSearch() {
-                var searchName = $("#searchInput").val();
-                var priceMin = $("#priceMinInput").val();
-                var priceMax = $("#priceMaxInput").val();
-                var distanceMax = $("#distanceMaxInput").val();
-                var gender = $("#genderSelect").val();
-
-                var searchData = {
-                    "searchName": searchName,
-                    "priceMin": priceMin,
-                    "priceMax": priceMax,
-                    "distanceMax": distanceMax,
-                    "gender": gender
-                };
-
-                console.log(JSON.stringify(searchData));
-            }
-
             // Handle search name input and submit on enter
             $("#searchInput").keypress(function(event) {
                 if (event.which == 13) {

@@ -68,7 +68,6 @@ public class SystemNotificationService {
 
         String TITLE_NOTIFICATION_ACCEPTED_AND_PAYMENT = "Payment Hiring Personal Trainer";
         String content = createNotificationContent_AcceptedHiring(senderAccount, receiverAccount, orderDetail, linkPaymentHTML.toString());
-
         paymentNotification.setContent(content);
         paymentNotification.setTitle(TITLE_NOTIFICATION_ACCEPTED_AND_PAYMENT);
         paymentNotification.setTimeStamp(LocalDateTime.now());

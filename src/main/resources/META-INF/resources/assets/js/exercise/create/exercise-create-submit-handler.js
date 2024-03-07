@@ -76,9 +76,10 @@ $(document).ready(function() {
 
         clearError('#imageError'); // Clear error message before validation
         validateImageSize('input[name="image"]', '#imageError');
-        if ($('#imageError').text() === '') { // If no error message is shown for image, show a warning
+        if (!$('#imageInput').val()) { // If no image is selected in the file input
             $('#imageError').text('No image selected. Please select an image.');
         }
+
 
         clearError('#youtubeLinkError'); // Clear error message before validation
         validateYouTubeLink('#youtubeLink', /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})$/, '#youtubeLinkError');

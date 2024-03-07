@@ -285,7 +285,8 @@
                                                 </div>
 
                                                 <div class="hello-park mt-3">
-                                                    <textarea required class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description" name="exerciseDescription"></textarea>
+                                                    <textarea required class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description" name="exerciseDescription" wrap="soft"></textarea>
+
                                                 </div>
 
                                                 <div class="mt-3">

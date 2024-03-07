@@ -179,6 +179,7 @@ public class AuthenticationController {
         Optional<Account> account = accountService.getAccountByEmail(email);
         if (account.isPresent() && password.equals(account.get().getPassword())) {
             removeAttributes(session, "email", "password");
+            session.setAttribute("account", account.get());
             return "welcome";
         } else {
             session.setAttribute("email", email);
@@ -265,7 +266,6 @@ public class AuthenticationController {
 
         account.setPassword(password);
         accountService.save(account);
-        System.out.println(account);
         return "redirect:/auth/login?successfully";
     }
 

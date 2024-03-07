@@ -72,17 +72,26 @@ public class OrderRequestController {
 
     @RequestMapping(value = "accept-order", method = RequestMethod.POST)
     public String AcceptOrder(@RequestParam("order") Integer orderID,
-                              @RequestParam("slotOrder") List<SlotExercise> slotOrder
+                              @RequestParam("MSG") String MSG,
+                              RedirectAttributes redirectAttributes
     ) {
+
+        List<SlotExercise> slotOrder = slotExcerciseEntityService.getSlotByOrder(orderID);
         System.out.println("order ID: " + orderID);
         System.out.println("slotList: " + slotOrder.size());
-        for (SlotExercise slotExercise : slotOrder) {
-            System.out.println(slotExercise.toString());
-            slotExcerciseEntityService.updateSlotOrderPending(slotExercise.getId(), false);
+        OrderRequest orderRequest = orderRequestService.getOrderRequestById(orderID);
+        System.out.println();
+        if(!MSG.equalsIgnoreCase("")){
+            return "redirect:/order-list";
+        }else{
+            for (SlotExercise slotExercise : slotOrder) {
+                System.out.println(slotExercise.toString());
+                slotExcerciseEntityService.updateSlotOrderPending(slotExercise.getId(), false);
+            }
+            redirectAttributes.addAttribute("amountPay",orderRequest.getTotal_of_money());
+            return "redirect:/pay";
         }
-
-
-        return "redirect:/order-list";
+//        return "";
     }
 
     @RequestMapping("order-list")

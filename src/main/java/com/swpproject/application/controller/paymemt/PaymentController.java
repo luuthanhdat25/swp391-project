@@ -11,8 +11,8 @@ public class PaymentController {
         this.paymentStrategy = paymentStrategy;
     }
 
-    @RequestMapping(value = "/pay", method = RequestMethod.POST)
-    public String processPayment(int amountPay) {
+    @RequestMapping(value = "/pay", method = RequestMethod.GET)
+    public String processPayment(@RequestParam int amountPay) {
         //Default
         if(paymentStrategy == null) setPaymentStrategy(new VNPayPayment());
 

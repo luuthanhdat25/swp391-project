@@ -1,14 +1,18 @@
 function generateWeeks() {
-    var year = $("#year").val();
+    var year = parseInt($("#year").val());
+    var currentDate = moment();
     var weeks = [];
 
     for (var i = 1; i <= 52; i++) {
         var startOfWeek = moment().year(year).isoWeek(i).startOf('isoWeek');
         var endOfWeek = moment().year(year).isoWeek(i).endOf('isoWeek');
         var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');
-        weeks.push("<option value='" + i + "'>" + weekText + "</option>");
-    }
 
+        if ((year === currentDate.year() && i >= currentDate.isoWeek()) || year > currentDate.year()) {
+            // Include only future weeks for the current year and all weeks for future years
+            weeks.push("<option value='" + i + "'>" + weekText + "</option>");
+        }
+    }
     $("#week").html(weeks.join(""));
 }
 
@@ -16,15 +20,12 @@ $(document).ready(function () {
     var currentDate = moment();
 
     // Set giá trị năm tương ứng với ngày hiện tại
-
     generateWeeks();
-
     // Extract week parameter from the URL and set it as the selected value
     var urlParams = new URLSearchParams(window.location.search);
     var weekParam = urlParams.get('week');
     var yearParam = urlParams.get('year');
     var accountIdParam = urlParams.get('accountId');
-
     if (weekParam && yearParam) {
         $("#week").val(weekParam);
         $("#year").val(yearParam);

@@ -56,8 +56,8 @@ public class SlotController {
             System.out.println("accountId: " + accountId);
 
             model.addAttribute("accountId", accountId);
-            model.addAttribute("personalTrainer",personalTrainer);
-            System.out.println("price: "+personalTrainer.getPrice());
+            model.addAttribute("personalTrainer", personalTrainer);
+            System.out.println("price: " + personalTrainer.getPrice());
             // Other processing related to accountId...
         }
 
@@ -111,14 +111,14 @@ public class SlotController {
         PersonalTrainer personalTrainer = new PersonalTrainer();
         personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(accountId);
         Schedule schedulePersonalTrainerEntity = schedulePersonalTrainerService.findScheduleByPtId(personalTrainer.getId());
-        Account accountSession =(Account) session.getAttribute("account");
+        Account accountSession = (Account) session.getAttribute("account");
         System.out.println("PT ID : " + personalTrainer.getId());
         System.out.println("ScheduleID: " + schedulePersonalTrainerEntity.getId());
-        System.out.println("accountID: "+accountSession.getId());
+        System.out.println("accountID: " + accountSession.getId());
         OrderRequest orderRequest = new OrderRequest();
         double doubleValue = Double.parseDouble(totalPrice);
         Integer totalAmount = (int) doubleValue;
-        System.out.println("Total price: "+totalAmount);
+        System.out.println("Total price: " + totalAmount);
 
         LocalDate currentDate;
         Date StartDateAsDate;
@@ -177,33 +177,42 @@ public class SlotController {
 
 
             if (checkedSlots != null && !checkedSlots.isEmpty()) {
-                for (String checkedSlot : checkedSlots) {
-                    String[] parts = checkedSlot.split("-");
-                    if (parts.length == 3) {
-                        String day = parts[0];
-                        String startHour = parts[1];
-                        String endHour = parts[2];
-                        SlotExercise slotEntity = new SlotExercise();
-                        slotEntity.setDay(day);
-                        slotEntity.setStart_hour(startHour);
-                        slotEntity.setEnd_hour(endHour);
-                        slotEntity.setWeek(week);
-                        slotEntity.setYear(year);
-                        slotEntity.setSchedule(schedulePersonalTrainerEntity);
-                        slotEntity.setPending(true); // Set your default value
-                        slotEntity.setAttendantStatus(Attendant.WAITING);
-                        slotEntity.setGymer(gymerService.getGymerByAccount(accountSession).get());
-                        slotEntity.setPersonalTrainer(personalTrainer);
-                        slotEntity.setOrderRequest(orderRequest);
-                        // Set Slot value
-                        slotExcerciseEntityService.SaveSlotExcercise(slotEntity);
-                    } else {
-                        // Log or handle the case where the expected number of parts is not found
-                        System.out.println("Invalid slot format: " + checkedSlot);
+                for (int i = 1; i <= trainingTime; i++) {
+                    if (week < 52) {
+                        week++;
+                    } else if (week == 52) {
+                        week = 1;
+                        year++;
+                    }
+                    for (String checkedSlot : checkedSlots) {
+                        String[] parts = checkedSlot.split("-");
+                        if (parts.length == 3) {
+                            String day = parts[0];
+                            String startHour = parts[1];
+                            String endHour = parts[2];
+                            SlotExercise slotEntity = new SlotExercise();
+                            slotEntity.setDay(day);
+                            slotEntity.setStart_hour(startHour);
+                            slotEntity.setEnd_hour(endHour);
+                            slotEntity.setWeek(week);
+                            slotEntity.setYear(year);
+                            slotEntity.setSchedule(schedulePersonalTrainerEntity);
+                            slotEntity.setPending(true); // Set your default value
+                            slotEntity.setAttendantStatus(Attendant.WAITING);
+                            slotEntity.setGymer(gymerService.getGymerByAccount(accountSession).get());
+                            slotEntity.setPersonalTrainer(personalTrainer);
+                            slotEntity.setOrderRequest(orderRequest);
+                            // Set Slot value
+                            slotExcerciseEntityService.SaveSlotExcercise(slotEntity);
+
+
+                        } else {
+                            // Log or handle the case where the expected number of parts is not found
+                            System.out.println("Invalid slot format: " + checkedSlot);
+                        }
                     }
                 }
             }
-
 
 
         }
@@ -212,4 +221,7 @@ public class SlotController {
         redirectAttributes.addAttribute("year", year);
         return "redirect:/bookPT";
     }
+
+
+
 }

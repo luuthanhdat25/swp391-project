@@ -472,7 +472,7 @@
                                         <!-- Thay đổi dải số năm tùy ý -->
                                         <script>
                                             var currentYear = new Date().getFullYear();
-                                            for (var i = currentYear; i >= currentYear - 10; i--) {
+                                            for (var i = currentYear; i <= currentYear + 5; i++) {
                                                 document.write("<option value='" + i + "'>" + i + "</option>");
                                             }
                                         </script>
@@ -504,9 +504,9 @@
                                             <label>Training time:</label>
                                             <select class="select" name="TrainingTime" id="trainingTimeSelect">
                                                 <option selected disabled>Select Training Time</option>
-                                                <option value="1">1 months</option>
-                                                <option value="2">3 months</option>
-                                                <option value="3">6 months</option>
+                                                <option value="4">1 months</option>
+                                                <option value="12">3 months</option>
+                                                <option value="24">6 months</option>
                                             </select>
                                         </div>
                                         <div class="invoice-total-card" id="invoiceTotalCard" style="display: none;">

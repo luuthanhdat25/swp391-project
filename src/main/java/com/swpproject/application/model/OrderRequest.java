@@ -17,7 +17,7 @@ public class OrderRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    private Integer order_id;
+    private Integer orderId;
     private String title;
     private String Description;
     private Date datetime_start;
@@ -35,7 +35,7 @@ public class OrderRequest {
     @Override
     public String toString() {
         return "OrderRequest{" +
-                "order_id=" + order_id +
+                "order_id=" + orderId +
                 ", title='" + title + '\'' +
                 ", Description='" + Description + '\'' +
                 ", datetime_start=" + datetime_start +

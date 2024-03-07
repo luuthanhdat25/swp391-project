@@ -596,6 +596,7 @@
 
                                 </button>
                             </div>
+                                <input type="hidden" name="MSG" value="${MSG}">
                                 ${MSG}
                                 <input type="hidden" name="order" value="${param.order_id}">
                                 <c:forEach var="slot" items="${allSlots}" varStatus="loop">

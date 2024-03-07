@@ -1,6 +1,7 @@
 package com.swpproject.application.service;
 
 
+import com.swpproject.application.model.OrderRequest;
 import com.swpproject.application.model.SlotExercise;
 import com.swpproject.application.repository.SlotExcerciseEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,8 @@ public class SlotExcerciseEntityService {
     }
     public List<SlotExercise> getSlotGreater (Date targetDate,boolean isPending){
         return slotExcerciseEntityRepository.findSlotsWithDateEndGreaterThanAndPending(targetDate,isPending);
+    }
+    public List<SlotExercise> getSlotByOrder(Integer orderRequest){
+        return slotExcerciseEntityRepository.getSlotExerciseByOrderRequest_OrderId(orderRequest);
     }
 }

@@ -20,8 +20,7 @@ public class PaymentController {
     }
 
     @RequestMapping(value = "/pay", method = RequestMethod.GET)
-    public String processPayment(@RequestParam("amountPay") int amountPay,
-                                 @RequestParam("orderID") Integer orderID,
+    public String processPayment(@RequestParam("orderID") Integer orderID,
                                  HttpSession session) {
         //Default
         if(paymentStrategy == null) setPaymentStrategy(new VNPayPayment());
@@ -30,7 +29,7 @@ public class PaymentController {
             OrderRequest orderRequest = orderRequestService.getOrderRequestById(orderID);
             session.setAttribute("orderPayment",orderRequest);
             System.out.println("order request:"+orderRequest.getOrderId());
-            return "redirect:" + paymentStrategy.processPayment(amountPay);
+            return "redirect:" + paymentStrategy.processPayment(orderRequest.getTotal_of_money());
         } else {
             System.out.println("No payment strategy selected.");
             return null;

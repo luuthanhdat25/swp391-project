@@ -39,4 +39,9 @@ public class OrderRequestImpl implements OrderRequestService {
     public void updateStatusOrder(OrderStatus orderStatus, Integer orderId) {
         orderRequestRepository.updateOrderStatus(orderStatus,orderId);
     }
+    @Override
+    public void deleteOrder(Integer orderId) {
+        orderRequestRepository.deleteById(orderId);
+    }
+
 }

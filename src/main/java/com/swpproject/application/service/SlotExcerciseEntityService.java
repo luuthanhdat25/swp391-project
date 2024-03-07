@@ -52,4 +52,9 @@ public class SlotExcerciseEntityService {
                                                 boolean isPending){
         return slotExcerciseEntityRepository.getSlotExerciseByGymer_GymerIdAndWeekAndYearAndIsPendingAndPersonalTrainerIsNotNull(gymerID,week,year,isPending);
     }
+
+    public void deleteSlot(Integer orderID){
+        slotExcerciseEntityRepository.deleteAllByOrderRequest_OrderId(orderID);
+    };
+
 }

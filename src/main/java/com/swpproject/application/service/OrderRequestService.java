@@ -15,4 +15,5 @@ public interface OrderRequestService {
     public OrderRequest getOrderRequestById(Integer orderID);
     public List<OrderRequest> getOrderRequestList(PersonalTrainer personalTrainer);
     public void updateStatusOrder(OrderStatus orderStatus,Integer orderId);
+    public void deleteOrder(Integer orderId);
 }

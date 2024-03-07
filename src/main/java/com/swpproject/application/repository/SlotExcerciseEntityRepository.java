@@ -48,6 +48,7 @@ public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercis
     public List<SlotExercise> getSlotExerciseByOrderRequest_OrderId(Integer orderRequestID);
 
     public List<SlotExercise> getSlotExerciseByGymer_GymerIdAndWeekAndYearAndIsPendingAndPersonalTrainerIsNotNull(Integer gymerID,
-                                                                                                                Integer week,
-                                                                                                                Integer year,boolean isPending);
+                                                                                                                Integer week,Integer year,boolean isPending);
+    @Transactional
+    public void deleteAllByOrderRequest_OrderId(Integer orderID);
 }

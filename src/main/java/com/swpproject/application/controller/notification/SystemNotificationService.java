@@ -54,10 +54,18 @@ public class SystemNotificationService {
         Account receiverAccount = orderDetail.getGymer().getAccount();
         Notification paymentNotification = new Notification();
 
-        String linkPayment = "http://localhost:8080/pay?amountPay="+orderDetail.getTotal_of_money()+"&orderID="+orderDetail.getOrderId();
-        String TITLE_NOTIFICATION_ACCEPTED_AND_PAYMENT = "Payment Hiring Personal Trainer";
-        String content = createNotificationContent_AcceptedHiring(senderAccount, receiverAccount, orderDetail, linkPayment);
 
+
+        String NAME_LINK = "Payment link";
+        String linkPayment = "http://localhost:8080/pay?amountPay=" + orderDetail.getTotal_of_money() + "&orderID=" + orderDetail.getOrderId();
+        StringBuilder linkPaymentHTML = new StringBuilder()
+                .append("</span></font>")
+                .append("<a href=\"").append(linkPayment).append("\" target=\"_blank\">").append(NAME_LINK).append("</a>")
+                .append("<font face=\"Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif\" color=\"#000000\">")
+                .append("  <span style=\"white-space: collapse; background-color: rgb(255, 255, 255);\">");
+
+        String TITLE_NOTIFICATION_ACCEPTED_AND_PAYMENT = "Payment Hiring Personal Trainer";
+        String content = createNotificationContent_AcceptedHiring(senderAccount, receiverAccount, orderDetail, linkPaymentHTML.toString());
         paymentNotification.setContent(content);
         paymentNotification.setTitle(TITLE_NOTIFICATION_ACCEPTED_AND_PAYMENT);
         paymentNotification.setTimeStamp(LocalDateTime.now());

@@ -592,9 +592,7 @@
                                 <button type="submit" class="btn btn-primary">Accept
 
                                 </button>
-                                <button type="button" class="btn btn-primary">Decline
-
-                                </button>
+                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary">Decline</a>
                             </div>
                                 <input type="hidden" name="MSG" value="${MSG}">
                                 ${MSG}

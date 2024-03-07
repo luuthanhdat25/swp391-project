@@ -63,7 +63,7 @@ public class ExerciseRestController {
     private List<Exercise> findByEquipment(List<String> equipments, List<Exercise> exercises) {
         if (equipments.isEmpty()) return exercises;
         return exercises.stream()
-                .filter(exercise -> equipments.contains(exercise.getEquipment()))
+                .filter(exercise -> equipments.contains(exercise.getEquipment()) || exercise.getEquipment().equals("None"))
                 .collect(Collectors.toList());
     }
 }

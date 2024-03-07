@@ -220,7 +220,6 @@ public class AuthenticationController {
         return "redirect:/";
     }
 
-
     // FORGOT PASSWORD
     @GetMapping("/forgot")
     public String forgot() {

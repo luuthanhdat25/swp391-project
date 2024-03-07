@@ -20,11 +20,11 @@ public class SlotExerciseDetail {
     private int rep;
 
     @ManyToOne
-    @JoinColumn(name = "exercise_id", nullable = false)
+    @JoinColumn(name = "exercise_id", nullable = true)
     private Exercise exercise;
 
     @ManyToOne
-    @JoinColumn(name = "slot_exercise_id", nullable = false)
+    @JoinColumn(name = "slot_exercise_id", nullable = true)
     private SlotExercise slotExercise;
 
 }

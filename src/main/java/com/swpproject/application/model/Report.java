@@ -13,17 +13,25 @@ import lombok.*;
 @Entity
 @Table(name = "report")
 public class Report {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@Column(name = "id")
+	private Integer id;
 
-	//de tam nhu the nay
-	private int personalTrainerID;
-	private int gymerID;
-	private String title;
+	@Column(name = "reason", columnDefinition = "NVARCHAR(255)")
+	private String reason;
 
-	@Column(columnDefinition = "NVARCHAR(MAX)")
+	@Column(name = "description", columnDefinition = "NVARCHAR(MAX)")
 	private String description;
-	private LocalDateTime dateTime;
+
+	@Column(name = "time_stamp")
+	private LocalDateTime timeStamp;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "personal_trainer_id",referencedColumnName = "id", nullable = false)
+	private Account personalTrainerAccount;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gymer_id",referencedColumnName = "id", nullable = false)
+	private Account gymerAccount;
 }

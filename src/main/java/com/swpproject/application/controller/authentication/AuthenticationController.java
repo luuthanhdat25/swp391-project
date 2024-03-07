@@ -3,6 +3,10 @@ package com.swpproject.application.controller.authentication;
 import com.swpproject.application.controller.dto.Base64Dto;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.*;
+import com.swpproject.application.service.impl.ScheduleServiceImplement;
+import com.swpproject.application.utils.PasswordUtils;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +35,8 @@ public class AuthenticationController {
     private EmailService emailService;
     @Autowired
     private PersonalTrainerService personalTrainerService;
+    @Autowired
+    private ScheduleService scheduleService;
 
     @Autowired
     private CertificateService certificateService;
@@ -38,7 +44,10 @@ public class AuthenticationController {
     @Autowired
     private GymerService gymerService;
     @Autowired
-    private ScheduleService scheduleService;
+    private SchedulePersonalTrainerService schedulePersonalTrainerService;
+    @Autowired
+    private ScheduleServiceImplement scheduleServiceImplement;
+
     @ModelAttribute("roles")
     public Role[] getRoles() {
         return Role.values();
@@ -123,10 +132,14 @@ public class AuthenticationController {
             if (account.getRole().equals(Role.PT)) {
                 return "redirect:/auth/certificate";
             } else {
+                account.setPassword(PasswordUtils.hashPassword(account.getPassword()));
                 accountService.save(account);
                 Gymer gymer = new Gymer();
                 gymer.setAccount(account);
                 gymerService.save(gymer);
+                Schedule scheduleGymer = new Schedule();
+                scheduleGymer.setGymer(gymer);
+                scheduleService.save(scheduleGymer);
             }
             removeAttributes(session, "digit1", "digit2", "digit3", "digit4", "digit5", "digit6", "rptPassword", "fRptPassword", "sysOtp");
             redirectAttributes.addFlashAttribute("MSG", "Account created successfully! " + "You can login into website now!");
@@ -146,6 +159,7 @@ public class AuthenticationController {
     public String uploadImages(@RequestBody Base64Dto base64Strings,
                                HttpSession session) {
         Account account = (Account) session.getAttribute("account");
+        account.setPassword(PasswordUtils.hashPassword(account.getPassword()));
         accountService.save(account);
         PersonalTrainer personalTrainer = new PersonalTrainer();
         personalTrainer.setAccount(account);
@@ -161,8 +175,9 @@ public class AuthenticationController {
             certificateService.save(certificate);
         });
         personalTrainerService.save(personalTrainer);
-        SchedulePersonalTrainer schedulePersonalTrainerEntity = new SchedulePersonalTrainer();
-        schedulePersonalTrainerEntity.setPersonalTrainer(personalTrainer);
+        Schedule schedulePersonalTrainer = new Schedule();
+        schedulePersonalTrainer.setPersonalTrainer(personalTrainer);
+        scheduleService.save(schedulePersonalTrainer);
         session.setAttribute("personalTrainer", personalTrainer);
         return "authentication/login";
     }
@@ -174,12 +189,23 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public String loginAccount(@RequestParam String email, @RequestParam String password, RedirectAttributes redirectAttributes, HttpSession session) {
+    public String loginAccount(@RequestParam String email,
+                               @RequestParam String password,
+                               HttpSession session,
+                               HttpServletResponse response) {
         Optional<Account> account = accountService.getAccountByEmail(email);
-        if(account.isPresent() && password.equals(account.get().getPassword())) {
-            session.setAttribute("account",account.get());
+        if (account.isPresent() && PasswordUtils.hashPassword(password).equals(account.get().getPassword())) {
+            if (account.get().getRole().equals(Role.GYMER)) {
+                Gymer gymer = gymerService.getGymerByAccount(account.get()).get();
+                session.setAttribute("gymer", gymer);
+            }
+            if (account.get().getRole().equals(Role.PT)) {
+                PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(account.get().getId());
+                session.setAttribute("personalTrainer", personalTrainer);
+            }
             removeAttributes(session, "email", "password");
-            return "welcome";
+            session.setAttribute("account", account.get());
+            return "redirect:/welcome";
         } else {
             session.setAttribute("email", email);
             session.setAttribute("password", password);
@@ -258,14 +284,11 @@ public class AuthenticationController {
         String email = (String) session.getAttribute("email");
 
         Account account = accountService.getAccountByEmail(email).get();
-
-        if (password.equals(account.getPassword())) {
+        if (PasswordUtils.hashPassword(password).equals(account.getPassword())) {
             return "redirect:/auth/recover?duplicated";
         }
-
-        account.setPassword(password);
+        account.setPassword(PasswordUtils.hashPassword(password));
         accountService.save(account);
-        System.out.println(account);
         return "redirect:/auth/login?successfully";
     }
 

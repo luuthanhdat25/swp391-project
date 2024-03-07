@@ -1,8 +1,16 @@
 <%@ include file="common/header.jspf" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 
-<%--<%@ include file="common/head.jspf" %>--%>
+<%@ include file="common/head.jspf" %>
 <%@ include file="common/sidebar.jspf" %>
+
+<style>
+    .empty-text {
+        color: gray; /* Set the color for the "Empty" text */
+        font-style: italic; /* Optionally, you can italicize the text */
+        /* Add any other styles you want for the "Empty" text */
+    }
+</style>
 
 <body>
 
@@ -53,9 +61,9 @@
                             <div class="student-personals-grp">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div style="display: flex" class="heading-detail">
+                                        <div style="display: flex;align-items: center;justify-content: space-between;" class="heading-detail">
                                             <h4>Personal Details</h4>
-
+                                            <a class="edit-link" style="margin-bottom: auto" data-bs-toggle="modal" id=""><i class="far fa-edit me-1"></i>Edit</a>
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
@@ -133,25 +141,19 @@
                                                     data-bs-slide-to="1"></li>
                                                 <li data-bs-target="#carouselExampleIndicators"
                                                     data-bs-slide-to="2"></li>
-                                                <li data-bs-target="#carouselExampleIndicators"
-                                                    data-bs-slide-to="3"></li>
                                             </ol>
                                             <div class="carousel-inner" role="listbox">
                                                 <div class="carousel-item active">
-                                                    <img class="d-block img-fluid" src="../../assets/img/certificates/certificate1.jpg"
+                                                    <img id="slider1" class="d-block img-fluid" src="#"
                                                          alt="First slide">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img class="d-block img-fluid" src="../../assets/img/certificates/certificate2.jpg"
+                                                    <img id="slider2" class="d-block img-fluid" src="../../assets/img/certificates/certificate2.jpg"
                                                          alt="Second slide">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img class="d-block img-fluid" src="../../assets/img/certificates/certificate3.jpg"
+                                                    <img id="slider3" class="d-block img-fluid" src="../../assets/img/certificates/certificate3.jpg"
                                                          alt="Third slide">
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img class="d-block img-fluid" src="../../assets/img/certificates/certificate4.png"
-                                                         alt="Fourth slide">
                                                 </div>
                                             </div>
                                             <a class="carousel-control-prev" href="#carouselExampleIndicators"
@@ -222,6 +224,7 @@
             </div>
         </div>
     </div>
+    <img src="">
 
      <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
          <div class="modal-dialog modal-lg modal-dialog-centered" style = "width: 630px;">
@@ -247,14 +250,32 @@
     var personalTrainer = ${personaltrainer};
     console.log(personalTrainer)
     $(document).ready(function(){
-        $('#personalTrainerBook').attr('href', '/personal-trainer/book?id=' + personalTrainer.id)
-        $('#personalTrainerPrice').html(personalTrainer.price + 'đ')
-        $('.personalTrainerName').html(personalTrainer.fullName)
-        $('#personalTrainerPhone').html(personalTrainer.phone)
-        $('#personalTrainerBirth').html(personalTrainer.birthday)
-        $('#personalTrainerEmail').html(personalTrainer.email)
-        $('#personalTrainerGender').html(personalTrainer.gender)
-        $('#personalTrainerAddress').html(personalTrainer.address)
+        $('#personalTrainerBook').attr('href', '/personal-trainer/book?id=' + personalTrainer.id);
+        $('#personalTrainerPrice').html(personalTrainer.price + ' VND')
+        $('.personalTrainerName').html(personalTrainer.fullName ? personalTrainer.fullName : '<span class="empty-text">[Empty]</span>');
+        $('#personalTrainerPhone').html(personalTrainer.phone ? personalTrainer.phone : '<span class="empty-text">[Empty]</span>');
+        var birthday = personalTrainer.birthday;
+
+        if (birthday) {
+            var [year, month, day] = birthday.split('-');
+
+            var monthNames = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var monthName = monthNames[parseInt(month, 10) - 1];
+
+            var formattedBirthday = monthName + " " + day + ", " + year;
+
+            $('#personalTrainerBirth').html(formattedBirthday);
+        } else {
+            $('#personalTrainerBirth').html('<span class="empty-text">Empty</span>');
+        }
+        $('#personalTrainerEmail').html(personalTrainer.email ? personalTrainer.email : '<span class="empty-text">[Empty]</span>');
+        $('#personalTrainerGender').html(personalTrainer.gender ? personalTrainer.gender : '<span class="empty-text">[Empty]</span>');
+        $('#personalTrainerAddress').html(personalTrainer.address ? personalTrainer.address : '<span class="empty-text">[Empty]</span>');
+
+
+        $('#slider1').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[0]);
+        $('#slider2').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[1]);
+        $('#slider3').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[2]);
     })
 </script>
 </body>

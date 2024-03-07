@@ -4485,17 +4485,17 @@ table.table-inbox tbody tr.checked {
 }
 
 .views-personal h5 {
-    color: gray;
+    color: black;
     font-size: 14px;
     font-weight: 500;
-    margin-bottom: 0
+    margin-bottom: 0;
 }
 
 .views-personal h4 {
-    color: #000;
+    color: #0045ef;
     font-size: 16px;
     font-weight: 500;
-    margin-bottom: 0
+    margin-bottom: 0;
 }
 
 .personal-icons i {

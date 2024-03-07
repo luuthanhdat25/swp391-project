@@ -1,6 +1,8 @@
 package com.swpproject.application.controller;
 
+import com.swpproject.application.controller.notification.SystemNotificationService;
 import com.swpproject.application.enums.Attendant;
+import com.swpproject.application.enums.OrderStatus;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.*;
@@ -34,6 +36,8 @@ public class SlotController {
     private SchedulePersonalTrainerService schedulePersonalTrainerService;
     @Autowired
     private OrderRequestService orderRequestService;
+    @Autowired
+    private SystemNotificationService systemNotificationService;
 
     @RequestMapping(value = "bookPT", method = RequestMethod.GET)
     public String viewSChedulePT() {
@@ -56,8 +60,8 @@ public class SlotController {
             System.out.println("accountId: " + accountId);
 
             model.addAttribute("accountId", accountId);
-            model.addAttribute("personalTrainer",personalTrainer);
-            System.out.println("price: "+personalTrainer.getPrice());
+            model.addAttribute("personalTrainer", personalTrainer);
+            System.out.println("price: " + personalTrainer.getPrice());
             // Other processing related to accountId...
         }
 
@@ -111,14 +115,14 @@ public class SlotController {
         PersonalTrainer personalTrainer = new PersonalTrainer();
         personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(accountId);
         Schedule schedulePersonalTrainerEntity = schedulePersonalTrainerService.findScheduleByPtId(personalTrainer.getId());
-        Account accountSession =(Account) session.getAttribute("account");
+        Account accountSession = (Account) session.getAttribute("account");
         System.out.println("PT ID : " + personalTrainer.getId());
         System.out.println("ScheduleID: " + schedulePersonalTrainerEntity.getId());
-        System.out.println("accountID: "+accountSession.getId());
+        System.out.println("accountID: " + accountSession.getId());
         OrderRequest orderRequest = new OrderRequest();
         double doubleValue = Double.parseDouble(totalPrice);
         Integer totalAmount = (int) doubleValue;
-        System.out.println("Total price: "+totalAmount);
+        System.out.println("Total price: " + totalAmount);
 
         LocalDate currentDate;
         Date StartDateAsDate;
@@ -140,32 +144,19 @@ public class SlotController {
         orderRequest.setGymer(gymerService.getGymerByAccount(accountSession).get());
         orderRequest.setDescription(desc);
         orderRequest.setTotal_of_money(totalAmount);
+        orderRequest.setStatus(OrderStatus.Pending);
         System.out.println("goal" + title);
         System.out.println("desc" + desc);
         System.out.println("training time" + trainingTime);
-        switch (trainingTime) {
-            case 1:
+
+
                 currentDate = LocalDate.now();
                 StartDateAsDate = Date.valueOf(currentDate);
-                EndDateAsDate = Date.valueOf(currentDate.plusMonths(1));
+                EndDateAsDate = Date.valueOf(currentDate.plusWeeks(trainingTime));
                 orderRequest.setDatetime_start(StartDateAsDate);
                 orderRequest.setDatetime_end(EndDateAsDate);
-                break;
-            case 2:
-                currentDate = LocalDate.now();
-                StartDateAsDate = Date.valueOf(currentDate);
-                EndDateAsDate = Date.valueOf(currentDate.plusMonths(3));
-                orderRequest.setDatetime_start(StartDateAsDate);
-                orderRequest.setDatetime_end(EndDateAsDate);
-                break;
-            case 3:
-                currentDate = LocalDate.now();
-                StartDateAsDate = Date.valueOf(currentDate);
-                EndDateAsDate = Date.valueOf(currentDate.plusMonths(3));
-                orderRequest.setDatetime_start(StartDateAsDate);
-                orderRequest.setDatetime_end(EndDateAsDate);
-                break;
-        }
+
+
         if (orderRequest != null) {
             orderRequestService.saveOrderRequest(orderRequest);
         }
@@ -177,39 +168,52 @@ public class SlotController {
 
 
             if (checkedSlots != null && !checkedSlots.isEmpty()) {
-                for (String checkedSlot : checkedSlots) {
-                    String[] parts = checkedSlot.split("-");
-                    if (parts.length == 3) {
-                        String day = parts[0];
-                        String startHour = parts[1];
-                        String endHour = parts[2];
-                        SlotExercise slotEntity = new SlotExercise();
-                        slotEntity.setDay(day);
-                        slotEntity.setStart_hour(startHour);
-                        slotEntity.setEnd_hour(endHour);
-                        slotEntity.setWeek(week);
-                        slotEntity.setYear(year);
-                        slotEntity.setSchedule(schedulePersonalTrainerEntity);
-                        slotEntity.setPending(true); // Set your default value
-                        slotEntity.setAttendantStatus(Attendant.WAITING);
-                        slotEntity.setGymer(gymerService.getGymerByAccount(accountSession).get());
-                        slotEntity.setPersonalTrainer(personalTrainer);
-                        slotEntity.setOrderRequest(orderRequest);
-                        // Set Slot value
-                        slotExcerciseEntityService.SaveSlotExcercise(slotEntity);
-                    } else {
-                        // Log or handle the case where the expected number of parts is not found
-                        System.out.println("Invalid slot format: " + checkedSlot);
+                for (int i = 1; i <= trainingTime; i++) {
+                    if (week < 52) {
+                        week++;
+                    } else if (week == 52) {
+                        week = 1;
+                        year++;
+                    }
+                    for (String checkedSlot : checkedSlots) {
+                        String[] parts = checkedSlot.split("-");
+                        if (parts.length == 3) {
+                            String day = parts[0];
+                            String startHour = parts[1];
+                            String endHour = parts[2];
+                            SlotExercise slotEntity = new SlotExercise();
+                            slotEntity.setDay(day);
+                            slotEntity.setStart_hour(startHour);
+                            slotEntity.setEnd_hour(endHour);
+                            slotEntity.setWeek(week);
+                            slotEntity.setYear(year);
+                            slotEntity.setSchedule(schedulePersonalTrainerEntity);
+                            slotEntity.setPending(true); // Set your default value
+                            slotEntity.setAttendantStatus(Attendant.WAITING);
+                            slotEntity.setGymer(gymerService.getGymerByAccount(accountSession).get());
+                            slotEntity.setPersonalTrainer(personalTrainer);
+                            slotEntity.setOrderRequest(orderRequest);
+                            // Set Slot value
+                            slotExcerciseEntityService.SaveSlotExcercise(slotEntity);
+
+
+                        } else {
+                            // Log or handle the case where the expected number of parts is not found
+                            System.out.println("Invalid slot format: " + checkedSlot);
+                        }
                     }
                 }
             }
 
 
-
         }
+        systemNotificationService.createNotification_NewRequestHiring(gymerService.getGymerByAccount(accountSession).get().getGymerId(), personalTrainer.getId());
         redirectAttributes.addAttribute("accountId", accountId);
         redirectAttributes.addAttribute("week", week);
         redirectAttributes.addAttribute("year", year);
         return "redirect:/bookPT";
     }
+
+
+
 }

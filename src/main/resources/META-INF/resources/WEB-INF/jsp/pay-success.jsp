@@ -458,12 +458,13 @@
 
                                 <div class="card-body text-center">
                                     <h3 class="card-title">Payment Successful</h3>
+
                                     <p class="card-text">
-                                        You have been connected with Personal Trainer Trương Công Trình. <br>
+                                        You have been connected with Personal Trainer ${accountPTOrder.fullName}. <br>
                                         There are __ slots in total. <br>
-                                        Starting from __ to __.
+                                        Starting from ${orderPayment.datetime_start} to ${orderPayment.datetime_end}.
                                     </p>
-                                    <a href="#" class="btn btn-primary">Continue</a>
+                                    <a href="/accept" class="btn btn-primary">Continue</a>
                                 </div>
                             </div>
                         </div>

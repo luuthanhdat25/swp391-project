@@ -38,8 +38,7 @@ public class AuthenticationController {
     @Autowired
     private GymerService gymerService;
     @Autowired
-    private SchedulePersonalTrainerService schedulePersonalTrainerService;
-
+    private ScheduleService scheduleService;
     @ModelAttribute("roles")
     public Role[] getRoles() {
         return Role.values();
@@ -176,7 +175,8 @@ public class AuthenticationController {
     @PostMapping("/login")
     public String loginAccount(@RequestParam String email, @RequestParam String password, RedirectAttributes redirectAttributes, HttpSession session) {
         Optional<Account> account = accountService.getAccountByEmail(email);
-        if (account.isPresent() && password.equals(account.get().getPassword())) {
+        if(account.isPresent() && password.equals(account.get().getPassword())) {
+            session.setAttribute("account",account.get());
             removeAttributes(session, "email", "password");
             return "welcome";
         } else {

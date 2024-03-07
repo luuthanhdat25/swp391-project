@@ -1,5 +1,6 @@
 package com.swpproject.application.repository;
 
+import com.swpproject.application.model.OrderRequest;
 import com.swpproject.application.model.SlotExercise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,9 +22,9 @@ public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercis
     );
 
     @Query("SELECT se FROM SlotExercise se " +
-            "WHERE se.orderRequest.order_id = :orderId " +
+            "WHERE se.orderRequest.orderId = :orderId " +
             "AND se.week = (SELECT MIN(se2.week) FROM SlotExercise se2 " +
-            "WHERE se2.orderRequest.order_id = :orderId) " +
+            "WHERE se2.orderRequest.orderId = :orderId) " +
             "AND se.isPending = :isPending")
     List<SlotExercise> findAllByMinWeekAndConditions(
             Integer orderId,
@@ -42,4 +43,11 @@ public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercis
              Date targetDate,
              boolean isPending
     );
+
+
+    public List<SlotExercise> getSlotExerciseByOrderRequest_OrderId(Integer orderRequestID);
+
+    public List<SlotExercise> getSlotExerciseByGymer_GymerIdAndWeekAndYearAndIsPendingAndPersonalTrainerIsNotNull(Integer gymerID,
+                                                                                                                Integer week,
+                                                                                                                Integer year,boolean isPending);
 }

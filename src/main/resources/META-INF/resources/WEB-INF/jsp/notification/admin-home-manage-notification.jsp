@@ -64,7 +64,7 @@
              style="width: 80%; height: fit-content; float: right; padding: 70px 0 40px 0;">
 
             <div class="notification-detail d-flex flex-column align-items-center">
-                <div style="width: 95%; height: auto; background-color: #FFFFFF;
+                <div style="width: 95%; height: auto; background-color: #e4e4e4;
                                 border: 1px solid #4c4c4c; border-radius: 6px;
                                 padding: 10px; font-size: 20px; color: #4c4c4c;  text-align: center;">
                     Manage notification
@@ -96,7 +96,7 @@
                     </div>
 
                     <%--Table hiển thị notification's list--%>
-                    <table class="table table-hover">
+                    <table class="table table-striped">
                         <thead class="table-dark">
                         <tr>
                             <th scope="col">#</th>
@@ -108,7 +108,7 @@
                         </thead>
                         <tbody>
                         <c:forEach var="notification" items="${NotificationList.content}">
-                            <tr class="shadow p-3 mb-5 bg-body rounded" style="height: 30px;">
+                            <tr style="height: 30px;">
                                 <th scope="row">${NotificationList.content.indexOf(notification) + IndexStarting}</th>
                                 <td>
                                     <div class="text-truncate" style="width: 430px;">${notification.title}</div>

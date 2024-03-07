@@ -21,15 +21,16 @@ $(document).ready(function() {
             return value;
         }
 
-        function validateSelect(select, errorMessage) {
+        function validateSelect(select, errorId, errorMessage) {
             var value = $(select).val();
             if (value === 'None') {
-                showError(errorMessage);
+                showError(errorId, errorMessage);
             } else {
-                clearError(errorMessage);
+                clearError(errorId);
             }
             return value;
         }
+
 
         function validateImageSize(input, errorMessage) {
             var file = $(input)[0].files[0];
@@ -67,8 +68,8 @@ $(document).ready(function() {
             showError('#levelError', 'Please select a level');
         }
 
-        validateSelect('select[name="equipment"]', '#equipmentError');
-        validateSelect('select[name="muscle"]', '#muscleError');
+        validateSelect('select[name="equipment"]', '#equipmentError', 'Please select a equipment');
+        validateSelect('select[name="muscle"]', '#muscleError', 'Please select a affected muscle');
         validateImageSize('input[name="image"]', '#imageError');
         validateYouTubeLink('#youtubeLink', /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})$/, '#youtubeLinkError');
 

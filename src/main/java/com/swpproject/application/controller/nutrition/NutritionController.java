@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/nutrition")
@@ -37,10 +39,34 @@ public class NutritionController {
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseListPage(ModelMap model) {
         List<Nutrition> list = nutritionRepository.findAll();
-        String json = JsonUtils.jsonConvert(list);
+        List<NutritionDTOOut> listOut = getNutritionDTOOutListFromNutritionList(list);
+
+        String json = JsonUtils.jsonConvert(listOut);
         model.addAttribute("nutritionList", json);
         return "nutrition-list";
     }
+
+    private List<NutritionDTOOut> getNutritionDTOOutListFromNutritionList(List<Nutrition> nutritionsList) {
+        return nutritionsList.stream()
+                .map(this::getNutritionDTOOutbyNutrition)
+                .collect(Collectors.toList());
+    }
+
+    private NutritionDTOOut getNutritionDTOOutbyNutrition(Nutrition nutrition){
+        NutritionDTOOut nutritionDTOOut = new NutritionDTOOut();
+        nutritionDTOOut.setNutritionId(nutrition.getNutritionId());
+        nutritionDTOOut.setName(nutrition.getName());
+        nutritionDTOOut.setCaloIn(nutrition.getCaloIn());
+        nutritionDTOOut.setProtein(nutrition.getProtein());
+        nutritionDTOOut.setFat(nutrition.getFat());
+        nutritionDTOOut.setCarb(nutrition.getCarb());
+        nutritionDTOOut.setImageDescription(nutrition.getImageDescription());
+        nutritionDTOOut.setIsPrivate(nutrition.getIsPrivate() + "");
+        nutritionDTOOut.setPersonalTrainerId(nutrition.getPersonalTrainer().getId());
+        nutritionDTOOut.setPersonalTrainerImage(nutrition.getPersonalTrainer().getAccount().getAvatarImage());
+        return nutritionDTOOut;
+    }
+
 
     //Get view create nutrition
     @RequestMapping(value = "/create", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
@@ -49,7 +75,7 @@ public class NutritionController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String createExercise(@ModelAttribute NutritionDTO nutritionDTO, Model model) throws IOException {
+    public String createExercise(@ModelAttribute NutritionDTOIn nutritionDTO, Model model) throws IOException {
         Nutrition nutrition = new Nutrition();
         nutrition.setName(nutritionDTO.getNutritionName());
         nutrition.setCaloIn(nutritionDTO.getCalories());
@@ -71,14 +97,40 @@ public class NutritionController {
 
     //Get update view nutrition
     @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getExerciseDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
+    public String getNutritionDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
         HttpSession session = request.getSession();
         session.setAttribute("nutritionId", id);
 
-        Nutrition nutrition = nutritionRepository.findById(id);
-        String json = JsonUtils.jsonConvert(nutrition);
+        Nutrition nutrition = nutritionRepository.findById(id).get();
+        NutritionDTOOut nutritionDTOOut = getNutritionDTOOutbyNutrition(nutrition);
+
+        String json = JsonUtils.jsonConvert(nutritionDTOOut);
         model.addAttribute("nutrition", json);
         return "nutrition-update";
+    }
+
+    //Post update nutrition data
+    @RequestMapping(value = "/details/edit", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+    public String editNutrition(@ModelAttribute NutritionDTOIn nutritionDTOIn, HttpServletRequest request, Model model) throws IOException {
+        HttpSession session = request.getSession();
+        Integer id = (Integer) session.getAttribute("nutritionId");
+
+        if (id != null) {
+            Nutrition nutrition = nutritionRepository.findById(id).get();
+            nutrition.setName(nutritionDTOIn.getNutritionName());
+            nutrition.setCaloIn(nutritionDTOIn.getCalories());
+            nutrition.setProtein(nutritionDTOIn.getProtein());
+            nutrition.setFat(nutritionDTOIn.getFat());
+            nutrition.setCarb(nutritionDTOIn.getCarb());
+            System.out.println(nutrition.getPersonalTrainer().getId());
+            if(nutritionDTOIn.getImage().getBytes().length != 0) nutrition.setImageDescription(nutritionDTOIn.getImage().getBytes());
+            nutritionRepository.save(nutrition);
+
+            session.removeAttribute("exerciseId");
+            return "redirect:/nutrition/";
+        } else {
+            return "redirect:/error";
+        }
     }
 }
 
@@ -86,7 +138,7 @@ public class NutritionController {
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-class NutritionDTO {
+class NutritionDTOIn {
     private String nutritionName;
     private Float calories;
     private Float protein;
@@ -94,4 +146,22 @@ class NutritionDTO {
     private Float carb;
     private MultipartFile image;
     private String isPrivate;
+}
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+class NutritionDTOOut {
+    private int nutritionId;
+    private String name;
+    private Float caloIn;
+    private Float protein;
+    private Float fat;
+    private Float carb;
+    private byte[] imageDescription;
+    private String isPrivate;
+    private int personalTrainerId;
+    private byte[] personalTrainerImage;
 }

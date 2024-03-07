@@ -263,6 +263,7 @@
 <script>
     $(document).ready(function() {
         var nutritionList = ${nutritionList};
+        console.log(nutritionList)
         var tbody = $('.star-student tbody');
         var defaultIconUrl = 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg';
 

@@ -138,7 +138,7 @@
                                         </form>
 
                                         <form action="delete-notification-detail" method="get">
-                                            <input type="hidden" name="deleteNotificationID" value=${notification.id}/>
+                                            <input type="hidden" name="deleteNotificationID" value=${notification.id}>
                                             <button type="submit" class="btn btn-danger"
                                                     style="height: 40px; width: 110px;">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
@@ -163,7 +163,8 @@
                                 int currentPage = (int) request.getAttribute("CurrentPage");
                             %>
                             <li class="page-item <%= currentPage - 1 < 1 ? "disabled" : "" %>">
-                                <a class="page-link" href="manage-notification?papeNo=<%=currentPage - 1%>&title=${title}">Previous</a>
+                                <a class="page-link"
+                                   href="manage-notification?papeNo=<%=currentPage - 1%>&title=${title}">Previous</a>
                             </li>
                             <% for (int i = currentPage; i <= Math.min(totalPage, currentPage + 3); i++) { %>
                             <li class="page-item <%= i == currentPage ? "disabled" : "" %>">
@@ -172,7 +173,8 @@
                             </li>
                             <% } %>
                             <li class="page-item <%= currentPage + 1 > totalPage ? "disabled" : "" %>">
-                                <a class="page-link" href="manage-notification?papeNo=<%=currentPage + 1%>&title=${title}">Next</a>
+                                <a class="page-link"
+                                   href="manage-notification?papeNo=<%=currentPage + 1%>&title=${title}">Next</a>
                             </li>
                         </ul>
                     </nav>

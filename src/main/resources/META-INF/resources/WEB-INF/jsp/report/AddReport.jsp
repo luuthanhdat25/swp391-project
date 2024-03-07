@@ -12,55 +12,55 @@
             <label for="Description" style="font-weight: bold; margin-bottom: 0; color: #6f6f6f;">Let's chose your
                 report reason</label>
             <div class="input-container">
-                <input type="radio" name="Reason" id="checkBox" value="1" onchange="toggleFormGroup()"
+                <input type="radio" name="Reason" id="checkBox1" value="1" onchange="toggleFormGroup()"
                        checked>
                 <div class="radio-tile">
-                    <label style="margin-bottom: 0;" for="checkBox">Personal trainer tend to adjust their training
+                    <label style="margin-bottom: 0;" for="checkBox1">Personal trainer tend to adjust their training
                         programs arbitrarily</label>
                 </div>
             </div>
 
             <div class="input-container">
-                <input type="radio" name="Reason" id="checkBox" value="2" onchange="toggleFormGroup()"
+                <input type="radio" name="Reason" id="checkBox2" value="2" onchange="toggleFormGroup()"
                        checked>
                 <div class="radio-tile">
-                    <label style="margin-bottom: 0;" for="checkBox">Personal trainer are often unprofessional in
+                    <label style="margin-bottom: 0;" for="checkBox2">Personal trainer are often unprofessional in
                         communicating with customers</label>
                 </div>
             </div>
 
             <div class="input-container">
-                <input type="radio" name="Reason" id="checkBox" value="3" onchange="toggleFormGroup()"
+                <input type="radio" name="Reason" id="checkBox3" value="3" onchange="toggleFormGroup()"
                        checked>
                 <div class="radio-tile">
-                    <label style="margin-bottom: 0;" for="checkBox">Personal trainer does not prepare exercise programs
+                    <label style="margin-bottom: 0;" for="checkBox3">Personal trainer does not prepare exercise programs
                         to suit your needs</label>
                 </div>
             </div>
 
             <div class="input-container">
-                <input type="radio" name="Reason" id="checkBox" value="4" onchange="toggleFormGroup()"
+                <input type="radio" name="Reason" id="checkBox4" value="4" onchange="toggleFormGroup()"
                        checked>
                 <div class="radio-tile">
-                    <label style="margin-bottom: 0;" for="checkBox">Personal trainer frequently use disrespectful
+                    <label style="margin-bottom: 0;" for="checkBox4">Personal trainer frequently use disrespectful
                         language
                     </label>
                 </div>
             </div>
 
             <div class="input-container">
-                <input type="radio" name="Reason" id="checkBox" value="4" onchange="toggleFormGroup()"
+                <input type="radio" name="Reason" id="checkBox5" value="5" onchange="toggleFormGroup()"
                        checked>
                 <div class="radio-tile">
-                    <label style="margin-bottom: 0;" for="checkBox">Personal trainer advertises falsely and makes
+                    <label style="margin-bottom: 0;" for="checkBox5">Personal trainer advertises falsely and makes
                         promises that cannot be fulfilled</label>
                 </div>
             </div>
 
             <div class="input-container">
-                <input type="radio" name="Reason" id="otherReason" value="5" onchange="toggleFormGroup()">
+                <input type="radio" name="Reason" id="otherReason" value="6" onchange="toggleFormGroup()">
                 <div class="radio-tile">
-                    <label style="margin-bottom: 0;" for="checkBox">Other reason</label>
+                    <label style="margin-bottom: 0;" for="otherReason">Other reason</label>
                 </div>
             </div>
 
@@ -80,6 +80,8 @@
                 <button type="button" style="background-color: #FC8A32; color: #FFFFFF;" class="btn"
                         data-bs-dismiss="modal">Cancel
                 </button>
+                <input type="hidden" name="PersonalTrainerID" value="9">
+                <input type="hidden" name="GymerID" value="2">
                 <button style="margin-left: 10px; background-color: #70c4cf; color: #FFFFFF;" type="submit" class="btn">
                     Send Report
                 </button>

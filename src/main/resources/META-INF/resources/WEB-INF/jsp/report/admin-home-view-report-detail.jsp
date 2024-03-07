@@ -85,12 +85,12 @@
                         <div class="d-flex flex-column bd-highlight mb-3 justify-content-center">
                             <div>Nguyen Van An</div>
                             <div><a href="" class="btn btn-success">View Profile</a></div>
-                            <div>Reported at ${ReportDetail.dateTime}</div>
+                            <div>Reported at ${ReportDetail.timeStamp}</div>
                         </div>
                     </div>
 
                     <br><label>Reason</label>
-                    <div class="border border-dark" style="padding: 5px; margin-top: 10px;">${ReportDetail.title}</div>
+                    <div class="border border-dark" style="padding: 5px; margin-top: 10px;">${ReportDetail.reason}</div>
                     <br><label>Description</label>
                     <div class="border border-dark"
                          style="padding: 5px; margin-top: 10px;">${ReportDetail.description}</div>

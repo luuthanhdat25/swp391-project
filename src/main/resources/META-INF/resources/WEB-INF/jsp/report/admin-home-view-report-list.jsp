@@ -73,11 +73,13 @@
 
                 <div class="d-flex flex-column" style="width: 94%; margin-top: 50px;">
                     <%--Div chứa thanh search và "add notification" button--%>
-                    <div class="input-group" style="width: 50%; margin-bottom: 10px;">
-                        <input type="text" class="form-control" style="border: 1px solid #4c4c4c;"
-                               placeholder="Enter report's reason">
-                        <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
-                    </div>
+                    <form action="manage-report" method="GET" style="width: 50%;">
+                        <div class="input-group" style="width: 50%; margin-bottom: 10px;">
+                            <input type="text" class="form-control" style="border: 1px solid #4c4c4c;"
+                                   placeholder="Enter report's reason" name="reason">
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
 
                     <%--Table hiển thị notification's list--%>
                     <table class="table table-hover">
@@ -94,12 +96,12 @@
                             <tr class="shadow p-3 mb-5 bg-body rounded" style="height: 30px;">
                                 <th scope="row">${ReportLists.content.indexOf(report) + IndexStarting}</th>
                                 <td>
-                                    <div class="text-truncate" style="width: 430px;">${report.title}</div>
+                                    <div class="text-truncate" style="width: 430px;">${report.reason}</div>
                                 </td>
                                 <td class="d-flex"
                                     style="font-style: oblique; width: 140px; border-bottom-width: 0px; color: #3c763d; font-size: 16px;">
-                                    <div style="margin-right: 5px;">${report.dateTime.getHour()}:${report.dateTime.getMinute()}</div>
-                                    <div>${report.dateTime.getDayOfMonth()}/${report.dateTime.getMonthValue()}/${report.dateTime.getYear()}</div>
+                                    <div style="margin-right: 5px;">${report.timeStamp.getHour()}:${report.timeStamp.getMinute()}</div>
+                                    <div>${report.timeStamp.getDayOfMonth()}/${report.timeStamp.getMonthValue()}/${report.timeStamp.getYear()}</div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-between" style="width: 210px;">
@@ -116,8 +118,8 @@
                                             </button>
                                         </form>
 
-                                        <form action="delete-report-detail" method="get">
-                                            <input type="hidden" name="deleteNotificationID" value=${report.id}/>
+                                        <form action="delete-report" method="get">
+                                            <input type="hidden" name="deleteReportDetail" value=${report.id}>
                                             <button type="submit" class="btn btn-danger"
                                                     style="height: 40px; width: 110px;">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
@@ -142,17 +144,17 @@
                                 int currentPage = (int) request.getAttribute("CurrentPage");
                             %>
                             <li class="page-item <%= currentPage - 1 < 1 ? "disabled" : "" %>">
-                                <a class="page-link" href="manage-report?papeNo=<%=currentPage - 1%>">Previous</a>
+                                <a class="page-link" href="manage-report?papeNo=<%=currentPage - 1%>&reason=${reason}">Previous</a>
                             </li>
                             <% for (int i = currentPage; i <= Math.min(totalPage, currentPage + 3); i++) { %>
                             <li class="page-item <%= i == currentPage ? "disabled" : "" %>">
-                                <a class="page-link" href="manage-report?papeNo=<%=i%>"><%=i%>
+                                <a class="page-link" href="manage-report?papeNo=<%=i%>&reason=${reason}"><%=i%>
                                 </a>
                             </li>
                             <% } %>
                             <li class="page-item <%= currentPage + 1 > totalPage ? "disabled" : "" %>">
                                 <a class="page-link"
-                                   href="manage-report?papeNo=<%=currentPage + 1%>">Next</a>
+                                   href="manage-report?papeNo=<%=currentPage + 1%>&reason=${reason}">Next</a>
                             </li>
                         </ul>
                     </nav>
@@ -173,13 +175,13 @@
                             <div class="d-flex flex-column bd-highlight mb-3 justify-content-center">
                                 <div>Nguyen Van An</div>
                                 <div><a href="" class="btn btn-success">View Profile</a></div>
-                                <div>Reported at ${ReportDetail.dateTime}</div>
+                                <div>Reported at ${ReportDetail.timeStamp}</div>
                             </div>
                         </div>
 
                         <br><label>Reason</label>
                         <div class="border border-dark"
-                             style="padding: 5px; margin-top: 10px;">${ReportDetail.title}</div>
+                             style="padding: 5px; margin-top: 10px;">${ReportDetail.reason}</div>
                         <br><label>Description</label>
                         <div class="border border-dark"
                              style="padding: 5px; margin-top: 10px;">${ReportDetail.description}</div>

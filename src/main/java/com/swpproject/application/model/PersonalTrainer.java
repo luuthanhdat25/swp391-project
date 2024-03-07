@@ -8,6 +8,7 @@ import org.hibernate.annotations.ColumnDefault;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -43,8 +44,6 @@ public class PersonalTrainer {
     @JoinColumn(name = "account_id",referencedColumnName = "id")
     private Account account;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "personalTrainer", cascade = CascadeType.ALL)
-    private List<Certificate> certificates;
 
     @Override
     public String toString() {
@@ -56,7 +55,6 @@ public class PersonalTrainer {
                 ", isActive=" + isActive +
                 ", price=" + price +
                 ", account=" + account +
-                ", certificates=" + certificates +
                 '}';
     }
 }

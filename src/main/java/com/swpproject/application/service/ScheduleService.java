@@ -13,5 +13,7 @@ public interface ScheduleService {
 
     Optional<Schedule> findScheduleById(Integer id);
 
+    Optional<Schedule> findScheduleByGymerIdAndPTId(Integer gid,Integer ptId);
+
     void save(Schedule schedule);
 }

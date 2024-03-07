@@ -3,6 +3,7 @@ package com.swpproject.application.controller.authentication;
 import com.swpproject.application.controller.dto.Base64Dto;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.*;
+import com.swpproject.application.service.impl.ScheduleServiceImplement;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,9 @@ public class AuthenticationController {
     @Autowired
     private GymerService gymerService;
     @Autowired
-    private ScheduleService scheduleService;
+    private SchedulePersonalTrainerService schedulePersonalTrainerService;
+    @Autowired
+    private ScheduleServiceImplement scheduleServiceImplement;
     @ModelAttribute("roles")
     public Role[] getRoles() {
         return Role.values();
@@ -177,6 +180,13 @@ public class AuthenticationController {
     public String loginAccount(@RequestParam String email, @RequestParam String password, RedirectAttributes redirectAttributes, HttpSession session) {
         Optional<Account> account = accountService.getAccountByEmail(email);
         if(account.isPresent() && password.equals(account.get().getPassword())) {
+            if (account.get().getRole().equals(Role.GYMER)){
+                Gymer gymer = gymerService.getGymerByAccount(account.get()).get();
+                session.setAttribute("gymer",gymer);
+            } if (account.get().getRole().equals(Role.PT)){
+                PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(account.get().getId());
+                session.setAttribute("personalTrainer",personalTrainer);
+            }
             session.setAttribute("account",account.get());
             removeAttributes(session, "email", "password");
             return "welcome";
@@ -193,6 +203,8 @@ public class AuthenticationController {
         session.invalidate();
         return "redirect:/";
     }
+
+
 
 
     // FORGOT PASSWORD

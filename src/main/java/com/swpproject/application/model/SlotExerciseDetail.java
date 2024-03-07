@@ -1,26 +1,30 @@
-//package com.swpproject.application.model;
-//
-//import jakarta.persistence.*;
-//import lombok.*;
-//
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@Getter
-//@Setter
-//@Data
-//@Entity
-//@Table(name = "slot_exercise_detail")
-//public class SlotExerciseDetail {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Integer id;
-//
-//    private int set;
-//    private int rep;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "slot_exercise_id", nullable = true)
-//    private SlotExercise slotExercise;
-//
-//}
+package com.swpproject.application.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Data
+@Entity
+@Table(name = "slot_exercise_detail")
+public class SlotExerciseDetail {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private int setExe;
+    private int rep;
+
+    @ManyToOne
+    @JoinColumn(name = "exercise_id", nullable = false)
+    private Exercise exercise;
+
+    @ManyToOne
+    @JoinColumn(name = "slot_exercise_id", nullable = false)
+    private SlotExercise slotExercise;
+
+}

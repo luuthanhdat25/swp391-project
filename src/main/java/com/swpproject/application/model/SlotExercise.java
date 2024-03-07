@@ -16,7 +16,7 @@ public class SlotExercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String day;
     private String start_hour;
@@ -42,24 +42,4 @@ public class SlotExercise {
     @JoinColumn(name = "OrderId", nullable = true)
     private OrderRequest orderRequest;
 
-    @Override
-    public String toString() {
-        return "SlotExercise{" +
-                "id=" + id +
-                ", day='" + day + '\'' +
-                ", start_hour='" + start_hour + '\'' +
-                ", end_hour='" + end_hour + '\'' +
-                ", week=" + week +
-                ", year=" + year +
-                ", isPending=" + isPending +
-                ", attendantStatus=" + attendantStatus +
-                ", schedule=" + schedule.getId() +
-                ", personalTrainer=" + personalTrainer.getId() +
-                ", gymer=" + gymer.getGymerId() +
-                ", orderRequest=" + orderRequest.getOrderId() +
-                '}';
-    }
-    public boolean CheckPending(){
-        return this.isPending;
-    }
 }

@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +35,7 @@
                         <h3 class="page-title">My Schedule</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active">Booking</li>
+                            <li class="breadcrumb-item active">Schedule</li>
                         </ul>
                     </div>
                 </div>
@@ -45,20 +47,26 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <div class="schedule-selects">
                                 <form action="/selectWeek" method="get">
-                                    <select id="year" class="form-control" name="year"
-                                            onchange="updateWeeks()">
-                                        <!-- Thay đổi dải số năm tùy ý -->
-                                        <script>
-                                            var currentYear = new Date().getFullYear();
-                                            for (var i = currentYear; i >= currentYear - 10; i--) {
-                                                document.write("<option value='" + i + "'>" + i + "</option>");
-                                            }
-                                        </script>
-                                    </select>
-                                    <select id="week" class="form-control" name="week"
-                                            onchange="this.form.submit()">
-                                        <!-- Options will be generated dynamically by JavaScript -->
-                                    </select>
+                                    <div style="display: flex;">
+                                        <div style="margin-right: 1%;">
+                                            <select id="week" class="form-control" name="week"
+                                                    onchange="this.form.submit()">
+                                                <!-- Options will be generated dynamically by JavaScript -->
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <select id="year" class="form-control" name="year"
+                                                    onchange="updateWeeks()">
+                                                <!-- Thay đổi dải số năm tùy ý -->
+                                                <script>
+                                                    var currentYear = new Date().getFullYear();
+                                                    for (var i = currentYear; i >= currentYear - 10; i--) {
+                                                        document.write("<option value='" + i + "'>" + i + "</option>");
+                                                    }
+                                                </script>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                             <div class="student-submit">
@@ -96,19 +104,32 @@
                                 <div class="cd-schedule__events">
                                     <ul>
                                         <c:forEach var="date"
-                                                   items="${['Monday', 'Tuesday', 'Wednesday', 'Thurday', 'Friday', 'Saturday', 'Sunday']}">
+                                                   items="${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}">
                                             <li class="cd-schedule__group">
                                                 <div class="cd-schedule__top-info"><span>${date}</span></div>
                                                 <ul>
-                                                    <c:forEach items="${slotExercises}" var="slot">
-                                                        <c:if test="${slot.day eq date}">
+                                                    <c:forEach items="${slotExercises}" var="slotE">
+                                                        <c:if test="${slotE.day eq date}">
                                                             <li class="cd-schedule__event">
-                                                                <a data-start="${slot.start_hour}"
-                                                                   data-end="${slot.end_hour}"
+                                                                <a data-start="${slotE.start_hour}"
+                                                                   data-end="${slotE.end_hour}"
                                                                    data-content="event-abs-circuit"
                                                                    data-event="event-1"
                                                                    href="#0">
-                                                                    <em class="cd-schedule__name">Abs Circuit</em>
+                                                                    <em class="cd-schedule__name">Exercise</em>
+                                                                </a>
+                                                            </li>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <c:forEach items="${slotNutritions}" var="slotN">
+                                                        <c:if test="${slotN.day eq date}">
+                                                            <li class="cd-schedule__event">
+                                                                <a data-start="${slotN.start_hour}"
+                                                                   data-end="${slotN.end_hour}"
+                                                                   data-content="event-abs-circuit"
+                                                                   data-event="event-4"
+                                                                   href="#0">
+                                                                    <em class="cd-schedule__name">Nutrition</em>
                                                                 </a>
                                                             </li>
                                                         </c:if>
@@ -159,106 +180,109 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="bank-inner-details">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label>Type of slot</label>
-                                    <select class="form-control" id="typeOfSlot" onchange="showFields()">
-                                        <option disabled selected>Choose type of slot</option>
-                                        <option>Exercise</option>
-                                        <option>Nutrition</option>
-                                    </select>
+                <form method="post" action="/view-personal-schedule">
+                    <div class="modal-body">
+                        <div class="bank-inner-details" id="scheduleDetails">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Type of slot</label>
+                                        <select class="form-control" name="typeOfSlot" id="typeOfSlot" onchange="showFields()">
+                                            <option disabled selected>Choose type of slot</option>
+                                            <option>Exercise</option>
+                                            <option>Nutrition</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        <label>Day</label>
+                                        <select class="form-control" name="day" id="day">
+                                            <option selected disabled>Select day</option>
+                                            <option>Monday</option>
+                                            <option>Tuesday</option>
+                                            <option>Wednesday</option>
+                                            <option>Thursday</option>
+                                            <option>Friday</option>
+                                            <option>Saturday</option>
+                                            <option>Sunday</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        <label>Slot</label>
+                                        <select class="form-control" name="slot" id="slot">
+                                            <option selected disabled>Select time</option>
+                                            <option>05:00-07:00</option>
+                                            <option>07:00-09:00</option>
+                                            <option>09:00-11:00</option>
+                                            <option>13:00-15:00</option>
+                                            <option>15:00-17:00</option>
+                                            <option>17:00-19:00</option>
+                                            <option>19:00-21:00</option>
+                                            <option>21:00-23:00</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="form-group">
-                                    <label>Day</label>
-                                    <select class="form-control">
-                                        <option selected disabled>Select day</option>
-                                        <option>Monday</option>
-                                        <option>Tuesday</option>
-                                        <option>Wednesday</option>
-                                        <option>Thursday</option>
-                                        <option>Friday</option>
-                                        <option>Saturday</option>
-                                        <option>Sunday</option>
-                                    </select>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 exercise-fields" style="display: none;">
+                                    <div class="form-group">
+                                        <label>Exercise</label>
+                                        <a href="javascript:void(0);" class="add-btn me-2" onclick="addExercise()"><i class="fas fa-plus-circle"></i></a>
+                                        <select class="form-control" name="exerciseSelect" id="exerciseSelect">
+                                            <option disabled selected>Choose exercise</option>
+                                            <c:forEach items="${exercises}" var="exe">
+                                                <option value="${exe.id}">${exe.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 exercise-fields" style="display: none;">
+                                    <div class="form-group">
+                                        <label>Set</label>
+                                        <input type="text" class="form-control" placeholder="Enter set" name="exerciseSet">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 exercise-fields" style="display: none;">
+                                    <div class="form-group">
+                                        <label>Rep</label>
+                                        <input type="text" class="form-control" placeholder="Enter rep" name="exerciseRep">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="form-group">
-                                    <label>Slot</label>
-                                    <select class="form-control">
-                                        <option selected disabled>Select time</option>
-                                        <option>05:00-07:00</option>
-                                        <option>07:00-09:00</option>
-                                        <option>09:00-11:00</option>
-                                        <option>13:00-15:00</option>
-                                        <option>15:00-17:00</option>
-                                        <option>17:00-19:00</option>
-                                        <option>19:00-21:00</option>
-                                        <option>21:00-23:00</option>
-                                    </select>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 nutrition-fields" style="display: none;">
+                                    <div class="form-group">
+                                        <label>Nutrition</label>
+                                        <a href="javascript:void(0);" class="add-btn me-2" onclick="addNutritionFields()"><i class="fas fa-plus-circle"></i></a>
+                                        <select class="form-control" name="nutritionSelect" id="nutritionSelect">
+                                            <option disabled selected>Choose nutrition</option>
+                                            <c:forEach items="${nutritions}" var="nutri">
+                                                <option value="${nutri.nutritionId}">${nutri.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 exercise-fields" style="display: none;">
-                                <div class="form-group">
-                                    <label>Exercise</label>
-                                    <a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle" onclick="addExercise()"></i></a>
-                                    <select class="form-control">
-                                        <option disabled selected>Choose exercise</option>
-                                        <option>Exercise1</option>
-                                        <option>Exercise2</option>
-                                        <option>Exercise3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 exercise-fields" style="display: none;">
-                                <div class="form-group">
-                                    <label>Set</label>
-                                    <input type="text" class="form-control" placeholder="Enter set">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 exercise-fields" style="display: none;">
-                                <div class="form-group">
-                                    <label>Rep</label>
-                                    <input type="text" class="form-control" placeholder="Enter rep">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 nutrition-fields" style="display: none;">
-                                <div class="form-group">
-                                    <label>Nutrition</label>
-                                    <a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle" onclick="addNutrition()"></i></a>
-                                    <select class="form-control" >
-                                        <option disabled selected>Choose nutrition</option>
-                                        <option>Nutrition1</option>
-                                        <option>Nutrition2</option>
-                                        <option>Nutrition3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 nutrition-fields" style="display: none;">
-                                <div class="form-group">
-                                    <label>Amount(gram)</label>
-                                    <input type="text" class="form-control" placeholder="Enter amount">
+                                <div class="col-lg-6 col-md-6 nutrition-fields" style="display: none;">
+                                    <div class="form-group">
+                                        <label>Amount(gram)</label>
+                                        <input type="text" class="form-control" placeholder="Enter amount" name="nutritionAmount">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="bank-details-btn">
-                        <a href="javascript:void(0);" data-bs-dismiss="modal"
-                           class="btn bank-cancel-btn me-2">Cancel</a>
-                        <a href="javascript:void(0);" class="btn bank-save-btn">Save Item</a>
+
+                    <div class="modal-footer">
+                        <div class="bank-details-btn">
+                            <a href="javascript:void(0);" data-bs-dismiss="modal"
+                               class="btn bank-cancel-btn me-2">Cancel</a>
+                            <button class="btn bank-save-btn" type="submit">Save</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -310,64 +334,61 @@
     }
 </script>
 
-
 <script>
     function addExercise() {
         var newRow = document.createElement("div");
-        newRow.classList.add("row");
+        newRow.classList.add("row", "exercise-fields");
 
         newRow.innerHTML = `
-                <div class="col-lg-6 col-md-6">
-                    <div class="form-group">
-                        <select class="form-control">
-                            <option disabled selected>Choose exercise</option>
-                            <option>Exercise1</option>
-                            <option>Exercise2</option>
-                            <option>Exercise3</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Enter set">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Enter rep">
-                    </div>
-                </div>
-            `;
-
+        <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+                <select class="form-control exercise-select" name="exerciseSelect" id="exerciseSelect">
+                    <option disabled selected>Choose exercise</option>
+                    <c:forEach items="${exercises}" var="exe">
+                        <option value="${exe.id}">${exe.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter set" name="exerciseSet">
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter rep" name="exerciseRep">
+            </div>
+        </div>
+    `;
         document.querySelector('.bank-inner-details').appendChild(newRow);
     }
-</script>
 
-<script>
-    function addNutrition() {
+    function addNutritionFields() {
         var newRow = document.createElement("div");
-        newRow.classList.add("row");
+        newRow.classList.add("row", "nutrition-fields");
 
         newRow.innerHTML = `
-            <div class="col-lg-6 col-md-6">
-                <div class="form-group">
-                    <select class="form-control">
-                        <option disabled selected>Choose nutrition</option>
-                        <option>Nutrition1</option>
-                        <option>Nutrition2</option>
-                        <option>Nutrition3</option>
-                    </select>
-                </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+                <select class="form-control nutrition-select" name="nutritionSelect" id="nutritionSelect">
+                    <option disabled selected>Choose nutrition</option>
+                    <c:forEach items="${nutritions}" var="nutri">
+                        <option value="${nutri.nutritionId}">${nutri.name}</option>
+                    </c:forEach>
+                </select>
             </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Enter amount">
-                </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter amount" name="nutritionAmount">
             </div>
-        `;
+        </div>
+    `;
 
         document.querySelector('.bank-inner-details').appendChild(newRow);
     }
+
 </script>
 
 <script>

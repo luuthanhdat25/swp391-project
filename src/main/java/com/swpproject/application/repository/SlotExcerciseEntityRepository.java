@@ -32,7 +32,7 @@ public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercis
     @Transactional
     @Modifying
     @Query("UPDATE SlotExercise se SET se.isPending = :isPending WHERE se.id = :slotExerciseId")
-    public void updateIsPending(Long slotExerciseId,
+    public void updateIsPending(Integer slotExerciseId,
                          boolean isPending);
 
     @Query("SELECT se FROM SlotExercise se " +

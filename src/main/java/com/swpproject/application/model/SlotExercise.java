@@ -16,7 +16,7 @@ public class SlotExercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String day;
     private String start_hour;
@@ -42,7 +42,4 @@ public class SlotExercise {
     @JoinColumn(name = "OrderId", nullable = true)
     private OrderRequest orderRequest;
 
-    public boolean CheckPending(){
-        return this.isPending;
-    }
 }

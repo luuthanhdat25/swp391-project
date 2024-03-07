@@ -1,10 +1,8 @@
 package com.swpproject.application.controller.authentication;
 
-import com.swpproject.application.model.Gymer;
-import com.swpproject.application.model.PersonalTrainer;
-import com.swpproject.application.model.SchedulePersonalTrainer;
+import com.swpproject.application.model.*;
 import com.swpproject.application.service.*;
-import com.swpproject.application.model.Account;
+import com.swpproject.application.service.impl.ScheduleServiceImplement;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +40,8 @@ public class AuthenticationController {
     private GymerService gymerService;
     @Autowired
     private SchedulePersonalTrainerService schedulePersonalTrainerService;
+    @Autowired
+    private ScheduleServiceImplement scheduleServiceImplement;
     @ModelAttribute("roles")
     public Role[] getRoles() {
         return Role.values();
@@ -144,6 +144,13 @@ public class AuthenticationController {
                                RedirectAttributes redirectAttributes, HttpSession session) {
         Optional<Account> account = accountService.getAccountByEmail(email);
         if(account.isPresent() && password.equals(account.get().getPassword())) {
+            if (account.get().getRole().equals(Role.GYMER)){
+                Gymer gymer = gymerService.getGymerByAccount(account.get()).get();
+                session.setAttribute("gymer",gymer);
+            } if (account.get().getRole().equals(Role.PT)){
+                PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(account.get().getId());
+                session.setAttribute("personalTrainer",personalTrainer);
+            }
             removeAttributes(session, "email", "password");
             return "welcome";
         } else {
@@ -206,8 +213,12 @@ public class AuthenticationController {
             } else {
                 Gymer gymer = new Gymer();
                 gymer.setAccount(account);
-
                 gymerService.save(gymer);
+                Schedule gymerSchedule = new Schedule();
+                gymerSchedule.setGymer(gymer);
+                scheduleServiceImplement.save(gymerSchedule);
+                session.setAttribute("gymer",gymer);
+                session.setAttribute("gymerSchedule",gymerSchedule);
             }
             removeAttributes(session, "digit1", "digit2", "digit3", "digit4", "digit5", "digit6","rptPassword","fRptPassword","sysOtp");
             redirectAttributes.addFlashAttribute("MSG","Account created successfully! " +

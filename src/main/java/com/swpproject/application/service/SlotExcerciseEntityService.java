@@ -35,7 +35,7 @@ public class SlotExcerciseEntityService {
                                             ){
         return slotExcerciseEntityRepository.findAllByMinWeekAndConditions(orderId,isPending);
     }
-    public void updateSlotOrderPending(Long slotExerciseId,
+    public void updateSlotOrderPending(Integer slotExerciseId,
                                        boolean isPending){
         slotExcerciseEntityRepository.updateIsPending(slotExerciseId,isPending);
     }

@@ -1,26 +1,9 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="common/header.jspf" %>
+<%@include file="common/head.jspf" %>
+<%@include file="common/sidebar.jspf" %>
+<link rel="stylesheet" href="../../../assets/css/style1.css">
+<script>document.getElementsByTagName("html")[0].className += " js";</script>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Admin Dashboard</title>
-    <script>document.getElementsByTagName("html")[0].className += " js";</script>
-    <link rel="shortcut icon" href="../../assets/img/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../assets/plugins/feather/feather.css">
-    <link rel="stylesheet" href="../../assets/plugins/icons/flags/flags.css">
-    <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/style1.css">
-</head>
-
-
 <body>
 
 <div class="main-wrapper">
@@ -28,7 +11,6 @@
     <%@ include file="common/sidebar.jspf" %>
     <div class="page-wrapper">
         <div class="content container-fluid">
-
             <div class="page-header">
                 <div class="row">
                     <div class="col">
@@ -70,8 +52,10 @@
                                 </form>
                             </div>
                             <div class="student-submit">
-                                <button style="padding-top: 10px; padding-bottom: 10px" type="submit" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#bank_details">Add new slot</button>
+                                <button style="padding-top: 10px; padding-bottom: 10px" type="submit"
+                                        class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#bank_details">Add new slot
+                                </button>
                             </div>
                         </div>
 
@@ -187,7 +171,8 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <label>Type of slot</label>
-                                        <select class="form-control" name="typeOfSlot" id="typeOfSlot" onchange="showFields()">
+                                        <select class="form-control" name="typeOfSlot" id="typeOfSlot"
+                                                onchange="showFields()">
                                             <option disabled selected>Choose type of slot</option>
                                             <option>Exercise</option>
                                             <option>Nutrition</option>
@@ -241,13 +226,15 @@
                                 <div class="col-lg-3 col-md-6 exercise-fields" style="display: none;">
                                     <div class="form-group">
                                         <label>Set</label>
-                                        <input type="text" class="form-control" placeholder="Enter set" name="exerciseSet">
+                                        <input type="text" class="form-control" placeholder="Enter set"
+                                               name="exerciseSet">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 exercise-fields" style="display: none;">
                                     <div class="form-group">
                                         <label>Rep</label>
-                                        <input type="text" class="form-control" placeholder="Enter rep" name="exerciseRep">
+                                        <input type="text" class="form-control" placeholder="Enter rep"
+                                               name="exerciseRep">
                                     </div>
                                 </div>
                             </div>
@@ -266,7 +253,8 @@
                                 <div class="col-lg-6 col-md-6 nutrition-fields" style="display: none;">
                                     <div class="form-group">
                                         <label>Amount(gram)</label>
-                                        <input type="text" class="form-control" placeholder="Enter amount" name="nutritionAmount">
+                                        <input type="text" class="form-control" placeholder="Enter amount"
+                                               name="nutritionAmount">
                                     </div>
                                 </div>
                             </div>
@@ -284,7 +272,6 @@
             </div>
         </div>
     </div>
-
 
 
 </div>
@@ -308,24 +295,24 @@
         var nutritionFields = document.querySelectorAll(".nutrition-fields");
 
         if (typeOfSlot === "Exercise") {
-            exerciseFields.forEach(function(field) {
+            exerciseFields.forEach(function (field) {
                 field.style.display = "block";
             });
-            nutritionFields.forEach(function(field) {
+            nutritionFields.forEach(function (field) {
                 field.style.display = "none";
             });
         } else if (typeOfSlot === "Nutrition") {
-            exerciseFields.forEach(function(field) {
+            exerciseFields.forEach(function (field) {
                 field.style.display = "none";
             });
-            nutritionFields.forEach(function(field) {
+            nutritionFields.forEach(function (field) {
                 field.style.display = "block";
             });
         } else {
-            exerciseFields.forEach(function(field) {
+            exerciseFields.forEach(function (field) {
                 field.style.display = "none";
             });
-            nutritionFields.forEach(function(field) {
+            nutritionFields.forEach(function (field) {
                 field.style.display = "none";
             });
         }
@@ -398,7 +385,7 @@
             var startOfWeek = moment().year(year).isoWeek(i).startOf('isoWeek');
             var endOfWeek = moment().year(year).isoWeek(i).endOf('isoWeek');
             var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');
-            weeks.push("<option value='" +i+ "'>" + weekText + "</option>");
+            weeks.push("<option value='" + i + "'>" + weekText + "</option>");
         }
 
         $("#week").html(weeks.join(""));

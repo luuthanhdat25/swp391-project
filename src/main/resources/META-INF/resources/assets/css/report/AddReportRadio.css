@@ -1,7 +1,7 @@
 
 .input-container {
 	height: fit-content;
-	margin-top: 10px;
+	margin-top: 7px;
 	position: relative;
 }
 
@@ -17,7 +17,7 @@
 
 .formBody {
 	width: 100%; 
-	padding: 20px;
+	padding: 15px;
 	border-radius: 10px;
 }
 
@@ -32,7 +32,7 @@
 
 .input-container input:checked + .radio-tile{
     color: #ffffff;
-    background-color: #198754; 
+    background-color: #599EA7;
     border: 1px solid #000000;
     width: 100%;
 }

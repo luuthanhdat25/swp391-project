@@ -103,7 +103,8 @@ public class OrderRequestController {
     public String AcceptDeclineOrder(HttpSession session){
         OrderRequest orderRequest = (OrderRequest) session.getAttribute("orderPayment");
         List<SlotExercise> slotOrder = slotExcerciseEntityService.getSlotByOrder(orderRequest.getOrderId());
-        orderRequestService.updateStatusOrder(OrderStatus.OnDoing, orderRequest.getOrderId());
+        orderRequest.setStatus(OrderStatus.OnDoing);
+        orderRequestService.saveOrUpdateOrderRequest(orderRequest);
         for (SlotExercise slotExercise : slotOrder) {
             System.out.println(slotExercise.toString());
             slotExcerciseEntityService.updateSlotOrderPending(slotExercise.getId(), false);

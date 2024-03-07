@@ -12,7 +12,7 @@ import java.util.List;
 public interface OrderRequestRepository extends JpaRepository<OrderRequest,Integer> {
     List<OrderRequest> getOrderRequestByPersonalTrainer(PersonalTrainer personalTrainer);
 
-    @Modifying
-    @Query("UPDATE OrderRequest o SET o.status = :newStatus WHERE o.orderId = :orderId")
-    void updateOrderStatus(  OrderStatus newStatus,Integer orderId);
+//    @Modifying
+//    @Query("UPDATE OrderRequest o SET o.status = :newStatus WHERE o.orderId = :orderId")
+//    void updateOrderStatus( Integer orderId, OrderStatus newStatus);
 }

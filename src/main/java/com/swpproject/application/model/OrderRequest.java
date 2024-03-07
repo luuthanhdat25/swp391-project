@@ -23,6 +23,8 @@ public class OrderRequest {
     private Date datetime_start;
     private Date datetime_end;
     private int total_of_money;
+
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
     @ManyToOne
     @JoinColumn(name = "Gymer_ID",referencedColumnName = "id",nullable = false)

@@ -554,11 +554,10 @@
                                             <td style="width: 150px;" class="time-column">${hour}:00 - ${hour + 2}:00
                                             </td>
                                             <c:forEach var="day"
-                                                       items="${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}">
+                                                       items="${['Monday', 'Tuesday', 'Wednesday', 'Thusday', 'Friday', 'Saturday', 'Sunday']}">
                                                 <c:set var="disabled" value="false"/>
                                                 <c:forEach items="${allSlots}" var="scheduleSlot">
-                                                    <c:if test="${scheduleSlot.start_hour == hour && scheduleSlot.end_hour == hour + 2 && scheduleSlot.day eq day.toLowerCase()
-                                                        }">
+                                                    <c:if test="${scheduleSlot.day eq day.toLowerCase() && fn:substringBefore(scheduleSlot.start_hour, ':') == hour && fn:substringBefore(scheduleSlot.end_hour, ':') == (hour + 2)}">
                                                         <c:set var="disabled" value="true"/>
                                                     </c:if>
                                                 </c:forEach>

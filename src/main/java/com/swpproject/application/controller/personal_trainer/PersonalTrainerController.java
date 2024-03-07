@@ -1,20 +1,23 @@
 package com.swpproject.application.controller.personal_trainer;
 
+import com.swpproject.application.enums.Gender;
+import com.swpproject.application.enums.Role;
+import com.swpproject.application.model.Account;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.service.CertificateService;
 import com.swpproject.application.utils.JsonUtils;
 import com.swpproject.application.repository.PersonalTrainerRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +46,7 @@ public class PersonalTrainerController {
     private List<PersonalTrainerDTO> getPersonalTrainerDTOList() {
         List<PersonalTrainer> list = personalTrainerRepository.findAll();
         List<PersonalTrainerDTO> personalTrainerDTOList = new ArrayList<>();
-        for(PersonalTrainer personalTrainer: list) {
+        for (PersonalTrainer personalTrainer : list) {
             List<byte[]> certificatList = certificateService.getAllCertificatesData(personalTrainer);
             PersonalTrainerDTO dto = new PersonalTrainerDTO();
             dto.setId(personalTrainer.getId());
@@ -92,8 +95,36 @@ public class PersonalTrainerController {
 
     // UPDATE PROFILE
     @GetMapping("update")
-    public String showFormUpdate() {
-        return "";
+    public String showFormUpdate(@RequestParam int id,
+                                 ModelMap model,
+                                 HttpSession session) {
+        PersonalTrainerDTO personalTrainerDTO = getPersonalTrainerDTO(personalTrainerRepository.findById(id).get());
+        String json = JsonUtils.jsonConvert(personalTrainerDTO);
+        model.addAttribute("personalTrainerDto", json);
+        session.setAttribute("personalTrainer", personalTrainerRepository.findById(id).get());
+        return "profile-update";
+    }
+
+    @PostMapping("update")
+    public String updateProfile(@RequestParam int id,
+                                @RequestParam("avatar") String avatar,
+                                @RequestParam("fullname") String fullname,
+                                @RequestParam("phone") String phone,
+                                @RequestParam("gender") String gender,
+                                @RequestParam("birthday") String birthday,
+                                @RequestParam("address") String address,
+                                @RequestParam("price") String price) {
+        PersonalTrainer personalTrainer = personalTrainerRepository.findById(id).get();
+        Account account = personalTrainer.getAccount();
+        account.setFullName(fullname);
+        account.setPhone(phone);
+        account.setGender(Gender.valueOf(gender));
+        account.setAddress(address);
+        account.setBirthday(LocalDate.parse(birthday, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        personalTrainer.setAccount(account);
+        personalTrainer.setPrice(Integer.valueOf(price));
+        personalTrainerRepository.save(personalTrainer);
+        return "redirect:/personal-trainer/details?id=" + id;
     }
 
 
@@ -103,7 +134,7 @@ public class PersonalTrainerController {
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-class PersonalTrainerDTO{
+class PersonalTrainerDTO {
     private Integer id;
     private String description;
     private Integer price;
@@ -117,6 +148,7 @@ class PersonalTrainerDTO{
     private String birthday;
     private String email;
     List<byte[]> certificateList;
+
     @Override
     public String toString() {
         return "PersonalTrainerDTO{" +

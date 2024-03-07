@@ -11,25 +11,41 @@
                 <li>
                     <a href="#"><i class="fe fe-activity"></i> <span>Nutrition Wiki</span></a>
                 </li>
-                <li class="menu-title">
-                    <span>GymOn Schedule</span>
-                </li>
-                <li>
-                    <a href="/view-personal-schedule"><i class="fas fa-chalkboard-teacher"></i> <span>Personal Schedule</span></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>Paid Schedule</span></a>
-                </li>
+
+                <c:if test="${account ne null}">
+                    <li class="menu-title">
+                        <span>GymOn Schedule</span>
+                    </li>
+                    <li>
+                        <a href="/view-personal-schedule"><i class="fas fa-chalkboard-teacher"></i> <span>Personal Schedule</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>Paid Schedule</span></a>
+                    </li>
+                </c:if>
+
                 <li class="menu-title">
                     <span>GymOn Services</span>
                 </li>
                 <li>
                     <a href="/personal-trainer/"><i class="fas fa-search"></i> <span>Find Personal Trainer</span> </a>
                 </li>
+                <c:if test="${account ne null}">
+                    <c:choose>
+                        <c:when test="${account.getRole() ne 'PT'}">
+                            <li>
+                                <a href="#"><i class="fas fa-history"></i> <span>Order History</span></a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <a href="#"><i class="fas fa-history"></i> <span>Order Requests</span></a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
 
-                <li>
-                    <a href="#"><i class="fas fa-history"></i> <span>Order History</span></a>
-                </li>
+                </c:if>
+
                 <li class="submenu">
                     <a href="#"><i class="feather-grid"></i> <span>Tracking & Statistics</span> <span
                             class="menu-arrow"></span></a>

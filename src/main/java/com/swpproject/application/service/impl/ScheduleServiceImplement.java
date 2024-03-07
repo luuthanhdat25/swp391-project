@@ -25,6 +25,11 @@ public class ScheduleServiceImplement implements ScheduleService {
     }
 
     @Override
+    public Optional<Schedule> findScheduleByGymerIdAndPTId(Integer gid, Integer ptId) {
+        return scheduleRepository.findScheduleByGymer_GymerIdAndPersonalTrainer_Id(gid,ptId);
+    }
+
+    @Override
     public void save(Schedule schedule) {scheduleRepository.save(schedule);
     }
 }

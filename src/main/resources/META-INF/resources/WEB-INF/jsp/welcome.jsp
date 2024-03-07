@@ -4,7 +4,6 @@
 <div class="main-wrapper">
     <div class="page-wrapper">
         <div class="content container-fluid">
-
             <div class="page-header">
                 <div class="row">
                     <div class="col-sm-12">
@@ -18,7 +17,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="row">
                 <div class="col-xl-3 col-sm-6 col-12 d-flex">

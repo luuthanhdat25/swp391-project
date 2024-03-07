@@ -1,6 +1,7 @@
 package com.swpproject.application.service;
 
 
+import com.swpproject.application.model.OrderRequest;
 import com.swpproject.application.model.SlotExercise;
 import com.swpproject.application.repository.SlotExcerciseEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,25 @@ public class SlotExcerciseEntityService {
                                             ){
         return slotExcerciseEntityRepository.findAllByMinWeekAndConditions(orderId,isPending);
     }
-    public void updateSlotOrderPending(Long slotExerciseId,
+    public void updateSlotOrderPending(Integer slotExerciseId,
                                        boolean isPending){
         slotExcerciseEntityRepository.updateIsPending(slotExerciseId,isPending);
     }
     public List<SlotExercise> getSlotGreater (Date targetDate,boolean isPending){
         return slotExcerciseEntityRepository.findSlotsWithDateEndGreaterThanAndPending(targetDate,isPending);
     }
+    public List<SlotExercise> getSlotByOrder(Integer orderRequest){
+        return slotExcerciseEntityRepository.getSlotExerciseByOrderRequest_OrderId(orderRequest);
+    }
+    public List<SlotExercise> getTrainingPTSlot(Integer gymerID,
+                                                Integer week,
+                                                Integer year,
+                                                boolean isPending){
+        return slotExcerciseEntityRepository.getSlotExerciseByGymer_GymerIdAndWeekAndYearAndIsPendingAndPersonalTrainerIsNotNull(gymerID,week,year,isPending);
+    }
+
+    public void deleteSlot(Integer orderID){
+        slotExcerciseEntityRepository.deleteAllByOrderRequest_OrderId(orderID);
+    };
+
 }

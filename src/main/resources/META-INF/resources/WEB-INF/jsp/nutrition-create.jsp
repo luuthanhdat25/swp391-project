@@ -1,175 +1,10 @@
-<%@ include file="common/header.jspf" %>
+<%@include file="common/header.jspf" %>
+<%@include file="common/head.jspf" %>
+<%@include file="common/sidebar.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <body>
     <div class="main-wrapper">
-
-        <div class="header">
-
-            <div class="header-left">
-                <a href="index.html" class="logo">
-                    <img src="../../assets/img/logo.png" alt="Logo">
-                </a>
-                <a href="index.html" class="logo logo-small">
-                    <img src="../../assets/img/logo-small.png" alt="Logo" width="30" height="30">
-                </a>
-            </div>
-
-            <div class="menu-toggle">
-                <a href="javascript:void(0);" id="toggle_btn">
-                    <i class="fas fa-bars"></i>
-                </a>
-            </div>
-
-            <div class="top-nav-search">
-                <form>
-                    <input type="text" class="form-control" placeholder="Search here">
-                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
-
-
-            <a class="mobile_btn" id="mobile_btn">
-                <i class="fas fa-bars"></i>
-            </a>
-
-
-            <ul class="nav user-menu">
-                <li class="nav-item dropdown language-drop me-2">
-                    <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                        <img src="../../assets/img/icons/header-icon-01.svg" alt="">
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="javascript:;"><i class="flag flag-lr me-2"></i>English</a>
-                        <a class="dropdown-item" href="javascript:;"><i class="flag flag-bl me-2"></i>Francais</a>
-                        <a class="dropdown-item" href="javascript:;"><i class="flag flag-cn me-2"></i>Turkce</a>
-                    </div>
-                </li>
-
-                <li class="nav-item dropdown noti-dropdown me-2">
-                    <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                        <img src="../../assets/img/icons/header-icon-05.svg" alt="">
-                    </a>
-                    <div class="dropdown-menu notifications">
-                        <div class="topnav-dropdown-header">
-                            <span class="notification-title">Notifications</span>
-                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
-                        </div>
-                        <div class="noti-content">
-                            <ul class="notification-list">
-                                <li class="notification-message">
-                                    <a href="#">
-                                        <div class="media d-flex">
-                                            <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="../../assets/img/profiles/avatar-02.jpg">
-                                            </span>
-                                            <div class="media-body flex-grow-1">
-                                                <p class="noti-details"><span class="noti-title">Carlson Tech</span> has
-                                                    approved <span class="noti-title">your estimate</span></p>
-                                                <p class="noti-time"><span class="notification-time">4 mins ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="#">
-                                        <div class="media d-flex">
-                                            <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="../../assets/img/profiles/avatar-11.jpg">
-                                            </span>
-                                            <div class="media-body flex-grow-1">
-                                                <p class="noti-details"><span class="noti-title">International Software
-                                                        Inc</span> has sent you a invoice in the amount of <span
-                                                        class="noti-title">$218</span></p>
-                                                <p class="noti-time"><span class="notification-time">6 mins ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="#">
-                                        <div class="media d-flex">
-                                            <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="../../assets/img/profiles/avatar-17.jpg">
-                                            </span>
-                                            <div class="media-body flex-grow-1">
-                                                <p class="noti-details"><span class="noti-title">John Hendry</span> sent
-                                                    a cancellation request <span class="noti-title">Apple iPhone
-                                                        XR</span></p>
-                                                <p class="noti-time"><span class="notification-time">8 mins ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="#">
-                                        <div class="media d-flex">
-                                            <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="../../assets/img/profiles/avatar-13.jpg">
-                                            </span>
-                                            <div class="media-body flex-grow-1">
-                                                <p class="noti-details"><span class="noti-title">Mercury Software
-                                                        Inc</span> added a new product <span class="noti-title">Apple
-                                                        MacBook Pro</span></p>
-                                                <p class="noti-time"><span class="notification-time">12 mins ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="topnav-dropdown-footer">
-                            <a href="#">View all Notifications</a>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="nav-item zoom-screen me-2">
-                    <a href="#" class="nav-link header-nav-list">
-                        <img src="../../assets/img/icons/header-icon-04.svg" alt="">
-                    </a>
-                </li>
-
-                <li class="nav-item dropdown has-arrow new-user-menus">
-                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                        <span class="user-img">
-                            <img class="rounded-circle" src="../../assets/img/profiles/avatar-01.jpg" width="31"
-                                 alt="Soeng Souy">
-                            <div class="user-text">
-                                <h6>Soeng Souy</h6>
-                                <p class="text-muted mb-0">Administrator</p>
-                            </div>
-                        </span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <div class="user-header">
-                            <div class="avatar avatar-sm">
-                                <img src="../../assets/img/profiles/avatar-01.jpg" alt="User Image"
-                                     class="avatar-img rounded-circle">
-                            </div>
-                            <div class="user-text">
-                                <h6>Soeng Souy</h6>
-                                <p class="text-muted mb-0">Administrator</p>
-                            </div>
-                        </div>
-                        <a class="dropdown-item" href="profile.html">My Profile</a>
-                        <a class="dropdown-item" href="inbox.html">Inbox</a>
-                        <a class="dropdown-item" href="login.html">Logout</a>
-                    </div>
-                </li>
-
-            </ul>
-
-        </div>
-
         <div class="page-wrapper">
             <div class="content container-fluid">
                 <div class="page-header">
@@ -198,33 +33,35 @@
                                                     <div class="w-50 col-md-6">
                                                         <div>Nutrition Name</div>
                                                         <input required type="text" name="nutritionName" id="nutritionName" class="form-control mt-2" placeholder="Nutrition Name" />
+                                                        <p id="nutritionNameError" class="text-danger mt-3"></p>
                                                     </div>
                                                 </div>
 
                                                 <div class="row mt-3">
                                                     <div class="col">
                                                         <div>Calories</div>
-                                                        <input required name="calories" id="caloryInput" min="0" type="number"  class="form-control mt-2" placeholder="Number calories" />
+                                                        <input required name="calories" id="caloryInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number calories" />
                                                     </div>
                                                     <div class="col">
                                                         <div>Protein</div>
-                                                        <input required name="protein" id="proteinInput" min="0" type="number"  class="form-control mt-2" placeholder="Number protein" />
+                                                        <input required name="protein" id="proteinInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number protein" />
                                                     </div>
                                                     <div class="col">
                                                         <div>Fat</div>
-                                                        <input required name="fat" id="fatInput" min="0" type="number"  class="form-control mt-2" placeholder="Number fat" />
+                                                        <input required name="fat" id="fatInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number fat" />
                                                     </div>
                                                     <div class="col">
                                                         <div>Carb</div>
-                                                        <input required name="carb" id="carbInput" min="0" type="number"  class="form-control mt-2" placeholder="Number carb" />
+                                                        <input required name="carb" id="carbInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number carb" />
                                                     </div>
                                                 </div>
 
                                                 <div class="mt-3">
                                                     <div class="mb-2">Image description</div>
+                                                    <p id="imageError" class="text-danger mt-3"></p>
                                                     <button type="button" id="chooseImageButton" class="btn btn-warning">Choose Image</button>
                                                     <br>
-                                                    <input required type="file" id="imageInput" style="display: none;" name="image">
+                                                    <input type="file" id="imageInput" style="display: none;" name="image">
                                                     <div class="mt-2">
                                                         <img id="previewImage"  src="#" alt="Preview" style="display: none;" class="w-50">
                                                     </div>
@@ -241,22 +78,12 @@
                                                 </div>
 
                                                 <div id="errorMessages">
-                                                    <p id="nutritionNameError" class="text-danger"></p>
-                                                    <p id="caloryError" class="text-danger"></p>
-                                                    <p id="proteinError" class="text-danger"></p>
-                                                    <p id="fatError" class="text-danger"></p>
-                                                    <p id="carbError" class="text-danger"></p>
-                                                    <p id="imageError" class="text-danger"></p>
                                                 </div>
 
 
                                                 <div class="d-flex mt-3">
-                                                    <button type="submit" class="btn btn-primary me-2">
-                                                        Create
-                                                    </button>
-                                                    <a href="/nutrition/" class="btn btn-danger">
-                                                        Cancel
-                                                    </a>
+                                                    <button type="submit" class="btn btn-primary me-2">Create</button>
+                                                    <a href="/nutrition/" class="btn btn-danger">Cancel</a>
                                                 </div>
                                             </form>
 
@@ -277,8 +104,6 @@
 
     </div>
 
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="../../assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -289,63 +114,8 @@
 
     <script src="../../assets/js/script.js"></script>
 
-<%--    <script src="../../assets/js/nutrition/create/nutrition-create-submit-handler.js"></script>--%>
-    <script>
-        $(document).ready(function() {
-            $('#nutritionForm').submit(function(event) {
-                var isValid = true;
-
-                var fieldsToCheck = [
-                    { id: 'nutritionName', errorMessageId: 'nutritionNameError', errorMessage: 'Nutrition Name is required' },
-                    { id: 'caloryInput', errorMessageId: 'caloryError', errorMessage: 'Calories is required' },
-                    { id: 'proteinInput', errorMessageId: 'proteinError', errorMessage: 'Protein is required' },
-                    { id: 'fatInput', errorMessageId: 'fatError', errorMessage: 'Fat is required' },
-                    { id: 'carbInput', errorMessageId: 'carbError', errorMessage: 'Carb is required' }
-                ];
-
-                fieldsToCheck.forEach(function(field) {
-                    var fieldValue = $('#' + field.id).val().trim();
-                    if (fieldValue === '') {
-                        $('#' + field.errorMessageId).text(field.errorMessage);
-                        isValid = false;
-                    } else {
-                        $('#' + field.errorMessageId).text('');
-                    }
-                });
-
-                function clearError(field) {
-                    $(field).text('');
-                }
-
-                function validateImageSize(input, errorMessage) {
-                    var file = $(input)[0].files[0];
-                    if (file === undefined) {
-                        showError(errorMessage);
-                    } else {
-                        if (file.size > 10 * 1024 * 1024) {
-                            showError(errorMessage);
-                        } else {
-                            clearError(errorMessage);
-                        }
-                    }
-                }
-
-                clearError('#imageError'); // Clear error message before validation
-                validateImageSize('input[name="image"]', '#imageError');
-                if ($('#imageError').val() === '') { // If no error message is shown for image, show a warning
-                    $('#imageError').text('No image selected. Please select an image.');
-                }
-
-                if (!isValid) {
-                    event.preventDefault();
-                }
-            });
-        });
-
-
-
-    </script>
     <script src="../../assets/js/exercise/create/exercise-create-image-import.js"></script>
+    <script src="../../assets/js/nutrition/create/nutrition-create-submit-handler.js"></script>
 </body>
 
 </html>

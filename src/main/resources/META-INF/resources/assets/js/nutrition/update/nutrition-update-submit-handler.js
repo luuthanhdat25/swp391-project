@@ -25,16 +25,9 @@ $(document).ready(function() {
         }
 
         var file = $('input[name="image"]')[0].files[0];
-        if (file === undefined) {
-            showError('#imageError', 'No image selected. Please select an image.');
-            isValid = false;
-        } else {
-            if (file.size > 10 * 1024 * 1024) {
-                showError('#imageError', 'Image selected should be lower than 10MB');
-                isValid = false;
-            }else{
-                clearError('#imageError');
-            }
+        if (file !== undefined && file.size > 10 * 1024 * 1024) {
+            showError('#imageError', 'Image selected should be lower than 10MB');
+            errors = true;
         }
 
         if (!isValid) {

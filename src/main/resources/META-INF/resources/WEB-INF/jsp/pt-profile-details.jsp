@@ -1,5 +1,4 @@
 <%@ include file="common/header.jspf" %>
-
 <%@ include file="common/head.jspf" %>
 <%@ include file="common/sidebar.jspf" %>
 
@@ -62,7 +61,10 @@
                                     <div class="card-body">
                                         <div style="display: flex;align-items: center;justify-content: space-between;" class="heading-detail">
                                             <h4>Personal Details</h4>
-                                            <a class="edit-link" style="margin-bottom: auto; cursor: pointer" data-bs-toggle="modal" id="sendToUpdate"><i class="far fa-edit me-1"></i>Edit</a>
+                                            <c:if test="${account.getId() ne id}">
+                                                <a class="edit-link" style="margin-bottom: auto; cursor: pointer" data-bs-toggle="modal" id="sendToUpdate"><i class="far fa-edit me-1"></i>Edit</a>
+                                            </c:if>
+
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
@@ -175,7 +177,9 @@
                         <div class="col-lg-12">
                             <div class="card blog-comments">
                                 <div class="card-header">
-                                    <h4 class="card-title" style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">Feedback <button type="submit" class="btn btn-info">Evaluate</button></h4>
+                                    <c:if test="${account.getId() ne id}">
+                                        <h4 class="card-title" style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">Feedback <button type="submit" class="btn btn-info">Evaluate</button></h4>
+                                    </c:if>
                                 </div>
                                 <div class="card-body pb-0">
                                     <ul class="comments-list">

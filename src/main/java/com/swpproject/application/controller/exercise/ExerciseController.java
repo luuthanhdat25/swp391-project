@@ -5,6 +5,7 @@ import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.ExerciseRepository;
 import com.swpproject.application.repository.PersonalTrainerRepository;
 import com.swpproject.application.utils.*;
+import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -67,7 +68,7 @@ public class ExerciseController {
         Exercise exercise = new Exercise();
         exercise.setName(exerciseDTO.getExerciseName());
         exercise.setType(exerciseDTO.getMuscle());
-        exercise.setDescription(exerciseDTO.getExerciseDescription());
+        exercise.setDescription(addLineBreaks(exerciseDTO.getExerciseDescription()));
         exercise.setLevel(exerciseDTO.getLevelRadio());
         exercise.setEquipment(exerciseDTO.getEquipment());
         exercise.setVideoDescription(exerciseDTO.getYoutubeLink());
@@ -82,6 +83,13 @@ public class ExerciseController {
 
         exerciseRepository.save(exercise);
         return "redirect:/exercise/";
+    }
+
+    private String addLineBreaks(String text) {
+        if (StringUtils.isEmpty(text)) {
+            return "";
+        }
+        return text.replaceAll("\\r?\\n", "<br>");
     }
 
 
@@ -107,7 +115,7 @@ public class ExerciseController {
             Exercise exercise = exerciseRepository.findById(id);
             exercise.setName(exerciseDTO.getExerciseName());
             exercise.setType(exerciseDTO.getMuscle());
-            exercise.setDescription(exerciseDTO.getExerciseDescription());
+            exercise.setDescription(addLineBreaks(exerciseDTO.getExerciseDescription()));
             exercise.setLevel(exerciseDTO.getLevelRadio());
             exercise.setEquipment(exerciseDTO.getEquipment());
             exercise.setVideoDescription(exerciseDTO.getYoutubeLink());

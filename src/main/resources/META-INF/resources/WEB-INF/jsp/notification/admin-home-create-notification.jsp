@@ -1,4 +1,5 @@
 <%@ include file="../common/header.jspf" %>
+<%@ include file="../common/head.jspf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <head>
@@ -9,36 +10,6 @@
 </head>
 
 <div class="main-wrapper">
-    <div class="header">
-
-        <div class="header-left">
-            <a href="index.html" class="logo">
-                <img src="/META-INF/resources/assets/img/logo.png" alt="Logo">
-            </a>
-            <a href="index.html" class="logo logo-small">
-                <img src="/META-INF/resources/assets/img/logo-small.png" alt="Logo" width="30" height="30">
-            </a>
-        </div>
-
-        <div class="menu-toggle">
-            <a href="javascript:void(0);" id="toggle_btn">
-                <i class="fas fa-bars"></i>
-            </a>
-        </div>
-
-        <div class="top-nav-search">
-            <form>
-                <input type="text" class="form-control" placeholder="Search here">
-                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-            </form>
-        </div>
-
-        <ul class="nav user-menu">
-            <button class="btn btn-rounded btn-outline-danger"><a href="login">Login</a></button>
-            <button class="btn btn-rounded btn-outline-danger"><a href="/registration">Sign up</a></button>
-        </ul>
-
-    </div>
     <div>
         <%-- Div này là một sidebar dùng để hiển thị các button:  Manage account, manage notification ... --%>
             <div class="sidebar" id="sidebar" style="width: 20%; background-color: #adb5bd;">
@@ -48,9 +19,6 @@
                     <p class="h6" style="padding-left: 9px; margin-top: 10px;">Manage</p>
                     <ul id="sidebar-menu" class="sidebar-menu" style="padding: 2px 9px 9px 9px;">
                         <li style="margin-bottom: 4px;">
-                            <a class="input-container" onclick=""> Manage account </a>
-                        </li>
-                        <li style="margin-bottom: 4px;">
                             <a class="input-container" onclick=""> Manage notification </a>
                         </li>
                         <li style="margin-bottom: 4px;">
@@ -58,12 +26,6 @@
                         </li>
                         <li style="margin-bottom: 4px;">
                             <a class="input-container" onclick=""> Manage request </a>
-                        </li>
-                        <li style="margin-bottom: 4px;">
-                           <a class="input-container" onclick=""> Manage exercise </a>
-                        </li>
-                        <li style="margin-bottom: 4px;">
-                             <a class="input-container" onclick=""> Manage exercise </a>
                         </li>
                     </ul>
 
@@ -88,8 +50,8 @@
                           </label>
                         </div>
 
-                        <input type="hidden" name="senderID" value="5" />
-                        <input type="hidden" name="receiverID" value="6" />
+                        <input type="hidden" name="senderID" value="3" />
+                        <input type="hidden" name="receiverID" value="4" />
                         <div class="d-flex justify-content-between" style="width: 200px;">
                             <button type="submit" class="btn-warning">Cancel</button>
                             <button type="submit" class="btn-success">Send Notification</button>

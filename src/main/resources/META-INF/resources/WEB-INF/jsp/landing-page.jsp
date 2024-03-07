@@ -1,40 +1,9 @@
 <%@ include file="common/header.jspf" %>
 <%@ include file="common/sidebar.jspf" %>
-
+<%@ include file="common/head.jspf" %>
 <body>
 
 <div class="main-wrapper">
-
-    <div class="header">
-
-        <div class="header-left">
-            <a href="#" class="logo">
-                <img src="assets/img/logo.png" alt="Logo">
-            </a>
-            <a href="#" class="logo logo-small">
-                <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
-            </a>
-        </div>
-        <div class="menu-toggle">
-            <a href="javascript:void(0);" id="toggle_btn">
-                <i class="fas fa-bars"></i>
-            </a>
-        </div>
-
-        <div class="top-nav-search">
-            <form>
-                <input type="text" class="form-control" placeholder="Search here">
-                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-            </form>
-        </div>
-
-        <ul class="nav user-menu">
-            <button class="btn btn-rounded btn-outline-danger"><a href="/auth/login">Login</a></button>
-            <button class="btn btn-rounded btn-outline-danger"><a href="/auth/registration">Sign up</a></button>
-        </ul>
-
-    </div>
-
     <div class="page-wrapper">
         <div class="card">
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">

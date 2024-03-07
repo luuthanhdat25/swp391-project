@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface CertificateService {
-    void save(String fileName, byte[] data);
+    void save(Certificate certificate);
 }

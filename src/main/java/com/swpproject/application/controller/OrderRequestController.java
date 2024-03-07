@@ -1,6 +1,7 @@
 package com.swpproject.application.controller;
 
 
+import com.swpproject.application.controller.notification.SystemNotificationService;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.OrderRequestService;
 import com.swpproject.application.service.SlotExcerciseEntityService;
@@ -24,7 +25,8 @@ public class OrderRequestController {
     private OrderRequestService orderRequestService;
     @Autowired
     private SlotExcerciseEntityService slotExcerciseEntityService;
-
+    @Autowired
+    private SystemNotificationService systemNotificationService;
 
     @RequestMapping("Order-Request")
     public String OrderRequest(Model model,
@@ -63,6 +65,7 @@ public class OrderRequestController {
         //check conflic slot with previous accepted slot
         System.out.println(slotOrder.size());
         model.addAttribute( "allSlots", slotOrder);
+        systemNotificationService.createNotification_NewRequestHiring(gymer.getGymerId(), personalTrainer.getId()); //BAO: notification
 //        redirectAttributes.addAttribute("accountId", accountId);
 //        redirectAttributes.addAttribute("week", week);
 //        redirectAttributes.addAttribute("year", year);
@@ -81,7 +84,7 @@ public class OrderRequestController {
             slotExcerciseEntityService.updateSlotOrderPending(slotExercise.getId(), false);
         }
 
-
+        systemNotificationService.createNotification_AcceptedHiringAndPayment(orderID); //BAO: notification
         return "redirect:/order-list";
     }
 

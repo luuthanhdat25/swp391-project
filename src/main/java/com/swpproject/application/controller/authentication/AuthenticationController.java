@@ -154,7 +154,8 @@ public class AuthenticationController {
         personalTrainer.setIsActive(false);
         personalTrainerService.save(personalTrainer);
         base64Strings.base64Strings().forEach(item -> {
-            byte[] imageAsByte = item.getBytes();
+            item = item.trim().split(",")[1];
+            byte[] imageAsByte = Base64.getDecoder().decode(item.getBytes());
             Certificate certificate = new Certificate();
             certificate.setImage(imageAsByte);
             certificate.setPersonalTrainer(personalTrainer);

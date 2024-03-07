@@ -67,7 +67,6 @@
         let files = ["file-1", "file-2", "file-3"];
         let base64Strings = [];
 
-        // Use Promise.all to wait for all promises to resolve
         Promise.all(files.map(id => toBase64(document.querySelector("#" + id))))
             .then(results => {
                 base64Strings = results.map(res => ({ res }));

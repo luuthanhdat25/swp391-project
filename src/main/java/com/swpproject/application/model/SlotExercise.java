@@ -56,7 +56,7 @@ public class SlotExercise {
                 ", schedule=" + schedule.getId() +
                 ", personalTrainer=" + personalTrainer.getId() +
                 ", gymer=" + gymer.getGymerId() +
-                ", orderRequest=" + orderRequest.getOrder_id() +
+                ", orderRequest=" + orderRequest.getOrderId() +
                 '}';
     }
     public boolean CheckPending(){

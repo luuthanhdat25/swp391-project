@@ -485,25 +485,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label>BirthDay:</label>
-                                            <input type="text" class="form-control" disabled value="${account.getBirthdateString()}">
+                                            <input type="text" class="form-control" disabled value="${account.birthday.toString()}">
                                         </div>
                                         <div class="form-group">
                                             <label>Address:</label>
                                             <input type="text" class="form-control" disabled value="${account.address}">
                                         </div>
-                                        <div class="invoice-total-card" id="invoiceTotalCard" style="display: none;">
-                                            <div class="invoice-total-box">
-                                                <div class="invoice-total-inner">
-                                                    <p>Training slot <span>20</span></p>
-                                                    <p>Slot duration<span>2 hours</span></p>
-                                                    <p>Training fee<span>$3,300.00</span></p>
-                                                    <p class="mb-0">Total amount: <span>$3,300.00</span></p>
-                                                </div>
-                                                <div class="invoice-total-footer">
-                                                    <h4>Total Amount <span>$143,300.00</span></h4>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
@@ -535,6 +523,11 @@
                                                 <input type="text" placeholder="${DateEnd}" readonly
                                                        class="form-control">
                                             </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Total money:</label>
+                                            <input type="text" placeholder="${orderRequest.total_of_money}" readonly
+                                                   class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -569,13 +562,23 @@
                                                         <c:set var="disabled" value="true"/>
                                                     </c:if>
                                                 </c:forEach>
-                                                <td>
-                                                    <input type="checkbox" name="checkedSlots"
-                                                           value="${day.toLowerCase()}-${hour}-${hour + 2}"
-                                                           <c:if test="${disabled}">disabled="disabled"</c:if>
-                                                           id="${day.toLowerCase()}-${hour}${hour + 2}">
-                                                    <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
-                                                </td>
+                                                <c:choose>
+                                                    <c:when test="${disabled}">
+                                                        <td>
+                                                            <input type="checkbox" name="checkedSlots"
+                                                                   value="${day.toLowerCase()}-${hour}-${hour + 2}"
+                                                                   disabled="disabled" class="disabled-checkbox"
+                                                                   id="${day.toLowerCase()}-${hour}${hour + 2}">
+                                                            <label for="${day.toLowerCase()}-${hour}${hour + 2}">${account.fullName}</label>
+                                                        </td>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <td>
+                                                            <!-- Nội dung khi không thỏa mãn điều kiện -->
+                                                        </td>
+                                                    </c:otherwise>
+                                                </c:choose>
+
                                             </c:forEach>
                                         </tr>
                                     </c:forEach>
@@ -589,10 +592,9 @@
                                 <button type="submit" class="btn btn-primary">Accept
 
                                 </button>
-                                <button type="button" class="btn btn-primary">Decline
-
-                                </button>
+                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary">Decline</a>
                             </div>
+                                <input type="hidden" name="MSG" value="${MSG}">
                                 ${MSG}
                                 <input type="hidden" name="order" value="${param.order_id}">
                                 <c:forEach var="slot" items="${allSlots}" varStatus="loop">

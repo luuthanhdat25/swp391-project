@@ -6,6 +6,7 @@ import com.swpproject.application.model.OrderRequest;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.NotificationRepository;
 import com.swpproject.application.repository.OrderRequestRepository;
+import com.swpproject.application.service.OrderRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ public class SystemNotificationService {
     @Autowired private AccountRepository accountRepository;
     @Autowired private NotificationRepository notificationRepository;
     @Autowired private OrderRequestRepository orderRequestRepository;
+    @Autowired private OrderRequestService orderRequestService;
 
     //-----------------------------------------------------------------------------------------------------------------------------
     //Notification: When the Personal Trainer accepts Gymer's recruitment request, the system will send a notification
@@ -47,15 +49,23 @@ public class SystemNotificationService {
     }
 
     public void createNotification_AcceptedHiringAndPayment(Integer orderID) {
-        OrderRequest orderDetail = orderRequestRepository.findById(orderID).get();
+        OrderRequest orderDetail = orderRequestService.getOrderRequestById(orderID);
         Account senderAccount = orderDetail.getPersonalTrainer().getAccount();
         Account receiverAccount = orderDetail.getGymer().getAccount();
         Notification paymentNotification = new Notification();
 
-        String linkPayment = "payment.com/vnpay";
-        String TITLE_NOTIFICATION_ACCEPTED_AND_PAYMENT = "Payment Hiring Personal Trainer";
-        String content = createNotificationContent_AcceptedHiring(senderAccount, receiverAccount, orderDetail, linkPayment);
 
+
+        String NAME_LINK = "Payment link";
+        String linkPayment = "http://localhost:8080/pay?amountPay=" + orderDetail.getTotal_of_money() + "&orderID=" + orderDetail.getOrderId();
+        StringBuilder linkPaymentHTML = new StringBuilder()
+                .append("</span></font>")
+                .append("<a href=\"").append(linkPayment).append("\" target=\"_blank\">").append(NAME_LINK).append("</a>")
+                .append("<font face=\"Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif\" color=\"#000000\">")
+                .append("  <span style=\"white-space: collapse; background-color: rgb(255, 255, 255);\">");
+
+        String TITLE_NOTIFICATION_ACCEPTED_AND_PAYMENT = "Payment Hiring Personal Trainer";
+        String content = createNotificationContent_AcceptedHiring(senderAccount, receiverAccount, orderDetail, linkPaymentHTML.toString());
         paymentNotification.setContent(content);
         paymentNotification.setTitle(TITLE_NOTIFICATION_ACCEPTED_AND_PAYMENT);
         paymentNotification.setTimeStamp(LocalDateTime.now());

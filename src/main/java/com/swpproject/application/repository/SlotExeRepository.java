@@ -1,5 +1,6 @@
 package com.swpproject.application.repository;
 
+import com.swpproject.application.enums.Attendant;
 import com.swpproject.application.model.SlotExercise;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,14 +31,14 @@ public class SlotExeRepository {
         return jdbcTemplate.query(sql, new Object[]{week, year, id}, new BeanPropertyRowMapper<>(SlotExercise.class));
     }
 
+    public List<SlotExercise> findSlotExeByPTIdAndIsPending(Integer id, boolean isPending) {
+        String sql = "SELECT * FROM slot_exercise WHERE personal_trainer_id = ? AND is_pending = ?";
+        return jdbcTemplate.query(sql, new Object[]{id, isPending}, new BeanPropertyRowMapper<>(SlotExercise.class));
+    }
 
     public List<SlotExercise> findAll() {
         String sql = "SELECT * FROM slot_exercise";
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(SlotExercise.class));
     }
 
-    public void deleteExeById(Long id) {
-        String sql = "DELETE FROM slot_exercise WHERE id = ?";
-        jdbcTemplate.update(sql, id);
-    }
 }

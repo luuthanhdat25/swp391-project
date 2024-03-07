@@ -1,6 +1,4 @@
 <%@ include file="common/header.jspf" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
-
 <%@ include file="common/head.jspf" %>
 <%@ include file="common/sidebar.jspf" %>
 
@@ -63,7 +61,10 @@
                                     <div class="card-body">
                                         <div style="display: flex;align-items: center;justify-content: space-between;" class="heading-detail">
                                             <h4>Personal Details</h4>
-                                            <a class="edit-link" style="margin-bottom: auto" data-bs-toggle="modal" id=""><i class="far fa-edit me-1"></i>Edit</a>
+                                            <c:if test="${account.getId() ne id}">
+                                                <a class="edit-link" style="margin-bottom: auto; cursor: pointer" data-bs-toggle="modal" id="sendToUpdate"><i class="far fa-edit me-1"></i>Edit</a>
+                                            </c:if>
+
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
@@ -148,11 +149,11 @@
                                                          alt="First slide">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img id="slider2" class="d-block img-fluid" src="../../assets/img/certificates/certificate2.jpg"
+                                                    <img id="slider2" class="d-block img-fluid" src="#"
                                                          alt="Second slide">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img id="slider3" class="d-block img-fluid" src="../../assets/img/certificates/certificate3.jpg"
+                                                    <img id="slider3" class="d-block img-fluid" src="#"
                                                          alt="Third slide">
                                                 </div>
                                             </div>
@@ -176,7 +177,9 @@
                         <div class="col-lg-12">
                             <div class="card blog-comments">
                                 <div class="card-header">
-                                    <h4 class="card-title" style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">Feedback <button type="submit" class="btn btn-info">Evaluate</button></h4>
+                                    <c:if test="${account.getId() ne id}">
+                                        <h4 class="card-title" style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">Feedback <button type="submit" class="btn btn-info">Evaluate</button></h4>
+                                    </c:if>
                                 </div>
                                 <div class="card-body pb-0">
                                     <ul class="comments-list">
@@ -276,6 +279,10 @@
         $('#slider1').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[0]);
         $('#slider2').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[1]);
         $('#slider3').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[2]);
+
+        $('#sendToUpdate').click(function() {
+            window.location.href = `/personal-trainer/update?id=` + personalTrainer.id;
+        });
     })
 </script>
 </body>

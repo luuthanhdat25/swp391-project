@@ -23,7 +23,7 @@ public class OrderRequestImpl implements OrderRequestService {
     private OrderRequestRepository orderRequestRepository;
 
     @Override
-    public void saveOrderRequest(OrderRequest orderRequest) {
+    public void saveOrUpdateOrderRequest(OrderRequest orderRequest) {
         orderRequestRepository.save(orderRequest);
 
     }
@@ -35,10 +35,10 @@ public class OrderRequestImpl implements OrderRequestService {
     public List<OrderRequest> getOrderRequestList(PersonalTrainer personalTrainer) {
         return orderRequestRepository.getOrderRequestByPersonalTrainer(personalTrainer);
     }
-    @Override
-    public void updateStatusOrder(OrderStatus orderStatus, Integer orderId) {
-        orderRequestRepository.updateOrderStatus(orderStatus,orderId);
-    }
+//    @Override
+//    public void updateStatusOrder(String orderStatus, Integer orderId) {
+//        orderRequestRepository.updateOrderStatusById(orderId,orderStatus);
+//    }
     @Override
     public void deleteOrder(Integer orderId) {
         orderRequestRepository.deleteById(orderId);

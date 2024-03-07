@@ -1,4 +1,5 @@
 <%@ include file="../common/header.jspf" %>
+<%@ include file="../common/head.jspf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <head>
@@ -6,36 +7,6 @@
 </head>
 
 <div class="main-wrapper">
-    <div class="header">
-
-        <div class="header-left">
-            <a href="index.html" class="logo">
-                <img src="/META-INF/resources/assets/img/logo.png" alt="Logo">
-            </a>
-            <a href="index.html" class="logo logo-small">
-                <img src="/META-INF/resources/assets/img/logo-small.png" alt="Logo" width="30" height="30">
-            </a>
-        </div>
-
-        <div class="menu-toggle">
-            <a href="javascript:void(0);" id="toggle_btn">
-                <i class="fas fa-bars"></i>
-            </a>
-        </div>
-
-        <div class="top-nav-search">
-            <form>
-                <input type="text" class="form-control" placeholder="Search here">
-                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-            </form>
-        </div>
-
-        <ul class="nav user-menu">
-            <button class="btn btn-rounded btn-outline-danger"><a href="login">Login</a></button>
-            <button class="btn btn-rounded btn-outline-danger"><a href="/registration">Sign up</a></button>
-        </ul>
-
-    </div>
     <div>
         <%-- Div này là một sidebar dùng để hiển thị các button:  Manage account, manage notification ... --%>
         <div class="sidebar" id="sidebar" style="width: 20%; background-color: #adb5bd;">

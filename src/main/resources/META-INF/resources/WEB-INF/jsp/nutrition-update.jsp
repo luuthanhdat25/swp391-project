@@ -176,10 +176,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-sub-header">
-                                <h3 class="page-title">Nutrition Create</h3>
+                                <h3 class="page-title">Nutrition Update</h3>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="/nutrition/">Nutrition</a></li>
-                                    <li class="breadcrumb-item active">Nutrition Create</li>
+                                    <li class="breadcrumb-item active">Nutrition Update</li>
                                 </ul>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                                     <div class="card mb-0">
                                         <div class="card-body">
 
-                                            <form id="nutritionForm" action="/nutrition/create" name="nutritionForm" method="post" enctype="multipart/form-data">
+                                            <form id="nutritionForm" action="/nutrition/details/edit" name="nutritionForm" method="post" enctype="multipart/form-data">
                                                 <div class="row mt-3">
                                                     <div class="w-50 col-md-6">
                                                         <div>Nutrition Name</div>
@@ -293,7 +293,6 @@
         var nutrition = ${nutrition}
     </script>
 
-<%--    <script src="../../assets/js/nutrition/create/nutrition-create-submit-handler.js"></script>--%>
     <script>
         $(document).ready(function() {
             $('#nutritionForm').submit(function(event) {
@@ -319,14 +318,14 @@
                     }
                 });
 
-                // Kiểm tra hình ảnh
-                var image = $('#imageInput').val();
-                if (!image) {
-                    $('#imageError').text('Image is required');
-                    isValid = false;
-                } else {
-                    $('#imageError').text('');
-                }
+                // // Kiểm tra hình ảnh
+                // var image = $('#imageInput').val();
+                // if (!image) {
+                //     $('#imageError').text('Image is required');
+                //     isValid = false;
+                // } else {
+                //     $('#imageError').text('');
+                // }
 
                 // Check if all required fields are filled
                 if (!isValid) {

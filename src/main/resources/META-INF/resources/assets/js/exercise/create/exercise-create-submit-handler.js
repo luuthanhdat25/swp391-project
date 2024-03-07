@@ -21,12 +21,12 @@ $(document).ready(function() {
             return value;
         }
 
-        function validateSelect(select, errorMessage) {
+        function validateSelect(select, errorId, errorMessage) {
             var value = $(select).val();
             if (value === 'None') {
-                showError(errorMessage);
+                showError(errorId, errorMessage);
             } else {
-                clearError(errorMessage);
+                clearError(errorId);
             }
             return value;
         }
@@ -57,20 +57,33 @@ $(document).ready(function() {
             }
         }
 
+        clearError('#exerciseNameError'); // Clear error message before validation
         var exerciseName = validateRequiredInput('input[name="exerciseName"]', '#exerciseNameError');
         if (exerciseName.length < 5) {
             showError('#exerciseNameError', 'Exercise Name must be at least 5 characters long');
         }
 
+        clearError('#levelError'); // Clear error message before validation
         if (!$('input[name="levelRadio"]:checked').val()) {
             showError('#levelError', 'Please select a level');
         }
 
-        validateSelect('select[name="equipment"]', '#equipmentError');
-        validateSelect('select[name="muscle"]', '#muscleError');
+        clearError('#equipmentError'); // Clear error message before validation
+        validateSelect('select[name="equipment"]', '#equipmentError', 'Please select a equipment');
+
+        clearError('#muscleError'); // Clear error message before validation
+        validateSelect('select[name="muscle"]', '#muscleError', 'Please select a affected muscle');
+
+        clearError('#imageError'); // Clear error message before validation
         validateImageSize('input[name="image"]', '#imageError');
+        if ($('#imageError').text() === '') { // If no error message is shown for image, show a warning
+            $('#imageError').text('No image selected. Please select an image.');
+        }
+
+        clearError('#youtubeLinkError'); // Clear error message before validation
         validateYouTubeLink('#youtubeLink', /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})$/, '#youtubeLinkError');
 
+        clearError('#exerciseDescriptionError'); // Clear error message before validation
         var exerciseDescription = validateRequiredInput('#exerciseDescription', '#exerciseDescriptionError');
         if (exerciseDescription.length < 10) {
             showError('#exerciseDescriptionError', 'Exercise Description must be at least 10 characters long');

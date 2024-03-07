@@ -349,7 +349,7 @@
 
     <script src="../../assets/js/exercise/create/exercise-create-image-import.js"></script>
     <script src="../../assets/js/exercise/create/exercise-create-youtube-extract.js"></script>
-<%--    <script src="../../assets/js/exercise/create/exercise-create-submit-handler.js"></script>--%>
+    <script src="../../assets/js/exercise/create/exercise-create-submit-handler.js"></script>
 </body>
 
 </html>

@@ -13,10 +13,7 @@ public class CeritificateServiceImpl implements CertificateService {
     private CertificateRepository certificateRepository;
 
     @Override
-    public void save(String fileName, byte[] data) {
-        Certificate certificate = new Certificate();
-        certificate.setFileName(fileName);
-        certificate.setImage(data);
+    public void save(Certificate certificate) {
         certificateRepository.save(certificate);
     }
 }

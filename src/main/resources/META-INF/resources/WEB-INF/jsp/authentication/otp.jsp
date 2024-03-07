@@ -13,12 +13,12 @@
                         <p>A OTP Code with 6 digits already sent to your email.</p>
                         <b style="margin: 0">Enter OTP:</b>
                         <form:form action="otp" method="POST" onsubmit="concatenateDigits()" class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
-                            <input type="text" id="digit1" name="digit1" data-next="digit2" required/>
-                            <input type="text" id="digit2" name="digit2" data-next="digit3" data-previous="digit1" required/>
-                            <input type="text" id="digit3" name="digit3" data-next="digit4" data-previous="digit2" required/>
-                            <input type="text" id="digit4" name="digit4" data-next="digit5" data-previous="digit3" required/>
-                            <input type="text" id="digit5" name="digit5" data-next="digit6" data-previous="digit4" required/>
-                            <input type="text" id="digit6" name="digit6" data-previous="digit5" required/>
+                            <input type="text" id="digit1" name="digit1" value="${digit1}" data-next="digit2" maxlength="1" oninput="moveToNextOrPreviousInput(this, 'digit2', 'digit1')" required/>
+                            <input type="text" id="digit2" name="digit2" value="${digit2}" data-next="digit3" data-previous="digit1" maxlength="1" oninput="moveToNextOrPreviousInput(this, 'digit3', 'digit1')" required/>
+                            <input type="text" id="digit3" name="digit3" value="${digit3}" data-next="digit4" data-previous="digit2" maxlength="1" oninput="moveToNextOrPreviousInput(this, 'digit4', 'digit2')" required/>
+                            <input type="text" id="digit4" name="digit4" value="${digit4}" data-next="digit5" data-previous="digit3" maxlength="1" oninput="moveToNextOrPreviousInput(this, 'digit5', 'digit3')" required/>
+                            <input type="text" id="digit5" name="digit5" value="${digit5}" data-next="digit6" data-previous="digit4" maxlength="1" oninput="moveToNextOrPreviousInput(this, 'digit6', 'digit4')" required/>
+                            <input type="text" id="digit6" name="digit6" value="${digit6}" data-previous="digit5" maxlength="1" oninput="moveToNextOrPreviousInput(this, null, 'digit5')" required/>
                             <c:if test="${not empty MSG}">
                                 <pre class="text-danger">${MSG}</pre>
                             </c:if>
@@ -39,35 +39,14 @@
 <%@ include file="../common/script.jspf" %>
 
 <script>
-    $(document).ready(function () {
-        $('.digit-group').find('input').each(function() {
-            $(this).attr('maxlength', 1);
-
-            $(this).on('keyup', function(e) {
-                var parent = $($(this).parent());
-                var currentId = $(this).attr('id');
-
-                if (e.keyCode === 8 || e.keyCode === 37) {
-                    // Backspace or Left arrow key pressed
-                    var prev = parent.find('input#' + $(this).data('previous'));
-                    if (prev.length) {
-                        $(prev).select();
-                    }
-                } else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105) || e.keyCode === 39) {
-                    // Numeric keys, alphabetic keys, numpad keys, or Right arrow key pressed
-                    var next = parent.find('input#' + $(this).data('next'));
-                    if (next.length) {
-                        $(next).select();
-                    } else {
-                        // If there is no next input field, and autosubmit is enabled, submit the form
-                        if (parent.data('autosubmit')) {
-                            parent.submit();
-                        }
-                    }
-                }
-            });
-        });
-    });
-
+    function moveToNextOrPreviousInput(currentInput, nextInputId, previousInputId) {
+        if (event.inputType === 'deleteContentBackward' && previousInputId) {
+            var previousInput = document.getElementById(previousInputId);
+            previousInput.focus();
+        } else if (currentInput.value.length === 1 && nextInputId) {
+            var nextInput = document.getElementById(nextInputId);
+            nextInput.focus();
+        }
+    }
 </script>
 </body>

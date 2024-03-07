@@ -472,7 +472,7 @@
                                         <!-- Thay đổi dải số năm tùy ý -->
                                         <script>
                                             var currentYear = new Date().getFullYear();
-                                            for (var i = currentYear; i >= currentYear - 10; i--) {
+                                            for (var i = currentYear; i <= currentYear + 5; i++) {
                                                 document.write("<option value='" + i + "'>" + i + "</option>");
                                             }
                                         </script>
@@ -504,9 +504,9 @@
                                             <label>Training time:</label>
                                             <select class="select" name="TrainingTime" id="trainingTimeSelect">
                                                 <option selected disabled>Select Training Time</option>
-                                                <option value="1">1 months</option>
-                                                <option value="2">3 months</option>
-                                                <option value="3">6 months</option>
+                                                <option value="4">1 months</option>
+                                                <option value="12">3 months</option>
+                                                <option value="24">6 months</option>
                                             </select>
                                         </div>
                                         <div class="invoice-total-card" id="invoiceTotalCard" style="display: none;">
@@ -625,7 +625,8 @@
                                                         <input type="checkbox" name="checkedSlots"
                                                                value="${day.toLowerCase()}-${hour}-${hour + 2}"
                                                                <c:if test="${disabled}">disabled="disabled"</c:if>
-                                                               id="${day.toLowerCase()}-${hour}${hour + 2}">
+                                                               id="${day.toLowerCase()}-${hour}${hour + 2}"
+                                                               onchange="limitSlots(this)">
                                                         <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
                                                     </td>
                                                 </c:forEach>
@@ -633,6 +634,9 @@
                                         </c:forEach>
                                         </tbody>
                                     </table>
+                                </div>
+                                <div id="warningMessage" style="display: none; color: red;">
+                                    Use just select 5 slot
                                 </div>
                                 <div>
                                     <button style="width: 10%;" type="submit" class="btn btn-primary"
@@ -707,67 +711,6 @@
     });
 </script>
 
-<script>
-    $(document).ready(function () {
-        var currentDate = moment();
-
-        // Set the default selected values for year and week
-        var currentYear = currentDate.isoWeekYear();
-        var currentWeek = currentDate.isoWeek();
-
-        // Set the default selected options
-        $("#year").val(currentYear);
-        $("#week").val(currentWeek);
-
-        generateWeeks(); // Generate weeks based on the current year
-
-        updateTable(); // Update table content when the page is loaded
-
-        // Event listener for changes in the year and week selects
-        $("#year, #week").change(function () {
-            updateTable(); // Update table content when the year or week changes
-        });
-    });
-
-    function generateWeeks() {
-        var year = $("#year").val();
-        var weeks = [];
-
-        for (var i = 1; i <= 52; i++) {
-            var startOfWeek = moment().isoWeekYear(year).isoWeek(i).startOf('isoWeek');
-            var endOfWeek = moment().isoWeekYear(year).isoWeek(i).endOf('isoWeek');
-            var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');
-            weeks.push("<option value='" + i + "'>" + weekText + "</option>");
-        }
-
-        $("#week").html(weeks.join(""));
-    }
-
-    // Function to update the table content
-    function updateTable() {
-        // Retrieve selected year and week
-        var year = $("#year").val();
-        var week = $("#week").val();
-
-        // Send AJAX request to load file with the selected week
-        $.ajax({
-            type: "POST",
-            url: "/SelectWeek", // Update to the correct URL
-            data: {
-                week: week,
-                year: year,
-            },
-            contentType: 'application/x-www-form-urlencoded;charset=UTF-8', // Set the content type
-            success: function (response) {
-                // Handle response, e.g., update page content
-                console.log(response);
-            },
-            error: function (error) {
-                console.error("Error loading file:", error);
-            }
-        });
-    }
-</script>
 
 
 <script src="assets/js/jquery-3.6.0.min.js"></script>

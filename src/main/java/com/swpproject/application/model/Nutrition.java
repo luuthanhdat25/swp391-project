@@ -50,5 +50,20 @@ public class Nutrition {
                 ", personalTrainerId=" + personalTrainer.getId() +
                 '}';
     }
+
+    public NutritionDTOOut getNutritionDTOOut(){
+        NutritionDTOOut nutritionDTOOut = new NutritionDTOOut();
+        nutritionDTOOut.setNutritionId(getNutritionId());
+        nutritionDTOOut.setName(getName());
+        nutritionDTOOut.setCaloIn(getCaloIn());
+        nutritionDTOOut.setProtein(getProtein());
+        nutritionDTOOut.setFat(getFat());
+        nutritionDTOOut.setCarb(getCarb());
+        nutritionDTOOut.setImageDescription(getImageDescription());
+        nutritionDTOOut.setIsPrivate(getIsPrivate() + "");
+        nutritionDTOOut.setPersonalTrainerId(getPersonalTrainer().getId());
+        nutritionDTOOut.setPersonalTrainerImage(getPersonalTrainer().getAccount().getAvatarImage());
+        return nutritionDTOOut;
+    }
 }
 

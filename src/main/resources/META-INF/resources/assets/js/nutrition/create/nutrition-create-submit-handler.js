@@ -1,39 +1,44 @@
+function clearError(field) {
+    $(field).text('');
+}
+
+function showError(field, message) {
+    console.log(message)
+    $(field).text(message);
+}
+
+
 $(document).ready(function() {
     $('#nutritionForm').submit(function(event) {
         var isValid = true;
 
-        // Mảng chứa thông tin về các trường cần kiểm tra
-        var fieldsToCheck = [
-            { id: 'nutritionName', errorMessageId: 'nutritionNameError', errorMessage: 'Nutrition Name is required' },
-            { id: 'caloryInput', errorMessageId: 'caloryError', errorMessage: 'Calories is required' },
-            { id: 'proteinInput', errorMessageId: 'proteinError', errorMessage: 'Protein is required' },
-            { id: 'fatInput', errorMessageId: 'fatError', errorMessage: 'Fat is required' },
-            { id: 'carbInput', errorMessageId: 'carbError', errorMessage: 'Carb is required' }
-        ];
+        clearError('#nutritionNameError');
+        clearError('#caloryError');
+        clearError('#proteinError');
+        clearError('#fatError');
+        clearError('#carbError');
 
-        // Lặp qua mảng các trường và kiểm tra
-        fieldsToCheck.forEach(function(field) {
-            var fieldValue = $('#' + field.id).val().trim();
-            if (fieldValue === '') {
-                $('#' + field.errorMessageId).text(field.errorMessage);
-                isValid = false;
-            } else {
-                $('#' + field.errorMessageId).text('');
-            }
-        });
-
-        // Kiểm tra hình ảnh
-        var image = $('#imageInput').val();
-        if (!image) {
-            $('#imageError').text('Image is required');
+        var nutritionName = $('#nutritionName').val();
+        if (nutritionName.length < 5) {
+            showError('#nutritionNameError', 'Nutrition Name must be at least 5 characters long');
             isValid = false;
-        } else {
-            $('#imageError').text('');
         }
 
-        // Check if all required fields are filled
+        var file = $('input[name="image"]')[0].files[0];
+        if (file === undefined) {
+            showError('#imageError', 'No image selected. Please select an image.');
+            isValid = false;
+        } else {
+            if (file.size > 10 * 1024 * 1024) {
+                showError('#imageError', 'Image selected should be lower than 10MB');
+                isValid = false;
+            }else{
+                clearError('#imageError');
+            }
+        }
+
         if (!isValid) {
-            event.preventDefault(); // Prevent form submission if validation fails
+            event.preventDefault();
         }
     });
 });

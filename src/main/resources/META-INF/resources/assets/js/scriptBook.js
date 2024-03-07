@@ -1,14 +1,18 @@
 function generateWeeks() {
-    var year = $("#year").val();
+    var year = parseInt($("#year").val());
+    var currentDate = moment();
     var weeks = [];
 
     for (var i = 1; i <= 52; i++) {
         var startOfWeek = moment().year(year).isoWeek(i).startOf('isoWeek');
         var endOfWeek = moment().year(year).isoWeek(i).endOf('isoWeek');
         var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');
-        weeks.push("<option value='" + i + "'>" + weekText + "</option>");
-    }
 
+        if ((year === currentDate.year() && i >= currentDate.isoWeek()) || year > currentDate.year()) {
+            // Include only future weeks for the current year and all weeks for future years
+            weeks.push("<option value='" + i + "'>" + weekText + "</option>");
+        }
+    }
     $("#week").html(weeks.join(""));
 }
 
@@ -16,15 +20,12 @@ $(document).ready(function () {
     var currentDate = moment();
 
     // Set giá trị năm tương ứng với ngày hiện tại
-
     generateWeeks();
-
     // Extract week parameter from the URL and set it as the selected value
     var urlParams = new URLSearchParams(window.location.search);
     var weekParam = urlParams.get('week');
     var yearParam = urlParams.get('year');
     var accountIdParam = urlParams.get('accountId');
-
     if (weekParam && yearParam) {
         $("#week").val(weekParam);
         $("#year").val(yearParam);
@@ -123,11 +124,11 @@ $(document).ready(function () {
 
         // Calculate total amount based on the selected training time
         var totalAmount;
-        if (trainingTime === 1) {
+        if (trainingTime === 4) {
             totalAmount = trainingFee * trainingSlotPerWeek * 4;
-        } else if (trainingTime === 2) {
+        } else if (trainingTime === 12) {
             totalAmount = trainingFee * trainingSlotPerWeek * 3 * 4;
-        } else if (trainingTime === 3) {
+        } else if (trainingTime === 24 ) {
             totalAmount = trainingFee * trainingSlotPerWeek * 6 * 4;
         } else {
             // Handle invalid or default case
@@ -139,3 +140,19 @@ $(document).ready(function () {
         $('#totalPrice').val(totalAmount.toFixed(2));
     });
 });
+
+var selectedSlots = 0;
+
+function limitSlots(checkbox) {
+    if (checkbox.checked) {
+        if (selectedSlots >= 5) {
+            document.getElementById("warningMessage").style.display = "block";
+            checkbox.checked = false;
+        } else {
+            selectedSlots++;
+        }
+    } else {
+        selectedSlots--;
+        document.getElementById("warningMessage").style.display = "none";
+    }
+}

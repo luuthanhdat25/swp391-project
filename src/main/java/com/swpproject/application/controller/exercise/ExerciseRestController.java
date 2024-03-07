@@ -2,31 +2,26 @@ package com.swpproject.application.controller.exercise;
 
 import com.swpproject.application.model.Exercise;
 import com.swpproject.application.repository.ExerciseRepository;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/exercises")
-public class ExerciseSearchController {
+public class ExerciseRestController {
     private final ExerciseRepository exerciseRepository;
 
-    public ExerciseSearchController(ExerciseRepository exerciseRepository) {
+    public ExerciseRestController(ExerciseRepository exerciseRepository) {
         this.exerciseRepository = exerciseRepository;
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<Exercise>> searchExercise(@RequestBody FilterObject filterObject) {
+    public ResponseEntity<List<Exercise>> searchExercises(@RequestBody FilterObject filterObject) {
         List<Exercise> exercises = exerciseRepository.findAll();
         exercises = findByNameContaining(filterObject.getSearchValue(), exercises);
         exercises = findByCategory(filterObject.getCategories(), exercises);
@@ -68,7 +63,7 @@ public class ExerciseSearchController {
     private List<Exercise> findByEquipment(List<String> equipments, List<Exercise> exercises) {
         if (equipments.isEmpty()) return exercises;
         return exercises.stream()
-                .filter(exercise -> equipments.contains(exercise.getEquipment()))
+                .filter(exercise -> equipments.contains(exercise.getEquipment()) || exercise.getEquipment().equals("None"))
                 .collect(Collectors.toList());
     }
 }

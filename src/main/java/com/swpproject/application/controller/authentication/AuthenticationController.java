@@ -204,68 +204,8 @@ public class AuthenticationController {
         return "redirect:/";
     }
 
-    // SEND-OTP
-    @GetMapping("/otp")
-    public String index(HttpSession session) {
-        if(session.getAttribute("sysOtp")==null) {
-            Account account = (Account) session.getAttribute("account");
-            String otp = String.valueOf(100000
-                    + new Random().nextInt(900000));
-            emailService.sendOTPEmail(account.getEmail(), otp);
-            session.setAttribute("sysOtp", otp);
-        }
-        return "authentication/otp";
-    }
 
-    @PostMapping("/otp")
-    public String verifiOtp(RedirectAttributes redirectAttributes, HttpSession session,
-                            @RequestParam String digit1,
-                            @RequestParam String digit2,
-                            @RequestParam String digit3,
-                            @RequestParam String digit4,
-                            @RequestParam String digit5,
-                            @RequestParam String digit6) {
 
-        String userOtp = new StringBuilder("").append(digit1)
-                .append(digit2)
-                .append(digit3)
-                .append(digit4)
-                .append(digit5)
-                .append(digit6).toString();
-        String sysOtp = session.getAttribute("sysOtp").toString();
-        if(sysOtp.equals(userOtp)) {
-            Account account = (Account)session.getAttribute("account");
-            accountService.save(account);
-            if(account.getRole().equals(Role.PT)) {
-                PersonalTrainer personalTrainer = new PersonalTrainer();
-                personalTrainer.setAccount(account);
-                personalTrainer.setPrice(0);
-                personalTrainer.setIsActive(false);
-                personalTrainerService.save(personalTrainer);
-                SchedulePersonalTrainer schedulePersonalTrainerEntity = new SchedulePersonalTrainer();
-                schedulePersonalTrainerEntity.setPersonalTrainer(personalTrainer);
-
-                session.setAttribute("personalTrainer", personalTrainer);
-                return "redirect:/auth/certificate";
-            } else {
-                Gymer gymer = new Gymer();
-                gymer.setAccount(account);
-                gymerService.save(gymer);
-                Schedule gymerSchedule = new Schedule();
-                gymerSchedule.setGymer(gymer);
-                scheduleServiceImplement.save(gymerSchedule);
-                session.setAttribute("gymer",gymer);
-                session.setAttribute("gymerSchedule",gymerSchedule);
-            }
-            removeAttributes(session, "digit1", "digit2", "digit3", "digit4", "digit5", "digit6","rptPassword","fRptPassword","sysOtp");
-            redirectAttributes.addFlashAttribute("MSG","Account created successfully! " +
-                    "You can login into website now!");
-            return "redirect:/auth/login?successfully";
-        } else {
-            redirectAttributes.addFlashAttribute("MSG","Incorrect OTP Code! Try again.");
-        }
-        return "redirect:/auth/otp";
-    }
 
     // FORGOT PASSWORD
     @GetMapping("/forgot")

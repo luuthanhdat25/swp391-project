@@ -1,11 +1,9 @@
 package com.swpproject.application.controller.personal_trainer;
 
-import com.swpproject.application.model.Exercise;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.PersonalTrainerRepository;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,10 +15,10 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/personal_trainer")
-public class PersonalTrainerSearchController {
+public class PersonalTrainerRestController {
     private final PersonalTrainerRepository personalTrainerRepository;
 
-    public PersonalTrainerSearchController(PersonalTrainerRepository personalTrainerRepository) {
+    public PersonalTrainerRestController(PersonalTrainerRepository personalTrainerRepository) {
         this.personalTrainerRepository = personalTrainerRepository;
     }
 

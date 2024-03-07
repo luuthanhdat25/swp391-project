@@ -103,11 +103,13 @@ public class OrderRequestController {
     public String AcceptDeclineOrder(HttpSession session){
         OrderRequest orderRequest = (OrderRequest) session.getAttribute("orderPayment");
         List<SlotExercise> slotOrder = slotExcerciseEntityService.getSlotByOrder(orderRequest.getOrderId());
-        orderRequestService.updateStatusOrder(OrderStatus.OnDoing, orderRequest.getOrderId());
+        orderRequest.setStatus(OrderStatus.OnDoing);
+        orderRequestService.saveOrUpdateOrderRequest(orderRequest);
         for (SlotExercise slotExercise : slotOrder) {
             System.out.println(slotExercise.toString());
             slotExcerciseEntityService.updateSlotOrderPending(slotExercise.getId(), false);
         }
+        systemNotificationService.createNotification_PaymentSuccess(orderRequest.getGymer().getGymerId(),orderRequest.getPersonalTrainer().getId(),orderRequest.getOrderId());
         session.removeAttribute("orderPayment");
         return "redirect:/Schedule-by-pt";
     }
@@ -127,12 +129,14 @@ public class OrderRequestController {
         }
         return "view-order";
     }
-
-
     @RequestMapping(value = "/decline-order")
     public String declineOrder(@RequestParam("orderId")Integer orderId ){
+        OrderRequest orderRequest = orderRequestService.getOrderRequestById(orderId);
+        Gymer gymer = orderRequest.getGymer();
+        systemNotificationService.createNotification_DeclineHiring(gymer.getGymerId(),orderRequest.getPersonalTrainer().getId());
         slotExcerciseEntityService.deleteSlot(orderId);
         orderRequestService.deleteOrder(orderId);
+
         return "redirect:/order-list";
     }
 

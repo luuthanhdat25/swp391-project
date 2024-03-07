@@ -19,7 +19,7 @@
                                     <h3 class="card-title">Payment Successful</h3>
 
                                     <p class="card-text">
-                                        You have been connected with Personal Trainer ${accountPTOrder.fullName}. <br>
+                                        You have been connected with Personal Trainer. <br>
                                         There are __ slots in total. <br>
                                         Starting from ${orderPayment.datetime_start} to ${orderPayment.datetime_end}.
                                     </p>

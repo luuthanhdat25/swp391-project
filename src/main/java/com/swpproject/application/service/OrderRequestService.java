@@ -10,10 +10,9 @@ import java.util.List;
 
 @Service
 public interface OrderRequestService {
-    public void saveOrderRequest(OrderRequest orderRequest);
+    public void saveOrUpdateOrderRequest(OrderRequest orderRequest);
     public List<OrderRequest> getOrderRequest();
     public OrderRequest getOrderRequestById(Integer orderID);
     public List<OrderRequest> getOrderRequestList(PersonalTrainer personalTrainer);
-    public void updateStatusOrder(OrderStatus orderStatus,Integer orderId);
     public void deleteOrder(Integer orderId);
 }

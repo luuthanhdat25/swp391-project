@@ -56,7 +56,4 @@ public class Account {
     @Lob
     @Column(name = "avatar_image")
     private byte[] avatarImage;
-
-
-
 }

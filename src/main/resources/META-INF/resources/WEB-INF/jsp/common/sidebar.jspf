@@ -9,7 +9,7 @@
                     <a href="/exercise/"><i class="fas fa-dumbbell"></i> <span>Exercise Wiki</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fe fe-activity"></i> <span>Nutrition Wiki</span></a>
+                    <a href="/nutrition/"> <img style="width: 25px; height: 25px" src="../../assets/img/icons/nutrition.png"> <span>Nutrition Wiki</span></a>
                 </li>
 
                 <c:if test="${account ne null}">

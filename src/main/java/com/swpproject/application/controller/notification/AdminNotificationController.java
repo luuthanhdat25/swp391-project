@@ -2,11 +2,8 @@ package com.swpproject.application.controller.notification;
 
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Notification;
-import com.swpproject.application.model.Report;
 import com.swpproject.application.repository.AccountRepository;
-import com.swpproject.application.repository.GymerRepository;
 import com.swpproject.application.repository.NotificationRepository;
-import com.swpproject.application.repository.PersonalTrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,13 +25,14 @@ import java.util.stream.Collectors;
 public class AdminNotificationController {
     @Autowired
     private NotificationRepository notificationRepository;
-    @Autowired private AccountRepository accountRepository;
+    @Autowired
+    private AccountRepository accountRepository;
 
     @RequestMapping(value = "/admin-home/manage-notification", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String viewManageNotification(ModelMap modelMap,
                                          @RequestParam(name = "papeNo", defaultValue = "1") int papeNo,
                                          @RequestParam(name = "title", defaultValue = "") String title) {
-        int pageSize = 8;
+        int pageSize = 10;
         Pageable pageable = PageRequest.of(papeNo - 1, pageSize);
         Page<Notification> notifications = Page.empty();
 
@@ -42,7 +42,14 @@ public class AdminNotificationController {
         modelMap.put("title", title);
 
         if (title == null || title.isEmpty()) {
-            notifications = notificationRepository.findAll(pageable);
+
+            List<Notification> notificationList = notificationRepository.findAll();
+            Collections.sort(notificationList, Comparator.comparing(Notification::getTimeStamp).reversed());
+
+            int fromIndex = Math.min((papeNo - 1) * pageSize, notificationList.size() - 1);
+            int toIndex = Math.min(fromIndex + pageSize - 1, notificationList.size() - 1);
+            List<Notification> pageContent = notificationList.subList(fromIndex, toIndex + 1);
+            notifications = new PageImpl<>(pageContent, pageable, notificationList.size());
         }
         else {
             String titleLowerCase = title.toLowerCase();
@@ -50,11 +57,13 @@ public class AdminNotificationController {
                     .filter(notification -> notification.getTitle().toLowerCase().contains(titleLowerCase))
                     .collect(Collectors.toList());
 
+
             if (notificationFilter.isEmpty()) {
                 modelMap.addAttribute("TotalPage", notifications.getTotalPages());
                 return "notification/admin-home-manage-notification";
             }
 
+            Collections.sort(notificationFilter, Comparator.comparing(Notification::getTimeStamp).reversed());
             int fromIndex = Math.min((papeNo - 1) * pageSize, notificationFilter.size() - 1);
             int toIndex = Math.min(fromIndex + pageSize - 1, notificationFilter.size() - 1);
             List<Notification> pageContent = notificationFilter.subList(fromIndex, toIndex + 1);

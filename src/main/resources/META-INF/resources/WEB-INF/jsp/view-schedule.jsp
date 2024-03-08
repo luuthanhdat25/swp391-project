@@ -214,9 +214,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 exercise-fields" style="display: none;">
                                     <div class="form-group">
-                                        <label>Exercise</label>
-                                        <a href="javascript:void(0);" class="add-btn me-2" onclick="addExercise()"><i
-                                                class="fas fa-plus-circle"></i></a>
+                                        <label>Exercise <a href="javascript:void(0);" class="add-btn me-2" onclick="addExercise()"><i class="fas fa-plus-circle"></i></a></label>
                                         <select class="form-control" name="exerciseSelect" id="exerciseSelect">
                                             <option disabled selected>Choose exercise</option>
                                             <c:forEach items="${exercises}" var="exe">
@@ -243,9 +241,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 nutrition-fields" style="display: none;">
                                     <div class="form-group">
-                                        <label>Nutrition</label>
-                                        <a href="javascript:void(0);" class="add-btn me-2"
-                                           onclick="addNutritionFields()"><i class="fas fa-plus-circle"></i></a>
+                                        <label>Nutrition <a href="javascript:void(0);" class="add-btn me-2" onclick="addNutritionFields()"><i class="fas fa-plus-circle"></i></a></label>
                                         <select class="form-control" name="nutritionSelect" id="nutritionSelect">
                                             <option disabled selected>Choose nutrition</option>
                                             <c:forEach items="${nutritions}" var="nutri">

@@ -158,7 +158,7 @@ public class SlotController {
 
 
         if (orderRequest != null) {
-            orderRequestService.saveOrderRequest(orderRequest);
+            orderRequestService.saveOrUpdateOrderRequest(orderRequest);
         }
 
 //         Add week and year to the model if available
@@ -183,8 +183,8 @@ public class SlotController {
                             String endHour = parts[2];
                             SlotExercise slotEntity = new SlotExercise();
                             slotEntity.setDay(day);
-                            slotEntity.setStart_hour(startHour);
-                            slotEntity.setEnd_hour(endHour);
+                            slotEntity.setStart_hour(startHour+":00");
+                            slotEntity.setEnd_hour(endHour+":00");
                             slotEntity.setWeek(week);
                             slotEntity.setYear(year);
                             slotEntity.setSchedule(schedulePersonalTrainerEntity);

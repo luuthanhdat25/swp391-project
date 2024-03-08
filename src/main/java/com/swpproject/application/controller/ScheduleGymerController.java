@@ -35,13 +35,10 @@ public class ScheduleGymerController {
                                            @RequestParam("year") int year,
                                            HttpSession session) {
         Gymer gymer = (Gymer) session.getAttribute("gymer");
-        
+
 
         session.setAttribute("week", week);
         session.setAttribute("year", year);
         return "redirect:/view-pt-schedule?year=" + year + "&week=" + week;
     }
-
-
-
 }

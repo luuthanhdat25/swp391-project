@@ -9,7 +9,7 @@
 <div class="main-wrapper">
     <div>
         <%-- Div này là một sidebar dùng để hiển thị các button:  Manage account, manage notification ... --%>
-        <div class="sidebar" id="sidebar" style="width: 20%; background-color: #adb5bd;">
+        <div class="sidebar" id="sidebar" style="width: 20%; background-color: #FFFFFF;">
             <div class="sidebar-inner slimscroll">
 
                 <%--Hiển thị tiêu đề của sidebar và danh sách các manage button--%>
@@ -21,9 +21,6 @@
                     </li>
                     <li style="margin-bottom: 4px;">
                         <a href="manage-report" class="input-container" onclick=""> Manage report </a>
-                    </li>
-                    <li style="margin-bottom: 4px;">
-                        <a class="input-container" onclick=""> Manage request </a>
                     </li>
                 </ul>
 

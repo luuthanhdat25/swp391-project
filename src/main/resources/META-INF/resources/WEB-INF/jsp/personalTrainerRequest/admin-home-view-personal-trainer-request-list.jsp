@@ -48,14 +48,13 @@
                 <p class="h6" style="padding-left: 9px; margin-top: 10px;">Manage</p>
                 <ul id="sidebar-menu" class="sidebar-menu" style="padding: 2px 9px 9px 9px;">
                     <li style="margin-bottom: 4px;">
-                        <a  href="manage-notification" class="input-container" onclick=""> Manage
-                            notification </a>
+                        <a href="manage-notification" class="input-container" onclick=""> Manage notification </a>
                     </li>
                     <li style="margin-bottom: 4px;">
-                        <a class="input-container" onclick="" style="background-color: #d9d9d9;"> Manage report </a>
+                        <a href="manage-report" class="input-container" onclick=""> Manage report </a>
                     </li>
                     <li style="margin-bottom: 4px;">
-                        <a href="manage-personal-trainer-request" class="input-container" onclick=""> Manage personal
+                        <a class="input-container" onclick="" style="background-color: #d9d9d9;"> Manage personal
                             trainer's request </a>
                     </li>
                 </ul>
@@ -76,64 +75,65 @@
                      style="margin-right: 3px; ">
                     <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
                 </svg>
-                <b>Report management</b>
+                <b>Personal Trainer's request management</b>
             </div>
             <div class="d-flex flex-column" style="width: 94%;">
                 <div class="card mb-4" style="background-color: #FFFFFF;">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Report table
+                        Personal Trainer's request table
                     </div>
                     <div class="d-flex justify-content-between align-items-center"
                          style="width: 100%; padding: 0 15px 0 15px;">
-                        <form action="manage-report" method="GET" style="width: 50%; margin-bottom: 0;">
+                        <form action="manage-personal-trainer-request" method="GET"
+                              style="width: 50%; margin-bottom: 0;">
                             <div class="input-group" style="width: 100%;">
-
                                 <input type="text" class="form-control" style="border: 1px solid #4c4c4c;"
-                                       placeholder="Enter report's reason" name="title">
+                                       placeholder="Enter the title of personal trainer's request" name="title">
                                 <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                             </div>
                         </form>
                     </div>
                     <div class="card-body" style="width: 100%;">
-                        <table id="datatablesSimple" class="table table-hover">
+                        <table id="datatablesSimple"
+                               class="table table-hover table-centered mdi-format-vertical-align-center">
                             <thead class="table-dark">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Reason</th>
-                                <th scope="col">Reporter</th>
+                                <th scope="col">title</th>
+                                <th scope="col">Personal Trainer</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">TimeStamp</th>
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="report" items="${ReportLists.content}">
+                            <c:forEach var="request" items="${PersonalTrainerRequestList.content}">
                                 <tr class="shadow p-3 mb-5 bg-body rounded" style="height: 30px;">
-                                    <th scope="row">${ReportLists.content.indexOf(report) + IndexStarting}</th>
-                                    <td>
-                                        <div class="d-flex" style="text-align: left;">
-                                            <img class="rounded-circle"
-                                                 style="width: 30px; height: 30px; margin-right: 5px;"
-                                                 src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"/>
-                                            <div class="text-truncate" style="width: 430px;">${report.reason}</div>
-                                        </div>
+                                    <th class="align-baseline"
+                                        scope="row">${PersonalTrainerRequestList.content.indexOf(request) + IndexStarting}</th>
+                                    <td class="align-baseline">
+                                        <div class="text-truncate"
+                                             style="width: 400px; text-align: left;">${request.title}</div>
                                     </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <img class="rounded-circle"
-                                                 style="width: 30px; height: 30px; margin-right: 5px;"
-                                                 src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"/>
-                                        </div>
+                                    <td class="align-baseline">
+                                        <img class="rounded-circle"
+                                             style="width: 30px; height: 30px; margin-right: 5px;"
+                                             src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"/>
                                     </td>
-                                    <td>
-                                            ${report.timeStamp.getHour()}:${report.timeStamp.getMinute()}
-                                            ${report.timeStamp.getDayOfMonth()}/${report.timeStamp.getMonthValue()}/${report.timeStamp.getYear()}
+                                    <td class="align-baseline">
+                                            ${request.timeStamp.getHour()}:${request.timeStamp.getMinute()}
+                                            ${request.timeStamp.getDayOfMonth()}/${request.timeStamp.getMonthValue()}/${request.timeStamp.getYear()}
                                     </td>
-                                    <td>
+                                    <td class="align-baseline">
+                                        <div class="badge ${request.status == 'REJECTED' ? 'badge-danger' : (request.status == 'APPROVED' ? 'badge-success' : 'badge-warning')}">${request.status}</div>
+                                    </td>
+
+                                    <td class="align-baseline">
                                         <div class="d-flex justify-content-between"
                                              style="width: 210px; height: fit-content;">
                                             <form action="view-report-detail" method="get" style="margin-bottom: 0;">
-                                                <input type="hidden" name="reportID" value=${report.id}>
+                                                <input type="hidden" name="reportID" value=${request.id}>
                                                 <button type="submit" class="btn btn-info"
                                                         style="height: 40px; width: 90px; color: #FFFFFF;">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
@@ -142,19 +142,6 @@
                                                         <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
                                                     </svg>
                                                     view
-                                                </button>
-                                            </form>
-
-                                            <form action="delete-report" method="get" style="margin-bottom: 0;">
-                                                <input type="hidden" name="deleteReportDetail" value=${report.id}>
-                                                <button type="submit" class="btn btn-danger"
-                                                        style="height: 40px; width: 110px;">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
-                                                         fill="currentColor" class="bi bi-trash3-fill"
-                                                         viewBox="0 0 16 16">
-                                                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                                                    </svg>
-                                                    remove
                                                 </button>
                                             </form>
                                         </div>
@@ -171,17 +158,18 @@
                                 %>
                                 <li class="page-item <%= currentPage - 1 < 1 ? "disabled" : "" %>">
                                     <a class="page-link"
-                                       href="manage-report?papeNo=<%=currentPage - 1%>&reason=${reason}">Previous</a>
+                                       href="manage-personal-trainer-request?papeNo=<%=currentPage - 1%>&title=${title}">Previous</a>
                                 </li>
                                 <% for (int i = currentPage; i <= Math.min(totalPage, currentPage + 3); i++) { %>
                                 <li class="page-item <%= i == currentPage ? "disabled" : "" %>">
-                                    <a class="page-link" href="manage-report?papeNo=<%=i%>&reason=${reason}"><%=i%>
+                                    <a class="page-link"
+                                       href="manage-personal-trainer-request?papeNo=<%=i%>&title=${title}"><%=i%>
                                     </a>
                                 </li>
                                 <% } %>
                                 <li class="page-item <%= currentPage + 1 > totalPage ? "disabled" : "" %>">
                                     <a class="page-link"
-                                       href="manage-report?papeNo=<%=currentPage + 1%>&reason=${reason}">Next</a>
+                                       href="manage-personal-trainer-request?papeNo=<%=currentPage + 1%>&title=${title}">Next</a>
                                 </li>
                             </ul>
                         </nav>

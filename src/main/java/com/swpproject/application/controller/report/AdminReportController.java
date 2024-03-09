@@ -104,8 +104,11 @@ public class AdminReportController {
 
             int fromIndex = Math.min((papeNo - 1) * pageSize, reportFilter.size() - 1);
             int toIndex = Math.min(fromIndex + pageSize - 1, reportFilter.size() - 1);
-            List<Report> pageContent = reportFilter.subList(fromIndex, toIndex + 1);
-            reports = new PageImpl<>(pageContent, pageable, reportFilter.size());
+
+            if (fromIndex >= 0) {
+                List<Report> pageContent = reportFilter.subList(fromIndex, toIndex + 1);
+                reports = new PageImpl<>(pageContent, pageable, reportFilter.size());
+            }
         }
 
         modelMap.put("ReportLists", reports);

@@ -2,8 +2,6 @@
 <%@include file="common/head.jspf" %>
 <%@include file="common/sidebar.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <style>
     .rounded-image {
         width: 3rem;
@@ -30,20 +28,7 @@
                         </div>
                     </div>
                 </div>
-                <c:choose>
-                    <c:when test="${account.role.label eq 'Admin' or account.role.label eq 'Personal Trainer'}">
-                        <div class="card invoices-tabs-card border-0 mt-3" id="createButon">
-                            <div class="col-lg-12 col-md-12">
-                                <div class="invoices-settings-btn invoices-settings-btn-one">
-                                    <a href="/nutrition/create" class="btn"><i class="feather feather-plus-circle"></i>New Nutrition</a>
-                                </div>
-                            </div>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                    </c:otherwise>
-                </c:choose>
-                <div class="card mt-3">
+                <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-4">
@@ -267,7 +252,7 @@
     <script src="../../assets/js/script.js"></script>
 
     <script>
-        var nutritionList = ${nutritionList};
+        var nutritionList = ${ nutritionList };
         console.log(nutritionList);
     </script>
 

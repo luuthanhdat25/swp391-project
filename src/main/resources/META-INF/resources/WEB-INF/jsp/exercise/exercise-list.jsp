@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <%@include file="../common/header.jspf" %>
 <%@include file="../common/head.jspf" %>
 <%@include file="../common/sidebar.jspf" %>
@@ -220,20 +218,23 @@
                         </div>
                     </div>
                 </div>
-                <c:choose>
-                    <c:when test="${account.role.label eq 'Admin' or account.role.label eq 'Personal Trainer'}">
-                        <div class="card invoices-tabs-card border-0 mt-3" id="createButon">
-                            <div class="col-lg-12 col-md-12">
-                                <div class="invoices-settings-btn invoices-settings-btn-one">
-                                    <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>
+
+                <c:if test="${account ne null}">
+                    <c:choose>
+                        <c:when test="${account.getRole() eq 'PT' || account.getRole() eq 'ADMIN'}">
+                            <div class="card invoices-tabs-card border-0 mt-3">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="invoices-settings-btn invoices-settings-btn-one">
+                                        <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <!-- Hiển thị gì đó khi không phù hợp với điều kiện -->
-                    </c:otherwise>
-                </c:choose>
+                        </c:when>
+                        <c:otherwise>
+                            <!-- Other role-specific content here -->
+                        </c:otherwise>
+                    </c:choose>
+                </c:if>
 
 
                 <div id="exerciseContainer" class="row"></div>

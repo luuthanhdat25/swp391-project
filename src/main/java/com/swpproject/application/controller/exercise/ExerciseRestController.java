@@ -1,6 +1,7 @@
 package com.swpproject.application.controller.exercise;
 
 import com.swpproject.application.model.Exercise;
+import com.swpproject.application.model.ExerciseDTOOut;
 import com.swpproject.application.repository.ExerciseRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,13 +23,17 @@ public class ExerciseRestController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<Exercise>> searchExercises(@RequestBody FilterObject filterObject) {
+    public ResponseEntity<List<ExerciseDTOOut>> searchExercises(@RequestBody FilterObject filterObject) {
         List<Exercise> exercises = exerciseRepository.findAll();
         exercises = findByNameContaining(filterObject.getSearchValue(), exercises);
         exercises = findByCategory(filterObject.getCategories(), exercises);
         exercises = findByLevel(filterObject.getDifficulties(), exercises);
         exercises = findByEquipment(filterObject.getEquipments(), exercises);
-        return ResponseEntity.ok().body(exercises);
+        List<ExerciseDTOOut> exerciseDTOOutList = new ArrayList<>();
+        for (Exercise exercise: exercises) {
+            exerciseDTOOutList.add(exercise.getExerciseDTOOutSlim());
+        }
+        return ResponseEntity.ok().body(exerciseDTOOutList);
     }
 
     @PostMapping("/")

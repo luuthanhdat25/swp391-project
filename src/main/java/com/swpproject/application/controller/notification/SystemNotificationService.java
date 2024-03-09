@@ -134,7 +134,7 @@ public class SystemNotificationService {
     public void createNotification_NewRequestHiring(Integer gymerID, Integer personalTrainerID) {
         Account gymerAccount = accountRepository.findById(gymerID).get();
         Account personalTrainerAccount = accountRepository.findById(personalTrainerID).get();
-        Account systemAccount = accountRepository.findById(6).get();
+//        Account systemAccount = accountRepository.findById(6).get();
         Notification requestHiringNotification = new Notification();
 
         String TITLE_NOTIFICATION_NEW_REQUEST_HIRING = "New Client Training Request Notification";
@@ -143,7 +143,7 @@ public class SystemNotificationService {
         requestHiringNotification.setContent(content);
         requestHiringNotification.setTitle(TITLE_NOTIFICATION_NEW_REQUEST_HIRING);
         requestHiringNotification.setTimeStamp(LocalDateTime.now());
-        requestHiringNotification.setFromAccount(systemAccount);
+        requestHiringNotification.setFromAccount(personalTrainerAccount);
         requestHiringNotification.setToAccount(personalTrainerAccount);
 
         notificationRepository.save(requestHiringNotification);
@@ -202,7 +202,7 @@ public class SystemNotificationService {
     public void createNotification_PaymentSuccess(Integer gymerID, Integer personalTrainerID, Integer orderID) {
         Account gymerAccount = accountRepository.findById(gymerID).get();
         Account personalTrainerAccount = accountRepository.findById(personalTrainerID).get();
-        Account systemAccount = accountRepository.findById(6).get();
+//        Account systemAccount = accountRepository.findById(6).get();
 
         OrderRequest orderRequest = orderRequestRepository.findById(orderID).get();
         Notification paymentSuccessToGymer = new Notification();
@@ -213,7 +213,8 @@ public class SystemNotificationService {
         paymentSuccessToGymer.setContent(content);
         paymentSuccessToGymer.setTitle(TITLE_NOTIFICATION_PAYMENT_SUCCESS);
         paymentSuccessToGymer.setTimeStamp(LocalDateTime.now());
-        paymentSuccessToGymer.setFromAccount(systemAccount);
+        paymentSuccessToGymer.setFromAccount(gymerAccount
+        );
         paymentSuccessToGymer.setToAccount(gymerAccount);
 
         notificationRepository.save(paymentSuccessToGymer);

@@ -9,6 +9,7 @@ import com.swpproject.application.service.PersonalTrainerService;
 import com.swpproject.application.service.SlotExcerciseEntityService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class OrderRequestController {
@@ -53,20 +57,46 @@ public class OrderRequestController {
         StartDateAsDate = Date.valueOf(currentDate);
 
 
+        Hashtable<Integer, List<Integer>> yearConflicts = new Hashtable<>(); // Rename the Hashtable
         List<SlotExercise> slotOrdered = slotExcerciseEntityService.getSlotGreater(StartDateAsDate, false);
+
         for (SlotExercise slotExerciseGoing : slotOrdered) {
             for (SlotExercise slotExerciseWaiting : slotOrder) {
-                if (slotExerciseWaiting.getWeek() == slotExerciseGoing.getWeek()
-                        && slotExerciseWaiting.getYear() == slotExerciseGoing.getYear()
+                if (slotExerciseWaiting.getYear() == slotExerciseGoing.getYear()  // Swap week with year
+                        && slotExerciseWaiting.getWeek() == slotExerciseGoing.getWeek() // Swap week with year
                         && slotExerciseWaiting.getDay().equalsIgnoreCase(slotExerciseGoing.getDay())
                         && slotExerciseWaiting.getStart_hour().equalsIgnoreCase(slotExerciseGoing.getStart_hour())
-                        && slotExerciseWaiting.getEnd_hour().equalsIgnoreCase(slotExerciseGoing.getEnd_hour())){
-                        model.addAttribute("MSG","confict schedule");
+                        && slotExerciseWaiting.getEnd_hour().equalsIgnoreCase(slotExerciseGoing.getEnd_hour())) {
+
+                    // Check if the year is already in the Hashtable
+                    if (yearConflicts.containsKey(slotExerciseWaiting.getYear())) { // Swap week with year
+                        // If yes, add the week to the existing list
+                        yearConflicts.get(slotExerciseWaiting.getYear()).add(slotExerciseWaiting.getWeek()); // Swap week with year
+                    } else {
+                        // If no, create a new list with the week and put it in the Hashtable
+                        List<Integer> weeks = new ArrayList<>(); // Swap week with year
+                        weeks.add(slotExerciseWaiting.getWeek()); // Swap week with year
+                        yearConflicts.put(slotExerciseWaiting.getYear(), weeks); // Swap week with year
+                    }
                 }
             }
         }
-        //check conflic slot with previous accepted slot
-        System.out.println(slotOrder.size());
+
+        StringBuilder msgBuilder = new StringBuilder(""); // Rename the message
+
+        for (Map.Entry<Integer, List<Integer>> entry : yearConflicts.entrySet()) { // Rename the Hashtable
+            int year = entry.getKey(); // Rename the key
+            List<Integer> weeks = entry.getValue(); // Rename the value
+
+            msgBuilder.append("Conflic Year ").append(year).append(" (Weeks ").append(weeks).append("), "); // Adjust the message
+        }
+
+// Remove the trailing comma and space
+        if (msgBuilder.length() > 0) {
+            msgBuilder.setLength(msgBuilder.length() - 2);
+        }
+
+        model.addAttribute("MSG", msgBuilder.toString());
         model.addAttribute( "allSlots", slotOrder);
         //BAO: notification
 //        redirectAttributes.addAttribute("accountId", accountId);
@@ -89,13 +119,13 @@ public class OrderRequestController {
         Gymer gymer = orderRequest.getGymer();
         PersonalTrainer personalTrainer = orderRequest.getPersonalTrainer();
         System.out.println();
-        if(MSG.equalsIgnoreCase("confict schedule")){
-            return "redirect:/order-list";
-        }else{
+        if(MSG == null || MSG.trim().isEmpty()){
             systemNotificationService.createNotification_AcceptedHiringAndPayment(orderID); //BAO: notification
             redirectAttributes.addAttribute("amountPay",orderRequest.getTotal_of_money());
             redirectAttributes.addAttribute("orderID",orderID);
             return "redirect:/pay";
+        }else{
+            return "redirect:/order-list";
         }
     }
 

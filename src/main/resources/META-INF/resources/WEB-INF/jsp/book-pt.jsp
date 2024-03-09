@@ -1,8 +1,24 @@
 <%@include file="common/header.jspf" %>
-<%@ include file="common/head.jspf" %>
-<%@ include file="common/sidebar.jspf" %>
-
+<%@include file="common/head.jspf" %>
+<%@include file="common/sidebar.jspf" %>
 <link rel="stylesheet" href="../../assets/css/styleBook.css">
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
 <body>
 
 <div class="main-wrapper">
@@ -46,174 +62,227 @@
                                             onchange="this.form.submit()">
                                         <!-- Options will be generated dynamically by JavaScript -->
                                     </select>
-                                    <input type="hidden" name="accountId" value="${param.accountId}">
+                                    <input type="hidden" name="PersonalTrainerID" value="${param.PersonalTrainerID}">
+
                                 </form>
                             </div>
+                            <c:choose>
+                                <c:when test="${empty param.week && empty param.year}">
 
-                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h5 class="card-title">Purpose details</h5>
-                                        <div class="form-group">
-                                            <label>Goals:</label>
-                                            <input type="text" class="form-control" name="goals">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Description:</label>
-                                            <textarea rows="5" cols="5" class="form-control"
-                                                      placeholder="Details about your goals"
-                                                      name="description"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Training time:</label>
-                                            <select class="select" name="TrainingTime" id="trainingTimeSelect">
-                                                <option selected disabled>Select Training Time</option>
-                                                <option value="4">1 months</option>
-                                                <option value="12">3 months</option>
-                                                <option value="24">6 months</option>
-                                            </select>
-                                        </div>
-                                        <div class="invoice-total-card" id="invoiceTotalCard" style="display: none;">
-                                            <div class="invoice-total-box">
-                                                <div class="invoice-total-inner">
-                                                    <p>Training slot per week <span>5</span></p>
-                                                    <p>Slot duration<span>2 hours</span></p>
-                                                    <p>Training fee<span id="trainingFee">${personalTrainer.price}</span></p>
-                                                </div>
-                                                <div class="invoice-total-footer">
-                                                    <h4>Total Amount <span id="totalAmountSpan">$0.00</span></h4>
-                                                    <input type="hidden" id="totalPrice" name="totalPrice" value="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5 class="card-title">Personal Trainer information</h5>
+                                    <h3>
+                                        Please choose the week!
+                                    </h3>
+                                </c:when>
+                                <c:otherwise>
+                                    <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
                                         <div class="row">
                                             <div class="col-md-6">
+                                                <h5 class="card-title">Purpose details</h5>
                                                 <div class="form-group">
-                                                    <label>Full Name:</label>
-                                                    <input type="text" placeholder="${pt.account.fullName}" readonly
-                                                           class="form-control">
+                                                    <label>Goals:</label>
+                                                    <input type="text" class="form-control" name="goals">
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Birthday:</label>
-                                                    <input type="text" placeholder="${pt.account.birthday}" readonly
-                                                           class="form-control">
+                                                    <label>Description:</label>
+                                                    <textarea rows="5" cols="5" class="form-control"
+                                                              placeholder="Details about your goals"
+                                                              name="description"></textarea>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Gender:</label>
-                                                    <input type="text" placeholder="${pt.account.gender}" readonly
-                                                           class="form-control">
+                                                    <label>Training time:</label>
+                                                    <select class="select" name="TrainingTime" id="trainingTimeSelect">
+                                                        <option selected disabled>Select Training Time</option>
+                                                        <option value="4">1 months</option>
+                                                        <option value="12">3 months</option>
+                                                        <option value="24">6 months</option>
+                                                    </select>
+                                                </div>
+                                                <div class="invoice-total-card" id="invoiceTotalCard"
+                                                     style="display: none;">
+                                                    <div class="invoice-total-box">
+                                                        <div class="invoice-total-inner">
+                                                            <p>Training slot per week <span>5</span></p>
+                                                            <p>Slot duration<span>2 hours</span></p>
+                                                            <p>Training fee<span
+                                                                    id="trainingFee">${personalTrainer.price}</span></p>
+                                                        </div>
+                                                        <div class="invoice-total-footer">
+                                                            <h4>Total Amount <span id="totalAmountSpan">$0.00</span>
+                                                            </h4>
+                                                            <input type="hidden" id="totalPrice" name="totalPrice"
+                                                                   value="">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Phone:</label>
-                                                    <input type="text" placeholder="${pt.account.phone}" readonly
-                                                           class="form-control">
+                                                <h5 class="card-title">Personal Trainer information</h5>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Full Name:</label>
+                                                            <input type="text" placeholder="${pt.account.fullName}"
+                                                                   readonly
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Birthday:</label>
+                                                            <input type="text" placeholder="${pt.account.birthday}"
+                                                                   readonly
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Gender:</label>
+                                                            <input type="text" placeholder="${pt.account.gender}"
+                                                                   readonly
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Phone:</label>
+                                                            <input type="text" placeholder="${pt.account.phone}"
+                                                                   readonly
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Email:</label>
+                                                            <input type="text" placeholder="${pt.account.email}"
+                                                                   readonly
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Address line:</label>
+                                                            <input type="text" placeholder="${pt.account.address}"
+                                                                   readonly
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Email:</label>
-                                                    <input type="text" placeholder="${pt.account.email}" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Address line:</label>
-                                                    <input type="text" placeholder="${pt.account.address}" readonly
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <h5 class="card-title">Choose your training schedule</h5>
-                                    <div class="col-md-2">
+                                            <h5 class="card-title">Choose your training schedule</h5>
+                                            <div class="col-md-2">
 
-                                    </div>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th rowspan="2">
+                                            </div>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th rowspan="2">
 
-                                            </th>
-                                            <th align="center">Mon</th>
-                                            <th align="center">Tue</th>
-                                            <th align="center">Wed</th>
-                                            <th align="center">Thu</th>
-                                            <th align="center">Fri</th>
-                                            <th align="center">Sat</th>
-                                            <th align="center">Sun</th>
-                                        </tr>
-                                        <tr id="dayRow">
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                            <th align="center"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <c:forEach begin="5" end="21" var="hour" step="2">
-                                            <tr>
-                                                <td style="width: 150px;" class="time-column">${hour}:00 - ${hour + 2}:00
-                                                </td>
-                                                <c:forEach var="day"
-                                                           items="${['Monday', 'Tuesday', 'Wednesday', 'Thusday', 'Friday', 'Saturday', 'Sunday']}">
-                                                    <c:set var="disabled" value="false"/>
-                                                    <c:forEach items="${allSlot}" var="Slot">
-                                                        <c:if test="${Slot.day eq day.toLowerCase() && fn:substringBefore(Slot.start_hour, ':') == hour && fn:substringBefore(Slot.end_hour, ':') == (hour + 2)}">
-                                                            <c:set var="disabled" value="true"/>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                    <td>
-                                                        <input type="checkbox" name="checkedSlots"
-                                                               value="${day.toLowerCase()}-${hour}-${hour + 2}"
-                                                               <c:if test="${disabled}">disabled="disabled"</c:if>
-                                                               id="${day.toLowerCase()}-${hour}${hour + 2}"
-                                                               onchange="limitSlots(this)">
-                                                        <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
-                                                    </td>
+                                                    </th>
+                                                    <th align="center">Mon</th>
+                                                    <th align="center">Tue</th>
+                                                    <th align="center">Wed</th>
+                                                    <th align="center">Thu</th>
+                                                    <th align="center">Fri</th>
+                                                    <th align="center">Sat</th>
+                                                    <th align="center">Sun</th>
+                                                </tr>
+                                                <tr id="dayRow">
+                                                    <th align="center"></th>
+                                                    <th align="center"></th>
+                                                    <th align="center"></th>
+                                                    <th align="center"></th>
+                                                    <th align="center"></th>
+                                                    <th align="center"></th>
+                                                    <th align="center"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <c:forEach begin="5" end="21" var="hour" step="2">
+                                                    <tr>
+                                                        <td style="width: 150px;" class="time-column">${hour}:00
+                                                            - ${hour + 2}:00
+                                                        </td>
+                                                        <c:forEach var="day"
+                                                                   items="${['Monday', 'Tuesday', 'Wednesday', 'Thusday', 'Friday', 'Saturday', 'Sunday']}">
+                                                            <c:set var="disabled" value="false"/>
+                                                            
+                                                            <c:forEach items="${allSlot}" var="Slot">
+                                                                <c:if test="${Slot.day eq day && fn:substringBefore(Slot.start_hour, ':') == hour
+                                                                    && fn:substringBefore(Slot.end_hour, ':') == (hour + 2)
+                                                                    && Slot.week == param.week && Slot.year == param.year
+                                                                    && !Slot.isPending()}">
+                                                                    <c:set var="disabled" value="true"/>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                            <c:forEach items="${conflictsList}" var="Slot">
+                                                                <c:if test="${Slot.day eq day && fn:substringBefore(Slot.start_hour, ':')== hour
+                                                                    && fn:substringBefore(Slot.end_hour, ':') == (hour + 2)
+                                                                    }">
+                                                                    <c:set var="disabled" value="true"/>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                            <td>
+                                                                <input type="checkbox" name="checkedSlots"
+                                                                       value="${day}-${hour}-${hour + 2}"
+                                                                       <c:if test="${disabled}">disabled="disabled"</c:if>
+                                                                       id="${day.toLowerCase()}-${hour}${hour + 2}"
+                                                                       onchange="limitSlots(this)">
+                                                                <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
+                                                            </td>
+                                                        </c:forEach>
+                                                    </tr>
                                                 </c:forEach>
-                                            </tr>
-                                        </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div id="warningMessage" style="display: none; color: red;">
-                                    Use just select 5 slot
-                                </div>
-                                <div>
-                                    <button style="width: 10%;" type="submit" class="btn btn-primary"
-                                            onclick="saveCheckedSlots()">Send
-                                    </button>
-                                </div>
-                                <input type="hidden" name="year" value="${param.year}">
-                                <input type="hidden" name="week" value="${param.week}">
-                                <input type="hidden" name="accountId" value="${param.accountId}">
-                            </form:form>
+                                                </tbody>
+                                            </table>
+                                                Conflic slot: ${conflictsList.size()}
+                                        </div>
+                                        <div id="warningMessage" style="display: none; color: red;">
+                                            Use just select 5 slot
+                                        </div>
+
+<%--                                        <c:if test="${not empty sessionScope.conflictsList}">--%>
+<%--                                            <c:forEach items="${sessionScope.conflictsList}" var="conflictInfo">--%>
+<%--                                                <p>--%>
+<%--                                                        ${conflictInfo.formatConflictInfo()}--%>
+<%--                                                </p>--%>
+<%--                                            </c:forEach>--%>
+<%--                                        </c:if>--%>
+
+
+                                        <div>
+                                            <button style="width: 10%;" type="submit" class="btn btn-primary"
+                                                    onclick="saveCheckedSlots()">Send
+                                            </button>
+                                        </div>
+
+
+                                        <input type="hidden" name="PersonalTrainerID"
+                                               value="${param.PersonalTrainerID}">
+                                        <input type="hidden" name="year" value="${param.year}">
+                                        <input type="hidden" name="week" value="${param.week}">
+                                        <input type="hidden" name="accountId" value="${param.accountId}">
+                                    </form:form>
+                                </c:otherwise>
+                            </c:choose>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div id="conflictAlert" class="alert alert-danger" style="display:none;">
+            <strong>Conflicting slot!</strong> There is a schedule conflict.
+        </div>
+        <p style="color: #dc3545">${MSG}</p>
+
 
         <footer>
             <p>Copyright © 2022 Dreamguys.</p>
@@ -221,6 +290,15 @@
     </div>
 
 </div>
+
+<script>
+    // Kiểm tra xem MSG có giá trị không
+    var conflictMessage = "<c:out value='${MSG}'/>";
+    if (conflictMessage.trim() !== "") {
+        // Nếu có giá trị, hiển thị thông báo xung đột
+        document.getElementById("conflictAlert").style.display = "block";
+    }
+</script>
 <script>
     function saveCheckedSlots() {
         var checkboxes = document.getElementsByName("checkedSlots");
@@ -272,7 +350,6 @@
         selectElement.addEventListener('change', toggleInvoiceTotalCard);
     });
 </script>
-
 
 
 <script src="assets/js/jquery-3.6.0.min.js"></script>

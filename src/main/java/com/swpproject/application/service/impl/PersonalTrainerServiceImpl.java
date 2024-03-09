@@ -10,6 +10,16 @@ import java.util.Optional;
 
 @Service
 public class PersonalTrainerServiceImpl implements PersonalTrainerService {
+    @Override
+    public  Optional<PersonalTrainer> findPersonalTrainerByID(Integer personalTrainerID) {
+        return personalTrainerRepository.findById(personalTrainerID);
+    }
+
+    @Override
+    public Optional<PersonalTrainer> findByID(Integer id) {
+        return personalTrainerRepository.findById(id);
+    }
+
     @Autowired
     private PersonalTrainerRepository personalTrainerRepository;
 

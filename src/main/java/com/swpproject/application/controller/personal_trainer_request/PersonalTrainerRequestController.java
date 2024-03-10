@@ -1,9 +1,13 @@
 package com.swpproject.application.controller.personal_trainer_request;
 
+import com.swpproject.application.enums.RequestStatus;
 import com.swpproject.application.model.Account;
+import com.swpproject.application.model.Certificate;
 import com.swpproject.application.model.PersonalTrainerRequest;
 import com.swpproject.application.repository.AccountRepository;
+import com.swpproject.application.repository.CertificateRepository;
 import com.swpproject.application.repository.PersonalTrainerRequestRepository;
+import com.swpproject.application.service.CertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -25,8 +29,6 @@ import java.util.stream.Collectors;
 public class PersonalTrainerRequestController {
     @Autowired
     private PersonalTrainerRequestRepository personalTrainerRequestRepository;
-    @Autowired
-    private AccountRepository accountRepository;
 
     @RequestMapping(value = "/admin-home/manage-personal-trainer-request", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String viewManagePersonalTrainerRequest(ModelMap modelMap,
@@ -79,22 +81,22 @@ public class PersonalTrainerRequestController {
     public String getPersonalTrainerRequestDetail(ModelMap modelMap, @RequestParam("requestID") int requestID) {
         PersonalTrainerRequest request = personalTrainerRequestRepository.findById(requestID).get();
         modelMap.addAttribute("RequestDetail", request);
-        return "personal-trainer-request/admin-home-view-request-detail";
+        return "personalTrainerRequest/admin-home-view-personal-trainer-request-detail";
     }
 
-    @RequestMapping(value = "admin-home/create-personal-trainer-request-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String createPersonalTrainerRequestDetail(@RequestParam("title") String requestTitle,
-                                                     @RequestParam("content") String requestContent,
-                                                     @RequestParam("personalTrainerAccountID") Integer personalTrainerAccountID) {
-        PersonalTrainerRequest personalTrainerRequest = new PersonalTrainerRequest();
-        Account account = accountRepository.findById(personalTrainerAccountID).get();
+    @RequestMapping(value = "admin-home/approve-personal-trainer-request", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    public String approvePersonalTrainerRequest(@RequestParam("requestID") Integer requestID) {
+        PersonalTrainerRequest request = personalTrainerRequestRepository.findById(requestID).get();
+        request.setStatus(RequestStatus.APPROVED);
+        personalTrainerRequestRepository.save(request);
+        return "forward:manage-personal-trainer-request";
+    }
 
-        personalTrainerRequest.setTitle(requestTitle);
-        personalTrainerRequest.setContent(requestContent);
-        personalTrainerRequest.setTimeStamp(LocalDateTime.now());
-        personalTrainerRequest.setPersonalTrainerAccount(account);
-
-        personalTrainerRequestRepository.save(personalTrainerRequest);
+    @RequestMapping(value = "admin-home/reject-personal-trainer-request", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    public String rejectPersonalTrainerRequest(@RequestParam("requestID") Integer requestID) {
+        PersonalTrainerRequest request = personalTrainerRequestRepository.findById(requestID).get();
+        request.setStatus(RequestStatus.REJECTED);
+        personalTrainerRequestRepository.save(request);
         return "forward:manage-personal-trainer-request";
     }
 }

@@ -132,8 +132,8 @@
                                     <td class="align-baseline">
                                         <div class="d-flex justify-content-between"
                                              style="width: 210px; height: fit-content;">
-                                            <form action="view-report-detail" method="get" style="margin-bottom: 0;">
-                                                <input type="hidden" name="reportID" value=${request.id}>
+                                            <form action="view-personal-trainer-request-detail" method="get" style="margin-bottom: 0;">
+                                                <input type="hidden" name="requestID" value=${request.id}>
                                                 <button type="submit" class="btn btn-info"
                                                         style="height: 40px; width: 90px; color: #FFFFFF;">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"

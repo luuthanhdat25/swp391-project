@@ -1,6 +1,7 @@
 package com.swpproject.application.controller.authentication;
 
 import com.swpproject.application.controller.dto.Base64Dto;
+import com.swpproject.application.controller.personal_trainer_request.PersonalTrainerRequestService;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.*;
 import com.swpproject.application.service.impl.ScheduleServiceImplement;
@@ -47,6 +48,9 @@ public class AuthenticationController {
     private SchedulePersonalTrainerService schedulePersonalTrainerService;
     @Autowired
     private ScheduleServiceImplement scheduleServiceImplement;
+
+    @Autowired
+    PersonalTrainerRequestService personalTrainerRequestService; // Bao them vao
 
     @ModelAttribute("roles")
     public Role[] getRoles() {
@@ -166,6 +170,8 @@ public class AuthenticationController {
         personalTrainer.setPrice(0);
         personalTrainer.setIsActive(false);
         personalTrainerService.save(personalTrainer);
+
+        List<Integer> certificateIDs = new ArrayList<>(); // Bao them vao
         base64Strings.base64Strings().forEach(item -> {
             item = item.trim().split(",")[1];
             byte[] imageAsByte = Base64.getDecoder().decode(item.getBytes());
@@ -173,7 +179,13 @@ public class AuthenticationController {
             certificate.setImage(imageAsByte);
             certificate.setPersonalTrainer(personalTrainer);
             certificateService.save(certificate);
+
+            Certificate certificateLast = certificateService.getCertificates().getLast(); // Bao them vao
+            certificateIDs.add(certificateLast.getId()); // Bao them vao
         });
+
+        personalTrainerRequestService.createUploadCertificate(certificateIDs, personalTrainer.getAccount()); // Bao them vao
+
         personalTrainerService.save(personalTrainer);
         Schedule schedulePersonalTrainer = new Schedule();
         schedulePersonalTrainer.setPersonalTrainer(personalTrainer);

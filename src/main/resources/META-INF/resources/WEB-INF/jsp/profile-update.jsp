@@ -35,13 +35,13 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="/personal-trainer/update?id=${personalTrainer.getId()}" method="post">
+                            <form action="/personal-trainer/update?id=${personalTrainer.getId()}" enctype="multipart/form-data" method="post">
                                 <div class="student-profile-head" >
                                     <div class="row" style="height: 400px;justify-content: space-between">
                                         <div class="col-lg-4 col-md-4">
                                             <div class="profile-user-box">
                                                 <div class="profile-user-img" style="top: 23px;">
-                                                    <img style="border-radius: 50%;margin-left: 20px;border: 9px solid #fff;width: 350px;" src="../../assets/img/profile-user.jpg" alt="Profile">
+                                                    <img id="avatar-img" style="border-radius: 50%;margin-left: 20px;border: 9px solid #fff;width: 350px;" src="#" alt="Profile">
                                                     <div class="form-group students-up-files profile-edit-icon mb-0">
                                                         <div class="uplod d-flex">
                                                             <label class="file-upload profile-upbtn mb-0">
@@ -194,6 +194,7 @@
         $('#slider2').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[1]);
         $('#slider3').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[2]);
         console.log(ptDto)
+        $('#avatar-img').attr("src", ptDto.avatarImage == null ? "../../assets/img/user.jpg" : "data:image/jpeg;base64, " + ptDto.avatarImage);
     })
 
 </script>

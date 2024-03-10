@@ -179,7 +179,7 @@
                                                            items="${['Monday', 'Tuesday', 'Wednesday', 'Thusday', 'Friday', 'Saturday', 'Sunday']}">
                                                     <c:set var="disabled" value="false"/>
                                                     <c:forEach items="${allSlot}" var="Slot">
-                                                        <c:if test="${Slot.day eq day.toLowerCase() && fn:substringBefore(Slot.start_hour, ':') == hour && fn:substringBefore(Slot.end_hour, ':') == (hour + 2)}">
+                                                        <c:if test="${Slot.day.toLowerCase() eq day.toLowerCase() && fn:substringBefore(Slot.start_hour, ':') == hour && fn:substringBefore(Slot.end_hour, ':') == (hour + 2)}">
                                                             <c:set var="disabled" value="true"/>
                                                         </c:if>
                                                     </c:forEach>
@@ -187,9 +187,9 @@
                                                         <input type="checkbox" name="checkedSlots"
                                                                value="${day.toLowerCase()}-${hour}-${hour + 2}"
                                                                <c:if test="${disabled}">disabled="disabled"</c:if>
-                                                               id="${day.toLowerCase()}-${hour}${hour + 2}"
+                                                               id="${day}-${hour}${hour + 2}"
                                                                onchange="limitSlots(this)">
-                                                        <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
+                                                        <label for="${day}-${hour}${hour + 2}"></label>
                                                     </td>
                                                 </c:forEach>
                                             </tr>

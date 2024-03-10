@@ -252,7 +252,7 @@
                                         <th>Gymer Name</th>
                                         <th>Location</th>
                                         <th>Order Date</th>
-                                        <th>Status</th>
+<%--                                        <th>Status</th>--%>
                                         <th>Net Amount</th>
                                         <th>Order Detail</th>
                                     </tr>
@@ -266,7 +266,7 @@
                                             <td>${order.gymer.getAccount().getAddress()}</td>
                                             <td>${order.datetime_start}</td>
 <%--                                            <td><c:if test="${order.status == 'Pending'}">--%>
-                                                <span class="status text-danger">&bull;</span>
+<%--                                                <span class="status text-danger">&bull;</span>--%>
 <%--                                            </c:if>--%>
 <%--                                                <c:if test="${order.status == 'OnDoing'}">--%>
 <%--                                                    <span class="status text-info">Ongoing</span>--%>
@@ -275,10 +275,7 @@
 <%--                                                    <span class="status text-warning">&bull;</span>--%>
 <%--                                                    <span>Expired</span>--%>
 <%--                                                </c:if>--%>
-<%--                                                <c:if test="${order.status == null}">--%>
-<%--                                                    <span class="status text-warning">&bull;</span>--%>
-<%--                                                    <span>Waiting</span>--%>
-<%--                                                </c:if></td>--%>
+
                                             <td>$${order.total_of_money}</td>
                                             <td><a href="/Order-Request?order_id=${order.orderId}" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
                                         </tr>

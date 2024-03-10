@@ -1,10 +1,12 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 <div class="header">
     <div class="header-left">
         <a href="#" class="logo">
-            <img src="assets/img/logo.png" alt="Logo">
+            <img src="../../assets/img/logo.png" alt="Logo">
         </a>
         <a href="#" class="logo logo-small">
-            <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
+            <img src="../../assets/img/logo-small.png" alt="Logo" width="30" height="30">
         </a>
     </div>
 
@@ -45,7 +47,7 @@
                                          alt="${account.getFullName()}">
                                 </c:when>
                                 <c:otherwise>
-                                        <img class="rounded-circle" src="assets/img/user.jpg"
+                                        <img class="rounded-circle" src="../../assets/img/user.jpg"
                                              width="31"
                                              alt="#">
                                 </c:otherwise>
@@ -66,7 +68,7 @@
                                              class="avatar-img rounded-circle">
                                     </c:when>
                                     <c:otherwise>
-                                        <img src="assets/img/user.jpg" alt="User Image"
+                                        <img src="../../assets/img/user.jpg" alt="User Image"
                                              class="avatar-img rounded-circle">
                                     </c:otherwise>
                                 </c:choose>
@@ -76,7 +78,7 @@
                                 <p class="text-muted mb-0">${account.getRole().getLabel()}</p>
                             </div>
                         </div>
-                        <a class="dropdown-item" href="/personal-trainer/details?id=${account.getId()}">My Profile</a>
+                        <a class="dropdown-item" href="/personal-trainer/details?id=${personalTrainer.getId()}">My Profile</a>
                         <a class="dropdown-item" href="inbox.html">Inbox</a>
                         <a class="dropdown-item" href="/auth/logout">Logout</a>
                     </div>

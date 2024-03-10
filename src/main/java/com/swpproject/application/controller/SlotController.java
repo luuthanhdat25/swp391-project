@@ -54,7 +54,7 @@ public class SlotController {
         PersonalTrainer personalTrainer = new PersonalTrainer();
         personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(accountId);
         Schedule schedulePersonalTrainerEntity = schedulePersonalTrainerService.findScheduleByPtId(personalTrainer.getId());
-
+        model.addAttribute("pt",personalTrainer);
         if (accountId != null) {
             // Do something with accountId, such as storing it in the session
             System.out.println("accountId: " + accountId);
@@ -207,7 +207,7 @@ public class SlotController {
 
 
         }
-        systemNotificationService.createNotification_NewRequestHiring(gymerService.getGymerByAccount(accountSession).get().getGymerId(), personalTrainer.getId());
+//        systemNotificationService.createNotification_NewRequestHiring(gymerService.getGymerByAccount(accountSession).get().getGymerId(), personalTrainer.getId());
         redirectAttributes.addAttribute("accountId", accountId);
         redirectAttributes.addAttribute("week", week);
         redirectAttributes.addAttribute("year", year);

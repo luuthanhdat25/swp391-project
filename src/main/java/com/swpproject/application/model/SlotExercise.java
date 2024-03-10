@@ -23,6 +23,7 @@ public class SlotExercise {
     private String end_hour;
     private int week;
     private int year;
+    private String description;
     private boolean isPending;
     private Attendant attendantStatus;
 

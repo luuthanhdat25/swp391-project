@@ -27,7 +27,7 @@
                                     <div class="col-lg-4 col-md-4">
                                         <div class="profile-user-box">
                                             <div class="profile-user-img">
-                                                <img src="../../assets/img/profiles/avatar-18.jpg" alt="Profile">
+                                                <img src="../../assets/img/user.jpg" id="avatar" alt="Profile">
                                             </div>
                                             <div class="names-profiles">
                                                 <h4 class="personalTrainerName"></h4>
@@ -279,6 +279,7 @@
         $('#slider1').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[0]);
         $('#slider2').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[1]);
         $('#slider3').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[2]);
+        $('#avatar').attr("src", personalTrainer.avatarImage == null ? "../../assets/img/user.jpg" : "data:image/jpeg;base64, " + personalTrainer.avatarImage);
 
         $('#sendToUpdate').click(function() {
             window.location.href = `/personal-trainer/update?id=` + personalTrainer.id;

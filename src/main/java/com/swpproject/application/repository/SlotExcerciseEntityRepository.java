@@ -12,7 +12,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Repository
-public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercise, Long> {
+public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercise, Integer> {
     public List<SlotExercise> getSlotExcerciseBySchedule_IdAndWeekAndYear(Integer ScheduleId, int week, int year);
 
     public List<SlotExercise> findAllBySchedule_IdAndGymer_GymerIdAndIsPending(

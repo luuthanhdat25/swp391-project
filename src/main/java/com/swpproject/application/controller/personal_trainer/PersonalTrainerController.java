@@ -15,7 +15,9 @@ import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -107,18 +109,19 @@ public class PersonalTrainerController {
 
     @PostMapping("update")
     public String updateProfile(@RequestParam int id,
-                                @RequestParam("avatar") String avatar,
+                                @RequestParam("avatar") MultipartFile avatar,
                                 @RequestParam("fullname") String fullname,
                                 @RequestParam("phone") String phone,
                                 @RequestParam("gender") String gender,
                                 @RequestParam("birthday") String birthday,
                                 @RequestParam("address") String address,
-                                @RequestParam("price") String price) {
+                                @RequestParam("price") String price) throws IOException {
         PersonalTrainer personalTrainer = personalTrainerRepository.findById(id).get();
         Account account = personalTrainer.getAccount();
         account.setFullName(fullname);
         account.setPhone(phone);
         account.setGender(Gender.valueOf(gender));
+        account.setAvatarImage(avatar.getBytes());
         account.setAddress(address);
         account.setBirthday(LocalDate.parse(birthday, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         personalTrainer.setAccount(account);

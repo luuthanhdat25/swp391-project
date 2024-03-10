@@ -41,4 +41,7 @@ public class ScheduleGymerController {
         session.setAttribute("year", year);
         return "redirect:/view-pt-schedule?year=" + year + "&week=" + week;
     }
+
+
+
 }

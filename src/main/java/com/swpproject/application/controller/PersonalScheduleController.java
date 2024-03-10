@@ -136,7 +136,7 @@ public class PersonalScheduleController {
             for (String idExercise : selectedExercises) {
                 //Create slot exercise details
                 SlotExerciseDetail slotExerciseDetail = new SlotExerciseDetail();
-                Exercise exercise = exerciseRepository.findById(Integer.parseInt(idExercise));
+                Exercise exercise = exerciseRepository.findById(Integer.parseInt(idExercise)).get();
                 String[] set = exerciseSet.split(",");
                 slotExerciseDetail.setSetExe(Integer.parseInt(set[i]));
                 String[] rep = exerciseRep.split(",");

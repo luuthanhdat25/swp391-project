@@ -17,14 +17,15 @@
                 <p class="h6" style="padding-left: 9px; margin-top: 10px;">Manage</p>
                 <ul id="sidebar-menu" class="sidebar-menu" style="padding: 2px 9px 9px 9px;">
                     <li style="margin-bottom: 4px;">
-                        <a class="input-container" style="background-color: #d9d9d9;" onclick=""> Manage
+                        <a class="input-container" onclick="" style="background-color: #d9d9d9;"> Manage
                             notification </a>
                     </li>
                     <li style="margin-bottom: 4px;">
                         <a href="manage-report" class="input-container" onclick=""> Manage report </a>
                     </li>
                     <li style="margin-bottom: 4px;">
-                        <a class="input-container" onclick=""> Manage request </a>
+                        <a href="manage-personal-trainer-request" class="input-container" onclick=""> Manage personal
+                            trainer's request </a>
                     </li>
                 </ul>
 
@@ -91,13 +92,13 @@
                                 <c:forEach var="notification" items="${NotificationList.content}">
                                     <tr style="height: 30px;">
                                         <th scope="row">${NotificationList.content.indexOf(notification) + IndexStarting}</th>
-                                        <td>
-                                            <div class="text-truncate" style="width: 430px;">${notification.title}</div>
+                                        <td style="text-align: left;">
+                                            <div class="text-truncate" style="width: 350px;">${notification.title}</div>
                                         </td>
                                         <td>
-                                            <img class="rounded-circle" style="width: 30px; margin-right: 5px;"
-                                                 src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"/>Victor
-                                            Dave
+                                            <img class="rounded-circle"
+                                                 style="width: 30px; height: 30px; margin-right: 5px;"
+                                                 src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"/>
                                         </td>
                                         <td>
                                                 ${notification.timeStamp.getHour()}:${notification.timeStamp.getMinute()}

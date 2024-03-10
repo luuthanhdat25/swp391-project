@@ -48,8 +48,10 @@ public class AdminNotificationController {
 
             int fromIndex = Math.min((papeNo - 1) * pageSize, notificationList.size() - 1);
             int toIndex = Math.min(fromIndex + pageSize - 1, notificationList.size() - 1);
-            List<Notification> pageContent = notificationList.subList(fromIndex, toIndex + 1);
-            notifications = new PageImpl<>(pageContent, pageable, notificationList.size());
+            if (fromIndex >= 0) {
+                List<Notification> pageContent = notificationList.subList(fromIndex, toIndex + 1);
+                notifications = new PageImpl<>(pageContent, pageable, notificationList.size());
+            }
         }
         else {
             String titleLowerCase = title.toLowerCase();

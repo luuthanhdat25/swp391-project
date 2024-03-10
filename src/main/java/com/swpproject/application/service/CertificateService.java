@@ -14,4 +14,6 @@ public interface CertificateService {
 
     List<byte[]> getAllCertificatesData(PersonalTrainer personalTrainer);
 
+    List<Certificate> getCertificates();
+
 }

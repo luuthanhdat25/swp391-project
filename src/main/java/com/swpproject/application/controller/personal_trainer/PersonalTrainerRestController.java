@@ -1,5 +1,6 @@
 package com.swpproject.application.controller.personal_trainer;
 
+import com.swpproject.application.controller.dto.PersonalTrainerDto;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.PersonalTrainerRepository;
 import lombok.AllArgsConstructor;
@@ -27,20 +28,20 @@ public class PersonalTrainerRestController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<PersonalTrainerDTO>> searchExercise(@RequestBody FilterObject filterObject) {
+    public ResponseEntity<List<PersonalTrainerDto>> searchExercise(@RequestBody FilterObject filterObject) {
         List<PersonalTrainer> personalTrainerList = personalTrainerRepository.findAll();
         personalTrainerList = filterByName(filterObject.getSearchName(), personalTrainerList);
         personalTrainerList = filterByPrice(filterObject.getPriceMin(), filterObject.getPriceMax(), personalTrainerList);
         personalTrainerList = filterByDistance(filterObject.getDistanceMax(), personalTrainerList);
         personalTrainerList = filterByGender(filterObject.getGender(), personalTrainerList);
-        List<PersonalTrainerDTO> personalTrainerDTOList = getPersonalTrainerDTOList(personalTrainerList);
+        List<PersonalTrainerDto> personalTrainerDTOList = getPersonalTrainerDTOList(personalTrainerList);
         return ResponseEntity.ok().body(personalTrainerDTOList);
     }
 
-    private List<PersonalTrainerDTO> getPersonalTrainerDTOList(List<PersonalTrainer> personalTrainerList) {
-        List<PersonalTrainerDTO> personalTrainerDTOList = new ArrayList<>();
+    private List<PersonalTrainerDto> getPersonalTrainerDTOList(List<PersonalTrainer> personalTrainerList) {
+        List<PersonalTrainerDto> personalTrainerDTOList = new ArrayList<>();
         for(PersonalTrainer personalTrainer: personalTrainerList) {
-            PersonalTrainerDTO dto = new PersonalTrainerDTO();
+            PersonalTrainerDto dto = new PersonalTrainerDto();
             dto.setId(personalTrainer.getId());
             dto.setDescription(personalTrainer.getDescription());
             dto.setPrice(personalTrainer.getPrice());

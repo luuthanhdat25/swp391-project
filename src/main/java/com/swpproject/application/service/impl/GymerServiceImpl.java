@@ -7,6 +7,7 @@ import com.swpproject.application.service.GymerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,5 +24,15 @@ public class GymerServiceImpl implements GymerService {
     @Override
     public Optional<Gymer> getGymerByAccount(Account account) {
         return gymerRepository.getGymerByAccount(account);
+    }
+
+    @Override
+    public List<Gymer> getAll() {
+        return gymerRepository.findAll();
+    }
+
+    @Override
+    public Optional<Gymer> getGymerById(Integer id) {
+        return gymerRepository.findById(id);
     }
 }

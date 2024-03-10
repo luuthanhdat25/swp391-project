@@ -4349,7 +4349,8 @@ table.table-inbox tbody tr.checked {
 .profile-user-img img {
     border-radius: 50%;
     border: 9px solid #fff;
-    width: 141px
+    width: 141px;
+    height: 141px;
 }
 
 .names-profiles h4 {

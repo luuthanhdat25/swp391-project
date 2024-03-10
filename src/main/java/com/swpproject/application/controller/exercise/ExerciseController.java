@@ -1,149 +1,128 @@
 package com.swpproject.application.controller.exercise;
 
-import com.swpproject.application.model.Exercise;
-import com.swpproject.application.model.PersonalTrainer;
-import com.swpproject.application.repository.ExerciseRepository;
-import com.swpproject.application.repository.PersonalTrainerRepository;
+import com.swpproject.application.controller.dto.ExerciseDTOIn;
+import com.swpproject.application.controller.dto.ExerciseDTOOut;
+import com.swpproject.application.controller.dto.RoleDTO;
+import com.swpproject.application.enums.Role;
+import com.swpproject.application.model.*;
+import com.swpproject.application.service.ExerciseService;
 import com.swpproject.application.utils.*;
-import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.print.Pageable;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Locale;
-import java.util.zip.DataFormatException;
+import java.util.*;
 
 
 @Controller
 @RequestMapping("/exercise")
 public class ExerciseController {
-    private final ExerciseRepository exerciseRepository;
-    private final PersonalTrainerRepository personalTrainerRepository;
 
-    public ExerciseController(ExerciseRepository exerciseRepository, PersonalTrainerRepository personalTrainerRepository) {
-        this.exerciseRepository = exerciseRepository;
-        this.personalTrainerRepository = personalTrainerRepository;
-    }
+    @Autowired
+    private ExerciseService exerciseService;
+
+    private static final String EXERCISE_LIST_URL = "exercise/exercise-list";
+    private static final String EXERCISE_DETAILS_URL = "exercise/exercise-details";
+    private static final String EXERCISE_CREATE_URL = "exercise/exercise-create";
+    private static final String EXERCISE_UPDATE_URL = "exercise/exercise-update";
+    private static final String ERROR_URL = "error";
 
     //Get view exercise list
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getExerciseListPage(ModelMap model){
-        List<Exercise> exercises = exerciseRepository.findAll();
-        String json = JsonUtils.jsonConvert(exercises);
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    public String getExerciseListPage(ModelMap model, HttpServletRequest request,
+                                      @RequestParam(defaultValue = "0") int page,
+                                      @RequestParam(defaultValue = "5") int size){
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        List<ExerciseDTOOut> exerciseDTOOutList = exerciseService.getExerciseDTOOutList(roleDTO);
+//        PageRequest pageable = PageRequest.of(page, size);
+//        int start = (int)pageable.getOffset();
+//        int end = Math.min((start + pageable.getPageSize()), exerciseDTOOutList.size());
+//        Page<ExerciseDTOOut> pageImpl = new PageImpl<>(exerciseDTOOutList.subList(start, end), pageable, exerciseDTOOutList.size());
+//        System.out.println(pageImpl.getContent().size() + " Item");
+//        String json = JsonUtils.jsonConvert(pageImpl.getContent());
+        String json = JsonUtils.jsonConvert(exerciseDTOOutList);
         model.addAttribute("exerciseList", json);
-        return "exercise/exercise-list";
+        return EXERCISE_LIST_URL;
     }
+
 
     //Get view exercise details
     @RequestMapping(value = "/details", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getExerciseDetailsPage(@RequestParam int id, ModelMap model) {
-        Exercise exercise = exerciseRepository.findById(id);
-        String json = JsonUtils.jsonConvert(exercise);
+    public String getExerciseDetailsPage(@RequestParam int id, ModelMap model, HttpServletRequest request) {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        Optional<Exercise> exerciseOptional = exerciseService.findExerciseById(id, roleDTO);
+        if(exerciseOptional.isEmpty()) return ERROR_URL;
+
+        ExerciseDTOOut exerciseDTOOut = exerciseOptional.get().getExerciseDTOOutAllInfor();
+        String json = JsonUtils.jsonConvert(exerciseDTOOut);
         model.addAttribute("exercise", json);
-        return "exercise-details";
+        return EXERCISE_DETAILS_URL;
     }
+
 
     //Get view create exercise
     @RequestMapping(value = "/create", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getCreateExercisePage() {
-        return "exercise-create";
+    public String getCreateExercisePage(HttpServletRequest request) {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        if(roleDTO == null || roleDTO.getRole() == Role.GYMER)
+            return ERROR_URL;
+
+        return EXERCISE_CREATE_URL;
     }
+
 
     //Post create exercise data
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String createExercise(@ModelAttribute ExerciseDTO exerciseDTO, Model model) throws IOException {
-        Exercise exercise = new Exercise();
-        exercise.setName(exerciseDTO.getExerciseName());
-        exercise.setType(exerciseDTO.getMuscle());
-        exercise.setDescription(addLineBreaks(exerciseDTO.getExerciseDescription()));
-        exercise.setLevel(exerciseDTO.getLevelRadio());
-        exercise.setEquipment(exerciseDTO.getEquipment());
-        exercise.setVideoDescription(exerciseDTO.getYoutubeLink());
-        exercise.setImageDescription(exerciseDTO.getImage().getBytes());
+    public String createExercise(@ModelAttribute ExerciseDTOIn exerciseDTOIn, HttpServletRequest request) throws IOException {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        if(roleDTO == null || roleDTO.getRole() == Role.GYMER)
+            return ERROR_URL;
 
-        String isPrivateString = exerciseDTO.getIsPrivate();
-        int isPrivateBoolean = isPrivateString == null ? 0 : 1;
-        exercise.setIsPrivate(isPrivateBoolean);
-
-        PersonalTrainer personalTrainerExample = personalTrainerRepository.findAll().getFirst();
-        exercise.setPersonalTrainer(personalTrainerExample);
-
-        exerciseRepository.save(exercise);
-        return "redirect:/exercise/";
-    }
-
-    private String addLineBreaks(String text) {
-        if (StringUtils.isEmpty(text)) {
-            return "";
-        }
-        return text.replaceAll("\\r?\\n", "<br>");
+        exerciseService.create(exerciseDTOIn, roleDTO);
+        return "redirect:/exercise";
     }
 
 
     //Get update view exercise
     @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
-        HttpSession session = request.getSession();
-        session.setAttribute("exerciseId", id);
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        System.out.println(roleDTO.getRole().getLabel());
+        if(roleDTO == null || roleDTO.getRole() == Role.GYMER)
+            return ERROR_URL;
 
-        Exercise exercise = exerciseRepository.findById(id);
-        String json = JsonUtils.jsonConvert(exercise);
+        Optional<Exercise> exerciseOptional = exerciseService.findExerciseById(id, roleDTO);
+        if(exerciseOptional.isEmpty())
+            return ERROR_URL;
+
+        Exercise exercise = exerciseOptional.get();
+        String json = JsonUtils.jsonConvert(exercise.getExerciseDTOOutAllInfor());
         model.addAttribute("exercise", json);
-        return "exercise-update";
+        return EXERCISE_UPDATE_URL;
     }
+
 
     //Post update exercise data
     @RequestMapping(value = "/details/edit", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String editExercise(@ModelAttribute ExerciseDTO exerciseDTO, HttpServletRequest request, Model model) throws IOException {
+    public String editExercise(@ModelAttribute ExerciseDTOIn exerciseDTOIn, HttpServletRequest request, Model model) throws IOException {
         HttpSession session = request.getSession();
-        Integer id = (Integer) session.getAttribute("exerciseId");
+        Integer exerciseId = (Integer) session.getAttribute("exerciseId");
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        if(exerciseId == null || roleDTO == null || roleDTO.getRole() == Role.GYMER)
+            return ERROR_URL;
 
-        if (id != null) {
-            Exercise exercise = exerciseRepository.findById(id);
-            exercise.setName(exerciseDTO.getExerciseName());
-            exercise.setType(exerciseDTO.getMuscle());
-            exercise.setDescription(addLineBreaks(exerciseDTO.getExerciseDescription()));
-            exercise.setLevel(exerciseDTO.getLevelRadio());
-            exercise.setEquipment(exerciseDTO.getEquipment());
-            exercise.setVideoDescription(exerciseDTO.getYoutubeLink());
-            System.out.println(exerciseDTO.getImage().getBytes().length);
-            if(exerciseDTO.getImage().getBytes().length != 0) exercise.setImageDescription(exerciseDTO.getImage().getBytes());
-            exerciseRepository.update(exercise);
-
-            session.removeAttribute("exerciseId");
-            return "redirect:/exercise/details?id=" + id;
-        } else {
-            return "redirect:/error";
-        }
+        exerciseService.update(exerciseDTOIn, exerciseId);
+        session.removeAttribute("exerciseId");
+        return "redirect:/exercise/details?exerciseId=" + exerciseId;
     }
 }
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-class ExerciseDTO {
-    private String exerciseName;
-    private String levelRadio;
-    private String equipment;
-    private String muscle;
-    private MultipartFile image;
-    private String youtubeLink;
-    private String exerciseDescription;
-    private String isPrivate;
-}
-
 

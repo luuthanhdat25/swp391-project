@@ -7,7 +7,7 @@
 </head>
 
 <div class="main-wrapper">
-    <div class="sidebar" id="sidebar" style="width: 31%; background-color: #adb5bd;">
+    <div class="sidebar" id="sidebar" style="width: 31%; background-color: #FFFFFF;">
         <div class="sidebar-inner slimscroll">
             <ul id="sidebar-menu" class="sidebar-menu" style="padding: 2px 9px 9px 9px;">
                 <li><p class="h6" style="padding-left: 9px; margin-top: 10px;">Notifications</p></li>

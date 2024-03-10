@@ -80,7 +80,7 @@
                 <button type="button" style="background-color: #FC8A32; color: #FFFFFF;" class="btn"
                         data-bs-dismiss="modal">Cancel
                 </button>
-                <input type="hidden" name="PersonalTrainerID" value="9">
+                <input type="hidden" name="PersonalTrainerID" value=${id}>
                 <input type="hidden" name="GymerID" value="2">
                 <button style="margin-left: 10px; background-color: #70c4cf; color: #FFFFFF;" type="submit" class="btn">
                     Send Report

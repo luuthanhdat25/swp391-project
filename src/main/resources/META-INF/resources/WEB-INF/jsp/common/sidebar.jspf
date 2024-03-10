@@ -6,10 +6,13 @@
                     <span>GymOn Wiki</span>
                 </li>
                 <li>
-                    <a href="/exercise/"><i class="fas fa-dumbbell"></i> <span>Exercise Wiki</span></a>
+                    <a href="/exercise"><i class="fas fa-dumbbell"></i> <span>Exercise Wiki</span></a>
                 </li>
                 <li>
-                    <a href="/nutrition/"><i class="fe fe-award"></i> <span>Nutrition Wiki</span></a>
+                    <a href="/nutrition">
+                        <img style="height: 25px; width: 25px;" src="../../assets/img/icons/nutrition.png" alt="Nutrition Wiki">
+                        <span>Nutrition Wiki</span>
+                    </a>
                 </li>
 
                 <c:if test="${account ne null}">
@@ -36,6 +39,15 @@
                             <li>
                                 <a href="#"><i class="fas fa-history"></i> <span>Order History</span></a>
                             </li>
+
+                            <li class="submenu">
+                                <a href="#"><i class="feather-grid"></i> <span>Tracking & Statistics</span> <span
+                                        class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="index.html">Nutrition Tracking</a></li>
+                                    <li><a href="teacher-dashboard.html">Calories Statistic</a></li>
+                                </ul>
+                            </li>
                         </c:when>
                         <c:otherwise>
                             <li>
@@ -45,15 +57,6 @@
                     </c:choose>
 
                 </c:if>
-
-                <li class="submenu">
-                    <a href="#"><i class="feather-grid"></i> <span>Tracking & Statistics</span> <span
-                            class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="index.html">Nutrition Tracking</a></li>
-                        <li><a href="teacher-dashboard.html">Calories Statistic</a></li>
-                    </ul>
-                </li>
             </ul>
         </div>
     </div>

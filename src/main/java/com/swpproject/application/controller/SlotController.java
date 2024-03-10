@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.*;
 
 @Controller
@@ -61,34 +62,28 @@ public class SlotController {
             System.out.println("price: " + personalTrainer.getPrice());
             List<SlotExercise> getSlotOnGoing = slotExcerciseEntityService.getSlotNotPending(personalTrainer.getId(),false);
             if (week != null && year != null) {
+                List<SlotExercise> getSlotOnWeekAndYear = slotExcerciseEntityService.getAllSlotByWeek(week,year);
+
                 model.addAttribute("week", week);
                 model.addAttribute("year", year);
-                model.addAttribute("allSlot",getSlotOnGoing );
+                model.addAttribute("allSlot",getSlotOnWeekAndYear);
+
+                redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
+                redirectAttributes.addAttribute("week", week);
+                redirectAttributes.addAttribute("year", year);
 //            session.setAttribute("allSlot", getSlotByScheduleYearAndWeek);
             } else {
-                System.out.println("Acount PT: "+  personalTrainer.getAccount().getId());
-
-                Optional<SlotExercise> minWeekAndYear = getSlotOnGoing.stream()
-                        .min(Comparator.comparing(SlotExercise::getYear).thenComparing(SlotExercise::getWeek));
-
-                if (minWeekAndYear.isPresent()) {
-                    SlotExercise minWeekAndYearValue = minWeekAndYear.get();
-                    int minWeek = minWeekAndYearValue.getWeek();
-                    int minYear = minWeekAndYearValue.getYear();
-                    // Sử dụng giá trị minWeek và minYear ở đây
-                    redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
-                    redirectAttributes.addAttribute("week", minWeek);
-                    redirectAttributes.addAttribute("year", minYear);
-                    System.out.println("Minimum week: " + minWeek + ", Minimum year: " + minYear);
-                } else {
-                    redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
-                    redirectAttributes.addAttribute("week", week);
-                    redirectAttributes.addAttribute("year", year);
-                    // Danh sách trống, không có giá trị minWeek và minYear
-                    System.out.println("No minimum week and year found");
-                }
-                System.out.println("week: " + week);
-                System.out.println("year: " + year);
+                LocalDate currentDate = LocalDate.now();
+                // Lấy vị trí của tuần trong năm
+                int weekOfYear = currentDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
+                System.out.println("week of year: "+weekOfYear);
+                model.addAttribute("week", weekOfYear);
+                model.addAttribute("year", currentDate.getYear());
+                model.addAttribute("allSlot",getSlotOnGoing );
+                redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
+                redirectAttributes.addAttribute("week", weekOfYear);
+                redirectAttributes.addAttribute("year", currentDate.getYear());
+                return "redirect:/bookPT1";
             }
 
 
@@ -268,7 +263,6 @@ public class SlotController {
                     if (orderRequest != null) {
                         orderRequestService.saveOrUpdateOrderRequest(orderRequest);
                     }
-////         Add week and year to the model if available
                 if (week != null && year != null) {
                     model.addAttribute("week", week);
                     model.addAttribute("year", year);
@@ -298,10 +292,8 @@ public class SlotController {
                                     slotEntity.setGymer(gymerService.getGymerByAccount(accountSession).get());
                                     slotEntity.setPersonalTrainer(personalTrainer);
                                     slotEntity.setOrderRequest(orderRequest);
-                                    // Set Slot value
                                     slotExcerciseEntityService.SaveSlotExcercise(slotEntity);
                                 } else {
-                                    // Log or handle the case where the expected number of parts is not found
                                     System.out.println("Invalid slot format: " + checkedSlot);
                                 }
                             }

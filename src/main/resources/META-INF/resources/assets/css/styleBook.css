@@ -36,7 +36,3 @@ td input[type="checkbox"]:checked+label {
     background-color: rgb(100, 100, 237);
     color: #fff;
 }
-
-input[type="checkbox"]:disabled+label {
-    background-color: rgb(194, 192, 192);
-}

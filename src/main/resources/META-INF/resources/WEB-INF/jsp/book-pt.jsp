@@ -66,14 +66,7 @@
 
                                 </form>
                             </div>
-                            <c:choose>
-                                <c:when test="${empty param.week && empty param.year}">
 
-                                    <h3>
-                                        Please choose the week!
-                                    </h3>
-                                </c:when>
-                                <c:otherwise>
                                     <form:form action="${pageContext.request.contextPath}/save-checked" method="post">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -213,29 +206,66 @@
                                                         <c:forEach var="day"
                                                                    items="${['Monday', 'Tuesday', 'Wednesday', 'Thusday', 'Friday', 'Saturday', 'Sunday']}">
                                                             <c:set var="disabled" value="false"/>
-                                                            
+                                                            <c:set var="pending" value="false"/>
+
                                                             <c:forEach items="${allSlot}" var="Slot">
                                                                 <c:if test="${Slot.day eq day && fn:substringBefore(Slot.start_hour, ':') == hour
                                                                     && fn:substringBefore(Slot.end_hour, ':') == (hour + 2)
                                                                     && Slot.week == param.week && Slot.year == param.year
-                                                                    && !Slot.isPending()}">
+                                                                    }">
+                                                                    <c:if test="${Slot.isPending()}">
+                                                                        <c:set var="pending" value="true"/>
+
+                                                                    </c:if>
                                                                     <c:set var="disabled" value="true"/>
                                                                 </c:if>
                                                             </c:forEach>
                                                             <c:forEach items="${conflictsList}" var="Slot">
-                                                                <c:if test="${Slot.day eq day && fn:substringBefore(Slot.start_hour, ':')== hour
+                                                                <c:if test="${Slot.day eq day && fn:substringBefore(Slot.start_hour, ':') == hour
                                                                     && fn:substringBefore(Slot.end_hour, ':') == (hour + 2)
+
                                                                     }">
+                                                                    <c:if test="${Slot.isPending()}">
+                                                                        <c:set var="pending" value="true"/>
+
+                                                                    </c:if>
                                                                     <c:set var="disabled" value="true"/>
                                                                 </c:if>
                                                             </c:forEach>
                                                             <td>
                                                                 <input type="checkbox" name="checkedSlots"
                                                                        value="${day}-${hour}-${hour + 2}"
-                                                                       <c:if test="${disabled}">disabled="disabled"</c:if>
                                                                        id="${day.toLowerCase()}-${hour}${hour + 2}"
-                                                                       onchange="limitSlots(this)">
-                                                                <label for="${day.toLowerCase()}-${hour}${hour + 2}"></label>
+                                                                       onchange="limitSlots(this)"
+                                                                    ${disabled ? 'disabled="disabled" ' : ''}
+                                                                />
+                                                                <label for="${day.toLowerCase()}-${hour}${hour + 2}" style="
+                                                                <c:choose>
+                                                                <c:when test="${disabled && pending}">
+                                                                        background-color: #FFC90E;
+                                                                </c:when>
+                                                                <c:when test="${disabled && !pending}">
+                                                                        background-color: rgb(194, 192, 192);
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                        /* Add any other styles you want for other cases */
+                                                                </c:otherwise>
+                                                                </c:choose>
+                                                                        ">
+                                                                    <!-- Thêm nội dung tùy thuộc vào trường hợp -->
+                                                                    <c:choose>
+                                                                        <c:when test="${disabled && pending}">
+                                                                            <!-- Nội dung khi disabled và pending -->
+                                                                            Pending order
+                                                                        </c:when>
+                                                                        <c:when test="${disabled && !pending}">
+                                                                            <!-- Nội dung khi disabled và không phải pending -->
+                                                                           Ordered
+                                                                        </c:when>
+                                                                        
+                                                                    </c:choose>
+                                                                </label>
+
                                                             </td>
                                                         </c:forEach>
                                                     </tr>
@@ -270,8 +300,6 @@
                                         <input type="hidden" name="week" value="${param.week}">
                                         <input type="hidden" name="accountId" value="${param.accountId}">
                                     </form:form>
-                                </c:otherwise>
-                            </c:choose>
 
                         </div>
                     </div>

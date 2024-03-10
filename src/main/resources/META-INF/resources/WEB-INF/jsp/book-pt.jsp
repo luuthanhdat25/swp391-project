@@ -30,7 +30,7 @@
                     <div class="col">
                         <h3 class="page-title">Book a Personal Trainer</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item active">Booking</li>
                         </ul>
                     </div>
@@ -45,25 +45,24 @@
                         </div>
                         <div class="card-body">
 
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <form action="/bookPT1" method="get">
-                                    <select id="year" class="form-control" name="year"
-                                            onchange="updateWeeks()">
-                                        <!-- Thay đổi dải số năm tùy ý -->
-                                        <script>
-                                            var currentYear = new Date().getFullYear();
-                                            for (var i = currentYear; i <= currentYear + 5; i++) {
-                                                document.write("<option value='" + i + "'>" + i + "</option>");
-                                            }
-                                        </script>
-                                    </select>
+                                    <div class="select-container">
+                                        Year:<select id="year" class="form-control" name="year" onchange="updateWeeks()">
+                                            <!-- Thay đổi dải số năm tùy ý -->
+                                            <script>
+                                                var currentYear = new Date().getFullYear();
+                                                for (var i = currentYear; i <= currentYear + 5; i++) {
+                                                    document.write("<option value='" + i + "'>" + i + "</option>");
+                                                }
+                                            </script>
+                                        </select>
 
-                                    <select id="week" class="form-control" name="week"
-                                            onchange="this.form.submit()">
-                                        <!-- Options will be generated dynamically by JavaScript -->
-                                    </select>
-                                    <input type="hidden" name="PersonalTrainerID" value="${param.PersonalTrainerID}">
-
+                                        Week: <select id="week" class="form-control" name="week" onchange="this.form.submit()">
+                                            <!-- Options will be generated dynamically by JavaScript -->
+                                        </select>
+                                        <input type="hidden" name="PersonalTrainerID" value="${param.PersonalTrainerID}">
+                                    </div>
                                 </form>
                             </div>
 
@@ -73,18 +72,18 @@
                                                 <h5 class="card-title">Purpose details</h5>
                                                 <div class="form-group">
                                                     <label>Goals:</label>
-                                                    <input type="text" class="form-control" name="goals">
+                                                    <input type="text" class="form-control" name="goals" >
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Description:</label>
                                                     <textarea rows="5" cols="5" class="form-control"
                                                               placeholder="Details about your goals"
-                                                              name="description"></textarea>
+                                                              name="description" ></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Training time:</label>
-                                                    <select class="select" name="TrainingTime" id="trainingTimeSelect">
-                                                        <option selected disabled>Select Training Time</option>
+                                                    <select class="form-select" aria-label="Default select example" name="TrainingTime" id="trainingTimeSelect" required>
+                                                        <option value="" selected disabled>Select Training Time</option>
                                                         <option value="4">1 months</option>
                                                         <option value="12">3 months</option>
                                                         <option value="24">6 months</option>
@@ -166,12 +165,37 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="row">
+
+                                                        <div id="calendar-events" class="col-md-6">
+                                                            <div class="ui-color-key">
+                                                                <div class="calendar-events" data-class="bg-info">
+                                                                    <li style="background-color: #6464ED">Selected</li>
+                                                                </div>
+                                                                <div class="calendar-events" data-class="bg-success">
+                                                                    <li style="background-color: #93D199;">Slot pending</li>
+                                                                </div>
+                                                                <div class="calendar-events" data-class="bg-danger">
+                                                                    <li style="background-color: rgb(194, 192, 192);">Ordered</li>
+                                                                </div>
+                                                                <div class="calendar-events" data-class="bg-danger">
+                                                                    <li style="background-color:#FFFFFF;">available</li>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                </div>
                                             </div>
                                         </div>
+
                                         <div class="row">
-                                            <h5 class="card-title">Choose your training schedule</h5>
+                                            <h5 class="card-title">Schedule Order</h5>
                                             <div class="col-md-2">
 
+                                            </div>
+
+                                            <div id="conflictAlert" class="alert alert-danger" style="display:none;">
+                                                <strong>Conflicting slot!</strong> There is a schedule conflict. please choose againe!
                                             </div>
                                             <table class="table table-bordered">
                                                 <thead>
@@ -242,7 +266,7 @@
                                                                 <label for="${day.toLowerCase()}-${hour}${hour + 2}" style="
                                                                 <c:choose>
                                                                 <c:when test="${disabled && pending}">
-                                                                        background-color: #FFC90E;
+                                                                        background-color: #93D199;
                                                                 </c:when>
                                                                 <c:when test="${disabled && !pending}">
                                                                         background-color: rgb(194, 192, 192);
@@ -253,17 +277,7 @@
                                                                 </c:choose>
                                                                         ">
                                                                     <!-- Thêm nội dung tùy thuộc vào trường hợp -->
-                                                                    <c:choose>
-                                                                        <c:when test="${disabled && pending}">
-                                                                            <!-- Nội dung khi disabled và pending -->
-                                                                            Pending order
-                                                                        </c:when>
-                                                                        <c:when test="${disabled && !pending}">
-                                                                            <!-- Nội dung khi disabled và không phải pending -->
-                                                                           Ordered
-                                                                        </c:when>
-                                                                        
-                                                                    </c:choose>
+
                                                                 </label>
 
                                                             </td>
@@ -272,8 +286,9 @@
                                                 </c:forEach>
                                                 </tbody>
                                             </table>
-                                                Conflic slot: ${conflictsList.size()}
+
                                         </div>
+
                                         <div id="warningMessage" style="display: none; color: red;">
                                             Use just select 5 slot
                                         </div>
@@ -306,9 +321,7 @@
                 </div>
             </div>
         </div>
-        <div id="conflictAlert" class="alert alert-danger" style="display:none;">
-            <strong>Conflicting slot!</strong> There is a schedule conflict.
-        </div>
+
         <p style="color: #dc3545">${MSG}</p>
 
 
@@ -318,7 +331,16 @@
     </div>
 
 </div>
-
+<script>
+    var msgValue = "${conflictsList.size()}".trim();
+    if (msgValue !== "") {
+        // If MSG is not empty, show the conflict alert for 2 seconds
+        document.getElementById("conflictAlert").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("conflictAlert").style.display = "none";
+        },10000);
+    }
+</script>
 <script>
     // Kiểm tra xem MSG có giá trị không
     var conflictMessage = "<c:out value='${MSG}'/>";
@@ -362,7 +384,7 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const selectElement = document.querySelector('.select');
+        const selectElement = document.getElementById('trainingTimeSelect');
         const invoiceTotalCard = document.getElementById('invoiceTotalCard');
 
         // Function to show or hide the invoice total card based on selected option
@@ -394,6 +416,8 @@
 
 <script src="assets/js/jquery-ui.min.js"></script>
 <script src="assets/js/scriptBook.js"></script>
-</body>
+<script src="assets/js/script.js"></script>
+<%@ include file="common/script.jspf" %>
 
-</html>
+
+</body>

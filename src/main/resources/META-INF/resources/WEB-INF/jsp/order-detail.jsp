@@ -125,10 +125,12 @@
                                                     <c:when test="${disabled}">
                                                         <td>
                                                             <input type="checkbox" name="checkedSlots"
-                                                                   value="${day.toLowerCase()}-${hour}-${hour + 2}"
-                                                                   disabled="disabled" class="disabled-checkbox"
-                                                                   id="${day.toLowerCase()}-${hour}${hour + 2}">
-                                                            <label for="${day.toLowerCase()}-${hour}${hour + 2}">${account.fullName}</label>
+                                                                   value="${day}-${hour}-${hour + 2}"
+                                                                   id="${day.toLowerCase()}-${hour}${hour + 2}"
+                                                                   onchange="limitSlots(this)"
+                                                                ${disabled ? 'disabled="disabled" ' : ''}
+                                                            />
+                                                            <label for="${day.toLowerCase()}-${hour}${hour + 2}" style="background-color: rgb(194, 192, 192);;">${account.fullName}</label>
                                                         </td>
                                                     </c:when>
                                                     <c:otherwise>
@@ -159,7 +161,6 @@
 
                                     </c:when>
                                     <c:otherwise>
-                                        <p style="color: #dc3545">${MSG}</p>
                                         <!-- If MSG is not empty, display the "Decline" button -->
                                         <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary" name="action" value="decline">Decline</a>
                                     </c:otherwise>

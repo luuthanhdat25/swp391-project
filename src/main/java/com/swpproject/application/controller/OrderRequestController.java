@@ -105,7 +105,6 @@ public class OrderRequestController {
         return "order-detail";
     }
 
-
     @RequestMapping(value = "accept-order", method = RequestMethod.POST)
     public String AcceptOrder(@RequestParam("order") Integer orderID,
                               @RequestParam("MSG") String MSG,

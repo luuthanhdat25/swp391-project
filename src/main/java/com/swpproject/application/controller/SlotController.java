@@ -41,7 +41,10 @@ public class SlotController {
 
     @RequestMapping(value = "bookPT", method = RequestMethod.GET)
     public String viewSChedulePT(HttpSession session) {
-
+        Account accountSession = (Account) session.getAttribute("account");
+        if(accountSession == null){
+            return "redirect:/auth/login";
+        }
         return "book-pt";
     }
 

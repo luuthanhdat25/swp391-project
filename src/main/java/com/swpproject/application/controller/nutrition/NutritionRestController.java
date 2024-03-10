@@ -1,6 +1,6 @@
 package com.swpproject.application.controller.nutrition;
 
-import com.swpproject.application.model.NutritionDTOOut;
+import com.swpproject.application.controller.dto.NutritionDTOOut;
 import com.swpproject.application.service.impl.NutritionServiceIml;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

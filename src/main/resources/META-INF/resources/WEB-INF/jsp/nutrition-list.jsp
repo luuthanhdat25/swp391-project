@@ -2,14 +2,17 @@
 <%@include file="common/head.jspf" %>
 <%@include file="common/sidebar.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <style>
     .rounded-image {
         width: 3rem;
         height: 3rem;
         border-radius: 50%;
         object-fit: cover;
+    }
+
+    .btn-group-lg>.btn, .btn-lg {
+        padding: 1rem 2rem;
+        font-size: 1.25rem;
     }
 </style>
 <body>
@@ -30,20 +33,8 @@
                         </div>
                     </div>
                 </div>
-                <c:choose>
-                    <c:when test="${account.role.label eq 'Admin' or account.role.label eq 'Personal Trainer'}">
-                        <div class="card invoices-tabs-card border-0 mt-3" id="createButon">
-                            <div class="col-lg-12 col-md-12">
-                                <div class="invoices-settings-btn invoices-settings-btn-one">
-                                    <a href="/nutrition/create" class="btn"><i class="feather feather-plus-circle"></i>New Nutrition</a>
-                                </div>
-                            </div>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                    </c:otherwise>
-                </c:choose>
-                <div class="card mt-3">
+
+                <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-4">
@@ -61,145 +52,166 @@
                                                 </div>
                                             </div>
 
-                                            <div class="mb-3 w-100">
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="d-flex">
-                                                        <h6>Calories</h6>
+<%--                                            <div class="form-check form-switch">--%>
+<%--                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">--%>
+<%--                                                <label class="form-check-label" for="flexSwitchCheckChecked">Advance Search</label>--%>
+<%--                                            </div>--%>
+
+                                            <div id="advancedSearch"  class="mt-2">
+                                                <div class="mb-3 w-100">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex">
+                                                            <h6>Calories</h6>
+                                                        </div>
+                                                        <h6 class="font-weight-light" id="calo-preview">0 - 1000/100g</h6>
                                                     </div>
-                                                    <h6 class="font-weight-light" id="calo-preview">0 - 1000/100g</h6>
-                                                </div>
-                                                <div class="mt-3">
-                                                    <div class="sliderBar bar" id="caloProgressBar">
-                                                        <div class="progressBar bar"></div>
+                                                    <div class="mt-3">
+                                                        <div class="sliderBar bar" id="caloProgressBar">
+                                                            <div class="progressBar bar"></div>
+                                                        </div>
+                                                        <div class="range-input" id="caloSliderBar">
+                                                            <input type="range" class="range-min" min="0" max="1000"
+                                                                value="0">
+                                                            <input type="range" class="range-max" min="0" max="1000"
+                                                                value="1000">
+                                                        </div>
                                                     </div>
-                                                    <div class="range-input" id="caloSliderBar">
-                                                        <input type="range" class="range-min" min="0" max="1000"
-                                                            value="0">
-                                                        <input type="range" class="range-max" min="0" max="1000"
-                                                            value="1000">
+
+                                                    <div class="input-group mt-3" id="caloInput">
+                                                        <input id="caloMinInput" type="number" class="form-control"
+                                                            placeholder="Min" value="0" min="0" max="1000">
+                                                        <span class="input-group-text">-</span>
+                                                        <input id="caloMaxInput" type="number" class="form-control"
+                                                            placeholder="Max" value="1000" min="0" max="1000">
+                                                        <button id="submitCalo" class="btn btn-primary"
+                                                            type="button">></button>
                                                     </div>
                                                 </div>
 
-                                                <div class="input-group mt-3" id="caloInput">
-                                                    <input id="caloMinInput" type="number" class="form-control"
-                                                        placeholder="Min" value="0" min="0" max="1000">
-                                                    <span class="input-group-text">-</span>
-                                                    <input id="caloMaxInput" type="number" class="form-control"
-                                                        placeholder="Max" value="1000" min="0" max="1000">
-                                                    <button id="submitCalo" class="btn btn-primary"
-                                                        type="button">></button>
+                                                <div class="mb-3 w-100">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex">
+                                                            <h6>Protein</h6>
+                                                        </div>
+                                                        <h6 class="font-weight-light" id="protein-preview">0 - 1000/100g</h6>
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <div class="sliderBar bar" id="proteinProgressBar">
+                                                            <div class="progressBar bar"></div>
+                                                        </div>
+                                                        <div class="range-input" id="proteinSliderBar">
+                                                            <input type="range" class="range-min" min="0" max="1000"
+                                                                value="0">
+                                                            <input type="range" class="range-max" min="0" max="1000"
+                                                                value="1000">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="input-group mt-3" id="proteinInput">
+                                                        <input id="proteinMinInput" type="number" class="form-control"
+                                                            placeholder="Min" value="0" min="0" max="1000">
+                                                        <span class="input-group-text">-</span>
+                                                        <input id="proteinMaxInput" type="number" class="form-control"
+                                                            placeholder="Max" value="1000" min="0" max="1000">
+                                                        <button id="submitProtein" class="btn btn-primary"
+                                                            type="button">></button>
+                                                    </div>
                                                 </div>
+
+                                                <div class="mb-3 w-100">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex">
+                                                            <h6>Fat</h6>
+                                                        </div>
+                                                        <h6 class="font-weight-light" id="fat-preview">0 - 1000/100g</h6>
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <div class="sliderBar bar" id="fatProgressBar">
+                                                            <div class="progressBar bar"></div>
+                                                        </div>
+                                                        <div class="range-input" id="fatSliderBar">
+                                                            <input type="range" class="range-min" min="0" max="1000"
+                                                                value="0">
+                                                            <input type="range" class="range-max" min="0" max="1000"
+                                                                value="1000">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="input-group mt-3" id="fatInput">
+                                                        <input id="fatMinInput" type="number" class="form-control"
+                                                            placeholder="Min" value="0" min="0" max="1000">
+                                                        <span class="input-group-text">-</span>
+                                                        <input id="fatMaxInput" type="number" class="form-control"
+                                                            placeholder="Max" value="1000" min="0" max="1000">
+                                                        <button id="submitFat" class="btn btn-primary"
+                                                            type="button">></button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3 w-100">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex">
+                                                            <h6>Carb</h6>
+                                                        </div>
+                                                        <h6 class="font-weight-light" id="carb-preview">0 - 1000/100g</h6>
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <div class="sliderBar bar" id="carbProgressBar">
+                                                            <div class="progressBar bar"></div>
+                                                        </div>
+                                                        <div class="range-input" id="carbSliderBar">
+                                                            <input type="range" class="range-min" min="0" max="1000"
+                                                                value="0">
+                                                            <input type="range" class="range-max" min="0" max="1000"
+                                                                value="1000">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="input-group mt-3" id="carbInput">
+                                                        <input id="carbMinInput" type="number" class="form-control"
+                                                            placeholder="Min" value="0" min="0" max="1000">
+                                                        <span class="input-group-text">-</span>
+                                                        <input id="carbMaxInput" type="number" class="form-control"
+                                                            placeholder="Max" value="1000" min="0" max="1000">
+                                                        <button id="submitCarb" class="btn btn-primary"
+                                                            type="button">></button>
+                                                    </div>
+                                                </div>
+
                                             </div>
 
-                                            <div class="mb-3 w-100">
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="d-flex">
-                                                        <h6>Protein</h6>
-                                                    </div>
-                                                    <h6 class="font-weight-light" id="protein-preview">0 - 1000/100g</h6>
-                                                </div>
-                                                <div class="mt-3">
-                                                    <div class="sliderBar bar" id="proteinProgressBar">
-                                                        <div class="progressBar bar"></div>
-                                                    </div>
-                                                    <div class="range-input" id="proteinSliderBar">
-                                                        <input type="range" class="range-min" min="0" max="1000"
-                                                            value="0">
-                                                        <input type="range" class="range-max" min="0" max="1000"
-                                                            value="1000">
-                                                    </div>
-                                                </div>
 
-                                                <div class="input-group mt-3" id="proteinInput">
-                                                    <input id="proteinMinInput" type="number" class="form-control"
-                                                        placeholder="Min" value="0" min="0" max="1000">
-                                                    <span class="input-group-text">-</span>
-                                                    <input id="proteinMaxInput" type="number" class="form-control"
-                                                        placeholder="Max" value="1000" min="0" max="1000">
-                                                    <button id="submitProtein" class="btn btn-primary"
-                                                        type="button">></button>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-3 w-100">
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="d-flex">
-                                                        <h6>Fat</h6>
-                                                    </div>
-                                                    <h6 class="font-weight-light" id="fat-preview">0 - 1000/100g</h6>
-                                                </div>
-                                                <div class="mt-3">
-                                                    <div class="sliderBar bar" id="fatProgressBar">
-                                                        <div class="progressBar bar"></div>
-                                                    </div>
-                                                    <div class="range-input" id="fatSliderBar">
-                                                        <input type="range" class="range-min" min="0" max="1000"
-                                                            value="0">
-                                                        <input type="range" class="range-max" min="0" max="1000"
-                                                            value="1000">
-                                                    </div>
-                                                </div>
-
-                                                <div class="input-group mt-3" id="fatInput">
-                                                    <input id="fatMinInput" type="number" class="form-control"
-                                                        placeholder="Min" value="0" min="0" max="1000">
-                                                    <span class="input-group-text">-</span>
-                                                    <input id="fatMaxInput" type="number" class="form-control"
-                                                        placeholder="Max" value="1000" min="0" max="1000">
-                                                    <button id="submitFat" class="btn btn-primary"
-                                                        type="button">></button>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-3 w-100">
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="d-flex">
-                                                        <h6>Carb</h6>
-                                                    </div>
-                                                    <h6 class="font-weight-light" id="carb-preview">0 - 1000/100g</h6>
-                                                </div>
-                                                <div class="mt-3">
-                                                    <div class="sliderBar bar" id="carbProgressBar">
-                                                        <div class="progressBar bar"></div>
-                                                    </div>
-                                                    <div class="range-input" id="carbSliderBar">
-                                                        <input type="range" class="range-min" min="0" max="1000"
-                                                            value="0">
-                                                        <input type="range" class="range-max" min="0" max="1000"
-                                                            value="1000">
-                                                    </div>
-                                                </div>
-
-                                                <div class="input-group mt-3" id="carbInput">
-                                                    <input id="carbMinInput" type="number" class="form-control"
-                                                        placeholder="Min" value="0" min="0" max="1000">
-                                                    <span class="input-group-text">-</span>
-                                                    <input id="carbMaxInput" type="number" class="form-control"
-                                                        placeholder="Max" value="1000" min="0" max="1000">
-                                                    <button id="submitCarb" class="btn btn-primary"
-                                                        type="button">></button>
-                                                </div>
-                                            </div>
+<%--                                            <div id="normalSearch">--%>
+<%--                                                <div id="buttonGroup" class="w-auto" role="group" aria-label="Basic radio toggle button group">--%>
+<%--                                                    <button type="button" class="btn btn-outline-primary btn-md mt-2" onclick="toggleButton(this)">Low Calories</button>--%>
+<%--                                                    <button type="button" class="btn btn-outline-primary btn-md mt-2" onclick="toggleButton(this)">Low Fat</button>--%>
+<%--                                                    <br>--%>
+<%--                                                    <button type="button" class="btn btn-outline-primary btn-sm mt-2" onclick="toggleButton(this)">High Protein</button>--%>
+<%--                                                </div>--%>
+<%--                                                <div>--%>
+<%--                                                    <button type="button" class="btn btn-primary mt-3 btn-sm" onclick="resetButtons()">Reset</button>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-lg-8 " id="personalTrainerContainer">
                                 <div class="student-personals-grp">
                                     <div class="card mb-0">
                                         <div class="card-body">
                                             <div class="table-responsive">
 
-                                                <table
-                                                    class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+                                                <table class="table star-student table-center mb-0 table-striped">
                                                     <thead class="student-thread">
                                                         <tr>
                                                             <th></th>
                                                             <th>Name</th>
-                                                            <th>Calories</th>
-                                                            <th>Protein</th>
-                                                            <th>Fat</th>
-                                                            <th>Carb</th>
+                                                            <th>Calories/100g</th>
+                                                            <th>Protein/100g</th>
+                                                            <th>Fat/100g</th>
+                                                            <th>Carb/100g</th>
                                                             <th>Author</th>
                                                         </tr>
                                                     </thead>
@@ -210,7 +222,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -266,11 +277,46 @@
 
     <script src="../../assets/js/script.js"></script>
 
+<%--    <script>--%>
+<%--        $(document).ready(function(){--%>
+<%--            // Ẩn div advancedSearch khi trang được tải--%>
+<%--            $('#advancedSearch').hide();--%>
+
+<%--            // Xử lý sự kiện khi switch được bật hoặc tắt--%>
+<%--            $('#flexSwitchCheckChecked').change(function() {--%>
+<%--                if($(this).is(":checked")) {--%>
+<%--                    // Nếu switch được bật, ẩn div normalSearch và hiện div advancedSearch với hiệu ứng slide--%>
+<%--                    $('#normalSearch').slideUp();--%>
+<%--                    $('#advancedSearch').slideDown();--%>
+<%--                } else {--%>
+<%--                    // Nếu switch được tắt, ẩn div advancedSearch và hiện div normalSearch với hiệu ứng slide--%>
+<%--                    $('#advancedSearch').slideUp();--%>
+<%--                    $('#normalSearch').slideDown();--%>
+<%--                }--%>
+<%--            });--%>
+<%--        });--%>
+<%--    </script>--%>
+
     <script>
-        var nutritionList = ${nutritionList};
+        var nutritionList = ${ nutritionList };
         console.log(nutritionList);
     </script>
+    <script>
+        function toggleButton(button) {
+            var buttons = document.querySelectorAll('#buttonGroup .btn');
+            buttons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+        }
 
+        function resetButtons() {
+            var buttons = document.querySelectorAll('#buttonGroup .btn');
+            buttons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+        }
+    </script>
     <script src="../../assets/js/nutrition/view_list/nutrition-view-list-generate.js"></script>
     <script src="../../assets/js/nutrition/view_list/nutrition-view-list-filter.js"></script>
 </body>

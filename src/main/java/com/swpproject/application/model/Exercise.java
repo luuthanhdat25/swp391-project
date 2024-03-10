@@ -1,4 +1,5 @@
 package com.swpproject.application.model;
+import com.swpproject.application.controller.dto.ExerciseDTOOut;
 import lombok.*;
 import org.springframework.data.relational.core.mapping.Table;
 import jakarta.persistence.*;
@@ -29,4 +30,34 @@ public class Exercise {
     @JoinColumn(name = "personal_trainer_id")
     private PersonalTrainer personalTrainer;
     private int isPrivate;
+
+    // List all fields for details
+    public ExerciseDTOOut getExerciseDTOOutAllInfor(){
+        ExerciseDTOOut exerciseDTOOut = new ExerciseDTOOut();
+        exerciseDTOOut.setId(getId());
+        exerciseDTOOut.setName(getName());
+        exerciseDTOOut.setType(getType());
+        exerciseDTOOut.setDescription(getDescription());
+        exerciseDTOOut.setLevel(getLevel());
+        exerciseDTOOut.setEquipment(getEquipment());
+        exerciseDTOOut.setVideoDescription(getVideoDescription());
+        exerciseDTOOut.setImageDescription(getImageDescription());
+        exerciseDTOOut.setPersonalTrainer_id(getPersonalTrainer().getId());
+        exerciseDTOOut.setPersonalTrainer_image(getPersonalTrainer().getAccount().getAvatarImage());
+        return exerciseDTOOut;
+    }
+
+    // Reduces the exercise fields for exercise list view
+    public ExerciseDTOOut getExerciseDTOOutSlim(){
+        ExerciseDTOOut exerciseDTOOut = new ExerciseDTOOut();
+        exerciseDTOOut.setId(getId());
+        exerciseDTOOut.setName(getName());
+        exerciseDTOOut.setType(getType());
+        exerciseDTOOut.setLevel(getLevel());
+        exerciseDTOOut.setEquipment(getEquipment());
+        exerciseDTOOut.setImageDescription(getImageDescription());
+        exerciseDTOOut.setPersonalTrainer_id(getPersonalTrainer().getId());
+        exerciseDTOOut.setPersonalTrainer_image(getPersonalTrainer().getAccount().getAvatarImage());
+        return exerciseDTOOut;
+    }
 }

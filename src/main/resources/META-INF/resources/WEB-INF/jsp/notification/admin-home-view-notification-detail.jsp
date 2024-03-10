@@ -1,5 +1,5 @@
 <%@ include file="../common/header.jspf" %>
-<%@ include file="../common/head.jspf" %>
+<%@ include file="../common/admin-sidebar.jspf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <head>
@@ -8,28 +8,9 @@
 
 <div class="main-wrapper">
     <div>
-        <%-- Div này là một sidebar dùng để hiển thị các button:  Manage account, manage notification ... --%>
-        <div class="sidebar" id="sidebar" style="width: 20%; background-color: #FFFFFF;">
-            <div class="sidebar-inner slimscroll">
-
-                <%--Hiển thị tiêu đề của sidebar và danh sách các manage button--%>
-                <p class="h6" style="padding-left: 9px; margin-top: 10px;">Manage</p>
-                <ul id="sidebar-menu" class="sidebar-menu" style="padding: 2px 9px 9px 9px;">
-                    <li style="margin-bottom: 4px;">
-                        <a class="input-container" style="background-color: #d9d9d9;" onclick=""> Manage
-                            notification </a>
-                    </li>
-                    <li style="margin-bottom: 4px;">
-                        <a href="manage-report" class="input-container" onclick=""> Manage report </a>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-
         <%-- Div này hiển thị report's list khi user click vào "Manage report" button --%>
         <div class="page-wrapper d-flex flex-column align-items-center"
-             style="width: 80%; float: right; background-color: #7c7c7c; padding-top: 70px;">
+             style="width: 77%; float: right; background-color: #7c7c7c; padding-top: 70px;">
 
             <div class="notification-detail d-flex justify-content-center">
                 <div class="d-flex flex-column" style="width: 94%; margin-top: 40px;">

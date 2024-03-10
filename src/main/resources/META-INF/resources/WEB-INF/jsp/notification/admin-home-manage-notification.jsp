@@ -1,5 +1,5 @@
 <%@ include file="../common/header.jspf" %>
-<%@ include file="../common/head.jspf" %>
+<%@ include file="../common/admin-sidebar.jspf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <head>
@@ -9,32 +9,8 @@
 
 <div class="main-wrapper">
     <div>
-        <%-- Div này là một sidebar dùng để hiển thị các button:  Manage account, manage notification ... --%>
-        <div class="sidebar" id="sidebar" style="width: 20%; background-color: #FFFFFF;">
-            <div class="sidebar-inner slimscroll">
-
-                <%--Hiển thị tiêu đề của sidebar và danh sách các manage button--%>
-                <p class="h6" style="padding-left: 9px; margin-top: 10px;">Manage</p>
-                <ul id="sidebar-menu" class="sidebar-menu" style="padding: 2px 9px 9px 9px;">
-                    <li style="margin-bottom: 4px;">
-                        <a class="input-container" onclick="" style="background-color: #d9d9d9;"> Manage
-                            notification </a>
-                    </li>
-                    <li style="margin-bottom: 4px;">
-                        <a href="manage-report" class="input-container" onclick=""> Manage report </a>
-                    </li>
-                    <li style="margin-bottom: 4px;">
-                        <a href="manage-personal-trainer-request" class="input-container" onclick=""> Manage personal
-                            trainer's request </a>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-
-        <%-- Div này hiển thị notification's list khi user click vào "Manage notification" button --%>
         <div class="page-wrapper d-flex flex-column align-items-center"
-             style="width: 80%; height: fit-content; float: right; padding: 70px 0 40px 0;">
+             style="width: 77%; height: fit-content; float: right; padding: 70px 0 40px 0;">
 
             <div class="notification-detail d-flex flex-column align-items-center">
                 <div class="shadow p-3 mb-5 bg-body rounded" style="width: 95%; height: fit-content; background-color: #e4e4e4;

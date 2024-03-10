@@ -298,7 +298,7 @@
                                         <th>Gymer Name</th>
                                         <th>Location</th>
                                         <th>Order Date</th>
-                                        <th>Status</th>
+<%--                                        <th>Status</th>--%>
                                         <th>Net Amount</th>
                                         <th>Order Detail</th>
                                     </tr>

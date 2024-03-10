@@ -285,6 +285,7 @@
         $('#slider1').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[0]);
         $('#slider2').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[1]);
         $('#slider3').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[2]);
+        $('#avatar').attr("src", personalTrainer.avatarImage == null ? "../../assets/img/user.jpg" : "data:image/jpeg;base64, " + personalTrainer.avatarImage);
 
         $('#sendToUpdate').click(function () {
             window.location.href = `/personal-trainer/update?id=` + personalTrainer.id;

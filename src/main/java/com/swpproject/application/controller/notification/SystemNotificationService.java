@@ -91,7 +91,7 @@ public class SystemNotificationService {
 
     public void createNotification_Welcome(@RequestParam Integer receiverID) {
         Account receiverAccount = accountRepository.findById(receiverID).get();
-        Account systemAccount = accountRepository.findById(6).get();
+//        Account systemAccount = accountRepository.findById(6).get();
         Notification paymentNotification = new Notification();
 
         String TITLE_NOTIFICATION_WELCOME = "Welcome";
@@ -100,7 +100,7 @@ public class SystemNotificationService {
         paymentNotification.setContent(content);
         paymentNotification.setTitle(TITLE_NOTIFICATION_WELCOME);
         paymentNotification.setTimeStamp(LocalDateTime.now());
-        paymentNotification.setFromAccount(systemAccount);
+//        paymentNotification.setFromAccount(systemAccount);
         paymentNotification.setToAccount(receiverAccount);
 
         notificationRepository.save(paymentNotification);
@@ -135,6 +135,7 @@ public class SystemNotificationService {
         Account gymerAccount = accountRepository.findById(gymerID).get();
         Account personalTrainerAccount = accountRepository.findById(personalTrainerID).get();
 //        Account systemAccount = accountRepository.findById(6).get();
+//        Account systemAccount = accountRepository.findById(6).get();
         Notification requestHiringNotification = new Notification();
 
         String TITLE_NOTIFICATION_NEW_REQUEST_HIRING = "New Client Training Request Notification";
@@ -143,7 +144,7 @@ public class SystemNotificationService {
         requestHiringNotification.setContent(content);
         requestHiringNotification.setTitle(TITLE_NOTIFICATION_NEW_REQUEST_HIRING);
         requestHiringNotification.setTimeStamp(LocalDateTime.now());
-        requestHiringNotification.setFromAccount(personalTrainerAccount);
+//        requestHiringNotification.setFromAccount(systemAccount);
         requestHiringNotification.setToAccount(personalTrainerAccount);
 
         notificationRepository.save(requestHiringNotification);
@@ -203,6 +204,7 @@ public class SystemNotificationService {
         Account gymerAccount = accountRepository.findById(gymerID).get();
         Account personalTrainerAccount = accountRepository.findById(personalTrainerID).get();
 //        Account systemAccount = accountRepository.findById(6).get();
+//        Account systemAccount = accountRepository.findById(6).get();
 
         OrderRequest orderRequest = orderRequestRepository.findById(orderID).get();
         Notification paymentSuccessToGymer = new Notification();
@@ -213,8 +215,7 @@ public class SystemNotificationService {
         paymentSuccessToGymer.setContent(content);
         paymentSuccessToGymer.setTitle(TITLE_NOTIFICATION_PAYMENT_SUCCESS);
         paymentSuccessToGymer.setTimeStamp(LocalDateTime.now());
-        paymentSuccessToGymer.setFromAccount(gymerAccount
-        );
+//        paymentSuccessToGymer.setFromAccount(systemAccount);
         paymentSuccessToGymer.setToAccount(gymerAccount);
 
         notificationRepository.save(paymentSuccessToGymer);

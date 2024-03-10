@@ -44,17 +44,4 @@ public class PersonalTrainer {
     @JoinColumn(name = "account_id",referencedColumnName = "id")
     private Account account;
 
-
-    @Override
-    public String toString() {
-        return "PersonalTrainer{" +
-                "id=" + id +
-                ", bankName='" + bankName + '\'' +
-                ", bankNumber='" + bankNumber + '\'' +
-                ", description='" + description + '\'' +
-                ", isActive=" + isActive +
-                ", price=" + price +
-                ", account=" + account +
-                '}';
-    }
 }

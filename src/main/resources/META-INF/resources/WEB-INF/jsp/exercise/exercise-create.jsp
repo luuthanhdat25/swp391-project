@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@include file="common/header.jspf" %>
-<%@include file="common/head.jspf" %>
-<%@include file="common/sidebar.jspf" %>
+<%@include file="../common/header.jspf" %>
+<%@include file="../common/head.jspf" %>
+<%@include file="../common/sidebar.jspf" %>
 
 <body>
     <div class="main-wrapper">
@@ -31,13 +31,13 @@
                                             <form id="exerciseForm" action="/exercise/create" method="post" enctype="multipart/form-data">
                                                 <div class="row mt-3">
                                                     <div class="w-50 col-md-6">
-                                                        <div>Exercise Name</div>
+                                                        <div>Exercise Name<span style="color: red">*</span></div>
                                                         <input id="exerciseName" type="text" name="exerciseName" class="form-control mt-2" required  placeholder="Exercise Name" />
                                                         <p id="exerciseNameError" class="text-danger mt-2"></p>
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <div class="mb-2 mt-2">Level</div>
+                                                        <div class="mb-2 mt-2">Level<span style="color: red">*</span></div>
 
                                                         <div class="form-check form-check-inline mt-1">
                                                             <input class="form-check-input" type="radio" name="levelRadio" id="beginnerRadio" value="Beginner" <c:if test="${exercise.level eq 'Beginner'}">checked</c:if>>
@@ -60,7 +60,7 @@
                                                 <div class="row mt-3">
                                                     <div class="col-md-6">
                                                         <div>
-                                                            <div class="mb-2">Affected Muscle</div>
+                                                            <div class="mb-2">Affected Muscle<span style="color: red">*</span></div>
                                                             <select class="form-select" aria-label="Default select example" name="muscle">
                                                                 <option selected value="None">None</option>
                                                                 <option value="Chest">Chest</option>
@@ -103,7 +103,7 @@
                                                 </div>
 
                                                 <div class="mt-3">
-                                                    <div class="mb-2">Image description</div>
+                                                    <div class="mb-2">Image description<span style="color: red">*</span></div>
                                                     <p id="imageError" class="text-danger mt-3"></p>
                                                     <button type="button" id="chooseImageButton" class="btn btn-warning">Choose Image</button>
                                                     <br>
@@ -115,6 +115,7 @@
 
 
                                                 <div class="mt-4">
+                                                    <div class="mb-2">Video description<span style="color: red">*</span></div>
                                                     <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control w-50" name="youtubeLink" required>
                                                     <p id="youtubeLinkError" class="text-danger mt-3"></p>
                                                     <button type="button" id="changeVideoBtn" class="btn btn-warning mt-1">Add Video</button>
@@ -124,7 +125,8 @@
                                                     <div id="player"></div>
                                                 </div>
 
-                                                <div class="hello-park mt-3">
+                                                <div class="hello-park mt-4">
+                                                    <div class="mb-2">Exercise description<span style="color: red">*</span></div>
                                                     <textarea required class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description" name="exerciseDescription" wrap="soft"></textarea>
                                                     <p id="exerciseDescriptionError" class="text-danger mt-3"></p>
                                                 </div>
@@ -162,19 +164,19 @@
     </div>
 
 
-    <script src="../../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../../../assets/js/jquery-3.6.0.min.js"></script>
 
-    <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../../assets/js/feather.min.js"></script>
+    <script src="../../../assets/js/feather.min.js"></script>
 
-    <script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <script src="../../assets/js/script.js"></script>
+    <script src="../../../assets/js/script.js"></script>
 
-    <script src="../../assets/js/exercise/create/exercise-create-image-import.js"></script>
-    <script src="../../assets/js/exercise/create/exercise-create-youtube-extract.js"></script>
-    <script src="../../assets/js/exercise/create/exercise-create-submit-handler.js"></script>
+    <script src="../../../assets/js/exercise/create/exercise-create-image-import.js"></script>
+    <script src="../../../assets/js/exercise/create/exercise-create-youtube-extract.js"></script>
+    <script src="../../../assets/js/exercise/create/exercise-create-submit-handler.js"></script>
 </body>
 
 </html>

@@ -41,20 +41,22 @@
     </div>
     <div>
         <%-- Div này là một sidebar dùng để hiển thị các button:  Manage account, manage notification ... --%>
-        <div class="sidebar" id="sidebar" style="width: 20%; background-color: #adb5bd;">
+        <div class="sidebar" id="sidebar" style="width: 20%; background-color: #FFFFFF;">
             <div class="sidebar-inner slimscroll">
 
                 <%--Hiển thị tiêu đề của sidebar và danh sách các manage button--%>
                 <p class="h6" style="padding-left: 9px; margin-top: 10px;">Manage</p>
                 <ul id="sidebar-menu" class="sidebar-menu" style="padding: 2px 9px 9px 9px;">
                     <li style="margin-bottom: 4px;">
-                        <a href="manage-notification" class="input-container" onclick=""> Manage notification </a>
+                        <a  href="manage-notification" class="input-container" onclick=""> Manage
+                            notification </a>
                     </li>
                     <li style="margin-bottom: 4px;">
                         <a class="input-container" onclick="" style="background-color: #d9d9d9;"> Manage report </a>
                     </li>
                     <li style="margin-bottom: 4px;">
-                        <a class="input-container" onclick=""> Manage request </a>
+                        <a href="manage-personal-trainer-request" class="input-container" onclick=""> Manage personal
+                            trainer's request </a>
                     </li>
                 </ul>
 
@@ -99,6 +101,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Reason</th>
+                                <th scope="col">Reporter</th>
                                 <th scope="col">TimeStamp</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -108,14 +111,27 @@
                                 <tr class="shadow p-3 mb-5 bg-body rounded" style="height: 30px;">
                                     <th scope="row">${ReportLists.content.indexOf(report) + IndexStarting}</th>
                                     <td>
-                                        <div class="text-truncate" style="width: 430px;">${report.reason}</div>
+                                        <div class="d-flex" style="text-align: left;">
+                                            <img class="rounded-circle"
+                                                 style="width: 30px; height: 30px; margin-right: 5px;"
+                                                 src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"/>
+                                            <div class="text-truncate" style="width: 430px;">${report.reason}</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <img class="rounded-circle"
+                                                 style="width: 30px; height: 30px; margin-right: 5px;"
+                                                 src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"/>
+                                        </div>
                                     </td>
                                     <td>
                                             ${report.timeStamp.getHour()}:${report.timeStamp.getMinute()}
                                             ${report.timeStamp.getDayOfMonth()}/${report.timeStamp.getMonthValue()}/${report.timeStamp.getYear()}
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-between" style="width: 210px; height: fit-content;">
+                                        <div class="d-flex justify-content-between"
+                                             style="width: 210px; height: fit-content;">
                                             <form action="view-report-detail" method="get" style="margin-bottom: 0;">
                                                 <input type="hidden" name="reportID" value=${report.id}>
                                                 <button type="submit" class="btn btn-info"

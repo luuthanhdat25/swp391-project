@@ -3,13 +3,14 @@ function renderNutritionList(nutritionList) {
     var defaultIconUrl = 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg';
     var html = '';
     $.each(nutritionList, function (index, nutrition) {
+        var displayName = nutrition.name.length > 12 ? nutrition.name.substring(0, 12) + '...' : nutrition.name;
         var row = '<tr>' +
             '<td>' + (index + 1) + '</td>' +
-            '<td>' +
+            '<td class="text-start">' +
             '<h2 class="table-avatar">' +
             '<a href="#" class="me-2 nutrition-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + nutrition.name + '" data-calo="' + nutrition.caloIn + '" data-protein="' + nutrition.protein + '" data-fat="' + nutrition.fat + '" data-carb="' + nutrition.carb + '" data-image="' + (nutrition.imageDescription || defaultIconUrl) + '" data-id="' + nutrition.nutritionId + '">' +
             '<img class=" rounded-image" src="data:image/jpeg;base64,' + (nutrition.imageDescription || defaultIconUrl) + '" alt="User Image">' +
-            '<p class="m-0 ms-2">' + nutrition.name + '</p>' +
+            '<p class="m-0 ms-2">' + displayName + '</p>' +
             '</a>' +
             '</h2>' +
             '</td>' +
@@ -82,12 +83,13 @@ $(document).ready(function () {
         var image = $(this).data('image');
         var id = $(this).data('id');
 
+        var gam = '/100g';
         modal.find('.modal-title').text(name);
         modal.find('#modal-image').attr('src', 'data:image/jpeg;base64,' + image);
-        modal.find('#modal-calo').text('Calories: ' + calo);
-        modal.find('#modal-protein').text('Protein: ' + protein);
-        modal.find('#modal-fat').text('Fat: ' + fat);
-        modal.find('#modal-carb').text('Carbohydrates: ' + carb);
+        modal.find('#modal-calo').text('Calories: ' + calo + gam);
+        modal.find('#modal-protein').text('Protein: ' + protein + gam);
+        modal.find('#modal-fat').text('Fat: ' + fat + gam);
+        modal.find('#modal-carb').text('Carbohydrates: ' + carb + gam);
         $('#editButton').attr('href', '/nutrition/details/edit?id=' + id);
         $('#exampleModal').modal('show');
     });

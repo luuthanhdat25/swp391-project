@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercise, Long> {
-    public List<SlotExercise> getSlotExcerciseBySchedule_IdAndWeekAndYear(Integer ScheduleId, int week, int year);
+    public List<SlotExercise> getSlotExcerciseByPersonalTrainer_IdAndIsPending(Integer PersonalTrainerId, boolean pending);
 
     public List<SlotExercise> findAllBySchedule_IdAndGymer_GymerIdAndIsPending(
             Integer schedulePersonalTrainerId,
@@ -51,4 +51,9 @@ public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercis
                                                                                                                 Integer week,Integer year,boolean isPending);
     @Transactional
     public void deleteAllByOrderRequest_OrderId(Integer orderID);
+
+    public List<SlotExercise> findByWeekAndAndYear(int week,int year);
+
+
+
 }

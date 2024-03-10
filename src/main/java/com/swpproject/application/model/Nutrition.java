@@ -1,9 +1,8 @@
 package com.swpproject.application.model;
+import com.swpproject.application.controller.dto.NutritionDTOOut;
 import lombok.*;
 import org.springframework.data.relational.core.mapping.Table;
 import jakarta.persistence.*;
-
-import java.util.Arrays;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,21 +34,6 @@ public class Nutrition {
     @JoinColumn(name = "personal_trainer_id")
     private PersonalTrainer personalTrainer;
 
-    @Override
-    public String toString() {
-        boolean isImageNull = imageDescription == null;
-        return "Nutrition{" +
-                "nutritionId=" + nutritionId +
-                ", name='" + name + '\'' +
-                ", protein=" + protein +
-                ", fat=" + fat +
-                ", carb=" + carb +
-                ", caloIn=" + caloIn +
-                ", imageDescription= is null " + isImageNull +
-                ", isPrivate=" + isPrivate +
-                ", personalTrainerId=" + personalTrainer.getId() +
-                '}';
-    }
 
     public NutritionDTOOut getNutritionDTOOut(){
         NutritionDTOOut nutritionDTOOut = new NutritionDTOOut();

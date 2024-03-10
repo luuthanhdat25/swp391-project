@@ -2,49 +2,7 @@
 <%@include file="common/head.jspf" %>
 <%@include file="common/sidebar.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%--    --%>
-<%--    <style>--%>
-<%--        .bar{--%>
-<%--            height: 10px;--%>
-<%--            border-radius: 5px;--%>
-<%--            position: relative;--%>
-<%--        }--%>
 
-<%--        .sliderBar{--%>
-<%--            background: #ddd;--%>
-<%--            position: relative;--%>
-<%--        }--%>
-
-<%--        .sliderBar .progressBar{--%>
-<%--            background-color: #0d6efd;--%>
-<%--            left: 0%;--%>
-<%--            right: 0%;--%>
-<%--            position: absolute;--%>
-<%--        }--%>
-
-<%--        .range-input{--%>
-<%--            position: relative;--%>
-<%--        }--%>
-
-<%--        .range-input input{--%>
-<%--            top: -10px;--%>
-<%--            height: 10px;--%>
-<%--            width: 100%;--%>
-<%--            background: none;--%>
-<%--            -webkit-appearance: none;--%>
-<%--            pointer-events: none;--%>
-<%--            position: absolute;--%>
-<%--        }--%>
-
-<%--        input[type="range"]::-webkit-slider-thumb{--%>
-<%--            height: 20px;--%>
-<%--            width: 20px;--%>
-<%--            border-radius: 50%;--%>
-<%--            pointer-events: auto;--%>
-<%--            -webkit-appearance: none;--%>
-<%--            background-color: #0d6efd;--%>
-<%--        }--%>
-<%--    </style>--%>
 <body>
     <div class="main-wrapper">
          <div class="page-wrapper">
@@ -102,28 +60,29 @@
                                                 </div>
                                             </div>
 
-                                            <div class="mb-3 w-100">
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="d-flex">
-                                                        <i class="feather-map-pin text-primary"></i>
-                                                        <h6 class="px-2">Distance</h6>
-                                                    </div>
-                                                    <h6 class="font-weight-light" id="distance-preview">Within 100km</h6>
-                                                </div>
-                                                <div class="mt-3">
-                                                    <div class="sliderBar bar" id="distanceProgressBar">
-                                                        <div class="progressBar bar"></div>
-                                                    </div>
-                                                    <div class="range-input" id="distanceSliderBar">
-                                                        <input type="range" class="range-max" min="0" max="100" value="100">
-                                                    </div>
-                                                </div>
+<%--                                            <div class="mb-3 w-100">--%>
+<%--                                                <div class="d-flex justify-content-between">--%>
+<%--                                                    <div class="d-flex">--%>
+<%--                                                        <i class="feather-map-pin text-primary"></i>--%>
+<%--                                                        <h6 class="px-2">Distance</h6>--%>
+<%--                                                    </div>--%>
+<%--                                                    <h6 class="font-weight-light" id="distance-preview">Within 100km</h6>--%>
+<%--                                                </div>--%>
+<%--                                                <div class="mt-3">--%>
+<%--                                                    <div class="sliderBar bar" id="distanceProgressBar">--%>
+<%--                                                        <div class="progressBar bar"></div>--%>
+<%--                                                    </div>--%>
+<%--                                                    <div class="range-input" id="distanceSliderBar">--%>
+<%--                                                        <input type="range" class="range-max" min="0" max="100" value="100">--%>
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
 
-                                                <div class="input-group mt-3" id="distanceInput">
-                                                    <input type="number" class="form-control" id="distanceMaxInput" placeholder="Within" value="100">
-                                                    <button id="submitDistance" class="btn btn-primary" type="button">></button>
-                                                </div>
-                                            </div>
+<%--                                                <div class="input-group mt-3" id="distanceInput">--%>
+<%--                                                    <input type="number" class="form-control" id="distanceMaxInput" placeholder="Within" value="100">--%>
+<%--                                                    <button id="submitDistance" class="btn btn-primary" type="button">></button>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
+
                                             <div class="personal-activity">
                                                 <div class="mb-3 w-100">
                                                     <label for="genderSelect" class="form-label">Gender</label>
@@ -164,8 +123,11 @@
 
 
     <script>
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
         function generatePersonalTrainers(personalTrainerList) {
-            const container = $('<div class="student-personals-grp"></div>');
+            const container = $('<div class="student-personals-grp mb-3"></div>');
 
             personalTrainerList.forEach(personalTrainer => {
                 const card = $('<div class="card mb-0"></div>');
@@ -200,7 +162,7 @@
                 const rightColumn = $('<div class="col"></div>');
                 const priceText = $('<div></div>');
                 const priceHeading = $('<h6 class="text-muted">Price</h6>');
-                const price = $('<h5></h5>').text(personalTrainer.price + 'đ');
+                const price = $('<h5></h5>').text(formatPrice(personalTrainer.price) + 'đ');
                 priceText.append(priceHeading, price);
                 const viewProfileButton = $('<button class="btn btn-primary font-weight-bold" type="button" style="font-size: 95%">View Profile</button>');
                 rightColumn.append(priceText, viewProfileButton);

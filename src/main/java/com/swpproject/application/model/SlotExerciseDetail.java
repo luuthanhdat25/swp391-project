@@ -23,8 +23,9 @@ public class SlotExerciseDetail {
     @JoinColumn(name = "exercise_id", nullable = true)
     private Exercise exercise;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "slot_exercise_id", nullable = true)
     private SlotExercise slotExercise;
+
 
 }

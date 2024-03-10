@@ -1,7 +1,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@include file="common/header.jspf" %>
-<%@include file="common/head.jspf" %>
-<%@include file="common/sidebar.jspf" %>
+<%@include file="../common/header.jspf" %>
+<%@include file="../common/head.jspf" %>
+<%@include file="../common/sidebar.jspf" %>
 <html>
 <body>
     <div class="main-wrapper">
@@ -82,7 +82,7 @@
 
 
 
-    <script src="../../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../../../assets/js/jquery-3.6.0.min.js"></script>
     <script>
         var exercise = ${exercise};
 
@@ -163,12 +163,12 @@
         });
     </script>
 
-    <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../../assets/js/feather.min.js"></script>
+    <script src="../../../assets/js/feather.min.js"></script>
 
-    <script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="../../assets/js/script.js"></script>
+    <script src="../../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../../../assets/js/script.js"></script>
 </body>
 
 </html>

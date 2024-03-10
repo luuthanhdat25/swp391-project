@@ -1,16 +1,44 @@
 package com.swpproject.application.repository;
 
-import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Exercise;
-import com.swpproject.application.model.RoleDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Repository
-public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {}
+public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {
+
+    @Query("SELECT e FROM Exercise e WHERE e.isPrivate = 0")
+    List<Exercise> findAllNonPrivate();
+
+    @Query("SELECT e FROM Exercise e WHERE e.isPrivate = 0 AND e.id = :exerciseId ")
+    Optional<Exercise> findNonPrivateById(Integer exerciseId);
+
+
+    @Query("SELECT DISTINCT e FROM Exercise e " +
+            "LEFT JOIN e.personalTrainer pt " +
+            "LEFT JOIN Orders o ON pt.id = o.personalTrainer.id AND o.status = 'OnGoing' " +
+            "LEFT JOIN o.gymer g " +
+            "WHERE e.isPrivate = 0 OR g.gymerId = :gymerId")
+    List<Exercise> findAllNonPrivateOrPrivateForOrdersOnGoing(Integer gymerId);
+
+    @Query("SELECT DISTINCT e FROM Exercise e " +
+            "LEFT JOIN e.personalTrainer pt " +
+            "LEFT JOIN Orders o ON pt.id = o.personalTrainer.id AND o.status = 'OnGoing' " +
+            "LEFT JOIN o.gymer g " +
+            "WHERE (e.isPrivate = 0 OR g.gymerId = :gymerId) AND e.id = :exerciseId")
+    Optional<Exercise> findNonPrivateOrPrivateForOrdersOnGoingById(Integer gymerId, Integer exerciseId);
+
+
+    @Query("SELECT e FROM Exercise e " +
+            "WHERE e.isPrivate = 0 OR e.personalTrainer.id = :personalTrainerId")
+    List<Exercise> findAllNonPrivateOrByPersonalTrainerId(Integer personalTrainerId);
+
+    @Query("SELECT e FROM Exercise e " +
+            "WHERE (e.isPrivate = 0 OR e.personalTrainer.id = :personalTrainerId) AND e.id = :exerciseId")
+    Optional<Exercise> findNonPrivateOrByPersonalTrainerId(Integer personalTrainerId, Integer exerciseId);
+}
 

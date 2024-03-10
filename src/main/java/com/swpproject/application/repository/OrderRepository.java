@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Orders, Integer> {
-    List<Orders> findAllByGymer(Gymer gymer);
+    List<Orders> findAllByGymer_GymerId(Integer gymerId);
 }

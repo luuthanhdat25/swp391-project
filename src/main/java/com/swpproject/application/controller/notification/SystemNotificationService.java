@@ -135,6 +135,7 @@ public class SystemNotificationService {
         Account gymerAccount = accountRepository.findById(gymerID).get();
         Account personalTrainerAccount = accountRepository.findById(personalTrainerID).get();
 //        Account systemAccount = accountRepository.findById(6).get();
+//        Account systemAccount = accountRepository.findById(6).get();
         Notification requestHiringNotification = new Notification();
 
         String TITLE_NOTIFICATION_NEW_REQUEST_HIRING = "New Client Training Request Notification";
@@ -202,6 +203,7 @@ public class SystemNotificationService {
     public void createNotification_PaymentSuccess(Integer gymerID, Integer personalTrainerID, Integer orderID) {
         Account gymerAccount = accountRepository.findById(gymerID).get();
         Account personalTrainerAccount = accountRepository.findById(personalTrainerID).get();
+//        Account systemAccount = accountRepository.findById(6).get();
 //        Account systemAccount = accountRepository.findById(6).get();
 
         OrderRequest orderRequest = orderRequestRepository.findById(orderID).get();

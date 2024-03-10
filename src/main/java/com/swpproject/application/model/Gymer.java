@@ -1,4 +1,5 @@
 package com.swpproject.application.model;
+import com.swpproject.application.enums.Goal;
 import lombok.*;
 import org.springframework.data.relational.core.mapping.Table;
 import jakarta.persistence.*;
@@ -12,6 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Setter
 @Data
 @Entity
+@Builder(toBuilder = true)
 @Table(name = "gymer")
 public class Gymer {
     @Id
@@ -25,8 +27,11 @@ public class Gymer {
     @Column(name = "height")
     private Float height;
 
-    @Column(name = "goal", columnDefinition = "NVARCHAR(MAX)")
-    private String goal;
+    @Column(name = "goal", columnDefinition = "VARCHAR(20)")
+    private Goal goal;
+
+    @Column(name = "[desc]", columnDefinition = "NVARCHAR(MAX)")
+    private String description;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", referencedColumnName = "id")

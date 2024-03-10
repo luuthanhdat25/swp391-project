@@ -16,7 +16,6 @@ public class PasswordUtils {
             byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
             return bytesToHex(hash);
         } catch (NoSuchAlgorithmException e) {
-            // Handle exception (e.g., log it)
             throw new RuntimeException("Error hashing password", e);
         }
     }

@@ -1,9 +1,9 @@
 package com.swpproject.application.controller.nutrition;
 
 import com.swpproject.application.model.Nutrition;
-import com.swpproject.application.model.NutritionDTOIn;
-import com.swpproject.application.model.NutritionDTOOut;
-import com.swpproject.application.service.impl.NutritionServiceIml;
+import com.swpproject.application.controller.dto.NutritionDTOIn;
+import com.swpproject.application.controller.dto.NutritionDTOOut;
+import com.swpproject.application.service.NutritionService;
 import com.swpproject.application.utils.JsonUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -24,11 +24,11 @@ import java.util.List;
 public class NutritionController {
 
     @Autowired
-    private NutritionServiceIml nutritionServiceIml;
+    private NutritionService nutritionService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseListPage(ModelMap model) {
-        List<NutritionDTOOut> nutritionDTOOutList = nutritionServiceIml.getNutritionDTOOutList();
+        List<NutritionDTOOut> nutritionDTOOutList = nutritionService.getNutritionDTOOutList();
         String nutritionDTOOutListJson = JsonUtils.jsonConvert(nutritionDTOOutList);
         model.addAttribute("nutritionList", nutritionDTOOutListJson);
         return "nutrition-list";
@@ -42,7 +42,7 @@ public class NutritionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
     public String createExercise(@ModelAttribute NutritionDTOIn nutritionDTOIn, Model model) throws IOException {
-        nutritionServiceIml.create(nutritionDTOIn);
+        nutritionService.create(nutritionDTOIn);
         return "redirect:/nutrition/";
     }
 
@@ -52,7 +52,7 @@ public class NutritionController {
         HttpSession session = request.getSession();
         session.setAttribute("nutritionId", id);
 
-        Nutrition nutrition = nutritionServiceIml.findNutritionById(id).get();
+        Nutrition nutrition = nutritionService.findNutritionById(id).get();
         NutritionDTOOut nutritionDTOOut = nutrition.getNutritionDTOOut();
 
         String json = JsonUtils.jsonConvert(nutritionDTOOut);
@@ -67,7 +67,7 @@ public class NutritionController {
         Integer id = (Integer) session.getAttribute("nutritionId");
 
         if (id != null) {
-            nutritionServiceIml.update(nutritionDTOIn, id);
+            nutritionService.update(nutritionDTOIn, id);
             session.removeAttribute("exerciseId");
             return "redirect:/nutrition/";
         } else {

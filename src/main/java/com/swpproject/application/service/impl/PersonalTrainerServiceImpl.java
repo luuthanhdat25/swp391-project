@@ -6,10 +6,21 @@ import com.swpproject.application.service.PersonalTrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PersonalTrainerServiceImpl implements PersonalTrainerService {
+    @Override
+    public  Optional<PersonalTrainer> findPersonalTrainerByID(Integer personalTrainerID) {
+        return personalTrainerRepository.findById(personalTrainerID);
+    }
+
+    @Override
+    public Optional<PersonalTrainer> findByID(Integer id) {
+        return personalTrainerRepository.findById(id);
+    }
+
     @Autowired
     private PersonalTrainerRepository personalTrainerRepository;
 
@@ -25,5 +36,10 @@ public class PersonalTrainerServiceImpl implements PersonalTrainerService {
     public PersonalTrainer findPersonalTrainerByEmail(String email) {
 
         return personalTrainerRepository.findPersonalTrainerByAccount_Email(email).get();
+    }
+
+    @Override
+    public List<PersonalTrainer> getAll() {
+        return personalTrainerRepository.findAll();
     }
 }

@@ -1,5 +1,12 @@
 <%@ include file="../common/header.jspf" %>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <body>
+<style>
+    .selected-goal {
+        color: #FFFFFF;
+        background-color: #18aefa; /* Change this to your desired background color */
+    }
+</style>
 <div class="main-wrapper login-body">
     <div class="login-wrapper">
         <div class="container">
@@ -53,6 +60,7 @@
                                                         <option value="${gender}" <c:if test="${account.gender eq gender}">selected</c:if>>${gender.desc}</option>
                                                     </c:forEach>
                                                 </select>
+                                                <input type="hidden" id="selectedGoal" name="selectedGoal" value="" />
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
@@ -82,10 +90,35 @@
                                         </c:if>
                                         <div class="col-12">
                                             <div class="login-submit">
-                                                <button type="submit" class="btn btn-primary">Sign Up</button>
+                                                <button type="submit" class="btn btn-primary" id="submitForm">Sign Up</button>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="modal" id="goalModal" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Select Goal</h5>
+                                                    <button style="border: none; background-color: #ffffff; cursor: pointer" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <c:forEach var="goal" items="${goals}">
+                                                        <button type="button" name="goal" class="btn btn-outline-primary goal-btn" data-goal="${goal}">${goal.label}</button>
+                                                    </c:forEach>
+                                                </div>
+                                                <div class="text-danger m-lg-3" id="warning-txt" hidden="hidden">
+                                                    Please select a goal before submitting.
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" id="saveGoal">Save</button>
+                                                    <button type="button" class="btn btn-secondary" id="closebtn" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </head>
                                 </form:form>
                             </div>
                     </div>
@@ -95,4 +128,56 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('select[name="role"]').change(function () {
+            var selectedRole = $(this).val();
+            if (selectedRole === 'GYMER') {
+                $('#goalModal').modal('show');
+            }
+        });
+
+        $('#submitForm').click(function (event) {
+            var selectedRole = $('select[name="role"]').val();
+            if(selectedRole === 'GYMER') {
+                if ($('.selected-goal').length === 0) {
+                    $('#goalModal').modal('show');
+                    $('#warning-txt').removeAttr('hidden')
+                    event.preventDefault();
+                } else {
+                    var selectedGoal = $('.selected-goal').data('goal');
+                    console.log('Selected Goal:', selectedGoal);
+                    $('#goalModal').modal('hide');
+                }
+            }
+        });
+
+        $('.goal-btn').click(function () {
+            $('.goal-btn').removeClass('selected-goal');
+            var selectedGoal = $(this).data('goal');
+            $(this).addClass('selected-goal');
+        });
+
+        $('#saveGoal').click(function () {
+            var selectedGoal = $('.selected-goal').data('goal');
+            $('#selectedGoal').val(selectedGoal);
+            $('#goalModal').modal('hide');
+        });
+
+        $('.close').click(function () {
+            var selectedGoal = $('.selected-goal').data('goal');
+            $('#selectedGoal').val(selectedGoal);
+            $('#goalModal').modal('hide');
+        });
+
+        $('#closebtn').click(function () {
+            var selectedGoal = $('.selected-goal').data('goal');
+            console.log('Selected Goal:', selectedGoal);
+            $('#selectedGoal').val(selectedGoal);
+            $('#goalModal').modal('hide');
+        });
+    });
+</script>
+
+
 <%@ include file="../common/script.jspf" %>

@@ -44,10 +44,12 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 d-flex align-items-center">
                                         <div class="follow-btn-group">
-                                            <button type="submit" class="btn btn-info message-btns">Book</button>
+                                            <a class="btn btn-info message-btnsz" href="/bookPT1?PersonalTrainerID=${param.id}">Book</a>
+
                                             <button type="submit" class="btn btn-info message-btns">Inbox</button>
                                             <button type="submit" class="btn btn-info message-btns"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal">Report</button>
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal">Report
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -59,12 +61,12 @@
                             <div class="student-personals-grp">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div style="display: flex;align-items: center;justify-content: space-between;" class="heading-detail">
+                                        <div style="display: flex;align-items: center;justify-content: space-between;"
+                                             class="heading-detail">
                                             <h4>Personal Details</h4>
-                                            <c:if test="${account.getId() ne id}">
-                                                <a class="edit-link" style="margin-bottom: auto; cursor: pointer" data-bs-toggle="modal" id="sendToUpdate"><i class="far fa-edit me-1"></i>Edit</a>
-                                            </c:if>
-
+                                            <a class="edit-link" style="margin-bottom: auto; cursor: pointer"
+                                               data-bs-toggle="modal" id="sendToUpdate"><i
+                                                    class="far fa-edit me-1"></i>Edit</a>
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
@@ -177,9 +179,11 @@
                         <div class="col-lg-12">
                             <div class="card blog-comments">
                                 <div class="card-header">
-                                    <c:if test="${account.getId() ne id}">
-                                        <h4 class="card-title" style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">Feedback <button type="submit" class="btn btn-info">Evaluate</button></h4>
-                                    </c:if>
+                                    <h4 class="card-title"
+                                        style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">
+                                        Feedback
+                                        <button type="submit" class="btn btn-info">Evaluate</button>
+                                    </h4>
                                 </div>
                                 <div class="card-body pb-0">
                                     <ul class="comments-list">
@@ -196,15 +200,15 @@
                                                                 class="feather-clock me-1"></i>Feb
                                                                     6, 2024</span></h5>
                                                         <div class="rate">
-                                                            <input type="radio" id="star5" name="rate" value="5" />
+                                                            <input type="radio" id="star5" name="rate" value="5"/>
                                                             <label for="star5" title="text">5 stars</label>
-                                                            <input type="radio" id="star4" name="rate" value="4" />
+                                                            <input type="radio" id="star4" name="rate" value="4"/>
                                                             <label for="star4" title="text">4 stars</label>
-                                                            <input type="radio" id="star3" name="rate" value="3" />
+                                                            <input type="radio" id="star3" name="rate" value="3"/>
                                                             <label for="star3" title="text">3 stars</label>
-                                                            <input type="radio" id="star2" name="rate" value="2" />
+                                                            <input type="radio" id="star2" name="rate" value="2"/>
                                                             <label for="star2" title="text">2 stars</label>
-                                                            <input type="radio" id="star1" name="rate" value="1" />
+                                                            <input type="radio" id="star1" name="rate" value="1"/>
                                                             <label for="star1" title="text">1 star</label>
                                                         </div>
                                                     </div>
@@ -229,13 +233,14 @@
     </div>
     <img src="">
 
-     <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-         <div class="modal-dialog modal-lg modal-dialog-centered" style = "width: 630px;">
-             <div class="modal-content">
-                 <%@include file = "../../WEB-INF/jsp/report/AddReport.jsp" %>
-             </div>
-         </div>
-     </div>
+    <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" style="width: 630px;">
+            <div class="modal-content">
+                <%@include file="../../WEB-INF/jsp/report/AddReport.jsp" %>
+            </div>
+        </div>
+    </div>
 </div>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script src="../../assets/js/jquery-3.6.0.min.js"></script>
@@ -252,11 +257,12 @@
 <script>
     var personalTrainer = ${personaltrainer};
     console.log(personalTrainer)
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('#personalTrainerBook').attr('href', '/personal-trainer/book?id=' + personalTrainer.id);
-        $('#personalTrainerPrice').html(personalTrainer.price + ' VND')
+        $('#personalTrainerPrice').html(personalTrainer.price + ' VND / SLOT')
         $('.personalTrainerName').html(personalTrainer.fullName ? personalTrainer.fullName : '<span class="empty-text">[Empty]</span>');
         $('#personalTrainerPhone').html(personalTrainer.phone ? personalTrainer.phone : '<span class="empty-text">[Empty]</span>');
+        $('#avatar').attr("src", personalTrainer.avatarImage == null ? "../../assets/img/user.jpg" : "data:image/jpeg;base64, " + personalTrainer.avatarImage)
         var birthday = personalTrainer.birthday;
 
         if (birthday) {
@@ -281,10 +287,12 @@
         $('#slider3').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[2]);
         $('#avatar').attr("src", personalTrainer.avatarImage == null ? "../../assets/img/user.jpg" : "data:image/jpeg;base64, " + personalTrainer.avatarImage);
 
-        $('#sendToUpdate').click(function() {
+        $('#sendToUpdate').click(function () {
             window.location.href = `/personal-trainer/update?id=` + personalTrainer.id;
         });
     })
+
+
 </script>
 </body>
 </html>

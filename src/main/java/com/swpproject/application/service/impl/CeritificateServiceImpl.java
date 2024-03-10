@@ -32,4 +32,9 @@ public class CeritificateServiceImpl implements CertificateService {
                                     .map(Certificate::getImage)
                                     .toList();
     }
+
+    @Override
+    public List<Certificate> getCertificates() {
+        return certificateRepository.findAll();
+    }
 }

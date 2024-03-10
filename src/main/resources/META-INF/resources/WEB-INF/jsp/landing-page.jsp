@@ -2,7 +2,6 @@
 <%@ include file="common/sidebar.jspf" %>
 <%@ include file="common/head.jspf" %>
 <body>
-
 <div class="main-wrapper">
     <div class="page-wrapper">
         <div class="card">
@@ -203,20 +202,9 @@
 </div>
 <script>
     $(document).ready(function(){
-        // Add a function to handle the carousel slide event
         $('#carouselExampleFade').on('slide.bs.carousel', function () {
-            // Move the hero-text to the center of the active slide
             $('.carousel-item.active .hero-text').css('transform', 'translate(-50%, -50%)');
         });
     });
 </script>
-<script src="assets/js/jquery-3.6.0.min.js"></script>
-<script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/feather.min.js"></script>
-<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="assets/plugins/apexchart/apexcharts.min.js"></script>
-<script src="assets/plugins/apexchart/chart-data.js"></script>
-<script src="assets/js/script.js"></script>
-</body>
-
-</html>
+<%@include file="common/script.jspf"%>

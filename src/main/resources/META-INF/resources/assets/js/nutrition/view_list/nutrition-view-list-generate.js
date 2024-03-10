@@ -5,7 +5,7 @@ function renderNutritionList(nutritionList) {
     $.each(nutritionList, function (index, nutrition) {
         var row = '<tr>' +
             '<td>' + (index + 1) + '</td>' +
-            '<td>' +
+            '<td class="text-start">' +
             '<h2 class="table-avatar">' +
             '<a href="#" class="me-2 nutrition-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + nutrition.name + '" data-calo="' + nutrition.caloIn + '" data-protein="' + nutrition.protein + '" data-fat="' + nutrition.fat + '" data-carb="' + nutrition.carb + '" data-image="' + (nutrition.imageDescription || defaultIconUrl) + '" data-id="' + nutrition.nutritionId + '">' +
             '<img class=" rounded-image" src="data:image/jpeg;base64,' + (nutrition.imageDescription || defaultIconUrl) + '" alt="User Image">' +

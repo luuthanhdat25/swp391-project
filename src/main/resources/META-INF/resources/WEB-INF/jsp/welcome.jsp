@@ -1,6 +1,7 @@
 <%@ include file="common/header.jspf" %>
 <%@ include file="common/sidebar.jspf" %>
 <%@ include file="common/head.jspf" %>
+
 <div class="main-wrapper">
     <div class="page-wrapper">
         <div class="content container-fluid">

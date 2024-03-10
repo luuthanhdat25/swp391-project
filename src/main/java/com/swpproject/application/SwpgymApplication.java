@@ -17,6 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = "com.swpproject.application.controller")
 @ComponentScan(basePackages = "com.swpproject.application.service")
 @ComponentScan(basePackages = "com.swpproject.application.repository")
+@ComponentScan(basePackages = "com.swpproject.application.utils")
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan(basePackages = "com.swpproject.application.oauth2")

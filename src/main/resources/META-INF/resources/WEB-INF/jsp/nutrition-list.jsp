@@ -28,7 +28,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card invoices-tabs-card border-0 mt-3">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="invoices-settings-btn invoices-settings-btn-one">
+                            <a href="/nutrition/create" class="btn"><i class="feather feather-plus-circle"></i>New Nutrition</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-4">

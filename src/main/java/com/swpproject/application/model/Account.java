@@ -9,10 +9,12 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Base64;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Builder(toBuilder = true)
 @Setter
 @Data
 @Entity
@@ -57,6 +59,8 @@ public class Account {
     @Column(name = "avatar_image")
     private byte[] avatarImage;
 
-
+    public String getAvatarImageAsString() {
+        return Base64.getEncoder().encodeToString(avatarImage);
+    }
 
 }

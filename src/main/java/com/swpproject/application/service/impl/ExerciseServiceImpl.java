@@ -1,11 +1,11 @@
 package com.swpproject.application.service.impl;
 
-import com.swpproject.application.enums.OrderStatus;
+import com.swpproject.application.controller.dto.ExerciseDTOIn;
+import com.swpproject.application.controller.dto.ExerciseDTOOut;
+import com.swpproject.application.controller.dto.RoleDTO;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.*;
 import com.swpproject.application.repository.ExerciseRepository;
-import com.swpproject.application.repository.GymerRepository;
-import com.swpproject.application.repository.OrderRepository;
 import com.swpproject.application.repository.PersonalTrainerRepository;
 import com.swpproject.application.service.ExerciseService;
 import io.micrometer.common.util.StringUtils;

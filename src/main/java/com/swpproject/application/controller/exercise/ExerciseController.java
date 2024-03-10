@@ -1,29 +1,26 @@
 package com.swpproject.application.controller.exercise;
 
+import com.swpproject.application.controller.dto.ExerciseDTOIn;
+import com.swpproject.application.controller.dto.ExerciseDTOOut;
+import com.swpproject.application.controller.dto.RoleDTO;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.*;
-import com.swpproject.application.repository.ExerciseRepository;
-import com.swpproject.application.repository.PersonalTrainerRepository;
 import com.swpproject.application.service.ExerciseService;
-import com.swpproject.application.service.impl.ExerciseServiceImpl;
 import com.swpproject.application.utils.*;
-import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.print.Pageable;
 import java.io.IOException;
 import java.util.*;
-import java.util.zip.DataFormatException;
 
 
 @Controller
@@ -40,10 +37,18 @@ public class ExerciseController {
     private static final String ERROR_URL = "error";
 
     //Get view exercise list
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getExerciseListPage(ModelMap model, HttpServletRequest request){
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    public String getExerciseListPage(ModelMap model, HttpServletRequest request,
+                                      @RequestParam(defaultValue = "0") int page,
+                                      @RequestParam(defaultValue = "5") int size){
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         List<ExerciseDTOOut> exerciseDTOOutList = exerciseService.getExerciseDTOOutList(roleDTO);
+//        PageRequest pageable = PageRequest.of(page, size);
+//        int start = (int)pageable.getOffset();
+//        int end = Math.min((start + pageable.getPageSize()), exerciseDTOOutList.size());
+//        Page<ExerciseDTOOut> pageImpl = new PageImpl<>(exerciseDTOOutList.subList(start, end), pageable, exerciseDTOOutList.size());
+//        System.out.println(pageImpl.getContent().size() + " Item");
+//        String json = JsonUtils.jsonConvert(pageImpl.getContent());
         String json = JsonUtils.jsonConvert(exerciseDTOOutList);
         model.addAttribute("exerciseList", json);
         return EXERCISE_LIST_URL;
@@ -83,7 +88,7 @@ public class ExerciseController {
             return ERROR_URL;
 
         exerciseService.create(exerciseDTOIn, roleDTO);
-        return "redirect:/exercise/";
+        return "redirect:/exercise";
     }
 
 
@@ -91,6 +96,7 @@ public class ExerciseController {
     @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        System.out.println(roleDTO.getRole().getLabel());
         if(roleDTO == null || roleDTO.getRole() == Role.GYMER)
             return ERROR_URL;
 
@@ -98,7 +104,8 @@ public class ExerciseController {
         if(exerciseOptional.isEmpty())
             return ERROR_URL;
 
-        String json = JsonUtils.jsonConvert(exerciseOptional.get());
+        Exercise exercise = exerciseOptional.get();
+        String json = JsonUtils.jsonConvert(exercise.getExerciseDTOOutAllInfor());
         model.addAttribute("exercise", json);
         return EXERCISE_UPDATE_URL;
     }

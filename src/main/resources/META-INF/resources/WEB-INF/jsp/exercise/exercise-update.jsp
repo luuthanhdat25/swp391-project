@@ -31,13 +31,13 @@
                                             <form id="exerciseForm" action="/exercise/details/edit" method="post" enctype="multipart/form-data">
                                                 <div class="row mt-3">
                                                     <div class="w-50 col-md-6">
-                                                        <div>Exercise Name</div>
+                                                        <div>Exercise Name<span style="color: red">*</span></div>
                                                         <input id="exerciseName" type="text" name="exerciseName" class="form-control mt-2" placeholder="Exercise Name" />
                                                         <p id="exerciseNameError" class="text-danger mt-2"></p>
                                                     </div>
 
                                                     <div class="col-md-6" id="exerciseLevel">
-                                                        <div class="mb-2 mt-2">Level</div>
+                                                        <div class="mb-2 mt-2">Level<span style="color: red">*</span></div>
                                                         <div class="form-check form-check-inline">
                                                             <input class="form-check-input" type="radio" name="levelRadio" id="beginnerRadio" value="Beginner">
                                                             <label class="form-check-label" for="beginnerRadio">Beginner</label>
@@ -59,7 +59,7 @@
                                                 <div class="row mt-3">
                                                     <div class="col-md-6">
                                                         <div id="exerciseType">
-                                                            <div class="mb-2">Affected Muscle</div>
+                                                            <div class="mb-2">Affected Muscle<span style="color: red">*</span></div>
                                                             <select class="form-select" aria-label="Default select example" name="muscle">
                                                                 <option selected value="None">None</option>
                                                                 <option value="Chest">Chest</option>
@@ -102,7 +102,7 @@
                                                 </div>
 
                                                 <div class="mt-3">
-                                                    <div class="mb-2">Image description</div>
+                                                    <div class="mb-2">Image description<span style="color: red">*</span></div>
                                                     <p id="imageError" class="text-danger mt-3"></p>
                                                     <button type="button" id="chooseImageButton" class="btn btn-warning">Choose Image</button>
                                                     <br>
@@ -114,6 +114,8 @@
 
 
                                                 <div class="mt-4">
+                                                    <div class="mb-2">Video description <span style="color: red">*</span>
+                                                    </div>
                                                     <input type="text" id="youtubeLink" placeholder="Enter YouTube URL" class="form-control w-50" name="youtubeLink">
                                                     <p id="youtubeLinkError" class="text-danger mt-3"></p>
                                                     <button type="button" id="changeVideoBtn" class="btn btn-warning mt-1">Add Video</button>
@@ -124,6 +126,7 @@
                                                 </div>
 
                                                 <div class="hello-park mt-3">
+                                                    <div class="mb-2">Exercise description<span style="color: red">*</span></div>
                                                     <textarea class="form-control" id="exerciseDescription" rows="10" placeholder="Enter exercise description" name="exerciseDescription"></textarea>
                                                     <p id="exerciseDescriptionError" class="text-danger mt-3"></p>
                                                 </div>
@@ -164,8 +167,6 @@
 
     </div>
 
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="../../../assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="../../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -177,7 +178,10 @@
     <script src="../../../assets/js/script.js"></script>
 
 
-    <script>var exercise = ${exercise};</script>
+    <script>
+        var exercise = ${exercise};
+        console.log(exercise);
+    </script>
     <script src="../../../assets/js/exercise/update/exercise-update-load-old-data.js"></script>
     <script src="../../../assets/js/exercise/update/exercise-update-youtube-change.js"></script>
     <script src="../../../assets/js/exercise/update/exercise-update-image-change.js"></script>

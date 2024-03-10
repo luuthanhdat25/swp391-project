@@ -1,10 +1,9 @@
 package com.swpproject.application.controller.nutrition;
 
 import com.swpproject.application.model.Nutrition;
-import com.swpproject.application.model.NutritionDTOIn;
-import com.swpproject.application.model.NutritionDTOOut;
+import com.swpproject.application.controller.dto.NutritionDTOIn;
+import com.swpproject.application.controller.dto.NutritionDTOOut;
 import com.swpproject.application.service.NutritionService;
-import com.swpproject.application.service.impl.NutritionServiceIml;
 import com.swpproject.application.utils.JsonUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -27,7 +26,7 @@ public class NutritionController {
     @Autowired
     private NutritionService nutritionService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseListPage(ModelMap model) {
         List<NutritionDTOOut> nutritionDTOOutList = nutritionService.getNutritionDTOOutList();
         String nutritionDTOOutListJson = JsonUtils.jsonConvert(nutritionDTOOutList);

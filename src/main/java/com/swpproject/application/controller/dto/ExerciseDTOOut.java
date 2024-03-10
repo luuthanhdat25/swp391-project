@@ -1,4 +1,4 @@
-package com.swpproject.application.model;
+package com.swpproject.application.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

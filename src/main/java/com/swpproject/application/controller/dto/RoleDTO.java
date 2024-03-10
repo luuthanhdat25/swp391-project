@@ -1,6 +1,9 @@
-package com.swpproject.application.model;
+package com.swpproject.application.controller.dto;
 
 import com.swpproject.application.enums.Role;
+import com.swpproject.application.model.Account;
+import com.swpproject.application.model.Gymer;
+import com.swpproject.application.model.PersonalTrainer;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.*;
@@ -20,17 +23,18 @@ public class RoleDTO {
         Account account = (Account) session.getAttribute("account");
         if(account == null) return null;
 
-        RoleDTO roleDTO = new RoleDTO();
-        roleDTO.setRole(account.getRole());
+        RoleDTO roleDTO = new RoleDTO(account.getRole(), null);
 
-        if(account.getRole() == Role.PT){
+        if(roleDTO.getRole() == Role.ADMIN) return roleDTO;
+
+        if(roleDTO.getRole() == Role.PT){
             PersonalTrainer personalTrainer = (PersonalTrainer) session.getAttribute("personalTrainer");
             roleDTO.setId(personalTrainer.getId());
-            return roleDTO;
+        }else{
+            Gymer gymer = (Gymer) session.getAttribute("gymer");
+            roleDTO.setId(gymer.getGymerId());
         }
 
-        Gymer gymer = (Gymer) session.getAttribute("gymer");
-        roleDTO.setId(gymer.getGymerId());
         return roleDTO;
     }
 }

@@ -1,9 +1,9 @@
 package com.swpproject.application.service;
 
 import com.swpproject.application.model.Exercise;
-import com.swpproject.application.model.ExerciseDTOIn;
-import com.swpproject.application.model.ExerciseDTOOut;
-import com.swpproject.application.model.RoleDTO;
+import com.swpproject.application.controller.dto.ExerciseDTOIn;
+import com.swpproject.application.controller.dto.ExerciseDTOOut;
+import com.swpproject.application.controller.dto.RoleDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 

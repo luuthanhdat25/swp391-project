@@ -53,4 +53,7 @@ public class OrderRequest {
     public String getPTName(){
         return this.personalTrainer.getAccount().getFullName();
     }
+    public String getStatusString(){
+        return  this.status.toString();
+    }
 }

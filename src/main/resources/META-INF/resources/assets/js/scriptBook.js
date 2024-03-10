@@ -25,7 +25,7 @@ $(document).ready(function () {
     var urlParams = new URLSearchParams(window.location.search);
     var weekParam = urlParams.get('week');
     var yearParam = urlParams.get('year');
-    var accountIdParam = urlParams.get('accountId');
+    var accountIdParam = urlParams.get('PersonalTrainerID');
     if (weekParam && yearParam) {
         $("#week").val(weekParam);
         $("#year").val(yearParam);
@@ -33,7 +33,7 @@ $(document).ready(function () {
         $("#year").val(currentDate.year);
         $("#week").val(currentDate.isoWeek());
     }
-    $("#accountId").val(accountIdParam);
+    // $("#accountId").val(accountIdParam);
     updateTable(); // Cập nhật bảng khi trang web được tải
 });
 

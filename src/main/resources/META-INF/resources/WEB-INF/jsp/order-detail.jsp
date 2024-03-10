@@ -2,6 +2,7 @@
 <%@include file="common/head.jspf" %>
 <%@include file="common/sidebar.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <body>
 <div class="main-wrapper">
     <div class="page-wrapper">
@@ -116,7 +117,7 @@
                                                        items="${['Monday', 'Tuesday', 'Wednesday', 'Thusday', 'Friday', 'Saturday', 'Sunday']}">
                                                 <c:set var="disabled" value="false"/>
                                                 <c:forEach items="${allSlots}" var="scheduleSlot">
-                                                    <c:if test="${scheduleSlot.day eq day.toLowerCase() && fn:substringBefore(scheduleSlot.start_hour, ':') == hour && fn:substringBefore(scheduleSlot.end_hour, ':') == (hour + 2)}">
+                                                    <c:if test="${scheduleSlot.day eq day && fn:substringBefore(scheduleSlot.start_hour, ':') == hour && fn:substringBefore(scheduleSlot.end_hour, ':') == (hour + 2)}">
                                                         <c:set var="disabled" value="true"/>
                                                     </c:if>
                                                 </c:forEach>
@@ -124,10 +125,12 @@
                                                     <c:when test="${disabled}">
                                                         <td>
                                                             <input type="checkbox" name="checkedSlots"
-                                                                   value="${day.toLowerCase()}-${hour}-${hour + 2}"
-                                                                   disabled="disabled" class="disabled-checkbox"
-                                                                   id="${day.toLowerCase()}-${hour}${hour + 2}">
-                                                            <label for="${day.toLowerCase()}-${hour}${hour + 2}">${account.fullName}</label>
+                                                                   value="${day}-${hour}-${hour + 2}"
+                                                                   id="${day.toLowerCase()}-${hour}${hour + 2}"
+                                                                   onchange="limitSlots(this)"
+                                                                ${disabled ? 'disabled="disabled" ' : ''}
+                                                            />
+                                                            <label for="${day.toLowerCase()}-${hour}${hour + 2}" style="background-color: rgb(194, 192, 192);;">${account.fullName}</label>
                                                         </td>
                                                     </c:when>
                                                     <c:otherwise>
@@ -147,13 +150,26 @@
 
 
                             <div>
-                                <button type="submit" class="btn btn-primary">Accept
+                                <div id="conflictAlert" class="alert alert-danger" style="display:none;">
+                                    <strong>Conflicting slot!</strong> There is a schedule conflict.
+                                </div>
+                                <c:choose>
+                                    <c:when test="${empty MSG}">
+                                        <!-- Display the "Accept" button only if MSG is empty -->
+                                        <button type="submit" class="btn btn-primary" name="action" value="accept">Accept</button>
+                                        <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary" name="action" value="decline">Decline</a>
 
-                                </button>
-                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary">Decline</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <!-- If MSG is not empty, display the "Decline" button -->
+                                        <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary" name="action" value="decline">Decline</a>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </div>
                                 <input type="hidden" name="MSG" value="${MSG}">
-                                ${MSG}
+
+
                                 <input type="hidden" name="order" value="${param.order_id}">
                                 <c:forEach var="slot" items="${allSlots}" varStatus="loop">
                                     <input type="hidden" name="slotOrder" value="${slot.id}" />
@@ -173,6 +189,17 @@
     </div>
 
 </div>
+<script>
+    var msgValue = "${MSG}".trim();
+
+    if (msgValue !== "") {
+        // If MSG is not empty, show the conflict alert for 2 seconds
+        document.getElementById("conflictAlert").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("conflictAlert").style.display = "none";
+        }, 2000);
+    }
+</script>
 <script>
     function saveCheckedSlots() {
         var checkboxes = document.getElementsByName("checkedSlots");

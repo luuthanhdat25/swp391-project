@@ -23,7 +23,7 @@ import java.util.List;
 public class OtherUserNotificationController {
     @Autowired private NotificationRepository notificationRepository;
 
-    @RequestMapping(value = "auth/view-notification-list", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    @RequestMapping(value = "personal-trainer/view-notification-list", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String viewNotificationList(ModelMap modelMap,
                                        @RequestParam(name = "notificationId", required = false) Integer notificationId) {
         List<Notification> notifications = notificationRepository.findAll();

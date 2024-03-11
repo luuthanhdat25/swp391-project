@@ -105,6 +105,8 @@ public class ExerciseController {
             return ERROR_URL;
 
         Exercise exercise = exerciseOptional.get();
+        HttpSession session = request.getSession();
+        session.setAttribute("exerciseId", exercise.getId());
         String json = JsonUtils.jsonConvert(exercise.getExerciseDTOOutAllInfor());
         model.addAttribute("exercise", json);
         return EXERCISE_UPDATE_URL;
@@ -122,7 +124,7 @@ public class ExerciseController {
 
         exerciseService.update(exerciseDTOIn, exerciseId);
         session.removeAttribute("exerciseId");
-        return "redirect:/exercise/details?exerciseId=" + exerciseId;
+        return "redirect:/exercise/details?id=" + exerciseId;
     }
 }
 

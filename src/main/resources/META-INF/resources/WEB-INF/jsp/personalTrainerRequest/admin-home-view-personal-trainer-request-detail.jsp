@@ -1,4 +1,5 @@
 <%@ include file="../common/header.jspf" %>
+<%@ include file="../common/admin-head.jspf" %>
 <%@ include file="../common/admin-sidebar.jspf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -9,10 +10,10 @@
 <div class="main-wrapper">
     <div>
         <div class="page-wrapper d-flex flex-column align-items-center"
-             style="width: 77%; float: right; background-color: #7c7c7c; padding-top: 70px;">
+             style="width: 77%; float: right; padding-top: 70px;">
 
             <div class="notification-detail d-flex justify-content-center ">
-                <div class="d-flex flex-column" style="width: 94%; margin-top: 40px;">
+                <div class="d-flex flex-column" style="width: 80%; margin-top: 40px;">
                     <form action="manage-personal-trainer-request" method="GET">
                         <button type="submit" class="btn btn-warning"
                                 style="height: 50px; width: 80px; background-color: #3c763d; margin: 3px 0 3px 0;">

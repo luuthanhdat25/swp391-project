@@ -1,45 +1,14 @@
 <%@ include file="../common/header.jspf" %>
+<%@ include file="../common/admin-head.jspf" %>
 <%@ include file="../common/admin-sidebar.jspf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <head>
     <link href="../../assets/css/notification/view-notification-list.css" rel="stylesheet"/>
     <link href="../../assets/css/style-table.css" rel="stylesheet"/>
 </head>
 
-<body>
-
 <div class="main-wrapper">
-    <div class="header">
-        <div class="header-left">
-            <a href="index.html" class="logo">
-                <img src="/META-INF/resources/assets/img/logo.png" alt="Logo">
-            </a>
-            <a href="index.html" class="logo logo-small">
-                <img src="/META-INF/resources/assets/img/logo-small.png" alt="Logo" width="30" height="30">
-            </a>
-        </div>
-
-        <div class="menu-toggle">
-            <a href="javascript:void(0);" id="toggle_btn">
-                <i class="fas fa-bars"></i>
-            </a>
-        </div>
-
-        <div class="top-nav-search">
-            <form>
-                <input type="text" class="form-control" placeholder="Search here">
-                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-            </form>
-        </div>
-
-        <ul class="nav user-menu">
-            <button class="btn btn-rounded btn-outline-danger"><a href="login">Login</a></button>
-            <button class="btn btn-rounded btn-outline-danger"><a href="/registration">Sign up</a></button>
-        </ul>
-    </div>
-
     <div class="page-wrapper d-flex flex-column align-items-center"
          style="width: 77%; height: fit-content; float: right; padding: 70px 0 40px 0;">
 
@@ -90,7 +59,7 @@
                                         <div class="d-flex" style="text-align: left;">
                                             <img class="rounded-circle"
                                                  style="width: 30px; height: 30px; margin-right: 5px;"
-                                                 src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"/>
+                                                 src="data:image/jpeg;base64,${report.personalTrainerAccount.getAvatarImageAsString()}">
                                             <div class="text-truncate" style="width: 430px;">${report.reason}</div>
                                         </div>
                                     </td>
@@ -98,7 +67,7 @@
                                         <div class="d-flex">
                                             <img class="rounded-circle"
                                                  style="width: 30px; height: 30px; margin-right: 5px;"
-                                                 src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"/>
+                                                 src="data:image/jpeg;base64,${report.gymerAccount.getAvatarImageAsString()}">
                                         </div>
                                     </td>
                                     <td>
@@ -167,6 +136,5 @@
         </div>
     </div>
 </div>
-</body>
 <%@ include file="../common/script.jspf" %>
 

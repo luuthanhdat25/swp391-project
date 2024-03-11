@@ -1,4 +1,5 @@
 <%@ include file="../common/header.jspf" %>
+<%@ include file="../common/admin-head.jspf" %>
 <%@ include file="../common/admin-sidebar.jspf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 

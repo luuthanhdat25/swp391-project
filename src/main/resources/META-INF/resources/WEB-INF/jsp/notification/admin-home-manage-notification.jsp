@@ -1,4 +1,5 @@
 <%@ include file="../common/header.jspf" %>
+<%@ include file="../common/admin-head.jspf" %>
 <%@ include file="../common/admin-sidebar.jspf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -74,7 +75,7 @@
                                         <td>
                                             <img class="rounded-circle"
                                                  style="width: 30px; height: 30px; margin-right: 5px;"
-                                                 src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"/>
+                                                 src="data:image/jpeg;base64,${notification.toAccount.getAvatarImageAsString()}">
                                         </td>
                                         <td>
                                                 ${notification.timeStamp.getHour()}:${notification.timeStamp.getMinute()}

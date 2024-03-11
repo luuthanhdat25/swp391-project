@@ -1,14 +1,17 @@
 package com.swpproject.application.controller.personal_trainer;
 
 import com.swpproject.application.controller.dto.PersonalTrainerDto;
+import com.swpproject.application.controller.dto.RoleDTO;
 import com.swpproject.application.enums.Gender;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.service.CertificateService;
+import com.swpproject.application.service.PersonalTrainerService;
 import com.swpproject.application.utils.DtoUtils;
 import com.swpproject.application.utils.JsonUtils;
 import com.swpproject.application.repository.PersonalTrainerRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,20 +39,24 @@ public class PersonalTrainerController {
     private final PersonalTrainerRepository personalTrainerRepository;
     private final CertificateService certificateService;
     private final DtoUtils dtoUtils;
+    private final PersonalTrainerService personalTrainerService;
 
     @Autowired
     public PersonalTrainerController(
             PersonalTrainerRepository personalTrainerRepository,
             CertificateService certificateService,
-            DtoUtils dtoUtils
+            DtoUtils dtoUtils, PersonalTrainerService personalTrainerService
     ) {
         this.personalTrainerRepository = personalTrainerRepository;
         this.certificateService = certificateService;
         this.dtoUtils = dtoUtils;
+        this.personalTrainerService = personalTrainerService;
     }
+
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getPersonalTrainerListPage(ModelMap model) {
-        List<PersonalTrainerDto> personalTrainerDTOList = dtoUtils.getPersonalTrainerDtoList();
+    public String getPersonalTrainerListPage(ModelMap model, HttpServletRequest request) {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        List<PersonalTrainerDto> personalTrainerDTOList = personalTrainerService.getPersonalTrainerDTOList(roleDTO);
         String json = JsonUtils.jsonConvert(personalTrainerDTOList);
         model.addAttribute("personalTrainerList", json);
         return "personal-trainer-list";

@@ -53,7 +53,7 @@ public class PersonalTrainerController {
         this.personalTrainerService = personalTrainerService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getPersonalTrainerListPage(ModelMap model, HttpServletRequest request) {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         List<PersonalTrainerDto> personalTrainerDTOList = personalTrainerService.getPersonalTrainerDTOList(roleDTO);

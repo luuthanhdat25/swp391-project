@@ -85,7 +85,7 @@
     <script src="../../../assets/js/jquery-3.6.0.min.js"></script>
     <script>
         var exercise = ${exercise};
-
+        console.log(exercise.personalTrainer_id);
         $(document).ready(function() {
             $('#exerciseImage').html('<img class="w-100 mb-2" src="data:image/jpeg;base64,' + exercise.imageDescription + '" style="border-radius: .25rem;" alt="Exercise Image">');
 
@@ -169,6 +169,13 @@
 
     <script src="../../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="../../../assets/js/script.js"></script>
+
+
+
+    <script>
+          var account =  ${account.getId()};
+          console.log(account)
+    </script>
 </body>
 
 </html>

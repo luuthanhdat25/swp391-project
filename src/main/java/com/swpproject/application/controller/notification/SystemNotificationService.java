@@ -144,7 +144,7 @@ public class SystemNotificationService {
         requestHiringNotification.setContent(content);
         requestHiringNotification.setTitle(TITLE_NOTIFICATION_NEW_REQUEST_HIRING);
         requestHiringNotification.setTimeStamp(LocalDateTime.now());
-//        requestHiringNotification.setFromAccount(systemAccount);
+        requestHiringNotification.setFromAccount(gymerAccount);
         requestHiringNotification.setToAccount(personalTrainerAccount);
 
         notificationRepository.save(requestHiringNotification);
@@ -215,7 +215,7 @@ public class SystemNotificationService {
         paymentSuccessToGymer.setContent(content);
         paymentSuccessToGymer.setTitle(TITLE_NOTIFICATION_PAYMENT_SUCCESS);
         paymentSuccessToGymer.setTimeStamp(LocalDateTime.now());
-//        paymentSuccessToGymer.setFromAccount(systemAccount);
+        paymentSuccessToGymer.setFromAccount(personalTrainerAccount);
         paymentSuccessToGymer.setToAccount(gymerAccount);
 
         notificationRepository.save(paymentSuccessToGymer);

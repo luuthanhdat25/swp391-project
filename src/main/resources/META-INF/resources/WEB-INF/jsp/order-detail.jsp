@@ -114,7 +114,7 @@
                                             <td style="width: 150px;" class="time-column">${hour}:00 - ${hour + 2}:00
                                             </td>
                                             <c:forEach var="day"
-                                                       items="${['Monday', 'Tuesday', 'Wednesday', 'Thusday', 'Friday', 'Saturday', 'Sunday']}">
+                                                       items="${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}">
                                                 <c:set var="disabled" value="false"/>
                                                 <c:forEach items="${allSlots}" var="scheduleSlot">
                                                     <c:if test="${scheduleSlot.day eq day && fn:substringBefore(scheduleSlot.start_hour, ':') == hour && fn:substringBefore(scheduleSlot.end_hour, ':') == (hour + 2)}">
@@ -197,7 +197,7 @@
         document.getElementById("conflictAlert").style.display = "block";
         setTimeout(function() {
             document.getElementById("conflictAlert").style.display = "none";
-        }, 2000);
+        }, 10000);
     }
 </script>
 <script>

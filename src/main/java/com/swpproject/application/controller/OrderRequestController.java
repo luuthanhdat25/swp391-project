@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -52,6 +54,21 @@ public class OrderRequestController {
         LocalDate currentDate;
         Date StartDateAsDate;
 
+        int weekStart = getWeekOfYear(orderRequest.getDatetime_start());
+        int trainingTime = calculateWeeksDifference(orderRequest.getDatetime_start(),orderRequest.getDatetime_end());
+        int yearStart = orderRequest.getDatetime_start().getYear();
+
+
+        for (int i = 1; i <= trainingTime; i++) {
+            if (weekStart < 52) {
+                weekStart++;
+            } else if (weekStart == 52) {
+                weekStart = 1;
+                yearStart++;
+            }
+            List<SlotExercise> slotCheckInTime = slotExcerciseEntityService.getAllSlotByWeek(weekStart, yearStart);
+            slotOrder.addAll(slotCheckInTime);
+        }
 
         currentDate = LocalDate.now();
         StartDateAsDate = Date.valueOf(currentDate);
@@ -169,5 +186,27 @@ public class OrderRequestController {
         return "redirect:/order-list";
     }
 
+
+
+    public static int calculateWeeksDifference(Date date1, Date date2) {
+        // Chuyển đổi từ Date sang LocalDate
+        LocalDate localDate1 = date1.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        LocalDate localDate2 = date2.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+
+        // Tính khoảng cách theo số tuần
+        int weeksDifference = (int) ChronoUnit.WEEKS.between(localDate1, localDate2);
+
+        return Math.abs(weeksDifference); // Trả về giá trị tuyệt đối
+    } // Hàm trả về khoảng cách tuần giữa 2 ngày
+
+    public static int getWeekOfYear(Date sqlDate) {
+        // Chuyển đổi từ java.sql.Date sang java.time.LocalDate
+        LocalDate localDate = sqlDate.toLocalDate();
+
+        // Xác định tuần trong năm
+        int weekOfYear = localDate.get(WeekFields.ISO.weekOfWeekBasedYear());
+
+        return weekOfYear;
+    } // hàm trả về vị trí của tuần có ngày là sqlDate
 
 }

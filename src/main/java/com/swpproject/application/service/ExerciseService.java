@@ -13,18 +13,13 @@ import java.util.Optional;
 
 @Service
 public interface ExerciseService {
-    @Transactional
     List<Exercise> getExerciseListAuthentication(RoleDTO roleDTO);
 
-    @Transactional
     List<ExerciseDTOOut> getExerciseDTOOutList(RoleDTO roleDTO);
 
-    @Transactional
     Optional<Exercise> findExerciseById(int exerciseId, RoleDTO roleDTO);
 
-    @Transactional
     void create(ExerciseDTOIn exerciseDTOIn, RoleDTO roleDTO) throws IOException;
 
-    @Transactional
     void update(ExerciseDTOIn exerciseDTOIn, int exerciseId) throws IOException;
 }

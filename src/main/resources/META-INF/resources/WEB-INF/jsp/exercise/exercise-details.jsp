@@ -7,19 +7,6 @@
     <div class="main-wrapper">
         <div class="page-wrapper">
             <div class="content container-fluid">
-                <div class="page-header">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="page-sub-header">
-                                <h3 class="page-title">Exercise Details</h3>
-                                <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/exercise/">Exercise</a></li>
-                                    <li class="breadcrumb-item active">Exercise Details</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -27,16 +14,10 @@
                                 <div class="student-personals-grp">
                                     <div class="card">
                                         <div class="card-body position-relative">
-                                            <div id="exerciseImage">
-                                            </div>
+                                            <div id="exerciseImage"></div>
 
-<%--                                            <a href="personal-trainer/profile/">--%>
-<%--                                                 <img id="smallImage" class="position-absolute rounded-circle top-0 end-0" src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg" style="width: 4rem; height: 4rem; max-width: 100px; border-radius: .25rem;" alt="Small Image">--%>
-<%--                                            </a>--%>
-                                            <div class="mt-md-2" id="exerciseDetails">
-                                            </div>
+                                            <div class="mt-md-2" id="exerciseDetails"></div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +27,9 @@
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center heading-detail">
                                                 <h2 id="exerciseName"></h2>
-
+                                                <a href="personal-trainer/profile/">
+                                                    <img id="smallImage" class="rounded-circle"  src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg" style="width: 4rem; height: 4rem; max-width: 100px; object-fit: cover" alt="Small Image">
+                                                </a>
                                                 <a id="editButton" href="" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
                                             </div>
                                             <hr>
@@ -73,7 +56,6 @@
             </div>
 
             <footer>
-                <p>Copyright © 2024 Gym On.</p>
             </footer>
 
         </div>

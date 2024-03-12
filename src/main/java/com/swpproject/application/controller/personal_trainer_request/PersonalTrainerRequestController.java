@@ -3,6 +3,7 @@ package com.swpproject.application.controller.personal_trainer_request;
 import com.swpproject.application.enums.RequestStatus;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Certificate;
+import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.model.PersonalTrainerRequest;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.CertificateRepository;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -29,6 +31,8 @@ import java.util.stream.Collectors;
 public class PersonalTrainerRequestController {
     @Autowired
     private PersonalTrainerRequestRepository personalTrainerRequestRepository;
+    @Autowired
+    private  CertificateRepository certificateRepository;
 
     @RequestMapping(value = "/admin-home/manage-personal-trainer-request", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String viewManagePersonalTrainerRequest(ModelMap modelMap,
@@ -80,6 +84,12 @@ public class PersonalTrainerRequestController {
     @RequestMapping(value = "admin-home/view-personal-trainer-request-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getPersonalTrainerRequestDetail(ModelMap modelMap, @RequestParam("requestID") int requestID) {
         PersonalTrainerRequest request = personalTrainerRequestRepository.findById(requestID).get();
+
+        PersonalTrainer personalTrainer = request.getPersonalTrainerAccount();
+        List<Certificate> certificates = certificateRepository.getCertificatesByPersonalTrainer(personalTrainer);
+        modelMap.put("Certificate_1", certificates.get(0).getImage());
+        modelMap.put("Certificate_2", certificates.get(1).getImage());
+        modelMap.put("Certificate_3", certificates.get(2).getImage());
         modelMap.addAttribute("RequestDetail", request);
         return "personalTrainerRequest/admin-home-view-personal-trainer-request-detail";
     }

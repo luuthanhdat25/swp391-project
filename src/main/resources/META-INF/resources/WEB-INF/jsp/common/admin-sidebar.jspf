@@ -1,9 +1,9 @@
-<div class="sidebar" id="sidebar" style="width: 23%; background-color: #FFFFFF;">
+<div class="sidebar" id="sidebar" style="width: 25%; background-color: #555B73;">
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
-            <p class="h6" style="padding-left: 9px; margin-top: 10px;">Manage</p>
-            <ul id="sidebar-menu" class="sidebar-menu" style="padding: 2px 9px 9px 9px;">
-                <li style="margin-bottom: 4px;">
+            <p class="h6" style="padding-left: 9px; margin-top: 10px; color: #FFFFFF;">Management</p>
+            <ul id="sidebar-menu" class="sidebar-menu" style="padding: 2px 10px 9px 10px;">
+                <li style="margin-bottom: 4px;" class="shadow bg-body rounded">
                     <a href="manage-notification" style="text-decoration: none;" onclick="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                              class="bi bi-bell-fill" viewBox="0 0 16 16" style="margin-right: 5px;">
@@ -11,7 +11,7 @@
                         </svg>
                         Manage Notification </a>
                 </li>
-                <li style="margin-bottom: 4px;">
+                <li style="margin-bottom: 4px;" class="shadow bg-body rounded">
                     <a href="manage-report" style="text-decoration: none;" onclick="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                              class="bi bi-flag-fill" viewBox="0 0 16 16" style="margin-right: 5px;">
@@ -19,7 +19,7 @@
                         </svg>
                         Manage Report </a>
                 </li>
-                <li style="margin-bottom: 4px;">
+                <li style="margin-bottom: 4px;" class="shadow bg-body rounded">
                     <a href="manage-personal-trainer-request" style="text-decoration: none;" onclick="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                              class="bi bi-envelope-arrow-up-fill" viewBox="0 0 16 16" style="margin-right: 5px;">
@@ -28,7 +28,7 @@
                         </svg>
                         Manage Personal Trainer's Request </a>
                 </li>
-                <li style="margin-bottom: 4px;">
+                <li style="margin-bottom: 4px;" class="shadow bg-body rounded">
                     <a href="manage-personal-trainer-request" style="text-decoration: none;" onclick="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                              class="bi bi-person-fill" viewBox="0 0 16 16" style="margin-right: 5px;">
@@ -36,12 +36,12 @@
                         </svg>
                         Manage Account</a>
                 </li>
-                <li style="margin-bottom: 4px;">
+                <li style="margin-bottom: 4px;" class="shadow bg-body rounded">
                     <a href="manage-personal-trainer-request" style="text-decoration: none;" onclick="">
                         <i class="fas fa-dumbbell" style="margin-right: 5px;"></i>
                         Manage Exercise</a>
                 </li>
-                <li style="margin-bottom: 4px;">
+                <li style="margin-bottom: 4px;" class="shadow bg-body rounded">
                     <a href="manage-personal-trainer-request" style="text-decoration: none;" onclick="">
                         <img style="height: 25px; width: 25px; margin-right: 5px;"
                              src="../../assets/img/icons/nutrition.png" alt="Nutrition Wiki">

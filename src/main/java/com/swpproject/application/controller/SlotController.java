@@ -305,7 +305,7 @@ public class SlotController {
                 }
             }
         }
-        systemNotificationService.createNotification_NewRequestHiring(gymerService.getGymerByAccount(accountSession).get().getGymerId(), personalTrainer.getId());
+        systemNotificationService.createNotification_NewRequestHiring(orderRequest);
         redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
         redirectAttributes.addAttribute("week", week);
         redirectAttributes.addAttribute("year", year);

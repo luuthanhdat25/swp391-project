@@ -10,17 +10,12 @@
 
 <div class="main-wrapper">
     <div class="page-wrapper d-flex flex-column align-items-center"
-         style="width: 77%; height: fit-content; float: right; padding: 70px 0 40px 0;">
+         style="width: 75%; height: fit-content; float: right; padding: 70px 0 40px 0;">
 
         <div class="notification-detail d-flex flex-column align-items-center">
-            <div class="shadow p-3 mb-5 bg-body rounded" style="width: 95%; height: fit-content; background-color: #e4e4e4;
-                border-radius: 6px; padding: 10px; font-size: 20px; color: #4c4c4c;  text-align: center;
+            <div class="shadow mb-2 rounded" style="width: 94%; height: fit-content; background-color: #333B59;
+                border-radius: 6px; padding: 10px; font-size: 20px; color: #FFFFFF;  text-align: center;
                 margin-bottom: 0px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"
-                     fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16"
-                     style="margin-right: 3px; ">
-                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
-                </svg>
                 <b>Report management</b>
             </div>
             <div class="d-flex flex-column" style="width: 94%;">
@@ -30,7 +25,7 @@
                         Report table
                     </div>
                     <div class="d-flex justify-content-between align-items-center"
-                         style="width: 100%; padding: 0 15px 0 15px;">
+                         style="width: 100%; padding: 0 15px 0 15px; margin-top: 2px;">
                         <form action="manage-report" method="GET" style="width: 50%; margin-bottom: 0;">
                             <div class="input-group" style="width: 100%;">
 
@@ -41,10 +36,12 @@
                         </form>
                     </div>
                     <div class="card-body" style="width: 100%;">
-                        <table id="datatablesSimple" class="table table-hover">
-                            <thead class="table-dark">
+                        <table id="datatablesSimple"
+                               class="table table-hover table-centered mdi-format-vertical-align-center">
+                            <thead class="table-secondary">
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col"></th>
                                 <th scope="col">Reason</th>
                                 <th scope="col">Reporter</th>
                                 <th scope="col">TimeStamp</th>
@@ -54,27 +51,27 @@
                             <tbody>
                             <c:forEach var="report" items="${ReportLists.content}">
                                 <tr class="shadow p-3 mb-5 bg-body rounded" style="height: 30px;">
-                                    <th scope="row">${ReportLists.content.indexOf(report) + IndexStarting}</th>
-                                    <td>
-                                        <div class="d-flex" style="text-align: left;">
-                                            <img class="rounded-circle"
-                                                 style="width: 30px; height: 30px; margin-right: 5px;"
-                                                 src="data:image/jpeg;base64,${report.personalTrainerAccount.getAvatarImageAsString()}">
-                                            <div class="text-truncate" style="width: 430px;">${report.reason}</div>
-                                        </div>
+                                    <th class="align-baseline"
+                                        scope="row">${ReportLists.content.indexOf(report) + IndexStarting}</th>
+                                    <td class="align-baseline">
+                                        <img class="rounded-circle"
+                                             style="width: 30px; height: 30px; margin-right: 5px;"
+                                             src="data:image/jpeg;base64,${report.personalTrainerAccount.account.getAvatarImageAsString()}">
                                     </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <img class="rounded-circle"
-                                                 style="width: 30px; height: 30px; margin-right: 5px;"
-                                                 src="data:image/jpeg;base64,${report.gymerAccount.getAvatarImageAsString()}">
-                                        </div>
+                                    <td class="align-baseline">
+                                        <div class="text-truncate"
+                                             style="width: 430px; text-align: left;">${report.reason}</div>
                                     </td>
-                                    <td>
+                                    <td class="align-baseline">
+                                        <img class="rounded-circle"
+                                             style="width: 30px; height: 30px; margin-right: 5px;"
+                                             src="data:image/jpeg;base64,${report.gymerAccount.account.getAvatarImageAsString()}">
+                                    </td>
+                                    <td class="align-baseline">
                                             ${report.timeStamp.getHour()}:${report.timeStamp.getMinute()}
                                             ${report.timeStamp.getDayOfMonth()}/${report.timeStamp.getMonthValue()}/${report.timeStamp.getYear()}
                                     </td>
-                                    <td>
+                                    <td class="align-baseline">
                                         <div class="d-flex justify-content-between"
                                              style="width: 210px; height: fit-content;">
                                             <form action="view-report-detail" method="get" style="margin-bottom: 0;">

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Gymer;
+import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.model.Report;
 import com.swpproject.application.repository.GymerRepository;
 import com.swpproject.application.repository.PersonalTrainerRepository;
@@ -62,15 +63,14 @@ public class AdminReportController {
         report.setDescription(description);
         report.setTimeStamp(LocalDateTime.now());
 
-        var gymer = (Gymer)session.getAttribute("gymer");
-        Account gymerAccount = gymer.getAccount();
-        Account personalTrainerAccount = personalTrainerRepository.findById(personalTrainerID).get().getAccount();
+        Gymer gymer = (Gymer)session.getAttribute("gymer");
+        PersonalTrainer personalTrainerAccount = personalTrainerRepository.findById(personalTrainerID).get();
 
-        report.setGymerAccount(gymerAccount);
+        report.setGymerAccount(gymer);
         report.setPersonalTrainerAccount(personalTrainerAccount);
 
         reportRepository.save(report);
-        return "redirect:";
+        return "redirect:/personal-trainer/details?id=" + personalTrainerID;
     }
 
    @RequestMapping(value = "admin-home/manage-report", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")

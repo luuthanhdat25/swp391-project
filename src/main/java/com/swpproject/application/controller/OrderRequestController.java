@@ -53,29 +53,32 @@ public class OrderRequestController {
         model.addAttribute("DateEnd",orderRequest.getDatetime_end());
         LocalDate currentDate;
         Date StartDateAsDate;
+        List<SlotExercise> slotOrdered = new ArrayList<>();
+        SlotExercise firstSlotinOrder = slotExcerciseEntityService.getTop1SlotExerciseByOrderID(orderRequest.getOrderId());
+        System.out.println("Gymer: " + firstSlotinOrder.toString());
 
-        int weekStart = getWeekOfYear(orderRequest.getDatetime_start());
+        int weekStart = firstSlotinOrder.getWeek();
         int trainingTime = calculateWeeksDifference(orderRequest.getDatetime_start(),orderRequest.getDatetime_end());
-        int yearStart = orderRequest.getDatetime_start().getYear();
-
-
+        int yearStart = firstSlotinOrder.getYear();
         for (int i = 1; i <= trainingTime; i++) {
+
+            System.out.println("week: " + weekStart);
+            List<SlotExercise> slotCheckInTime = slotExcerciseEntityService.getAllSlotNotExcepOrder(weekStart, yearStart,orderRequest);
+            System.out.println("check slot in time" + slotCheckInTime.size());
+            slotOrdered.addAll(slotCheckInTime);
             if (weekStart < 52) {
                 weekStart++;
             } else if (weekStart == 52) {
                 weekStart = 1;
                 yearStart++;
             }
-            List<SlotExercise> slotCheckInTime = slotExcerciseEntityService.getAllSlotByWeek(weekStart, yearStart);
-            slotOrder.addAll(slotCheckInTime);
         }
 
         currentDate = LocalDate.now();
         StartDateAsDate = Date.valueOf(currentDate);
 
-
+        List<SlotExercise> slotConflic = new ArrayList<>();
         Hashtable<Integer, List<Integer>> yearConflicts = new Hashtable<>(); // Rename the Hashtable
-        List<SlotExercise> slotOrdered = slotExcerciseEntityService.getSlotGreater(StartDateAsDate, false);
 
         for (SlotExercise slotExerciseGoing : slotOrdered) {
             for (SlotExercise slotExerciseWaiting : slotOrder) {
@@ -84,7 +87,20 @@ public class OrderRequestController {
                         && slotExerciseWaiting.getDay().equalsIgnoreCase(slotExerciseGoing.getDay())
                         && slotExerciseWaiting.getStart_hour().equalsIgnoreCase(slotExerciseGoing.getStart_hour())
                         && slotExerciseWaiting.getEnd_hour().equalsIgnoreCase(slotExerciseGoing.getEnd_hour())) {
-
+                    SlotExercise slotExerciseConflic = new SlotExercise();
+                    slotExerciseConflic.setWeek(slotExerciseWaiting.getWeek());
+                    slotExerciseConflic.setYear(slotExerciseWaiting.getYear());
+                    slotExerciseConflic.setStart_hour(slotExerciseWaiting.getStart_hour());
+                    slotExerciseConflic.setEnd_hour(slotExerciseWaiting.getEnd_hour());
+                    slotExerciseConflic.setDay(slotExerciseWaiting.getDay());
+                    slotExerciseConflic.setGymer(gymer);
+                    slotConflic.add(slotExerciseConflic);
+                    System.out.println("week conflic: " + slotExerciseWaiting.getWeek());
+                    System.out.println("year conflic: " + slotExerciseWaiting.getYear());
+                    System.out.println("day conflic: " + slotExerciseWaiting.getDay());
+                    System.out.println("StartHour conflic: " + slotExerciseWaiting.getStart_hour());
+                    System.out.println("EndHour conflic: " + slotExerciseWaiting.getEnd_hour());
+                    System.out.println("--------------");
                     // Check if the year is already in the Hashtable
                     if (yearConflicts.containsKey(slotExerciseWaiting.getYear())) { // Swap week with year
                         // If yes, add the week to the existing list
@@ -115,6 +131,13 @@ public class OrderRequestController {
 
         model.addAttribute("MSG", msgBuilder.toString());
         model.addAttribute( "allSlots", slotOrder);
+        model.addAttribute("conflicSlot",slotConflic);
+        model.addAttribute("orderedSlot",slotOrdered);
+
+
+        System.out.println("conflic slot:"+slotConflic.size());
+        System.out.println("slot Ordered:" + slotOrdered.size());
+        System.out.println("slot ordering: " + slotOrder.size());
         //BAO: notification
 //        redirectAttributes.addAttribute("accountId", accountId);
 //        redirectAttributes.addAttribute("week", week);
@@ -139,7 +162,7 @@ public class OrderRequestController {
             systemNotificationService.createNotification_AcceptedHiringAndPayment(orderID); //BAO: notification
             redirectAttributes.addAttribute("amountPay",orderRequest.getTotal_of_money());
             redirectAttributes.addAttribute("orderID",orderID);
-            return "redirect:/pay";
+            return "redirect:/order-list";
         }else{
             return "redirect:/order-list";
         }
@@ -186,18 +209,30 @@ public class OrderRequestController {
         return "redirect:/order-list";
     }
 
+    @RequestMapping("customer-list")
+    public String viewCustomerList(HttpSession session,Model model){
+        PersonalTrainer personalTrainer = (PersonalTrainer) session.getAttribute("personalTrainer");
+        List<OrderRequest> orderRequestList = orderRequestService.getOrderList(personalTrainer,OrderStatus.Pending);
+        System.out.println("order list: " + orderRequestList.size());
+        model.addAttribute("OrderList",orderRequestList);
+        for (OrderRequest orderRequest : orderRequestList) {
+            orderRequest.getGymer().getAccount().getFullName();
+            orderRequest.getGymer().getHeight();
+        }
+        return "customer-list";
+    }
 
 
     public static int calculateWeeksDifference(Date date1, Date date2) {
-        // Chuyển đổi từ Date sang LocalDate
-        LocalDate localDate1 = date1.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
-        LocalDate localDate2 = date2.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        // Chuyển đổi từ java.sql.Date sang LocalDate
+        LocalDate localDate1 = date1.toLocalDate();
+        LocalDate localDate2 = date2.toLocalDate();
 
         // Tính khoảng cách theo số tuần
         int weeksDifference = (int) ChronoUnit.WEEKS.between(localDate1, localDate2);
 
         return Math.abs(weeksDifference); // Trả về giá trị tuyệt đối
-    } // Hàm trả về khoảng cách tuần giữa 2 ngày
+    }// Hàm trả về khoảng cách tuần giữa 2 ngày
 
     public static int getWeekOfYear(Date sqlDate) {
         // Chuyển đổi từ java.sql.Date sang java.time.LocalDate

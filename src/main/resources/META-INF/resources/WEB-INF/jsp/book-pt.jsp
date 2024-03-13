@@ -228,9 +228,11 @@
                                                             - ${hour + 2}:00
                                                         </td>
                                                         <c:forEach var="day"
-                                                                   items="${['Monday', 'Tuesday', 'Wednesday', 'Thusday', 'Friday', 'Saturday', 'Sunday']}">
+                                                                   items="${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}">
                                                             <c:set var="disabled" value="false"/>
                                                             <c:set var="pending" value="false"/>
+                                                            <c:set var="booking"/>
+
 
                                                             <c:forEach items="${allSlot}" var="Slot">
                                                                 <c:if test="${Slot.day eq day && fn:substringBefore(Slot.start_hour, ':') == hour

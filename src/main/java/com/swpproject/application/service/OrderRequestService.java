@@ -15,5 +15,7 @@ public interface OrderRequestService {
     public OrderRequest getOrderRequestById(Integer orderID);
     public List<OrderRequest> getOrderRequestList(PersonalTrainer personalTrainer);
     public void deleteOrder(Integer orderId);
+    public  boolean checkGymerOrderExist(Integer gymerID,OrderStatus orderStatus);
 
+    public List<OrderRequest> getOrderList(PersonalTrainer personalTrainer, OrderStatus orderStatus);
 }

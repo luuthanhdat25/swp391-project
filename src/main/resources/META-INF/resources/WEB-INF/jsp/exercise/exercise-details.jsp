@@ -15,7 +15,6 @@
                                     <div class="card">
                                         <div class="card-body position-relative">
                                             <div id="exerciseImage"></div>
-
                                             <div class="mt-md-2" id="exerciseDetails"></div>
                                         </div>
                                     </div>
@@ -63,101 +62,20 @@
     </div>
 
 
-
     <script src="../../../assets/js/jquery-3.6.0.min.js"></script>
-    <script>
-        var exercise = ${exercise};
-        console.log(exercise.personalTrainer_id);
-        $(document).ready(function() {
-            $('#exerciseImage').html('<img class="w-100 mb-2" src="data:image/jpeg;base64,' + exercise.imageDescription + '" style="border-radius: .25rem;" alt="Exercise Image">');
-
-            var level = '';
-            if (exercise.level === 'Beginner') {
-                level = 'bg-success';
-            } else if (exercise.level === 'Intermediate') {
-                level = 'bg-warning';
-            } else if (exercise.level === 'Advanced') {
-                level = 'bg-danger';
-            }
-
-            $('#exerciseDetails').append('<h2 class="m-100 p-1 text-white rounded ' + level + '" id="level" style="font-size: 1rem">Level: ' + exercise.level + '</h2>' +
-                '<h2 class="m-100 p-1 bg-info text-white rounded" id="affectedMuscle" style="font-size: 1rem">Affected Muscle: ' + exercise.type + '</h2>' +
-                '<h2 class="m-100 p-1 bg-secondary text-white rounded" id="equipment" style="font-size: 1rem">Equipment: ' + exercise.equipment + '</h2>');
-
-            $('#exerciseName').append(exercise.name);
-            $('#editButton').attr('href', '/exercise/details/edit?id=' + exercise.id);
-            $('#exerciseDescription').append(exercise.description);
-        });
-
-
-        var youtubeLink = exercise.videoDescription;
-        var videoId = extractVideoId(youtubeLink);
-
-        function extractVideoId(url) {
-            var regex = /^(?:(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11}))/;
-            var match = url.match(regex);
-            return match ? match[1] : null;
-        }
-
-        $(document).ready(function() {
-            if (videoId) {
-                var tag = $('<script>', {
-                    src: 'https://www.youtube.com/iframe_api'
-                });
-                $('script:first').before(tag);
-
-                window.onYouTubeIframeAPIReady = function() {
-                    player = new YT.Player('player', {
-                        height: '270',
-                        width: '480',
-                        playerVars: {
-                            'playsinline': 1,
-                        },
-                        videoId: videoId,
-                        events: {
-                            'onReady': onPlayerReady,
-                            'onStateChange': onPlayerStateChange
-                        }
-                    });
-                };
-
-                function onPlayerReady(event) {
-                    event.target.playVideo();
-                }
-
-                function onPlayerStateChange(event) {
-                    if (event.data == YT.PlayerState.PLAYING && !done) {
-                        setTimeout(stopVideo, 6000);
-                        done = true;
-                    }
-                }
-
-                if (videoId) {
-                    $('#playerContainer').show();
-                    player.loadVideoById(videoId);
-                } else {
-                    alert("Invalid YouTube link. Please enter a valid link.");
-                }
-            } else {
-                // Invalid YouTube link
-                console.error("Invalid YouTube link. Please enter a valid link.");
-            }
-        });
-    </script>
-
     <script src="../../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <script src="../../../assets/js/feather.min.js"></script>
-
     <script src="../../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="../../../assets/js/script.js"></script>
 
-
-
     <script>
-          var account =  ${account.getId()};
-          console.log(account)
+        var exercise = ${exercise};
+        console.log(exercise);
+        console.log(exercise.personalTrainer_id);
     </script>
+
+    <script src="../../../assets/js/exercise/details/exercise-details-load-data.js"></script>
+    <script src="../../../assets/js/exercise/details/exercise-details-youtube-extract.js"></script>
 </body>
 
 </html>

@@ -29,46 +29,7 @@ function renderNutritionList(nutritionList) {
     tbody.html(html);
 }
 
-function handleSearch() {
-    var searchName = $("#searchInput").val();
-    var caloMin = $("#caloMinInput").val();
-    var caloMax = $("#caloMaxInput").val();
-    var proteinMin = $("#proteinMinInput").val();
-    var proteinMax = $("#proteinMaxInput").val();
-    var fatMin = $("#fatMinInput").val();
-    var fatMax = $("#fatMaxInput").val();
-    var carbMin = $("#carbMinInput").val();
-    var carbMax = $("#carbMaxInput").val();
-
-    var searchData = {
-        "searchName": searchName,
-        "caloMin": caloMin,
-        "caloMax": caloMax,
-        "proteinMin": proteinMin,
-        "proteinMax": proteinMax,
-        "fatMin": fatMin,
-        "fatMax": fatMax,
-        "carbMin": carbMin,
-        "carbMax": carbMax
-    };
-
-    console.log(JSON.stringify(searchData));
-
-    $.ajax({
-        type: "POST",
-        url: "/api/nutritions/search",
-        contentType: "application/json",
-        data: JSON.stringify(searchData),
-        success: function(response) {
-            console.log(response);
-            renderNutritionList(response)
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
-    });
-}
-
+//View detail modal
 $(document).ready(function () {
     renderNutritionList(nutritionList)
 
@@ -95,28 +56,3 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    // Handle search name input and submit on enter
-    $("#searchInput").keypress(function (event) {
-        if (event.which == 13) {
-            event.preventDefault();
-            handleSearch();
-        }
-    });
-
-    $("#submitCalo").click(function () {
-        handleSearch();
-    });
-
-    $("#submitProtein").click(function () {
-        handleSearch();
-    });
-
-    $("#submitFat").click(function () {
-        handleSearch();
-    });
-
-    $("#submitCarb").click(function () {
-        handleSearch();
-    });
-})

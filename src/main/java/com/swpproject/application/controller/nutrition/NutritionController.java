@@ -1,5 +1,7 @@
 package com.swpproject.application.controller.nutrition;
 
+import com.swpproject.application.controller.dto.RoleDTO;
+import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Nutrition;
 import com.swpproject.application.controller.dto.NutritionDTOIn;
 import com.swpproject.application.controller.dto.NutritionDTOOut;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/nutrition")
@@ -26,53 +29,84 @@ public class NutritionController {
     @Autowired
     private NutritionService nutritionService;
 
+    private static final String NUTRITION_LIST_URL = "nutrition/nutrition-list";
+    private static final String NUTRITION_CREATE_URL = "nutrition/nutrition-create";
+    private static final String NUTRITION_UPDATE_URL = "nutrition/nutrition-update";
+    private static final String ERROR_URL = "error";
+
+
+    //Get view nutrition list
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getExerciseListPage(ModelMap model) {
-        List<NutritionDTOOut> nutritionDTOOutList = nutritionService.getNutritionDTOOutList();
+    public String getNutritionListPage(ModelMap model, HttpServletRequest request) {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        List<NutritionDTOOut> nutritionDTOOutList = nutritionService.getNutritionDTOOutList(roleDTO);
         String nutritionDTOOutListJson = JsonUtils.jsonConvert(nutritionDTOOutList);
         model.addAttribute("nutritionList", nutritionDTOOutListJson);
-        return "nutrition-list";
+        return NUTRITION_LIST_URL;
     }
+
 
     //Get view create nutrition
     @RequestMapping(value = "/create", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getCreateNutritionPage() {
-        return "nutrition-create";
+    public String getCreateNutritionPage(HttpServletRequest request) {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        if(!canCreateUpdate(roleDTO)) return ERROR_URL;
+
+        return NUTRITION_CREATE_URL;
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String createExercise(@ModelAttribute NutritionDTOIn nutritionDTOIn, Model model) throws IOException {
-        nutritionService.create(nutritionDTOIn);
-        return "redirect:/nutrition/";
+    private boolean canCreateUpdate(RoleDTO roleDTO){
+        return roleDTO != null && (roleDTO.getRole() == Role.ADMIN || roleDTO.getRole() == Role.PT);
     }
+
+
+    //Post create nutrition data
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+    public String createNutrition(@ModelAttribute NutritionDTOIn nutritionDTOIn, HttpServletRequest request)
+            throws IOException
+    {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        if(!canCreateUpdate(roleDTO)) return ERROR_URL;
+
+        nutritionService.create(nutritionDTOIn, roleDTO);
+        return "redirect:/nutrition";
+    }
+
 
     //Get update view nutrition
     @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getNutritionDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        if(!canCreateUpdate(roleDTO)) return ERROR_URL;
+
+        Optional<Nutrition> nutritionOptional = nutritionService.findNutritionById(id, roleDTO);
+        if(nutritionOptional.isEmpty()) return ERROR_URL;
+
         HttpSession session = request.getSession();
         session.setAttribute("nutritionId", id);
 
-        Nutrition nutrition = nutritionService.findNutritionById(id).get();
-        NutritionDTOOut nutritionDTOOut = nutrition.getNutritionDTOOut();
-
+        NutritionDTOOut nutritionDTOOut = nutritionOptional.get().getNutritionDTOOut();
         String json = JsonUtils.jsonConvert(nutritionDTOOut);
         model.addAttribute("nutrition", json);
-        return "nutrition-update";
+        return NUTRITION_UPDATE_URL;
     }
+
 
     //Post update nutrition data
     @RequestMapping(value = "/details/edit", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String editNutrition(@ModelAttribute NutritionDTOIn nutritionDTOIn, HttpServletRequest request, Model model) throws IOException {
+    public String editNutrition(@ModelAttribute NutritionDTOIn nutritionDTOIn, HttpServletRequest request, Model model)
+            throws IOException
+    {
         HttpSession session = request.getSession();
-        Integer id = (Integer) session.getAttribute("nutritionId");
+        Integer nutritionId = (Integer) session.getAttribute("nutritionId");
+        if(nutritionId == null) return ERROR_URL;
 
-        if (id != null) {
-            nutritionService.update(nutritionDTOIn, id);
-            session.removeAttribute("exerciseId");
-            return "redirect:/nutrition/";
-        } else {
-            return "redirect:/error";
-        }
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        if(!canCreateUpdate(roleDTO)) return ERROR_URL;
+
+        session.removeAttribute("nutritionId");
+        nutritionService.update(nutritionDTOIn, nutritionId);
+        return "redirect:/nutrition";
     }
 }
 

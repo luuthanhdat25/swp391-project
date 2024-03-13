@@ -1,9 +1,7 @@
 package com.swpproject.application.service;
 
+import com.swpproject.application.controller.dto.*;
 import com.swpproject.application.model.Nutrition;
-import com.swpproject.application.controller.dto.NutritionDTOIn;
-import com.swpproject.application.controller.dto.NutritionDTOOut;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,18 +10,13 @@ import java.util.Optional;
 
 @Service
 public interface NutritionService {
-    @Transactional
-    List<Nutrition> getNutritionList();
+    List<Nutrition> getNutritionListAuthentication(RoleDTO roleDTO);
 
-    @Transactional
-    List<NutritionDTOOut> getNutritionDTOOutList();
+    List<NutritionDTOOut> getNutritionDTOOutList(RoleDTO roleDTO);
 
-    @Transactional
-    Optional<Nutrition> findNutritionById(int id);
+    Optional<Nutrition> findNutritionById(int nutritionId, RoleDTO roleDTO);
 
-    @Transactional
-    void create(NutritionDTOIn nutrition) throws IOException;
+    void create(NutritionDTOIn nutritionDTOIn, RoleDTO roleDTO) throws IOException;
 
-    @Transactional
-    void update(NutritionDTOIn nutrition, int nutritionId) throws IOException;
+    void update(NutritionDTOIn nutritionDTOIn, int nutritinoId) throws IOException;
 }

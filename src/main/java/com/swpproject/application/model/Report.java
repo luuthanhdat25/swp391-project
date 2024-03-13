@@ -29,9 +29,9 @@ public class Report {
 
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "personal_trainer_id",referencedColumnName = "id", nullable = false)
-	private Account personalTrainerAccount;
+	private PersonalTrainer personalTrainerAccount;
 
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gymer_id",referencedColumnName = "id", nullable = false)
-	private Account gymerAccount;
+	private Gymer gymerAccount;
 }

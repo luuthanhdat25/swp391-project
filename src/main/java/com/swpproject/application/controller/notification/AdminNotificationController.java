@@ -4,16 +4,20 @@ import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Notification;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.NotificationRepository;
+import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -52,8 +56,7 @@ public class AdminNotificationController {
                 List<Notification> pageContent = notificationList.subList(fromIndex, toIndex + 1);
                 notifications = new PageImpl<>(pageContent, pageable, notificationList.size());
             }
-        }
-        else {
+        } else {
             String titleLowerCase = title.toLowerCase();
             List<Notification> notificationFilter = notificationRepository.findAll().stream()
                     .filter(notification -> notification.getTitle().toLowerCase().contains(titleLowerCase))
@@ -113,4 +116,30 @@ public class AdminNotificationController {
     public String viewCreatingNotificationDetail() {
         return "notification/admin-home-create-notification";
     }
+
+    @ResponseBody
+    @GetMapping(value = "/get-notification-detail")
+    public ResponseEntity<AdminNotificationDTO> getNotificationDetail(@RequestParam int notificationID) {
+        Notification notification = notificationRepository.findById(notificationID).get();
+        AdminNotificationDTO AdminNotificationDTO = new AdminNotificationDTO();
+
+        AdminNotificationDTO.setAvatarSender(notification.getFromAccount().getAvatarImage());
+        AdminNotificationDTO.setTitle(notification.getTitle());
+        AdminNotificationDTO.setTimeStamp(notification.getTimeStamp());
+        AdminNotificationDTO.setNameSender(notification.getFromAccount().getFullName());
+        AdminNotificationDTO.setContentSender(notification.getContent());
+        return ResponseEntity.ok().body(AdminNotificationDTO);
+    }
+}
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+class AdminNotificationDTO {
+    private String title;
+    private byte[] avatarSender;
+    private LocalDateTime timeStamp;
+    private String nameSender;
+    private String contentSender;
 }

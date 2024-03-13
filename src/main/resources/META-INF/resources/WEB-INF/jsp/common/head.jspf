@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
+
 <div class="header">
     <div class="header-left">
         <a href="/" class="logo">
@@ -32,15 +33,28 @@
     <c:choose>
         <c:when test="${account ne null}">
             <ul class="nav user-menu">
-                <li>
-                    <a href="view-notification-list">
-                        <img src="../../assets/img/icons/header-icon-05.svg" alt="">
+                <li class="nav-item dropdown noti-dropdown">
+                    <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
+                        <img src="assets/img/icons/header-icon-05.svg" alt="">
                     </a>
+                    <div class="dropdown-menu notifications" style="width: 400px;">
+                        <div class="topnav-dropdown-header" style="background-color: #a2afbe;">
+                            <b class="notification-title" style="color: #FFFFFF;">Notifications</b>
+                                <%-- <a href="javascript:void(0)" class="clear-noti"> Clear All </a>--%>
+                        </div>
+                        <div class="noti-content" style="width: 98%;">
+                            <ul class="notification-list" id="notificationList"></ul>
+                        </div>
+                        <div class="topnav-dropdown-footer" style="background-color: #FFFFFF; height: 20px;">
+                                <%-- <a href="#">View all Notifications</a>--%>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item dropdown has-arrow new-user-menus">
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
-                                    <img class="rounded-circle" src="data:image/jpeg;base64,${account.getAvatarImageAsString()}"
+                                    <img class="rounded-circle"
+                                         src="data:image/jpeg;base64,${account.getAvatarImageAsString()}"
                                          width="31"
                                          alt="#">
                             <div class="user-text">
@@ -75,3 +89,42 @@
         </c:otherwise>
     </c:choose>
 </div>
+
+<script src="../../../assets/js/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/notifications",
+            success: function (data) {
+                var notificationList = $("#notificationList");
+                $.each(data, function (index, notification) {
+                    var listItem = $("<li class='notification-message'></li>");
+
+                    var avatar = $("<span class='avatar avatar-sm flex-shrink-0'>" +
+                        "<img class='avatar-img rounded-circle' alt='User Image' src='" + "data:image/jpeg;base64, " + notification.avatarSender + "'>" +
+                        "</span>");
+
+                    var formattedTime = moment(notification.timeStamp).format('HH:mm, DD/MM/YYYY');
+                    var mediaBody = $("<div class='media-body flex-grow-1'>" +
+                        "<p class='noti-details'><b class='noti-title'>" + notification.nameSender + "</b>" +
+                        "<span class='noti-title'> " + notification.title + "</span></p>" +
+                        "<p class='noti-time'><span class='notification-time' style='color: #a2afbe;'>" + formattedTime +
+                        "</span></p>" +
+                        "</div>");
+
+                    listItem.append("<a href=" + notification.contentSender + "><div class='media d-flex'></div></a>");
+                    listItem.find('.media').append(avatar);
+                    listItem.find('.media').append(mediaBody);
+
+                    notificationList.append(listItem);
+                });
+            },
+            error: function (error) {
+                console.error("Error loading notifications: " + JSON.stringify(error));
+            }
+        });
+    });
+</script>

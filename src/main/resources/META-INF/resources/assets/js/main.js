@@ -19,7 +19,7 @@
 		this.modalEventName = this.modal.getElementsByClassName('cd-schedule-modal__name')[0];
 		this.coverLayer = this.element.getElementsByClassName('cd-schedule__cover-layer')[0];
 
-		this.modalMaxWidth = 800;
+		this.modalMaxWidth = 1000;
 		this.modalMaxHeight = 480;
 
 		this.animating = false;
@@ -292,18 +292,111 @@
 		// load the content of an event when user selects it
 		var self = this;
 
-		httpRequest = new XMLHttpRequest();
-		httpRequest.onreadystatechange = function() {
-			if (httpRequest.readyState === XMLHttpRequest.DONE) {
-	      if (httpRequest.status === 200) {
-	      	self.modal.getElementsByClassName('cd-schedule-modal__event-info')[0].innerHTML = self.getEventContent(httpRequest.responseText); 
-	      	Util.addClass(self.modal, 'cd-schedule-modal--content-loaded');
-	      }
-	    }
-		};
-		httpRequest.open('GET', content+'.html');
-    httpRequest.send();
+		// Tạo chuỗi HTML mới chứa nội dung của sự kiện
+		var eventContent;
+
+		// Kiểm tra content bắt đầu bằng "Exe" hoặc "Nutri" để xác định URL phù hợp
+		var url = '';
+		if (content.startsWith('Exe')) {
+			url = 'http://localhost:8080/api/slot-exercise';
+		} else if (content.startsWith('Nut')) {
+			url = 'http://localhost:8080/api/slot-nutrition';
+		}
+
+		// Gửi AJAX request tới URL phù hợp
+		$.ajax({
+			url: url,
+			type: 'GET',
+			data: {
+				id: content
+			},
+			success: function(response) {
+				var formContent = '<form class="exercise-form">';
+				formContent += '<div class="row my-2"></div>'; // Hàng trắng phía trên
+
+				if (response[0].check === "Exe") {
+					// Duyệt qua từng đối tượng exe trong danh sách response
+					response.forEach(function(slotExerciseDetailDTO, index) {
+						formContent += '<div class="row exercise-item mb-2">'; // Khoảng trống dưới mỗi hàng
+						formContent += '<div class="col-1"></div>'; // Khoảng trống bên trái
+						formContent += '<div class="col-sm-4">';
+						formContent += '<label for="exerciseName_' + index + '">Exercise Name:</label>';
+						formContent += '<select id="exerciseName_' + index + '" name="exerciseName_' + index + '" class="form-control">';
+
+						// Duyệt qua từng phần tử của exerciseList
+						slotExerciseDetailDTO.exerciseList.forEach(function(exercise) {
+							// Kiểm tra nếu id của exercise trùng khớp với exerciseId
+							var selected = (exercise.id === slotExerciseDetailDTO.exerciseId) ? 'selected' : '';
+							// Thêm một tùy chọn vào select với value là id của exercise và hiển thị là tên của exercise
+							formContent += '<option value="' + exercise.id + '" ' + selected + '>' + exercise.name + '</option>';
+						});
+
+						formContent += '</select>';
+						formContent += '</div>';
+
+
+						formContent += '<div class="col-sm-2">';
+						formContent += '<label for="setExe_' + index + '">Set:</label>';
+						formContent += '<input type="text" id="setExe_' + index + '" name="setExe_' + index + '" class="form-control" value="' + slotExerciseDetailDTO.setExe + '">';
+						formContent += '</div>';
+
+						formContent += '<div class="col-sm-2">';
+						formContent += '<label for="rep_' + index + '">Rep:</label>';
+						formContent += '<input type="text" id="rep_' + index + '" name="rep_' + index + '" class="form-control" value="' + slotExerciseDetailDTO.rep + '">';
+						formContent += '</div>';
+						formContent += '</div>'
+					});
+				} else {
+					// Duyệt qua từng đối tượng nutri trong danh sách response
+					response.forEach(function(slotNutritionDetailDTO, index) {
+						formContent += '<div class="row exercise-item mb-2">'; // Mở một hàng mới
+						formContent += '<div class="col-1"></div>'; // Khoảng trống bên trái
+						formContent += '<div class="col-sm-4">';
+						formContent += '<label for="nutritionName_' + index + '">Nutrition Name:</label>';
+						formContent += '<select id="nutritionName_' + index + '" name="nutritionName_' + index + '" class="form-control">';
+
+						// Duyệt qua từng phần tử của nutritionList
+						slotNutritionDetailDTO.nutritionList.forEach(function(nutrition) {
+							// Kiểm tra nếu id của nutrition trùng khớp với nutritionId
+							var selected = (nutrition.nutritionId === slotNutritionDetailDTO.nutriId) ? 'selected' : '';
+							// Thêm một tùy chọn vào select với value là id của nutrition và hiển thị là tên của nutrition
+							formContent += '<option value="' + nutrition.nutritionId + '" ' + selected + '>' + nutrition.name + '</option>';
+						});
+
+						formContent += '</select>';
+						formContent += '</div>';
+
+						formContent += '<div class="col-sm-4">';
+						formContent += '<label for="amount_' + index + '">Amount:</label>';
+						formContent += '<input type="text" id="amount_' + index + '" name="amount_' + index + '" class="form-control" value="' + slotNutritionDetailDTO.amount + '">';
+						formContent += '</div>';
+						formContent += '</div>'; // Đóng tag div của hàng
+					});
+				}
+
+				formContent += '<div class="row mb-2">';
+				formContent += '<div class="col-1"></div>';
+				formContent += '<div class="col-sm-8">';
+				formContent += '<label for="description">Note:</label>';
+				formContent += '<textarea id="description" name="description" class="form-control">' + response[0].description + '</textarea>';
+				formContent += '</div>';
+				formContent += '</div>';
+
+				formContent += '</form>';
+
+				// Hiển thị biểu mẫu nội dung của sự kiện
+				self.modal.getElementsByClassName('cd-schedule-modal__event-info')[0].innerHTML = formContent;
+				Util.addClass(self.modal, 'cd-schedule-modal--content-loaded');
+			}
+			,
+			error: function(xhr, status, error) {
+				console.error(xhr.responseText);
+			}
+
+		});
 	};
+
+
 
 	ScheduleTemplate.prototype.getEventContent = function(string) {
 		// reset the loaded event content so that it can be inserted in the modal

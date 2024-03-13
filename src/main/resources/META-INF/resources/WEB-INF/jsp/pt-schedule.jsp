@@ -99,11 +99,11 @@
                                 <div class="cd-schedule__events">
                                     <ul>
                                         <c:forEach var="date"
-                                                   items="${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}">
+                                                   items="${['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']}">
                                             <li class="cd-schedule__group">
                                                 <div class="cd-schedule__top-info"><span>${date}</span></div>
                                                 <ul>
-                                                    <c:forEach items="${slotExercises}" var="slotE">
+                                                    <c:forEach items="${slotExers}" var="slotE">
                                                         <c:if test="${slotE.day eq date}">
                                                             <li class="cd-schedule__event">
                                                                 <a data-start="${slotE.start_hour}"
@@ -111,7 +111,7 @@
                                                                    data-content="event-abs-circuit"
                                                                    data-event="event-1"
                                                                    href="#0">
-                                                                    <em class="cd-schedule__name">Training for ${slotE.gymer.account.fullName}</em>
+                                                                    <em class="cd-schedule__name">Training for Exercise</em>
                                                                 </a>
                                                             </li>
                                                         </c:if>

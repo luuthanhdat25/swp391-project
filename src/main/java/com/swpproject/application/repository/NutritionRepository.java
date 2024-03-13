@@ -22,4 +22,5 @@ import java.util.List;
 
 @Repository
 public interface NutritionRepository extends JpaRepository<Nutrition, Integer> {
+    public Nutrition findByNutritionId(Integer id);
 }

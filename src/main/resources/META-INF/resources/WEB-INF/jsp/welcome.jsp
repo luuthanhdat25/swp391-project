@@ -1,4 +1,5 @@
 <%@ include file="common/header.jspf" %>
+<%@ include file="common/head.jspf" %>
 <%@ include file="common/sidebar.jspf" %>
 <%@ include file="common/head.jspf" %>
 

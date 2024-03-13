@@ -34,21 +34,6 @@ public class Nutrition {
     @JoinColumn(name = "personal_trainer_id")
     private PersonalTrainer personalTrainer;
 
-    @Override
-    public String toString() {
-        boolean isImageNull = imageDescription == null;
-        return "Nutrition{" +
-                "nutritionId=" + nutritionId +
-                ", name='" + name + '\'' +
-                ", protein=" + protein +
-                ", fat=" + fat +
-                ", carb=" + carb +
-                ", caloIn=" + caloIn +
-                ", imageDescription= is null " + isImageNull +
-                ", isPrivate=" + isPrivate +
-                ", personalTrainerId=" + personalTrainer.getId() +
-                '}';
-    }
 
     public NutritionDTOOut getNutritionDTOOut(){
         NutritionDTOOut nutritionDTOOut = new NutritionDTOOut();

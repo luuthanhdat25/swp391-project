@@ -166,7 +166,8 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 d-flex align-items-center">
                                         <div class="follow-btn-group">
-                                            <button type="submit" class="btn btn-info message-btns">Book</button>
+                                            <a class="btn btn-info message-btnsz" href="/bookPT1?PersonalTrainerID=${param.id}">Book</a>
+
                                             <button type="submit" class="btn btn-info message-btns">Inbox</button>
                                             <button type="submit" class="btn btn-info message-btns"
                                                     data-bs-toggle="modal" data-bs-target="#exampleModal">Report

@@ -35,7 +35,7 @@ public class ScheduleGymerController {
                                            @RequestParam("year") int year,
                                            HttpSession session) {
         Gymer gymer = (Gymer) session.getAttribute("gymer");
-        
+
 
         session.setAttribute("week", week);
         session.setAttribute("year", year);

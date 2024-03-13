@@ -97,7 +97,7 @@
                                                             <li class="cd-schedule__event">
                                                                 <a data-start="${slotE.start_hour}"
                                                                    data-end="${slotE.end_hour}"
-                                                                   data-content="event-abs-circuit"
+                                                                   data-content="Exe${slotE.id}"
                                                                    data-event="event-1"
                                                                    href="#0">
                                                                     <em class="cd-schedule__name">Exercise</em>
@@ -110,7 +110,7 @@
                                                             <li class="cd-schedule__event">
                                                                 <a data-start="${slotN.start_hour}"
                                                                    data-end="${slotN.end_hour}"
-                                                                   data-content="event-abs-circuit"
+                                                                   data-content="Nut${slotN.id}"
                                                                    data-event="event-4"
                                                                    href="#0">
                                                                     <em class="cd-schedule__name">Nutrition</em>
@@ -141,6 +141,35 @@
                                 </div>
 
                                 <div class="cd-schedule__cover-layer"></div>
+
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                                        <input type="text" class="form-control" id="recipient-name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="message-text" class="col-form-label">Message:</label>
+                                                        <textarea class="form-control" id="message-text"></textarea>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Send message</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div> <!-- .cd-schedule -->
                         </div>
                     </div>
@@ -164,7 +193,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" action="/view-personal-schedule">
+                <form method="post" action="/view-personal-schedule" onsubmit="return validateForm()">
                     <div class="modal-body">
                         <div class="bank-inner-details" id="scheduleDetails">
                             <div class="row">
@@ -210,17 +239,31 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label>Note</label>
+                                        <textarea class="form-control" rows="4" name="description" placeholder="Enter description"></textarea>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 exercise-fields" style="display: none;">
                                     <div class="form-group">
-                                        <label>Exercise <a href="javascript:void(0);" class="add-btn me-2" onclick="addExercise()"><i class="fas fa-plus-circle"></i></a></label>
+                                        <label>Exercise
+                                            <a href="javascript:void(0);" class="add-btn me-2" onclick="addExercise()"><i
+                                                    class="fas fa-plus-circle"></i></a>
+                                            <a href="javascript:void(0);" class="remove-btn" onclick="removeExercise()"><i
+                                                    class="fas fa-minus-circle"></i></a>
+                                        </label>
                                         <select class="form-control" name="exerciseSelect" id="exerciseSelect">
                                             <option disabled selected>Choose exercise</option>
                                             <c:forEach items="${exercises}" var="exe">
-                                                <option value="${exe.id}">${exe.name}</option>
+                                                <option value="${exe.id}" >${exe.name}</option>
                                             </c:forEach>
                                         </select>
+                                        <div id="exercisePreview">
+                                            <!-- Placeholder for exercise image preview -->
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 exercise-fields" style="display: none;">
@@ -241,7 +284,12 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 nutrition-fields" style="display: none;">
                                     <div class="form-group">
-                                        <label>Nutrition <a href="javascript:void(0);" class="add-btn me-2" onclick="addNutritionFields()"><i class="fas fa-plus-circle"></i></a></label>
+                                        <label>Nutrition
+                                            <a href="javascript:void(0);" class="add-btn me-2" onclick="addNutritionFields()"><i
+                                                    class="fas fa-plus-circle"></i></a>
+                                            <a href="javascript:void(0);" class="remove-btn" onclick="removeNutritionFields()"><i
+                                                    class="fas fa-minus-circle"></i></a>
+                                        </label>
                                         <select class="form-control" name="nutritionSelect" id="nutritionSelect">
                                             <option disabled selected>Choose nutrition</option>
                                             <c:forEach items="${nutritions}" var="nutri">
@@ -289,6 +337,25 @@
 <script src="assets/js/jquery-ui.min.js"></script>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var selectElement = document.getElementById('exerciseSelect');
+        var exercisePreview = document.getElementById('exercisePreview');
+
+        selectElement.addEventListener('mouseover', function (event) {
+            var option = event.target;
+            if (option.tagName === 'OPTION') {
+                var imageDescription = option.getAttribute('data-image');
+                if (imageDescription) {
+                    exercisePreview.innerHTML = '<img src="' + imageDescription + '" alt="Exercise Image">';
+                } else {
+                    exercisePreview.innerHTML = ''; // Clear preview if no image description is provided
+                }
+            }
+        });
+    });
+</script>
+
+<script>
     function showFields() {
         var typeOfSlot = document.getElementById("typeOfSlot").value;
         var exerciseFields = document.querySelectorAll(".exercise-fields");
@@ -317,6 +384,84 @@
             });
         }
     }
+</script>
+
+<script>
+    function validateForm() {
+        var typeOfSlot = document.getElementById("typeOfSlot").value;
+        var day = document.getElementById("day").value;
+        var slot = document.getElementById("slot").value;
+
+        // Kiểm tra typeOfSlot
+        if (typeOfSlot === "Choose type of slot") {
+            alert("Please select slot type!");
+            return false;
+        }
+
+        // Kiểm tra Day và Slot
+        if (day === "Select day" ) {
+            alert("Please select 1 day of the week!");
+            return false;
+        }
+
+        if (slot === "Select time") {
+            alert("Please choose your slot time of day!");
+            return false;
+        }
+
+        if (typeOfSlot === "Exercise") {
+            var exerciseSelect = document.getElementById("exerciseSelect").value;
+            var exerciseSet = document.getElementsByName("exerciseSet")[0].value;
+            var exerciseRep = document.getElementsByName("exerciseRep")[0].value;
+
+            // Kiểm tra tên Exercise, Set và Rep
+            if (exerciseSelect === "Choose exercise") {
+                alert("Please choose 1 exercise from the list!");
+                return false;
+            }
+
+            if (exerciseSet === null || exerciseSet === "") {
+                alert("Please select number of sets!");
+                return false;
+            }
+
+            if (exerciseRep === null || exerciseRep === "") {
+                alert("Please select number of reps!");
+                return false;
+            }
+
+            if (!validatePositiveInteger(exerciseSet) || !validatePositiveInteger(exerciseRep)) {
+                alert("Sets and reps must be positive integers!");
+                return false;
+            }
+        } else if (typeOfSlot === "Nutrition") {
+            var nutritionSelect = document.getElementById("nutritionSelect").value;
+            var nutritionAmount = document.getElementsByName("nutritionAmount")[0].value;
+
+            // Kiểm tra tên Nutrition và Amount
+            if (nutritionSelect === "Choose nutrition") {
+                alert("Please choose 1 nutrition from the list!");
+                return false;
+            }
+
+            if (nutritionAmount === null || nutritionAmount === "") {
+                alert("Please select nutritional amount!");
+                return false;
+            }
+
+            if (!validatePositiveInteger(nutritionAmount)) {
+                alert("Nutritional amount must be a positive integer!");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function validatePositiveInteger(value) {
+        return /^\d+$/.test(value) && parseInt(value) > 0;
+    }
+
 </script>
 
 <script>
@@ -349,6 +494,23 @@
         document.querySelector('.bank-inner-details').appendChild(newRow);
     }
 
+    function removeExercise() {
+        // Lấy danh sách tất cả các hàng chứa cả 3 trường dữ liệu bài tập
+        var exerciseRows = document.querySelectorAll('.exercise-fields');
+
+        // Nếu chỉ còn 1 hàng(3trường), không cho phép xóa
+        if (exerciseRows.length === 3) {
+            alert("You need to keep at least 1 exercises for a workout slot!");
+            return;
+        }
+
+        // Nếu có nhiều hơn 3 hàng, xóa hàng cuối cùng trong danh sách
+        if (exerciseRows.length > 3) {
+            var lastRow = exerciseRows[exerciseRows.length - 1];
+            lastRow.parentNode.removeChild(lastRow);
+        }
+    }
+
     function addNutritionFields() {
         var newRow = document.createElement("div");
         newRow.classList.add("row", "nutrition-fields");
@@ -372,6 +534,22 @@
     `;
 
         document.querySelector('.bank-inner-details').appendChild(newRow);
+    }
+
+    function removeNutritionFields() {
+        // Đếm số lượng hàng hiện có
+        var nutritionRows = document.querySelectorAll('.nutrition-fields');
+        var rowCount = nutritionRows.length;
+
+        // Nếu có ít hơn 1 hàng(2 trường), không cho phép xóa
+        if (rowCount <= 2) {
+            alert("You need to have at least 1 food in the nutrition slot");
+            return;
+        }
+
+        // Xác định hàng cuối cùng và xóa nó
+        var lastRow = nutritionRows[rowCount - 1];
+        lastRow.parentNode.removeChild(lastRow);
     }
 
 </script>

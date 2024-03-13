@@ -36,6 +36,50 @@
                                 </div>
                             </form>
 
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                Launch demo modal
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label>Title</label>
+                                            <input type="text" class="form-control" name="title" style="height: 100px;">
+                                            <label>URL</label>
+                                            <input type="text" class="form-control" name="title">
+
+                                            <div>
+                                                <div></div>
+                                                <button type="button" class="btn btn-success">Add</button>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="flexCheckIndeterminate">
+                                                <label class="form-check-label" for="flexCheckIndeterminate">
+                                                    Send to everyone
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="button" class="btn btn-primary">Send</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <form action="view-creating-notification-detail"
                                   method="GET" style="margin-bottom: 0;"> <%--Add notification" button--%>
                                 <button type="submit" style="height: 50px; width: 164px; background-color: #3c763d;"
@@ -62,8 +106,9 @@
                                 </thead>
                                 <tbody>
                                 <c:forEach var="notification" items="${NotificationList.content}">
-                                     <tr class="shadow p-3 mb-5 bg-body rounded" style="height: 30px;">
-                                        <th scope="row" class="align-baseline">${NotificationList.content.indexOf(notification) + IndexStarting}</th>
+                                    <tr class="shadow p-3 mb-5 bg-body rounded" style="height: 30px;">
+                                        <th scope="row"
+                                            class="align-baseline">${NotificationList.content.indexOf(notification) + IndexStarting}</th>
                                         <td style="text-align: left;" class="align-baseline">
                                             <div class="text-truncate" style="width: 350px;">${notification.title}</div>
                                         </td>

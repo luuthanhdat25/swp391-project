@@ -9,16 +9,19 @@ import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.CertificateRepository;
 import com.swpproject.application.repository.PersonalTrainerRequestRepository;
 import com.swpproject.application.service.CertificateService;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Base64;
@@ -32,7 +35,7 @@ public class PersonalTrainerRequestController {
     @Autowired
     private PersonalTrainerRequestRepository personalTrainerRequestRepository;
     @Autowired
-    private  CertificateRepository certificateRepository;
+    private CertificateRepository certificateRepository;
 
     @RequestMapping(value = "/admin-home/manage-personal-trainer-request", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String viewManagePersonalTrainerRequest(ModelMap modelMap,
@@ -78,7 +81,7 @@ public class PersonalTrainerRequestController {
 
         modelMap.put("PersonalTrainerRequestList", personalTrainerRequests);
         modelMap.addAttribute("TotalPage", personalTrainerRequests.getTotalPages());
-         return "personalTrainerRequest/admin-home-view-personal-trainer-request-list";
+        return "personalTrainerRequest/admin-home-view-personal-trainer-request-list";
     }
 
     @RequestMapping(value = "admin-home/view-personal-trainer-request-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
@@ -109,4 +112,35 @@ public class PersonalTrainerRequestController {
         personalTrainerRequestRepository.save(request);
         return "forward:manage-personal-trainer-request";
     }
+
+    @ResponseBody
+    @GetMapping(value = "/get-personal-trainer-request-detail")
+    public ResponseEntity<PersonalTrainerRequestDTO> getPersonalTrainerRequestDetail(@RequestParam int requestID) {
+        PersonalTrainerRequest request = personalTrainerRequestRepository.findById(requestID).get();
+        PersonalTrainerRequestDTO requestDTO = new PersonalTrainerRequestDTO();
+        requestDTO.setId(request.getId());
+        requestDTO.setPersonalTrainerID(request.getPersonalTrainerAccount().getId());
+        requestDTO.setTitle(request.getTitle());
+        requestDTO.setContent(request.getContent());
+        requestDTO.setTimeStamp(request.getTimeStamp());
+        requestDTO.setStatus(request.getStatus());
+        requestDTO.setPersonalTrainerImage(request.getPersonalTrainerAccount().getAccount().getAvatarImage());
+        requestDTO.setPersonalTrainerName(request.getPersonalTrainerAccount().getAccount().getFullName());
+        return ResponseEntity.ok().body(requestDTO);
+    }
+}
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+class PersonalTrainerRequestDTO {
+    private Integer id;
+    private Integer personalTrainerID;
+    private String title;
+    private String content;
+    private LocalDateTime timeStamp;
+    private RequestStatus status;
+    private byte[] personalTrainerImage;
+    private String personalTrainerName;
 }

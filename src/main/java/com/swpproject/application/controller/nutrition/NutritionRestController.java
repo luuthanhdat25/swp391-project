@@ -48,7 +48,7 @@ public class NutritionRestController {
     private SortEnum getSortSearchEnum(FilterObject filterObject){
         if(filterObject.getCaloMin() == filterObject.getCaloMax()) return SortEnum.LowCalo;
         if(filterObject.getFatMax() == filterObject.getFatMin()) return SortEnum.LowFat;
-        if(filterObject.getProteinMax() == filterObject.getCaloMin()) return SortEnum.HighProtein;
+        if(filterObject.getProteinMax() == filterObject.getProteinMin()) return SortEnum.HighProtein;
         return SortEnum.NoSort;
     }
 

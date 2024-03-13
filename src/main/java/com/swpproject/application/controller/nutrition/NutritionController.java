@@ -77,10 +77,16 @@ public class NutritionController {
     @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getNutritionDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
-        if(!canCreateUpdate(roleDTO)) return ERROR_URL;
+        if(!canCreateUpdate(roleDTO)) {
+            System.out.println("RoleDTO invalid ");
+            return ERROR_URL;
+        }
 
         Optional<Nutrition> nutritionOptional = nutritionService.findNutritionById(id, roleDTO);
-        if(nutritionOptional.isEmpty()) return ERROR_URL;
+        if(nutritionOptional.isEmpty()) {
+            System.out.println("Can't find Nutrition");
+            return ERROR_URL;
+        }
 
         HttpSession session = request.getSession();
         session.setAttribute("nutritionId", id);

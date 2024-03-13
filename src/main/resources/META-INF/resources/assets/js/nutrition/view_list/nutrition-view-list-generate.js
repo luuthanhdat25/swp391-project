@@ -8,7 +8,7 @@ function renderNutritionList(nutritionList) {
             '<td>' + (index + 1) + '</td>' +
             '<td class="text-start">' +
             '<h2 class="table-avatar">' +
-            '<a href="#" class="me-2 nutrition-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + nutrition.name + '" data-calo="' + nutrition.caloIn + '" data-protein="' + nutrition.protein + '" data-fat="' + nutrition.fat + '" data-carb="' + nutrition.carb + '" data-image="' + (nutrition.imageDescription || defaultIconUrl) + '" data-id="' + nutrition.nutritionId + '">' +
+            '<a href="#" class="me-2 nutrition-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + nutrition.name + '" data-calo="' + nutrition.caloIn + '" data-protein="' + nutrition.protein + '" data-fat="' + nutrition.fat + '" data-carb="' + nutrition.carb + '" data-image="' + (nutrition.imageDescription || defaultIconUrl) + '" data-id="' + nutrition.nutritionId + '" data-ptid="' + nutrition.personalTrainerId + '" data-ptimage="' + (nutrition.personalTrainerImage || defaultIconUrl) +'">' +
             '<img class=" rounded-image" src="data:image/jpeg;base64,' + (nutrition.imageDescription || defaultIconUrl) + '" alt="User Image">' +
             '<p class="m-0 ms-2">' + displayName + '</p>' +
             '</a>' +
@@ -20,7 +20,7 @@ function renderNutritionList(nutritionList) {
             '<td>' + nutrition.carb + '</td>' +
             '<td>' +
             '<a href="#" class="avatar avatar-sm me-2 nutrition-detail" data-bs-toggle="modal" data-bs-target="#exampleModal">' +
-            '<img class="avatar-img rounded-circle" src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg" alt="User Image">' +
+            '<img class="avatar-img rounded-circle" src="data:image/jpeg;base64,' + (nutrition.personalTrainerImage || defaultIconUrl) + '" alt="User Image">' +
             '</a>' +
             '</td>' +
             '</tr>';
@@ -43,6 +43,7 @@ $(document).ready(function () {
         var carb = $(this).data('carb');
         var image = $(this).data('image');
         var id = $(this).data('id');
+        var ptId = $(this).data('ptid');
 
         var gam = '/100g';
         modal.find('.modal-title').text(name);
@@ -51,6 +52,13 @@ $(document).ready(function () {
         modal.find('#modal-protein').text('Protein: ' + protein + gam);
         modal.find('#modal-fat').text('Fat: ' + fat + gam);
         modal.find('#modal-carb').text('Carbohydrates: ' + carb + gam);
+        var editButton = modal.find('#editButton');
+
+            console.log('ptId ' +ptId)
+            console.log('personalTrainerId ' +personalTrainerId)
+        if (ptId === personalTrainerId) {
+            editButton.show();
+        }
         $('#editButton').attr('href', '/nutrition/details/edit?id=' + id);
         $('#exampleModal').modal('show');
     });

@@ -2,6 +2,7 @@ package com.swpproject.application.controller;
 
 import com.swpproject.application.controller.dto.Base64Dto;
 import com.swpproject.application.controller.dto.GymerDto;
+import com.swpproject.application.controller.dto.PersonalTrainerDto;
 import com.swpproject.application.enums.Gender;
 import com.swpproject.application.enums.Goal;
 import com.swpproject.application.enums.Role;
@@ -40,6 +41,9 @@ public class ProfileController {
     private GymerService gymerService;
 
     @Autowired
+    private PersonalTrainerService personalTrainerService;
+
+    @Autowired
     private DtoUtils dtoUtils;
 
     @ModelAttribute("goals")
@@ -55,21 +59,33 @@ public class ProfileController {
             GymerDto gymerDto = dtoUtils.convertGymerToGymerDto(gymer);
             String gymerDtoJson = JsonUtils.jsonConvert(gymerDto);
             model.addAttribute("gymerDtoJson", gymerDtoJson);
+            return "profile/profile-details";
         } else {
             model.addAttribute("personalDtoJson", JsonUtils.jsonConvert(dtoUtils.convertPersonalTrainerToPersonalTrainerDto((PersonalTrainer) session.getAttribute("personalTrainer"))));
+            return "profile/pt-profile-details";
         }
-        return "profile/profile-details";
     }
 
     @GetMapping("/update")
-    public String viewUpdate(@RequestParam("id") int id) {
-        return "profile/profile-update";
+    public String viewUpdate(@RequestParam(value = "id", required = false) Integer id,
+                             @RequestParam(value = "ptid", required = false) Integer ptid,
+                             ModelMap model) {
+        if (id != null) {
+            return "profile/profile-update";
+        } else {
+            PersonalTrainer personalTrainer = personalTrainerService.getPersonalTrainerById(ptid).get();
+            PersonalTrainerDto personalTrainerDto = dtoUtils.convertPersonalTrainerToPersonalTrainerDto(personalTrainer);
+            String personalTrainerDtoJson = JsonUtils.jsonConvert(personalTrainerDto);
+            model.addAttribute("personalTrainerDtoJson", personalTrainerDtoJson);
+            return "profile/pt-profile-update";
+        }
     }
 
+
     @PostMapping("/update")
-    public String updateProfile(@ModelAttribute GymerDto gymerDto, HttpSession session,
+    public String updateProfile(@ModelAttribute("gymerDto") GymerDto gymerDto,
+                                HttpSession session,
                                 @RequestParam("avatar") MultipartFile avatar) throws IOException {
-        System.out.println(avatar.getBytes());
 
         Gymer gymer = gymerService.getGymerById(gymerDto.getId()).get() .toBuilder()
                                                                         .goal(Goal.valueOf(gymerDto.getGoal()))
@@ -85,7 +101,7 @@ public class ProfileController {
                          .gender(Gender.valueOf(gymerDto.getGender()))
                          .address(gymerDto.getAddress())
                          .build();
-        if(avatar.getBytes() != Base64.getDecoder().decode(account.getAvatarImageAsString())) {
+        if(!avatar.isEmpty()) {
             account.setAvatarImage(avatar.getBytes());
         }
 
@@ -96,6 +112,8 @@ public class ProfileController {
         gymerService.save(gymer);
         return "redirect:/profile/details";
     }
+
+
 
 
 }

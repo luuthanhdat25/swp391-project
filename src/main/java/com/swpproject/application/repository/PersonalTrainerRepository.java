@@ -14,4 +14,6 @@ public interface PersonalTrainerRepository extends JpaRepository<PersonalTrainer
 
     Optional<PersonalTrainer> findPersonalTrainerByAccount_Email(String email);
 
+    Optional<PersonalTrainer> getPersonalTrainerById(int id);
+
 }

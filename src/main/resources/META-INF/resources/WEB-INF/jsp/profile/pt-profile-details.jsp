@@ -1,6 +1,6 @@
-<%@ include file="common/header.jspf" %>
-<%@ include file="common/head.jspf" %>
-<%@ include file="common/sidebar.jspf" %>
+<%@ include file="../common/header.jspf" %>
+<%@ include file="../common/head.jspf" %>
+<%@ include file="../common/sidebar.jspf" %>
 
 <style>
     .empty-text {
@@ -34,21 +34,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-md-2 d-flex align-items-center">
+                                    <div class="col-lg-3 col-md-3 d-flex align-items-center">
                                         <div class="follow-group">
                                             <div class="students-follows">
                                                 <h5>Price</h5>
                                                 <h4 id="personalTrainerPrice"></h4>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 d-flex align-items-center">
-                                        <div class="follow-btn-group">
-                                            <button type="submit" class="btn btn-info message-btns">Book</button>
-                                            <button type="submit" class="btn btn-info message-btns">Inbox</button>
-                                            <button type="submit" class="btn btn-info message-btns"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal">Report
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -112,13 +103,31 @@
                                                 <h5 id="personalTrainerGender"></h5>
                                             </div>
                                         </div>
-                                        <div class="personal-activity mb-0">
+                                        <div class="personal-activity">
                                             <div class="personal-icons">
                                                 <i class="feather-map-pin"></i>
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Address</h4>
                                                 <h5 id="personalTrainerAddress"></h5>
+                                            </div>
+                                        </div>
+                                        <div class="personal-activity">
+                                            <div class="personal-icons">
+                                                <i class="feather-home"></i>
+                                            </div>
+                                            <div class="views-personal">
+                                                <h4>BankName</h4>
+                                                <h5 id="bankName"></h5>
+                                            </div>
+                                        </div>
+                                        <div class="personal-activity">
+                                            <div class="personal-icons">
+                                                <i class="feather-slash"></i>
+                                            </div>
+                                            <div class="views-personal">
+                                                <h4>BankNumber</h4>
+                                                <h5 id="bankNumber"></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -177,13 +186,13 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card blog-comments">
-                                <div class="card-header">
-                                    <h4 class="card-title"
-                                        style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">
-                                        Feedback
-                                        <button type="submit" class="btn btn-info">Evaluate</button>
-                                    </h4>
-                                </div>
+<%--                                <div class="card-header">--%>
+<%--                                    <h4 class="card-title"--%>
+<%--                                        style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">--%>
+<%--                                        Feedback--%>
+<%--                                        <button type="submit" class="btn btn-info">Evaluate</button>--%>
+<%--                                    </h4>--%>
+<%--                                </div>--%>
                                 <div class="card-body pb-0">
                                     <ul class="comments-list">
                                         <li>
@@ -231,15 +240,6 @@
         </div>
     </div>
     <img src="">
-
-    <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" style="width: 630px;">
-            <div class="modal-content">
-                <%@include file="../../WEB-INF/jsp/report/AddReport.jsp" %>
-            </div>
-        </div>
-    </div>
 </div>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script src="../../assets/js/jquery-3.6.0.min.js"></script>
@@ -254,7 +254,7 @@
 <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
 
 <script>
-    var personalTrainer = ${personaltrainer};
+    var personalTrainer = ${personalDtoJson};
     console.log(personalTrainer)
     $(document).ready(function () {
         $('#personalTrainerBook').attr('href', '/personal-trainer/book?id=' + personalTrainer.id);
@@ -279,14 +279,14 @@
         $('#personalTrainerEmail').html(personalTrainer.email ? personalTrainer.email : '<span class="empty-text">[Empty]</span>');
         $('#personalTrainerGender').html(personalTrainer.gender ? personalTrainer.gender : '<span class="empty-text">[Empty]</span>');
         $('#personalTrainerAddress').html(personalTrainer.address ? personalTrainer.address : '<span class="empty-text">[Empty]</span>');
-
-
+        $('#bankName').html(personalTrainer.bankName ? personalTrainer.bankName : '<span class="empty-text">[Empty]</span>')
+        $('#bankNumber').html(personalTrainer.bankNumber ? personalTrainer.bankNumber : '<span class="empty-text">[Empty]</span>')
         $('#slider1').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[0]);
         $('#slider2').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[1]);
         $('#slider3').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[2]);
 
         $('#sendToUpdate').click(function () {
-            window.location.href = `/personal-trainer/update?id=` + personalTrainer.id;
+            window.location.href = `/profile/update?ptid=` + personalTrainer.id;
         });
     })
 

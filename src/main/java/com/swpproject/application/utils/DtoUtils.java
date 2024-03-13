@@ -69,6 +69,8 @@ public class DtoUtils {
                                             .averageVotes(4.7f)
                                             .phone(personalTrainer.getAccount().getPhone())
                                             .birthday(personalTrainer.getAccount().getBirthday().toString())
+                                            .bankName(personalTrainer.getBankName())
+                                            .bankNumber(personalTrainer.getBankNumber())
                                             .email(personalTrainer.getAccount().getEmail())
                                             .certificateList(certificatList)
                                             .build();

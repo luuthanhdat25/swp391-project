@@ -1,8 +1,7 @@
-package com.swpproject.application.controller.dto;
+package com.swpproject.application.dto;
 
 import lombok.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -10,6 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class PersonalTrainerDto {
     private Integer id;
     private String description;
@@ -22,6 +22,8 @@ public class PersonalTrainerDto {
     private float averageVotes;
     private String phone;
     private String birthday;
+    private String bankName;
+    private String bankNumber;
     private String email;
     List<byte[]> certificateList;
 }

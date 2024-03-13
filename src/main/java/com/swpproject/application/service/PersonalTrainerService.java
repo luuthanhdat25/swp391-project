@@ -2,6 +2,7 @@ package com.swpproject.application.service;
 
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.PersonalTrainerRepository;
+import org.aspectj.weaver.patterns.PerObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +15,7 @@ public interface PersonalTrainerService {
     public PersonalTrainer findPersonalTrainerByAccountID(int accountId);
     public PersonalTrainer findPersonalTrainerByEmail(String email);
     public List<PersonalTrainer> getAll();
+
+    Optional<PersonalTrainer> getPersonalTrainerById(int id);
 
 }

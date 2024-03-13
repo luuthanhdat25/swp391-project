@@ -1,8 +1,8 @@
 package com.swpproject.application.service.impl;
 
 import com.swpproject.application.model.Nutrition;
-import com.swpproject.application.controller.dto.NutritionDTOIn;
-import com.swpproject.application.controller.dto.NutritionDTOOut;
+import com.swpproject.application.dto.NutritionDTOIn;
+import com.swpproject.application.dto.NutritionDTOOut;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.NutritionRepository;
 import com.swpproject.application.repository.PersonalTrainerRepository;

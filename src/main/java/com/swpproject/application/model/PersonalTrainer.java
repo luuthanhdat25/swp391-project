@@ -15,6 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Data
+@Builder(toBuilder = true)
 @Entity
 @Table(name = "personal_trainer")
 @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -1,7 +1,6 @@
 package com.swpproject.application.controller.authentication;
 
-import com.swpproject.application.controller.dto.Base64Dto;
-import com.swpproject.application.controller.dto.GymerDto;
+import com.swpproject.application.dto.Base64Dto;
 import com.swpproject.application.controller.personal_trainer_request.PersonalTrainerRequestService;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.*;
@@ -11,12 +10,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.swpproject.application.enums.*;
 
-import java.time.LocalDate;
 import java.util.*;
 import static com.swpproject.application.utils.ProfileUtils.*;
 
@@ -194,6 +191,8 @@ public class AuthenticationController {
         personalTrainer.setAccount(account);
         personalTrainer.setPrice(0);
         personalTrainer.setIsActive(false);
+        String desc = new StringBuilder(BASE_DESC_1).append(account.getFullName()).append(BASE_DESC_2).toString();
+        personalTrainer.setDescription(desc);
         personalTrainerService.save(personalTrainer);
 
         List<Integer> certificateIDs = new ArrayList<>(); // Bao them vao

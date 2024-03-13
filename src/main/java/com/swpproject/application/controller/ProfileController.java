@@ -1,8 +1,7 @@
 package com.swpproject.application.controller;
 
-import com.swpproject.application.controller.dto.Base64Dto;
-import com.swpproject.application.controller.dto.GymerDto;
-import com.swpproject.application.controller.dto.PersonalTrainerDto;
+import com.swpproject.application.dto.GymerDto;
+import com.swpproject.application.dto.PersonalTrainerDto;
 import com.swpproject.application.enums.Gender;
 import com.swpproject.application.enums.Goal;
 import com.swpproject.application.enums.Role;
@@ -24,9 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Base64;
-
-import static com.swpproject.application.utils.ProfileUtils.*;
 
 @RequestMapping("profile")
 @Controller

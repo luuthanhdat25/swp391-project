@@ -32,4 +32,9 @@ public class PersonalTrainerServiceImpl implements PersonalTrainerService {
     public List<PersonalTrainer> getAll() {
         return personalTrainerRepository.findAll();
     }
+
+    @Override
+    public Optional<PersonalTrainer> getPersonalTrainerById(int id) {
+        return personalTrainerRepository.getPersonalTrainerById(id);
+    }
 }

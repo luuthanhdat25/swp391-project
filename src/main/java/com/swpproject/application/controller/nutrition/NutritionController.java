@@ -1,8 +1,8 @@
 package com.swpproject.application.controller.nutrition;
 
 import com.swpproject.application.model.Nutrition;
-import com.swpproject.application.controller.dto.NutritionDTOIn;
-import com.swpproject.application.controller.dto.NutritionDTOOut;
+import com.swpproject.application.dto.NutritionDTOIn;
+import com.swpproject.application.dto.NutritionDTOOut;
 import com.swpproject.application.service.NutritionService;
 import com.swpproject.application.utils.JsonUtils;
 import jakarta.servlet.http.HttpServletRequest;

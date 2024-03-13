@@ -1,8 +1,8 @@
 package com.swpproject.application.service;
 
 import com.swpproject.application.model.Nutrition;
-import com.swpproject.application.controller.dto.NutritionDTOIn;
-import com.swpproject.application.controller.dto.NutritionDTOOut;
+import com.swpproject.application.dto.NutritionDTOIn;
+import com.swpproject.application.dto.NutritionDTOOut;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,8 @@
 package com.swpproject.application.controller.exercise;
 
-import com.swpproject.application.controller.dto.ExerciseDTOIn;
-import com.swpproject.application.controller.dto.ExerciseDTOOut;
-import com.swpproject.application.controller.dto.RoleDTO;
+import com.swpproject.application.dto.ExerciseDTOIn;
+import com.swpproject.application.dto.ExerciseDTOOut;
+import com.swpproject.application.dto.RoleDTO;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.ExerciseService;
@@ -10,15 +10,11 @@ import com.swpproject.application.utils.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
 import java.io.IOException;
 import java.util.*;
 

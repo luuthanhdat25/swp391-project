@@ -27,4 +27,6 @@ public interface AccountService {
 
     @Transactional
     Boolean existsByEmail(String email);
+
+    List<Account> findAllAcount();
 }

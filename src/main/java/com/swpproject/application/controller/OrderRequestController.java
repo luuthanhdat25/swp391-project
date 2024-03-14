@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -44,21 +46,39 @@ public class OrderRequestController {
         PersonalTrainer personalTrainer = orderRequest.getPersonalTrainer();
         Account accountProfile = gymer.getAccount();
         model.addAttribute("orderRequest", orderRequest);
-        model.addAttribute("account", accountProfile);
+        model.addAttribute("accountOrder", accountProfile);
         model.addAttribute("gymer", gymer);
-        List<SlotExercise> slotOrder = slotExcerciseEntityService.findSlotOrder(orderID, true);
+        List<SlotExercise> slotOrder = slotExcerciseEntityService.GetSlotOfOrder(orderRequest);
         model.addAttribute("DateStart",orderRequest.getDatetime_start());
         model.addAttribute("DateEnd",orderRequest.getDatetime_end());
         LocalDate currentDate;
         Date StartDateAsDate;
+        List<SlotExercise> slotOrdered = new ArrayList<>();
+        SlotExercise firstSlotinOrder = slotExcerciseEntityService.getTop1SlotExerciseByOrderID(orderRequest.getOrderId());
+//        System.out.println("Gymer: " + firstSlotinOrder.toString());
 
+        int weekStart = firstSlotinOrder.getWeek();
+        int trainingTime = calculateWeeksDifference(orderRequest.getDatetime_start(),orderRequest.getDatetime_end());
+        int yearStart = firstSlotinOrder.getYear();
+        for (int i = 1; i <= trainingTime; i++) {
+
+            System.out.println("week: " + weekStart);
+            List<SlotExercise> slotCheckInTime = slotExcerciseEntityService.getAllSlotNotExcepOrder(weekStart, yearStart,orderRequest);
+            System.out.println("check slot in time" + slotCheckInTime.size());
+            slotOrdered.addAll(slotCheckInTime);
+            if (weekStart < 52) {
+                weekStart++;
+            } else if (weekStart == 52) {
+                weekStart = 1;
+                yearStart++;
+            }
+        }
 
         currentDate = LocalDate.now();
         StartDateAsDate = Date.valueOf(currentDate);
 
-
+        List<SlotExercise> slotConflic = new ArrayList<>();
         Hashtable<Integer, List<Integer>> yearConflicts = new Hashtable<>(); // Rename the Hashtable
-        List<SlotExercise> slotOrdered = slotExcerciseEntityService.getSlotGreater(StartDateAsDate, false);
 
         for (SlotExercise slotExerciseGoing : slotOrdered) {
             for (SlotExercise slotExerciseWaiting : slotOrder) {
@@ -67,7 +87,20 @@ public class OrderRequestController {
                         && slotExerciseWaiting.getDay().equalsIgnoreCase(slotExerciseGoing.getDay())
                         && slotExerciseWaiting.getStart_hour().equalsIgnoreCase(slotExerciseGoing.getStart_hour())
                         && slotExerciseWaiting.getEnd_hour().equalsIgnoreCase(slotExerciseGoing.getEnd_hour())) {
-
+                    SlotExercise slotExerciseConflic = new SlotExercise();
+                    slotExerciseConflic.setWeek(slotExerciseWaiting.getWeek());
+                    slotExerciseConflic.setYear(slotExerciseWaiting.getYear());
+                    slotExerciseConflic.setStart_hour(slotExerciseWaiting.getStart_hour());
+                    slotExerciseConflic.setEnd_hour(slotExerciseWaiting.getEnd_hour());
+                    slotExerciseConflic.setDay(slotExerciseWaiting.getDay());
+                    slotExerciseConflic.setGymer(gymer);
+                    slotConflic.add(slotExerciseConflic);
+                    System.out.println("week conflic: " + slotExerciseWaiting.getWeek());
+                    System.out.println("year conflic: " + slotExerciseWaiting.getYear());
+                    System.out.println("day conflic: " + slotExerciseWaiting.getDay());
+                    System.out.println("StartHour conflic: " + slotExerciseWaiting.getStart_hour());
+                    System.out.println("EndHour conflic: " + slotExerciseWaiting.getEnd_hour());
+                    System.out.println("--------------");
                     // Check if the year is already in the Hashtable
                     if (yearConflicts.containsKey(slotExerciseWaiting.getYear())) { // Swap week with year
                         // If yes, add the week to the existing list
@@ -98,6 +131,13 @@ public class OrderRequestController {
 
         model.addAttribute("MSG", msgBuilder.toString());
         model.addAttribute( "allSlots", slotOrder);
+        model.addAttribute("conflicSlot",slotConflic);
+        model.addAttribute("orderedSlot",slotOrdered);
+
+
+        System.out.println("conflic slot:"+slotConflic.size());
+        System.out.println("slot Ordered:" + slotOrdered.size());
+        System.out.println("slot ordering: " + slotOrder.size());
         //BAO: notification
 //        redirectAttributes.addAttribute("accountId", accountId);
 //        redirectAttributes.addAttribute("week", week);
@@ -122,7 +162,7 @@ public class OrderRequestController {
             systemNotificationService.createNotification_AcceptedHiringAndPayment(orderRequest); //BAO: notification
             redirectAttributes.addAttribute("amountPay",orderRequest.getTotal_of_money());
             redirectAttributes.addAttribute("orderID",orderID);
-            return "redirect:/pay";
+            return "redirect:/order-list";
         }else{
             return "redirect:/order-list";
         }
@@ -169,5 +209,39 @@ public class OrderRequestController {
         return "redirect:/order-list";
     }
 
+    @RequestMapping("customer-list")
+    public String viewCustomerList(HttpSession session,Model model){
+        PersonalTrainer personalTrainer = (PersonalTrainer) session.getAttribute("personalTrainer");
+        List<OrderRequest> orderRequestList = orderRequestService.getOrderList(personalTrainer,OrderStatus.OnDoing);
+        System.out.println("order list: " + orderRequestList.size());
+        model.addAttribute("OrderList",orderRequestList);
+        for (OrderRequest orderRequest : orderRequestList) {
+            orderRequest.getGymer().getAccount().getFullName();
+            orderRequest.getGymer().getHeight();
+        }
+        return "customer-list";
+    }
+
+
+    public static int calculateWeeksDifference(Date date1, Date date2) {
+        // Chuyển đổi từ java.sql.Date sang LocalDate
+        LocalDate localDate1 = date1.toLocalDate();
+        LocalDate localDate2 = date2.toLocalDate();
+
+        // Tính khoảng cách theo số tuần
+        int weeksDifference = (int) ChronoUnit.WEEKS.between(localDate1, localDate2);
+
+        return Math.abs(weeksDifference); // Trả về giá trị tuyệt đối
+    }// Hàm trả về khoảng cách tuần giữa 2 ngày
+
+    public static int getWeekOfYear(Date sqlDate) {
+        // Chuyển đổi từ java.sql.Date sang java.time.LocalDate
+        LocalDate localDate = sqlDate.toLocalDate();
+
+        // Xác định tuần trong năm
+        int weekOfYear = localDate.get(WeekFields.ISO.weekOfWeekBasedYear());
+
+        return weekOfYear;
+    } // hàm trả về vị trí của tuần có ngày là sqlDate
 
 }

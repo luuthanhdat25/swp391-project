@@ -197,6 +197,9 @@
                     <div class="modal-body">
                         <div class="bank-inner-details" id="scheduleDetails">
                             <div class="row">
+                                <input type="hidden" value="${week}" name="week">
+                                <input type="hidden" value="${year}" name="year">
+                                <input type="hidden" value="${same-slot}" name="same-slot">
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <label>Type of slot</label>
@@ -261,9 +264,6 @@
                                                 <option value="${exe.id}" >${exe.name}</option>
                                             </c:forEach>
                                         </select>
-                                        <div id="exercisePreview">
-                                            <!-- Placeholder for exercise image preview -->
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 exercise-fields" style="display: none;">
@@ -337,25 +337,6 @@
 <script src="assets/js/jquery-ui.min.js"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var selectElement = document.getElementById('exerciseSelect');
-        var exercisePreview = document.getElementById('exercisePreview');
-
-        selectElement.addEventListener('mouseover', function (event) {
-            var option = event.target;
-            if (option.tagName === 'OPTION') {
-                var imageDescription = option.getAttribute('data-image');
-                if (imageDescription) {
-                    exercisePreview.innerHTML = '<img src="' + imageDescription + '" alt="Exercise Image">';
-                } else {
-                    exercisePreview.innerHTML = ''; // Clear preview if no image description is provided
-                }
-            }
-        });
-    });
-</script>
-
-<script>
     function showFields() {
         var typeOfSlot = document.getElementById("typeOfSlot").value;
         var exerciseFields = document.querySelectorAll(".exercise-fields");
@@ -391,6 +372,15 @@
         var typeOfSlot = document.getElementById("typeOfSlot").value;
         var day = document.getElementById("day").value;
         var slot = document.getElementById("slot").value;
+
+        // Lấy giá trị của same-slot từ input hidden
+        var sameSlotValue = document.querySelector('input[name="same-slot"]').value;
+
+        // Kiểm tra nếu same-slot là true
+        if (sameSlotValue === 'true') {
+            // Hiển thị cảnh báo alert
+            alert('Same time as another slot! Please choose another time!');
+        }
 
         // Kiểm tra typeOfSlot
         if (typeOfSlot === "Choose type of slot") {

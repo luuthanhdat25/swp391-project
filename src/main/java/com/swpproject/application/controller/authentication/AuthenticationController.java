@@ -5,6 +5,7 @@ import com.swpproject.application.dto.Base64Dto;
 import com.swpproject.application.controller.personal_trainer_request.PersonalTrainerRequestService;
 import com.swpproject.application.dto.PersonalTrainerDto;
 import com.swpproject.application.model.*;
+import com.swpproject.application.repository.OrderRequestRepository;
 import com.swpproject.application.service.*;
 import com.swpproject.application.service.impl.ScheduleServiceImplement;
 import com.swpproject.application.utils.PasswordUtils;
@@ -51,6 +52,9 @@ public class AuthenticationController {
 
     @Autowired
     PersonalTrainerRequestService personalTrainerRequestService; // Bao them vao
+
+    @Autowired
+    OrderRequestRepository orderRequestRepository;
 
     @ModelAttribute("roles")
     public Role[] getRoles() {
@@ -235,9 +239,12 @@ public class AuthenticationController {
         System.out.println(PasswordUtils.hashPassword("admin123"));
         String hashing = PasswordUtils.hashPassword(password);
         if (account.isPresent() && hashing.equals(account.get().getPassword())) {
+            session.setAttribute("account",account);
             if (account.get().getRole().equals(Role.GYMER)) {
                 Gymer gymer = gymerService.getGymerByAccount(account.get()).get();
                 session.setAttribute("gymer", gymer);
+                OrderRequest orderRequest= (OrderRequest)orderRequestRepository.findByGymer(gymer);
+                session.setAttribute("order",orderRequest);
             }
             if (account.get().getRole().equals(Role.PT)) {
                 PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(account.get().getId());

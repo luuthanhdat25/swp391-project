@@ -1,6 +1,6 @@
 <%@ include file="../common/header.jspf" %>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+<%--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--%>
+<script src="../../../assets/js/jquery-3.6.0.min.js"></script>
     <div class="container" style="position: relative">
         <div class="form">
             <h2>Personal Trainer must upload 3 lastest certificates</h2>

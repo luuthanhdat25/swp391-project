@@ -110,6 +110,57 @@ function saveCheckboxData(slot, day, isChecked) {
     // Update the hidden input value
     document.getElementById('selectedSlotsAndDays').value = selectedSlotsAndDays.join(',');
 }
+
+
+var selectedSlots = 0; // Biến để theo dõi số lượng khe học đã chọn
+
+// Hàm để cập nhật tổng số tiền dựa trên số lượng khe học đã chọn
+function updateTotalAmount() {
+    // Get selected training time value
+    var trainingTime = parseInt($('#trainingTimeSelect').val());
+
+    // Get the Training fee from the hidden input field
+    var trainingFee = parseFloat($('#trainingFee').text()); // Extract the value from the span
+
+    // Get the Training slot per week
+    var trainingSlotPerWeek = selectedSlots; // Change this value as needed
+
+    // Calculate total amount based on the selected training time
+    var totalAmount;
+    if (trainingTime === 4) {
+        totalAmount = trainingFee * trainingSlotPerWeek * 4;
+    } else if (trainingTime === 12) {
+        totalAmount = trainingFee * trainingSlotPerWeek * 3 * 4;
+    } else if (trainingTime === 24) {
+        totalAmount = trainingFee * trainingSlotPerWeek * 6 * 4;
+    } else {
+        // Handle invalid or default case
+        totalAmount = 0;
+    }
+
+    // Update the Total Amount span
+    $('#totalAmountSpan').text(totalAmount.toFixed(2) +"VND"); // Format as currency
+    $('#totalPrice').val(totalAmount.toFixed(2));
+    $('#SlectedSlot').text(selectedSlots*trainingTime);
+}
+
+function limitSlots(checkbox) {
+    if (checkbox.checked) {
+        if (selectedSlots >= 5) {
+            document.getElementById("warningMessage").style.display = "block";
+            checkbox.checked = false;
+        } else {
+            selectedSlots++;
+            updateTotalAmount(); // Gọi hàm để cập nhật tổng số tiền
+        }
+    } else {
+        selectedSlots--;
+        document.getElementById("warningMessage").style.display = "none";
+        updateTotalAmount(); // Gọi hàm để cập nhật tổng số tiền
+    }
+
+
+}
 $(document).ready(function () {
     // Event handler for the Training Time select change
     $('#trainingTimeSelect').change(function () {
@@ -120,9 +171,11 @@ $(document).ready(function () {
         var trainingFee = parseInt($('#trainingFee').text()); // Extract the value from the span
 
         // Get the Training slot per week
-        var trainingSlotPerWeek = 5; // Change this value as needed
+        var trainingSlotPerWeek = selectedSlots; // Change this value as needed
 
         // Calculate total amount based on the selected training time
+
+
         var totalAmount;
         if (trainingTime === 4) {
             totalAmount = trainingFee * trainingSlotPerWeek * 4;
@@ -136,23 +189,15 @@ $(document).ready(function () {
         }
 
         // Update the Total Amount span
-        $('#totalAmountSpan').text('$' + totalAmount.toFixed(2)); // Format as currency
+        $('#totalAmountSpan').text(totalAmount.toFixed(2) +"VND"); // Format as currency
         $('#totalPrice').val(totalAmount.toFixed(2));
+        $('#SlectedSlot').text(selectedSlots*trainingTime);
     });
 });
 
-var selectedSlots = 0;
-
-function limitSlots(checkbox) {
-    if (checkbox.checked) {
-        if (selectedSlots >= 5) {
-            document.getElementById("warningMessage").style.display = "block";
-            checkbox.checked = false;
-        } else {
-            selectedSlots++;
-        }
-    } else {
-        selectedSlots--;
-        document.getElementById("warningMessage").style.display = "none";
-    }
-}
+$(document).ready(function () {
+    $('#trainingTimeSelect').change(function () {
+        // Cập nhật tổng số tiền và số khe học đã chọn khi có thay đổi
+        updateTotalAmount();
+    });
+});

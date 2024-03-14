@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -130,29 +131,30 @@ public class AdminNotificationController {
         return ResponseEntity.ok().body(AdminNotificationDTO);
     }
 
-    @RequestMapping(value = "/admin-home/manage-account", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String viewAccounts(ModelMap modelMap,
-                               @RequestParam(name = "papeNo", defaultValue = "1") int papeNo) {
-        int pageSize = 10;
-        Pageable pageable = PageRequest.of(papeNo - 1, pageSize);
-        Page<Account> accounts = Page.empty();
+    @GetMapping("/admin-home/manage-account")
+    public String viewAccounts(ModelMap modelMap, Model model) {
+        List<Account> accounts = accountService.getAccounts();
 
-        modelMap.put("IndexStarting", pageSize * (papeNo - 1) + 1);
-        modelMap.addAttribute("CurrentPage", papeNo);
-        modelMap.put("accountList", accounts);
+        model.addAttribute("account",accounts);
 
-        List<Account> accountList = accountService.getAccounts();
-//        Collections.sort(notificationList, Comparator.comparing(Notification::getTimeStamp).reversed());
+        return "view-accounts";
+    }
 
-        int fromIndex = Math.min((papeNo - 1) * pageSize, accountList.size() - 1);
-        int toIndex = Math.min(fromIndex + pageSize - 1, accountList.size() - 1);
-        if (fromIndex >= 0) {
-            List<Account> pageContent = accountList.subList(fromIndex, toIndex + 1);
-            accounts = new PageImpl<>(pageContent, pageable, accountList.size());
-        }
-        modelMap.put("accountList",accounts);
-        modelMap.addAttribute("TotalPage",accounts.getTotalPages());
-        return"view-accounts";
+
+
+
+}
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+class AdminNotificationDTO {
+    private String title;
+    private byte[] avatarSender;
+    private LocalDateTime timeStamp;
+    private String nameSender;
+    private String contentSender;
 }
 
 

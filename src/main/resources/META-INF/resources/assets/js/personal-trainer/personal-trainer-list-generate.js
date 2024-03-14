@@ -4,6 +4,7 @@ function formatPrice(price) {
 
 function generatePersonalTrainers(personalTrainerList) {
     const container = $('<div class="student-personals-grp"></div>');
+    var defaultIconUrl = 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg';
 
     personalTrainerList.forEach(personalTrainer => {
         var displayDescription;
@@ -18,7 +19,7 @@ function generatePersonalTrainers(personalTrainerList) {
 
         // Left column (Image)
         const leftColumn = $('<div class="col"></div>');
-        const image = $('<img class="rounded-circle" style="height: 4rem; width: 4rem" alt="Profile">').attr('src', 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg');
+        const image = $('<img class="rounded-circle" style="height: 4rem; width: 4rem" alt="Profile">').attr('src', 'data:image/jpeg;base64,' + (personalTrainer.avatarImage || defaultIconUrl));
         leftColumn.append(image);
 
         // Middle column (Details)

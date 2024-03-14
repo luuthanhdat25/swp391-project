@@ -31,7 +31,7 @@ function renderNutritionList(nutritionList) {
 
 //View detail modal
 $(document).ready(function () {
-    renderNutritionList(nutritionList)
+    // renderNutritionList(nutritionList)
 
     $('.star-student').on('click', '.nutrition-detail', function (event) {
         event.preventDefault();

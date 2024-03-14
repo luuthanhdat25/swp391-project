@@ -199,6 +199,7 @@
                             <div class="row">
                                 <input type="hidden" value="${week}" name="week">
                                 <input type="hidden" value="${year}" name="year">
+                                <input type="hidden" value="${same-slot}" name="same-slot">
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <label>Type of slot</label>
@@ -336,15 +337,6 @@
 <script src="assets/js/jquery-ui.min.js"></script>
 
 <script>
-    // Hàm để đóng modal
-    function closeModal() {
-        var modal = document.querySelector('.modal');
-        var modalInstance = bootstrap.Modal.getInstance(modal);
-        modalInstance.hide();
-    }
-</script>
-
-<script>
     function showFields() {
         var typeOfSlot = document.getElementById("typeOfSlot").value;
         var exerciseFields = document.querySelectorAll(".exercise-fields");
@@ -380,6 +372,15 @@
         var typeOfSlot = document.getElementById("typeOfSlot").value;
         var day = document.getElementById("day").value;
         var slot = document.getElementById("slot").value;
+
+        // Lấy giá trị của same-slot từ input hidden
+        var sameSlotValue = document.querySelector('input[name="same-slot"]').value;
+
+        // Kiểm tra nếu same-slot là true
+        if (sameSlotValue === 'true') {
+            // Hiển thị cảnh báo alert
+            alert('Same time as another slot! Please choose another time!');
+        }
 
         // Kiểm tra typeOfSlot
         if (typeOfSlot === "Choose type of slot") {

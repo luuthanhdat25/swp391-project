@@ -14,7 +14,7 @@
     <div class="main-wrapper">
         <div class="page-wrapper">
             <div class="content container-fluid">
-
+                <p id="warningPT" class="fs-6 text-danger fst-italic" style="display: none">You can only create exercises only if your personal trainer account has been approved</p>
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
@@ -280,10 +280,16 @@
 
     <script>
         var canCreat = ${canCreate};
+        var role = "${account.getRole()}";
         console.log('Can create exercise: ' + canCreat);
         if(canCreat && canCreat === true){
             $('#createExercise').show();
+        }else{
+            if(role === "PT"){
+                $('#warningPT').show();
+            }
         }
+        console.log(role)
     </script>
 
     <script src="../../../assets/js/exercise/view-list/exercise-view-list-generate.js"></script>

@@ -20,6 +20,7 @@
     <div class="main-wrapper">
         <div class="page-wrapper">
             <div class="content container-fluid">
+                <p id="warningPT" class="fs-6 text-danger fst-italic" style="display: none">You can only create nutritions only if your personal trainer account has been approved</p>
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-12">
@@ -278,8 +279,13 @@
     <script>
         var canCreat = ${canCreate};
         console.log('Can create Nutrition: ' + canCreat);
+        var role = "${account.getRole()}";
         if(canCreat && canCreat === true){
             $('#createNutrition').show();
+        }else{
+            if(role === "PT"){
+                $('#warningPT').show();
+            }
         }
     </script>
 

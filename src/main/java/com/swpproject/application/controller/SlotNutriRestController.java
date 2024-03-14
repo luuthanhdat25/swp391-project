@@ -32,18 +32,21 @@ public class SlotNutriRestController {
         List<SlotNutritionDetail> slotNutritionDetails =
                 slotNutriDetailRepository.findAllBySlotNutrition_Id(Integer.parseInt(modifiedId));
         List<Nutrition> nutritionList = nutritionRepository.findAll();
+        List<NutritionDTO> nutritionDTOS = new ArrayList<>();
+        for (Nutrition nutrition : nutritionList){
+            NutritionDTO nutritionDTO = new NutritionDTO(nutrition.getNutritionId(),nutrition.getName());
+            nutritionDTOS.add(nutritionDTO);
+        }
         List<SlotNutritionDetailDTO> slotNutritionDetailDTOS = new ArrayList<>();
-
         for (SlotNutritionDetail slotNutritionDetail : slotNutritionDetails) {
             SlotNutritionDetailDTO slotNutritionDetailDTO = new SlotNutritionDetailDTO();
             slotNutritionDetailDTO.setId(slotNutritionDetail.getId());
             slotNutritionDetailDTO.setAmount(slotNutritionDetail.getAmount());
             slotNutritionDetailDTO.setDescription(slotNutritionDetail.getSlotNutrition().getDescription());
-            slotNutritionDetailDTO.setNutriId(slotNutritionDetail.getNutrition().getNutritionId());
-            slotNutritionDetailDTO.setNutritionList(nutritionList);
+            slotNutritionDetailDTO.setNutritionId(slotNutritionDetail.getNutrition().getNutritionId());
+            slotNutritionDetailDTO.setNutritions(nutritionDTOS);
             slotNutritionDetailDTOS.add(slotNutritionDetailDTO);
         }
-
         return ResponseEntity.ok().body(slotNutritionDetailDTOS);
     }
 
@@ -55,8 +58,17 @@ public class SlotNutriRestController {
 @Setter
 class SlotNutritionDetailDTO {
     private Integer id;
-    private List<Nutrition> nutritionList;
-    private int nutriId;
+    private List<NutritionDTO> nutritions;
+    private int nutritionId;
     private int amount;
     private String description;
+}
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+class NutritionDTO {
+    private Integer id;
+    private String name;
 }

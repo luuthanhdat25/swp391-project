@@ -57,6 +57,10 @@ public class ExerciseController {
 
         ExerciseDTOOut exerciseDTOOut = exerciseOptional.get().getExerciseDTOOutAllInfor();
         String json = JsonUtils.jsonConvert(exerciseDTOOut);
+        if(roleDTO != null && roleDTO.getRole() == Role.PT){
+            int personalTrainerId = roleDTO.getId();
+            model.addAttribute("personalTrainerId", personalTrainerId);
+        }
         model.addAttribute("exercise", json);
         return EXERCISE_DETAILS_URL;
     }

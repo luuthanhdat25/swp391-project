@@ -26,10 +26,8 @@
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center heading-detail">
                                                 <h2 id="exerciseName"></h2>
-                                                <a href="personal-trainer/profile/">
-                                                    <img id="smallImage" class="rounded-circle"  src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg" style="width: 4rem; height: 4rem; max-width: 100px; object-fit: cover" alt="Small Image">
-                                                </a>
-                                                <a id="editButton" href="" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
+                                                <a id="personalTrainerImage" style="display: none" href="personal-trainer/profile/"><img class="rounded-circle"  src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg" style="width: 4rem; height: 4rem; max-width: 100px; object-fit: cover" alt="Small Image"></a>
+                                                <a id="editButton" style="display: none" href="" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
                                             </div>
                                             <hr>
 
@@ -70,8 +68,22 @@
 
     <script>
         var exercise = ${exercise};
+        var personalTrainerId = "${personalTrainerId}";
         console.log(exercise);
         console.log(exercise.personalTrainer_id);
+
+        $(document).ready(function(){
+            var role = "${account.getRole()}";
+            console.log(role)
+
+            if(role === "PT" && exercise.personalTrainer_id + '' === personalTrainerId){
+                $('#editButton').show()
+            }else{
+                $('#personalTrainerImage').show()
+            }
+
+        });
+
     </script>
 
     <script src="../../../assets/js/exercise/details/exercise-details-load-data.js"></script>

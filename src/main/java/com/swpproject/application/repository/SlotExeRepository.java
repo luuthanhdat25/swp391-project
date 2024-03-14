@@ -59,13 +59,4 @@ public class SlotExeRepository {
         String sql = "SELECT * FROM slot_exercise WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(SlotExercise.class));
     }
-
-    public boolean existsByWeekAndSlot(int week, int year, String startHour, String endHour) {
-        String sql = "SELECT COUNT(*) FROM slot_exercise " +
-                "WHERE week = ? AND year = ? " +
-                "AND start_hour = ? AND end_hour = ?";
-        int count = jdbcTemplate.queryForObject(sql, Integer.class, week, year, startHour, endHour);
-        return count > 0;
-    }
-
 }

@@ -9,6 +9,7 @@ import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.CertificateRepository;
 import com.swpproject.application.repository.PersonalTrainerRequestRepository;
 import com.swpproject.application.service.CertificateService;
+import com.swpproject.application.service.PersonalTrainerService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +36,9 @@ public class PersonalTrainerRequestController {
     @Autowired
     private PersonalTrainerRequestRepository personalTrainerRequestRepository;
     @Autowired
-    private CertificateRepository certificateRepository;
+    private CertificateService certificateService;
+    @Autowired
+    private PersonalTrainerService personalTrainerService;
 
     @RequestMapping(value = "/admin-home/manage-personal-trainer-request", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String viewManagePersonalTrainerRequest(ModelMap modelMap,
@@ -69,7 +72,7 @@ public class PersonalTrainerRequestController {
 
             if (requestFilters.isEmpty()) {
                 modelMap.addAttribute("TotalPage", personalTrainerRequests.getTotalPages());
-                return "personalTrainerRequest/admin-home-view-personal-trainer-request-list";
+                return "personalTrainerRequest/admin-home-manage-personal-trainer-request";
             }
 
             Collections.sort(requestFilters, Comparator.comparing(PersonalTrainerRequest::getTimeStamp).reversed());
@@ -81,26 +84,16 @@ public class PersonalTrainerRequestController {
 
         modelMap.put("PersonalTrainerRequestList", personalTrainerRequests);
         modelMap.addAttribute("TotalPage", personalTrainerRequests.getTotalPages());
-        return "personalTrainerRequest/admin-home-view-personal-trainer-request-list";
-    }
-
-    @RequestMapping(value = "admin-home/view-personal-trainer-request-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getPersonalTrainerRequestDetail(ModelMap modelMap, @RequestParam("requestID") int requestID) {
-        PersonalTrainerRequest request = personalTrainerRequestRepository.findById(requestID).get();
-
-        PersonalTrainer personalTrainer = request.getPersonalTrainerAccount();
-        List<Certificate> certificates = certificateRepository.getCertificatesByPersonalTrainer(personalTrainer);
-        modelMap.put("Certificate_1", certificates.get(0).getImage());
-        modelMap.put("Certificate_2", certificates.get(1).getImage());
-        modelMap.put("Certificate_3", certificates.get(2).getImage());
-        modelMap.addAttribute("RequestDetail", request);
-        return "personalTrainerRequest/admin-home-view-personal-trainer-request-detail";
+        return "personalTrainerRequest/admin-home-manage-personal-trainer-request";
     }
 
     @RequestMapping(value = "admin-home/approve-personal-trainer-request", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String approvePersonalTrainerRequest(@RequestParam("requestID") Integer requestID) {
         PersonalTrainerRequest request = personalTrainerRequestRepository.findById(requestID).get();
         request.setStatus(RequestStatus.APPROVED);
+        PersonalTrainer personalTrainer = personalTrainerService.getPersonalTrainerById(request.getPersonalTrainerAccount().getId()).get();
+        personalTrainer.setIsActive(true);
+        personalTrainerService.save(personalTrainer);
         personalTrainerRequestRepository.save(request);
         return "forward:manage-personal-trainer-request";
     }
@@ -126,6 +119,11 @@ public class PersonalTrainerRequestController {
         requestDTO.setStatus(request.getStatus());
         requestDTO.setPersonalTrainerImage(request.getPersonalTrainerAccount().getAccount().getAvatarImage());
         requestDTO.setPersonalTrainerName(request.getPersonalTrainerAccount().getAccount().getFullName());
+
+        List<byte[]> certificateDatas = certificateService.getAllCertificatesData(request.getPersonalTrainerAccount());
+        requestDTO.setCerificate_1(certificateDatas.get(0));
+        requestDTO.setCerificate_2(certificateDatas.get(1));
+        requestDTO.setCerificate_3(certificateDatas.get(2));
         return ResponseEntity.ok().body(requestDTO);
     }
 }
@@ -143,4 +141,8 @@ class PersonalTrainerRequestDTO {
     private RequestStatus status;
     private byte[] personalTrainerImage;
     private String personalTrainerName;
+
+    private byte[] cerificate_1;
+    private byte[] cerificate_2;
+    private byte[] cerificate_3;
 }

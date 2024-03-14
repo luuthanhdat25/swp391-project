@@ -1,8 +1,8 @@
 package com.swpproject.application.service.impl;
 
-import com.swpproject.application.controller.dto.ExerciseDTOIn;
-import com.swpproject.application.controller.dto.ExerciseDTOOut;
-import com.swpproject.application.controller.dto.RoleDTO;
+import com.swpproject.application.dto.ExerciseDTOIn;
+import com.swpproject.application.dto.ExerciseDTOOut;
+import com.swpproject.application.dto.RoleDTO;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.*;
 import com.swpproject.application.repository.ExerciseRepository;
@@ -27,6 +27,13 @@ public class ExerciseServiceImpl implements ExerciseService {
     private PersonalTrainerRepository personalTrainerRepository;
 
     @Override
+    public List<ExerciseDTOOut> getExerciseDTOOutList(RoleDTO roleDTO) {
+        return getExerciseListAuthentication(roleDTO).stream()
+                .map(Exercise::getExerciseDTOOutSlim).collect(Collectors.toList());
+    }
+
+
+    @Override
     public List<Exercise> getExerciseListAuthentication(RoleDTO roleDTO) {
         if (roleDTO == null)
             return exerciseRepository.findAllNonPrivate();
@@ -36,13 +43,6 @@ public class ExerciseServiceImpl implements ExerciseService {
             case GYMER -> exerciseRepository.findAllNonPrivateOrPrivateForOrdersOnGoing(roleDTO.getId());
             default -> exerciseRepository.findAllNonPrivateOrByPersonalTrainerId(roleDTO.getId());
         };
-    }
-
-
-    @Override
-    public List<ExerciseDTOOut> getExerciseDTOOutList(RoleDTO roleDTO) {
-        return getExerciseListAuthentication(roleDTO).stream()
-                .map(Exercise::getExerciseDTOOutSlim).collect(Collectors.toList());
     }
 
 
@@ -82,8 +82,10 @@ public class ExerciseServiceImpl implements ExerciseService {
     private int isPrivateStringToInteger(String isPrivateString){return isPrivateString == null ? 0 : 1;}
 
     private PersonalTrainer getPersonalTrainerbyRoleDTO(RoleDTO roleDTO){
-        return roleDTO.getRole() == Role.PT ? personalTrainerRepository.findById(roleDTO.getId()).get() : null;
+        return roleDTO.getRole() == Role.PT ?
+                personalTrainerRepository.findById(roleDTO.getId()).get() : null;
     }
+
 
     @Override
     public void update(ExerciseDTOIn exerciseDTOIn, int exerciseId) throws IOException {

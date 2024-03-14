@@ -163,7 +163,7 @@ public class PersonalScheduleController {
             for (String idNutrition : selectedNutritions) {
                 //Create slot nutrition details
                 SlotNutritionDetail slotNutritionDetail = new SlotNutritionDetail();
-                Nutrition nutrition = nutritionRepository.findByNutritionId(Integer.parseInt(idNutrition));
+                Nutrition nutrition = nutritionRepository.findById(Integer.parseInt(idNutrition)).get();
                 String[] amount = nutritionAmount.split(",");
                 slotNutritionDetail.setAmount(Integer.parseInt(amount[j]));
                 slotNutritionDetail.setNutrition(nutrition);

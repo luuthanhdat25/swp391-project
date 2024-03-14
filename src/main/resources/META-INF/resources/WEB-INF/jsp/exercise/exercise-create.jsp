@@ -12,10 +12,6 @@
                         <div class="col-sm-12">
                             <div class="page-sub-header">
                                 <h3 class="page-title">Exercise Create</h3>
-                                <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/exercise/">Exercise</a></li>
-                                    <li class="breadcrumb-item active">Exercise Create</li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -156,7 +152,6 @@
             </div>
 
             <footer>
-                <p>Copyright © 2024 Gym On .</p>
             </footer>
 
         </div>

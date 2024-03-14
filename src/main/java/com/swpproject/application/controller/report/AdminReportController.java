@@ -50,8 +50,6 @@ public class AdminReportController {
     private ReportRepository reportRepository;
     @Autowired
     private PersonalTrainerRepository personalTrainerRepository;
-    @Autowired
-    private GymerRepository gymerRepository;
 
     @RequestMapping(value = "personal-trainer/add-report", method = RequestMethod.GET)
     public String addNewReport(HttpServletRequest request,
@@ -61,17 +59,16 @@ public class AdminReportController {
         String reason;
         Report report = new Report();
 
-        String description = (String) request.getParameter("Description");
+        String description = request.getParameter("Description");
         if (reasonId == templateReports.size()) reason = request.getParameter("OtherReason");
         else reason = templateReports.get(reasonId - 1).getContent();
-
-        report.setReason(reason);
-        report.setDescription(description);
-        report.setTimeStamp(LocalDateTime.now());
 
         Gymer gymer = (Gymer) session.getAttribute("gymer");
         PersonalTrainer personalTrainerAccount = personalTrainerRepository.findById(personalTrainerID).get();
 
+        report.setReason(reason);
+        report.setDescription(description);
+        report.setTimeStamp(LocalDateTime.now());
         report.setGymerAccount(gymer);
         report.setPersonalTrainerAccount(personalTrainerAccount);
 
@@ -117,7 +114,7 @@ public class AdminReportController {
 
             if (reportFilter.isEmpty()) {
                 modelMap.addAttribute("TotalPage", reports.getTotalPages());
-                return "report/admin-home-view-report-list";
+                return "report/admin-home-manage-report";
             }
 
             Collections.sort(reportFilter, Comparator.comparing(Report::getTimeStamp).reversed());
@@ -132,14 +129,7 @@ public class AdminReportController {
 
         modelMap.put("ReportLists", reports);
         modelMap.addAttribute("TotalPage", reports.getTotalPages());
-        return "report/admin-home-view-report-list";
-    }
-
-    @RequestMapping(value = "admin-home/view-report-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getNotificationDetail(ModelMap modelMap, @RequestParam("reportID") int reportID) {
-        Report report = reportRepository.findById(reportID).get(0);
-        modelMap.addAttribute("ReportDetail", report);
-        return "report/admin-home-view-report-detail";
+        return "report/admin-home-manage-report";
     }
 
     @RequestMapping(value = "admin-home/delete-report", method = RequestMethod.GET)

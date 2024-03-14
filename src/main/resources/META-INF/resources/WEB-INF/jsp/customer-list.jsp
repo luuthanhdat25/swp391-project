@@ -72,9 +72,8 @@
         <div class="content container-fluid">
             <div class="customer container mt-5">
                 <div class="row justify-content-center">
-
                     <div class="card ">
-                        <div class="people-nearby d-flex flex-wrap">
+                        <div class="people-nearby flex-wrap">
                             <c:set var="rowCount" value="0" />
                             <c:forEach var="customer" items="${OrderList}" varStatus="loopStatus">
                                 <c:set var="rowCount" value="${rowCount + 1}" />

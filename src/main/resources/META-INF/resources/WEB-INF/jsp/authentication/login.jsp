@@ -42,19 +42,6 @@
                         <div class="text-success font-weight-bold"><c:if test="${param.successfully != null}">Everything is done! You can login now.</c:if></div>
                         <div class="text-success font-weight-bold"><c:if test="${param.inactive != null}">Your account already created! You can login now
                                                                                         but you might wait for admin accept to use our services.</c:if></div>
-                        <div class="login-or">
-                            <span class="or-line"></span>
-                            <span class="span-or">or</span>
-                        </div>
-
-                        <div class="google-signin-box">
-                            <div>
-                                <a href="/oauth2/authorization/google">
-                                <i class="fab fa-google-plus-g"></i>
-                                <span class="google-signin-text">Login With Google</span>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

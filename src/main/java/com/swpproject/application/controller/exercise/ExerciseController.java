@@ -1,8 +1,8 @@
 package com.swpproject.application.controller.exercise;
 
-import com.swpproject.application.controller.dto.ExerciseDTOIn;
-import com.swpproject.application.controller.dto.ExerciseDTOOut;
-import com.swpproject.application.controller.dto.RoleDTO;
+import com.swpproject.application.dto.ExerciseDTOIn;
+import com.swpproject.application.dto.ExerciseDTOOut;
+import com.swpproject.application.dto.RoleDTO;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.ExerciseService;
@@ -10,15 +10,10 @@ import com.swpproject.application.utils.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
 import java.io.IOException;
 import java.util.*;
 
@@ -38,9 +33,7 @@ public class ExerciseController {
 
     //Get view exercise list
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getExerciseListPage(ModelMap model, HttpServletRequest request,
-                                      @RequestParam(defaultValue = "0") int page,
-                                      @RequestParam(defaultValue = "5") int size){
+    public String getExerciseListPage(ModelMap model, HttpServletRequest request){
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         List<ExerciseDTOOut> exerciseDTOOutList = exerciseService.getExerciseDTOOutList(roleDTO);
 //        PageRequest pageable = PageRequest.of(page, size);
@@ -64,6 +57,10 @@ public class ExerciseController {
 
         ExerciseDTOOut exerciseDTOOut = exerciseOptional.get().getExerciseDTOOutAllInfor();
         String json = JsonUtils.jsonConvert(exerciseDTOOut);
+        if(roleDTO != null && roleDTO.getRole() == Role.PT){
+            int personalTrainerId = roleDTO.getId();
+            model.addAttribute("personalTrainerId", personalTrainerId);
+        }
         model.addAttribute("exercise", json);
         return EXERCISE_DETAILS_URL;
     }
@@ -73,19 +70,23 @@ public class ExerciseController {
     @RequestMapping(value = "/create", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getCreateExercisePage(HttpServletRequest request) {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
-        if(roleDTO == null || roleDTO.getRole() == Role.GYMER)
-            return ERROR_URL;
+        if(!canCreateUpdate(roleDTO)) return ERROR_URL;
 
         return EXERCISE_CREATE_URL;
+    }
+
+    private boolean canCreateUpdate(RoleDTO roleDTO){
+        return roleDTO != null && (roleDTO.getRole() == Role.ADMIN || roleDTO.getRole() == Role.PT);
     }
 
 
     //Post create exercise data
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String createExercise(@ModelAttribute ExerciseDTOIn exerciseDTOIn, HttpServletRequest request) throws IOException {
+    public String createExercise(@ModelAttribute ExerciseDTOIn exerciseDTOIn, HttpServletRequest request)
+            throws IOException
+    {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
-        if(roleDTO == null || roleDTO.getRole() == Role.GYMER)
-            return ERROR_URL;
+        if(!canCreateUpdate(roleDTO)) return ERROR_URL;
 
         exerciseService.create(exerciseDTOIn, roleDTO);
         return "redirect:/exercise";
@@ -96,16 +97,16 @@ public class ExerciseController {
     @RequestMapping(value = "/details/edit", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String getExerciseDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
-        System.out.println(roleDTO.getRole().getLabel());
-        if(roleDTO == null || roleDTO.getRole() == Role.GYMER)
-            return ERROR_URL;
+        if(!canCreateUpdate(roleDTO)) return ERROR_URL;
 
         Optional<Exercise> exerciseOptional = exerciseService.findExerciseById(id, roleDTO);
-        if(exerciseOptional.isEmpty())
-            return ERROR_URL;
+        if(exerciseOptional.isEmpty()) return ERROR_URL;
 
-        Exercise exercise = exerciseOptional.get();
-        String json = JsonUtils.jsonConvert(exercise.getExerciseDTOOutAllInfor());
+        HttpSession session = request.getSession();
+        session.setAttribute("exerciseId", id);
+
+        ExerciseDTOOut exerciseDTOOutAllInfor = exerciseOptional.get().getExerciseDTOOutAllInfor();
+        String json = JsonUtils.jsonConvert(exerciseDTOOutAllInfor);
         model.addAttribute("exercise", json);
         return EXERCISE_UPDATE_URL;
     }
@@ -113,16 +114,19 @@ public class ExerciseController {
 
     //Post update exercise data
     @RequestMapping(value = "/details/edit", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String editExercise(@ModelAttribute ExerciseDTOIn exerciseDTOIn, HttpServletRequest request, Model model) throws IOException {
+    public String editExercise(@ModelAttribute ExerciseDTOIn exerciseDTOIn, HttpServletRequest request)
+            throws IOException
+    {
         HttpSession session = request.getSession();
         Integer exerciseId = (Integer) session.getAttribute("exerciseId");
-        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
-        if(exerciseId == null || roleDTO == null || roleDTO.getRole() == Role.GYMER)
-            return ERROR_URL;
+        if(exerciseId == null) return ERROR_URL;
 
-        exerciseService.update(exerciseDTOIn, exerciseId);
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        if(!canCreateUpdate(roleDTO)) return ERROR_URL;
+
         session.removeAttribute("exerciseId");
-        return "redirect:/exercise/details?exerciseId=" + exerciseId;
+        exerciseService.update(exerciseDTOIn, exerciseId);
+        return "redirect:/exercise/details?id=" + exerciseId;
     }
 }
 

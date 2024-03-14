@@ -11,10 +11,10 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col">
-                        <h3 class="page-title">Book a Personal Trainer</h3>
+                        <h3 class="page-title">Order Detail</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active">Booking</li>
+                            <li class="breadcrumb-item active">Order</li>
                         </ul>
                     </div>
                 </div>
@@ -37,20 +37,20 @@
                                     <h5 class="card-title">Purpose details</h5>
                                     <div class="form-group">
                                         <label>Gymer Name:</label>
-                                        <input type="text" class="form-control" disabled value="${account.fullName}">
+                                        <input type="text" class="form-control" disabled value="${accountOrder.fullName}">
                                     </div>
                                     <div class="form-group">
                                         <label>Email:</label>
-                                        <input type="text" class="form-control" disabled value="${account.email}">
+                                        <input type="text" class="form-control" disabled value="${accountOrder.email}">
                                     </div>
                                     <div class="form-group">
                                         <label>BirthDay:</label>
                                         <input type="text" class="form-control" disabled
-                                               value="${account.birthday.toString()}">
+                                               value="${accountOrder.birthday.toString()}">
                                     </div>
                                     <div class="form-group">
                                         <label>Address:</label>
-                                        <input type="text" class="form-control" disabled value="${account.address}">
+                                        <input type="text" class="form-control" disabled value="${accountOrder.address}">
                                     </div>
 
                                 </div>
@@ -320,20 +320,20 @@
     }
 
 </script>
-<script src="assets/js/jquery-3.6.0.min.js"></script>
+<%--<script src="assets/js/jquery-3.6.0.min.js"></script>--%>
 
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+<%--<script src="assets/js/popper.min.js"></script>--%>
+<%--<script src="assets/js/bootstrap.min.js"></script>--%>
 
-<script src="assets/js/feather.min.js"></script>
+<%--<script src="assets/js/feather.min.js"></script>--%>
 
-<script src="assets/js/jquery.slimscroll.min.js"></script>
+<%--<script src="assets/js/jquery.slimscroll.min.js"></script>--%>
 
-<script src="assets/js/moment.min.js"></script>
-<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+<%--<script src="assets/js/moment.min.js"></script>--%>
+<%--<script src="assets/js/bootstrap-datetimepicker.min.js"></script>--%>
 
-<script src="assets/js/jquery-ui.min.js"></script>
-<script src="assets/js/scriptBook.js"></script>
+<%--<script src="assets/js/jquery-ui.min.js"></script>--%>
+<%--<script src="assets/js/scriptBook.js"></script>--%>
+<%@ include file="common/script.jspf" %>
 </body>
 
-</html>

@@ -20,6 +20,7 @@
     <div class="main-wrapper">
         <div class="page-wrapper">
             <div class="content container-fluid">
+                <p id="warningPT" class="fs-6 text-danger fst-italic" style="display: none">You can only create nutritions only if your personal trainer account has been approved</p>
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-12">
@@ -30,22 +31,13 @@
                     </div>
                 </div>
 
-                <c:if test="${account ne null}">
-                    <c:choose>
-                        <c:when test="${account.getRole() eq 'PT' || account.getRole() eq 'ADMIN'}">
-                            <div class="card invoices-tabs-card border-0 mt-3">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="invoices-settings-btn invoices-settings-btn-one">
-                                        <a href="/nutrition/create" class="btn"><i class="feather feather-plus-circle"></i>New Nutrition</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <!-- Other role-specific content here -->
-                        </c:otherwise>
-                    </c:choose>
-                </c:if>
+                <div class="card invoices-tabs-card border-0 mt-3" id="createNutrition" style="display: none">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="invoices-settings-btn invoices-settings-btn-one">
+                            <a href="/nutrition/create" class="btn"><i class="feather feather-plus-circle"></i>New Nutrition</a>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="card mt-3">
                     <div class="card-body">
@@ -261,17 +253,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-<%--                            <c:if test="${account ne null}">--%>
-<%--                                <c:choose>--%>
-<%--                                    <c:when test="${account.getRole() eq 'PT' && personalTrainer.getAccount().getId() eq account.getId()}">--%>
-<%--                                    </c:when>--%>
-<%--                                    <c:otherwise>--%>
-<%--                                        <!-- Other role-specific content here -->--%>
-<%--                                    </c:otherwise>--%>
-<%--                                </c:choose>--%>
-<%--                            </c:if>--%>
                             <a id="editButton" style="display: none" href="" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
-
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -295,10 +277,16 @@
     <script src="../../../assets/js/script.js"></script>
 
     <script>
-        var nutritionList = ${nutritionList};
-        console.log(nutritionList);
-        var personalTrainerId = ${personalTrainer.getId()};
-        console.log(personalTrainerId)
+        var canCreat = ${canCreate};
+        console.log('Can create Nutrition: ' + canCreat);
+        var role = "${account.getRole()}";
+        if(canCreat && canCreat === true){
+            $('#createNutrition').show();
+        }else{
+            if(role === "PT"){
+                $('#warningPT').show();
+            }
+        }
     </script>
 
     <script src="../../../assets/js/nutrition/view_list/nutrition-view-list-generate.js"></script>

@@ -4,6 +4,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <style>
+    .img-thumbnail {
+        width: 50px; /* Đặt kích thước của hình ảnh */
+        height: 50px;
+        border-radius: 50%; /* Làm cho hình ảnh tròn */
+    }
     body {
         margin-top: 20px;
         background-color: #edf0f0;
@@ -73,47 +78,42 @@
             <div class="customer container mt-5">
                 <div class="row justify-content-center">
                     <div class="card ">
-                        <div class="people-nearby flex-wrap">
-                            <c:set var="rowCount" value="0" />
-                            <c:forEach var="customer" items="${OrderList}" varStatus="loopStatus">
-                                <c:set var="rowCount" value="${rowCount + 1}" />
-                                <div class="col-md-6 mb-4"> <!-- Added mb-4 for margin-bottom -->
-                                    <div class="panel my-panel">
-                                        <div class="panel-body ">
-                                            <div class="row">
-                                                <div class="col-md-2 d-flex align-items-center">
-                                                    <div class="pull-left">
-                                                        <img class="thumb-lg img-circle bx-s" src="${c.image}" alt="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <div class="d-flex align-items-center justify-content-between">
-                                                        <div class="info">
-                                                            <h4>${customer.getGymer().getAccount().getFullName()}</h4>
-                                                            <p class="text-muted">Weight ${customer.getGymer().getWeight()}</p>
-                                                            <p class="text-muted">Height ${customer.getGymer().getHeight()}</p>
-                                                        </div>
-                                                        <div class="btn-group-sm">
-                                                            <a href="#" class="btn btn-success tooltips"
-                                                               data-placement="top" data-toggle="tooltip"
-                                                               data-original-title="Edit">
-                                                                <i class="fa fa-pencil"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Add a line break after every second iteration -->
-                                <c:if test="${rowCount % 2 == 0}">
-                                    <div class="w-100 d-md-none"></div> <!-- For extra small and small devices -->
-                                    <div class="w-100 d-none d-md-block d-lg-none"></div> <!-- For medium devices -->
-                                </c:if>
-                            </c:forEach>
+                        <div class="card-header">
+                            <h5 class="card-title">My Customer</h5>
                         </div>
+                        <c:if test="${not empty OrderList}">
+                            <table>
+                                <thead>
+                                <tr>
 
+                                    <th style="text-align: left;">Name</th>
+                                    <th style="text-align: center;">Goal</th>
+                                    <th style="text-align: center;">Point body</th>
+                                    <th style="text-align: center;">Schedule Detail</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="order" items="${OrderList}">
+                                    <tr>
+                                        <td style="text-align: left;">
+                                            <img class="img-thumbnail" src="data:image/png;base64,${order.gymer.account.getAvatarImageAsString()}" alt="Customer image Image">
+                                                ${order.gymer.getAccount().getFullName()}
+                                        </td>
+                                        <td >
+                                            ${order.title}
+                                        </td>
+                                        <td><p class="text-muted">Weight ${order.getGymer().getWeight()}</p>
+                                            <p class="text-muted">Height ${order.getGymer().getHeight()}</p></td>
+                                        <td><a href="/Order-Request?order_id=${order.orderId}" class="view"
+                                               title="View Details" data-toggle="tooltip"><i class="fas fa-calendar-alt" style='font-size:24px'></i></a></td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </c:if>
+                        <c:if test="${empty OrderList}">
+                            <p>No Order yet.</p>
+                        </c:if>
                     </div>
                 </div>
             </div>

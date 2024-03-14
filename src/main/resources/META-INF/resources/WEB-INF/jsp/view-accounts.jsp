@@ -2,8 +2,15 @@
 <%@ include file="common/admin-head.jspf" %>
 <%@ include file="common/admin-sidebar.jspf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<style>
+    .img-thumbnail {
+        width: 50px; /* Đặt kích thước của hình ảnh */
+        height: 50px;
+        border-radius: 50%; /* Làm cho hình ảnh tròn */
+    }
 
-<head>
+</style>
+
     <link href="../../assets/css/notification/view-notification-list.css" rel="stylesheet"/>
     <link href="../../assets/css/style-table.css" rel="stylesheet"/>
 </head>
@@ -60,7 +67,7 @@
                                             <div class="d-flex mb-1 mt-3">
                                                 <div style="margin-right: 5px;">Send to:</div>
                                                 <div class="form-check" style="margin-right: 10px;">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
+                                                    <input class="form-check-input" type="checkbox" value="" >
                                                     <label class="form-check-label" for="flexCheckIndeterminate"> All gymers  </label>
                                                 </div>
                                                 <div class="form-check">
@@ -242,91 +249,33 @@
                                    class="table table-hover table-centered mdi-format-vertical-align-center">
                                 <thead class="table-secondary">
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Recipient</th>
-                                    <th scope="col">TimeStamp</th>
-                                    <th scope="col">Action</th>
+
+                                    <th style="text-align: left">Name</th>
+                                    <th style="text-align: center">Email</th>
+                                    <th style="text-align: center">Phone</th>
+                                    <th style="text-align: center">Role</th>
+                                    <th style="text-align: center">Ban Status</th>
+                                    <th style="text-align: center">Action </th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="notification" items="${NotificationList.content}">
-                                    <tr class="shadow p-3 mb-5 bg-body rounded" style="height: 30px;">
-                                        <th scope="row"
-                                            class="align-baseline">${NotificationList.content.indexOf(notification) + IndexStarting}</th>
-                                        <td style="text-align: left;" class="align-baseline">
-                                            <div class="text-truncate" style="width: 350px;">${notification.title}</div>
+                                <c:forEach var="account" items="${account}">
+                                    <tr>
+                                        <td style="text-align: left;"><img class="img-thumbnail" src="data:image/png;base64,${account.getAvatarImageAsString()}" alt="Customer image Image">
+                                                ${account.fullName} </td>
+                                        <td>${account.email}</td>
+                                        <td>${account.phone}</td>
+                                        <td>${account.role}</td>
+                                        <td><div class="badge ${account.isBan ? 'badge-danger' : 'badge-success'}">${account.isBan ? 'Banned' : 'Unbanned'}</div>
                                         </td>
-                                        <td class="align-baseline">
-                                            <img class="rounded-circle"
-                                                 style="width: 30px; height: 30px; margin-right: 5px;"
-                                                 src="data:image/jpeg;base64,${notification.toAccount.getAvatarImageAsString()}">
-                                        </td>
-                                        <td class="align-baseline">
-                                                ${notification.timeStamp.getHour()}:${notification.timeStamp.getMinute()}
-                                                ${notification.timeStamp.getDayOfMonth()}/${notification.timeStamp.getMonthValue()}/${notification.timeStamp.getYear()}
-                                        </td>
-                                        <td class="align-baseline">
-                                            <div class="d-flex justify-content-between"
-                                                 style="width: 210px; height: fit-content;">
-
-                                                <input type="hidden" name="notificationID" value=${notification.id}>
-                                                <button type="submit" class="btn btn-info view-detail-btn"
-                                                        style="height: 40px; width: 90px; color: #FFFFFF;"
-                                                        data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                        data-id=${notification.id}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
-                                                         fill="currentColor" class="bi bi-eye-fill"
-                                                         viewBox="0 0 16 16">
-                                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-                                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-                                                    </svg>
-                                                    view
-                                                </button>
-
-                                                <form action="delete-notification-detail" method="get"
-                                                      style="margin-bottom: 0;">
-                                                    <input type="hidden" name="deleteNotificationID"
-                                                           value=${notification.id}>
-                                                    <button type="submit" class="btn btn-danger"
-                                                            style="height: 40px; width: 110px;">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
-                                                             fill="currentColor" class="bi bi-trash3-fill"
-                                                             viewBox="0 0 16 16">
-                                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                                                        </svg>
-                                                        remove
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
+                                        <td><a href="#" class="view"
+                                               title="View Details" data-toggle="tooltip"><i class="fas fa-book" style='font-size:24px'></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>
-                            <nav aria-label="Page navigation example" style="height: 20px; margin: 0 0 20px 0;">
-                                <ul class="pagination justify-content-center ">
-                                    <%
-                                        int totalPage = (int) request.getAttribute("TotalPage");
-                                        int currentPage = (int) request.getAttribute("CurrentPage");
-                                    %>
-                                    <li class="page-item <%= currentPage - 1 < 1 ? "disabled" : "" %>">
-                                        <a class="page-link"
-                                           href="manage-notification?papeNo=<%=currentPage - 1%>&title=${title}">Previous</a>
-                                    </li>
-                                    <% for (int i = currentPage; i <= Math.min(totalPage, currentPage + 3); i++) { %>
-                                    <li class="page-item <%= i == currentPage ? "disabled" : "" %>">
-                                        <a class="page-link"
-                                           href="manage-notification?papeNo=<%=i%>&title=${title}"><%=i%>
-                                        </a>
-                                    </li>
-                                    <% } %>
-                                    <li class="page-item <%= currentPage + 1 > totalPage ? "disabled" : "" %>">
-                                        <a class="page-link"
-                                           href="manage-notification?papeNo=<%=currentPage + 1%>&title=${title}">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+
                         </div>
                     </div>
                 </div>

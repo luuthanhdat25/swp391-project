@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 @Service
 public class AccountServiceImpl implements AccountService {
 
+
     @Autowired
     private AccountRepository accountRepository;
 
@@ -58,5 +59,8 @@ public class AccountServiceImpl implements AccountService {
     public Boolean existsByEmail(String email) {
         return accountRepository.existsByEmail(email);
     }
-
+    @Override
+    public List<Account> findAllAcount() {
+        return accountRepository.findAll();
+    }
 }

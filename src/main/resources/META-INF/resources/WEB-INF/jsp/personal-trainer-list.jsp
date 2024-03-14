@@ -124,17 +124,12 @@
 
     <script>
         var personalTrainerList = ${personalTrainerList};
+        if(!personalTrainerList){
+            document.getElementById('personalTrainerContainer').innerHTML = "<p class='fs-3 text text-secondary mt-3'>Not found any Personal Trainer!</p>";
+        }
         var role = "${account.getRole().getLabel()}";
         console.log(personalTrainerList)
-        if(role) {
-            $(document).ready(function(){
-                if(role === "Gymer") {
-                    $("#distanceSlider").show(); // If the role is Gymer, show the distanceSlider
-                } else {
-                    $("#distanceSlider").hide(); // Otherwise, hide it
-                }
-            });
-        }
+
     </script>
 
     <script src="../../assets/js/personal-trainer/personal-trainer-list-generate.js"></script>

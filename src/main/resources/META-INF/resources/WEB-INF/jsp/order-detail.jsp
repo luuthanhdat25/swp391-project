@@ -237,21 +237,26 @@
                                     <strong>Conflicting slot!</strong> There is a schedule conflict.
                                 </div>
                                 <c:choose>
-                                    <c:when test="${empty MSG}">
-                                        <!-- Display the "Accept" button only if MSG is empty -->
-                                        <button type="submit" class="btn btn-primary" name="action" value="accept">
-                                            Accept
-                                        </button>
-                                        <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
-                                           name="action" value="decline">Decline</a>
-
+                                    <c:when test="${orderRequest.getStatusString() == 'Pending'}">
+                                        <c:choose>
+                                            <c:when test="${empty MSG}">
+                                                <!-- Display the "Accept" button only if MSG is empty -->
+                                                <button type="submit" class="btn btn-primary" name="action" value="accept">
+                                                    Accept
+                                                </button>
+                                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
+                                                   name="action" value="decline">Decline</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <!-- If MSG is not empty, display the "Decline" button -->
+                                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
+                                                   name="action" value="decline">Decline</a>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:when>
-                                    <c:otherwise>
-                                        <!-- If MSG is not empty, display the "Decline" button -->
-                                        <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
-                                           name="action" value="decline">Decline</a>
-                                    </c:otherwise>
+                                    <c:otherwise></c:otherwise>
                                 </c:choose>
+
 
                             </div>
                             <input type="hidden" name="MSG" value="${MSG}">

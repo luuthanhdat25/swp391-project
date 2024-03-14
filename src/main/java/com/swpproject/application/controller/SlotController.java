@@ -41,11 +41,10 @@ public class SlotController {
 
     @RequestMapping(value = "bookPT", method = RequestMethod.GET)
     public String viewSChedulePT(HttpSession session,Model model) {
-        Account accountSession = (Account) session.getAttribute("account");
-        Gymer gymerSession = gymerService.getGymerByAccount(accountSession).get();
+        Gymer gymerSession = (Gymer) session.getAttribute("gymer");
 
 
-        if(accountSession == null){
+        if(gymerSession == null){
             return "redirect:/auth/login";
         }
         boolean checkOrderExist = orderRequestService.checkGymerOrderExist(gymerSession.getGymerId(),OrderStatus.OnDoing);
@@ -60,7 +59,6 @@ public class SlotController {
             model.addAttribute("MSGDescError","You Can't book this Personal Trainer because you are book another personal trainer," +
                     "please wait for this order update");
             return "book-fail";
-
         }
         return "book-pt";
     }
@@ -83,11 +81,9 @@ public class SlotController {
             List<SlotExercise> getSlotOnGoing = slotExcerciseEntityService.getSlotNotPending(personalTrainer.getId(),false);
             if (week != null && year != null) {
                 List<SlotExercise> getSlotOnWeekAndYear = slotExcerciseEntityService.getAllSlotByWeek(week,year);
-
                 model.addAttribute("week", week);
                 model.addAttribute("year", year);
                 model.addAttribute("allSlot",getSlotOnWeekAndYear);
-
                 redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
                 redirectAttributes.addAttribute("week", week);
                 redirectAttributes.addAttribute("year", year);
@@ -105,41 +101,10 @@ public class SlotController {
                 redirectAttributes.addAttribute("year", currentDate.getYear());
                 return "redirect:/bookPT1";
             }
-
-
         }
         List<ConflictInfo> conflictsList = (List<ConflictInfo>) session.getAttribute("conflictsList");
         model.addAttribute("conflictsList",conflictsList);
         session.removeAttribute("conflictsList");
-
-//        else{
-//            PersonalTrainer personalTrainer = new PersonalTrainer();
-//            personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(accountId);
-//            System.out.println("accountId: " + accountId);
-//
-//            model.addAttribute("accountId", accountId);
-//            model.addAttribute("personalTrainer", personalTrainer);
-//            System.out.println("price: " + personalTrainer.getPrice());
-//            List<SlotExercise> getSlotOnGoing = slotExcerciseEntityService.getSlotNotPending(personalTrainer.getId(),false);
-//            if (week != null && year != null) {
-//                model.addAttribute("week", week);
-//                model.addAttribute("year", year);
-//
-//                System.out.println("week: " + week);
-//                System.out.println("year: " + year);
-//
-//                System.out.println("number slot: " + getSlotOnGoing.size());
-//                model.addAttribute("allSlot",getSlotOnGoing );
-////            session.setAttribute("allSlot", getSlotByScheduleYearAndWeek);
-//            } else {
-//                System.out.println("week: " + week);
-//                System.out.println("year: " + year);
-//            }
-//        redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
-//        redirectAttributes.addAttribute("week", week);
-//        redirectAttributes.addAttribute("year", year);
-//        }
-
         return "forward:/bookPT";
     }
 
@@ -199,12 +164,7 @@ public class SlotController {
         List<SlotExercise>  getAllSlotIntime = new ArrayList<>();
         if (checkedSlots != null && !checkedSlots.isEmpty()) {
             for (int i = 1; i <= trainingTime; i++) {
-                if (cloudWeek < 52) {
-                    cloudWeek++;
-                }else if (cloudWeek == 52) {
-                    cloudWeek= 1;
-                    cloudYear++;
-                }
+
                 List<SlotExercise> SlotInWeekAndYear = slotExcerciseEntityService.getAllSlotByWeek(cloudWeek, cloudYear);
                 slotInWeekAndYearOrdered.addAll(SlotInWeekAndYear);
                 for (String checkedSlot : checkedSlots) {
@@ -231,6 +191,12 @@ public class SlotController {
                         // Log or handle the case where the expected number of parts is not found
                         System.out.println("Invalid slot format: " + checkedSlot);
                     }
+                }
+                if (cloudWeek < 52) {
+                    cloudWeek++;
+                }else if (cloudWeek == 52) {
+                    cloudWeek= 1;
+                    cloudYear++;
                 }
             }
             System.out.println("order slot: " +slotInWeekAndYearOrdered.size());
@@ -295,12 +261,7 @@ public class SlotController {
                     model.addAttribute("year", year);
                     if (checkedSlots != null && !checkedSlots.isEmpty()) {
                         for (int i = 1; i <= trainingTime; i++) {
-                            if (week < 52) {
-                                week++;
-                            } else if (week == 52) {
-                                week = 1;
-                                year++;
-                            }
+
                             for (String checkedSlot : checkedSlots) {
                                 String[] parts = checkedSlot.split("-");
                                 if (parts.length == 3) {
@@ -325,24 +286,24 @@ public class SlotController {
                                     System.out.println("Invalid slot format: " + checkedSlot);
                                 }
                             }
+                            if (week < 52) {
+                                week++;
+                            } else if (week == 52) {
+                                week = 1;
+                                year++;
+                            }
                         }
                     }
                 }
-                redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
-                redirectAttributes.addAttribute("week", week);
-                redirectAttributes.addAttribute("year", year);
+
             }
         }
         systemNotificationService.createNotification_NewRequestHiring(orderRequest);
-        return "redirect:/personal-trainer/";
+        return "redirect:/personal-trainer";
 //        return "redirect:/personal-trainer/";
     }
-
-
-
     public boolean checkBookSecond(Account account){
         Gymer gymer = gymerService.getGymerByAccount(account).get();
-
         return false;
     }
 }

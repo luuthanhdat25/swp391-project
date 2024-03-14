@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -135,8 +136,11 @@ public class AdminNotificationController {
     }
 
     @GetMapping("/admin-home/manage-account")
-    public String viewAccounts(ModelMap modelMap) {
+    public String viewAccounts(ModelMap modelMap, Model model) {
         List<Account> accounts = accountService.getAccounts();
+
+        model.addAttribute("account",accounts);
+
         return "view-accounts";
     }
 

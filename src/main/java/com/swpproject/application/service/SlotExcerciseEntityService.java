@@ -77,4 +77,8 @@ public class SlotExcerciseEntityService {
         return slotExcerciseEntityRepository.findByWeekAndAndYearAndOrderRequestIsNot(week,year,orderRequest);
     }
 
+    public List<SlotExercise> GetSlotOfOrder(OrderRequest orderRequest){
+        return  slotExcerciseEntityRepository.findAllByOrderRequest(orderRequest);
+    }
+
 }

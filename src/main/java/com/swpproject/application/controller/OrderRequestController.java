@@ -46,16 +46,16 @@ public class OrderRequestController {
         PersonalTrainer personalTrainer = orderRequest.getPersonalTrainer();
         Account accountProfile = gymer.getAccount();
         model.addAttribute("orderRequest", orderRequest);
-        model.addAttribute("account", accountProfile);
+        model.addAttribute("accountOrder", accountProfile);
         model.addAttribute("gymer", gymer);
-        List<SlotExercise> slotOrder = slotExcerciseEntityService.findSlotOrder(orderID, true);
+        List<SlotExercise> slotOrder = slotExcerciseEntityService.GetSlotOfOrder(orderRequest);
         model.addAttribute("DateStart",orderRequest.getDatetime_start());
         model.addAttribute("DateEnd",orderRequest.getDatetime_end());
         LocalDate currentDate;
         Date StartDateAsDate;
         List<SlotExercise> slotOrdered = new ArrayList<>();
         SlotExercise firstSlotinOrder = slotExcerciseEntityService.getTop1SlotExerciseByOrderID(orderRequest.getOrderId());
-        System.out.println("Gymer: " + firstSlotinOrder.toString());
+//        System.out.println("Gymer: " + firstSlotinOrder.toString());
 
         int weekStart = firstSlotinOrder.getWeek();
         int trainingTime = calculateWeeksDifference(orderRequest.getDatetime_start(),orderRequest.getDatetime_end());
@@ -212,7 +212,7 @@ public class OrderRequestController {
     @RequestMapping("customer-list")
     public String viewCustomerList(HttpSession session,Model model){
         PersonalTrainer personalTrainer = (PersonalTrainer) session.getAttribute("personalTrainer");
-        List<OrderRequest> orderRequestList = orderRequestService.getOrderList(personalTrainer,OrderStatus.Pending);
+        List<OrderRequest> orderRequestList = orderRequestService.getOrderList(personalTrainer,OrderStatus.OnDoing);
         System.out.println("order list: " + orderRequestList.size());
         model.addAttribute("OrderList",orderRequestList);
         for (OrderRequest orderRequest : orderRequestList) {

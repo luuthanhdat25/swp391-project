@@ -59,4 +59,11 @@ public class SlotExcerciseEntityService {
     public List<SlotExercise> getAllSlotByWeek(int week, int year){
         return slotExcerciseEntityRepository.findByWeekAndAndYear(week,year);
     }
+
+    public SlotExercise getTop1SlotExerciseByOrderID(Integer orderId){
+        return slotExcerciseEntityRepository.findTopByOrderRequest_OrderId(orderId);
+    }
+    public List<SlotExercise> getAllSlotNotExcepOrder(int week,int year,OrderRequest orderRequest){
+        return slotExcerciseEntityRepository.findByWeekAndAndYearAndOrderRequestIsNot(week,year,orderRequest);
+    }
 }

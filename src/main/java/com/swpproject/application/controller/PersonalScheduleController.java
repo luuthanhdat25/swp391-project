@@ -151,9 +151,6 @@ public class PersonalScheduleController {
             slotExercise.setEnd_hour(startEnd[1]);
             slotExercise.setDescription(description);
             slotExercise.setSchedule(schedule);
-//            if (slotExeRepository.existsByWeekAndSlot(week, year,startEnd[0],startEnd[1])){
-//
-//            }
             slotExeRepository.save(slotExercise);
             SlotExercise slotExe = slotExeRepository.findLastSlotExercise();
             int i = 0;

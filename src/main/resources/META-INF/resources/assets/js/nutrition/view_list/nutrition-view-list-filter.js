@@ -229,4 +229,6 @@ $(document).ready(function () {
     $("#submitCarb").click(function () {
         handleSearch();
     });
+
+    handleSearch();
 })

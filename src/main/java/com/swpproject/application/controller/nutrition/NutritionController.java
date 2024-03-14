@@ -41,7 +41,7 @@ public class NutritionController {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         List<NutritionDTOOut> nutritionDTOOutList = nutritionService.getNutritionDTOOutList(roleDTO);
         String nutritionDTOOutListJson = JsonUtils.jsonConvert(nutritionDTOOutList);
-        System.out.println("Length nutrition: " + nutritionDTOOutListJson.length());
+        System.out.println("Length nutrition: " + nutritionDTOOutList.size());
         model.addAttribute("nutritionList", nutritionDTOOutListJson);
         return NUTRITION_LIST_URL;
     }

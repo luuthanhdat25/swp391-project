@@ -295,8 +295,8 @@
     <script src="../../../assets/js/script.js"></script>
 
     <script>
-        var nutritionList = ${nutritionList};
-        console.log(nutritionList);
+        <%--var nutritionList = ${nutritionList};--%>
+        // console.log(nutritionList);
         var personalTrainerId = ${personalTrainer.getId()};
         console.log(personalTrainerId)
     </script>

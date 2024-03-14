@@ -50,19 +50,20 @@
                                         <div class="modal-body" style="background-color: #e6e6e6;">
                                             <div class="d-flex">
                                                 <span style="margin-right: 5px;">Title</span>
-                                                <input type="text" class="form-control" name="title"
-                                                       style="height: 70px;">
+                                                <input type="text" class="form-control" id="title"
+                                                       style="height: 70px;" required>
+                                                <div class="invalid-feedback">Please enter title</div>
                                             </div>
                                             <div class="d-flex align-items-center mt-1 mb-1">
                                                 <span style="margin-right: 5px;">URL</span>
-                                                <input type="text" class="form-control" name="title">
+                                                <input type="text" class="form-control" id="url">
                                             </div>
                                             <div class="d-flex mb-1 mt-3">
                                                 <div style="margin-right: 5px;">Send to:</div>
                                                 <div class="form-check" style="margin-right: 10px;">
                                                     <input class="form-check-input" type="checkbox" value=""
-                                                           id="allGymers">
-                                                    <label class="form-check-label" for="allGymers"> All gymers </label>
+                                                           id="allGymer">
+                                                    <label class="form-check-label" for="allGymer"> All gymers </label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value=""
@@ -98,7 +99,8 @@
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 Close
                                             </button>
-                                            <button type="button" class="btn btn-primary">Send</button>
+                                            <button type="button" class="btn btn-primary send-notification-btn">Send
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -229,7 +231,7 @@
                                   border: 3px solid #ffe5e6; padding: 5px;" alt="Avatar"/>
                                 <div class="d-flex flex-column bd-highlight mb-3 justify-content-center">
                                     <h3 id="nameSender" style="display: inline-block;"></h3>
-                                    <div id="title"></div>
+                                    <div id="titleNotification"></div>
                                     <div id="sendAt" class="text-muted"
                                          style="font-size: 14px; margin-top: 5px;">
                                     </div>
@@ -269,6 +271,41 @@
 <script src="../../../assets/js/jquery-3.6.0.min.js"></script>
 
 <script type="text/javascript">
+    var userAccountsSelected = [];
+
+    $('.send-notification-btn').click(function () {
+        var title = $('#title').val().trim();
+        if (title === '') {
+            alert('Please enter title');
+            return;
+        }
+
+        if (userAccountsSelected.length === 0 && !$('#allGymer').is(':checked') && !$('#allPersonalTrainer').is(':checked')) {
+            alert('You have not selected a sender yet');
+            return;
+        }
+
+        var queryString = 'title=' + encodeURIComponent($('#title').val());
+        queryString += '&url=' + encodeURIComponent($('#url').val());
+        queryString += '&isSendToAllGymer=' + ($('#allGymer').is(':checked') ? 'true' : 'false');
+        queryString += '&isSendToAllPersonalTrainer=' + ($('#allPersonalTrainer').is(':checked') ? 'true' : 'false');
+        queryString += '&userAccountsSelected=' + userAccountsSelected.join('&userAccountsSelected=');
+
+        $.ajax({
+            type: "GET",
+            url: "/send-notification?" + queryString,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                console.log("Data sent successfully to the controller.");
+                location.reload();
+            },
+            error: function (error) {
+                console.error("Error sending data to the controller: " + JSON.stringify(error));
+            }
+        });
+    })
+
     function createAccountElement(account) {
         var listItem = $("<div class='d-flex flex-column align-items-center'></div>");
         var accountDiv = $("<div class='d-flex justify-content-between align-items-center mb-1 bg-white shadow rounded' style='width: 98%; height: 50px; border-radius: 5px; padding: 2px;'></div>");
@@ -299,6 +336,7 @@
             success: function (data) {
                 var accountElement = createAccountSelected(data);
                 $('.accountSelected').append(accountElement);
+                userAccountsSelected.push(accountID);
             },
             error: function (error) {
                 console.error("Error loading account detail: " + JSON.stringify(error));
@@ -315,9 +353,12 @@
         var closeButton = $("<button style='background: transparent; border: none; cursor: pointer;'>x</button>");
 
         closeButton.click(function () {
-            accountDiv.remove(); // Xóa div khi nút được nhấn
+            accountDiv.remove();
+            var index = userAccountsSelected.indexOf(data.id);
+            if (index !== -1) {
+                userAccountsSelected.splice(index, 1);
+            }
         });
-
 
         accountDiv.append(image);
         accountDiv.append(nameDiv);
@@ -367,7 +408,7 @@
         $('#avatarSender').attr('src', 'data:image/jpeg;base64,' + detail.avatarSender);
         $('#id').attr('value', detail.id);
         $('#nameSender').text(detail.nameSender);
-        $('#title').text(detail.title);
+        $('#titleNotification').text(detail.title);
         $('#sendAt').text('Send at ' + formattedTime);
         $('#content').text(detail.content);
         $('#exampleModal').modal('show');

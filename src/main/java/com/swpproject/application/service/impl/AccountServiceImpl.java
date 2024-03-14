@@ -33,7 +33,6 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.findAccountByRole(role);
     }
 
-
     @Override
     public Account loginByEmail(String email, String password) {
         Optional<Account> optAccount = accountRepository.findAccountByEmail(email);

@@ -4,6 +4,8 @@ import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Notification;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.NotificationRepository;
+import com.swpproject.application.service.AccountService;
+import com.swpproject.application.service.impl.NotificationService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +33,11 @@ public class AdminNotificationController {
     @Autowired
     private NotificationRepository notificationRepository;
     @Autowired
+    private NotificationService notificationService;
+    @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private AccountService accountService;
 
     @RequestMapping(value = "/admin-home/manage-notification", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String viewManageNotification(ModelMap modelMap,
@@ -129,6 +136,57 @@ public class AdminNotificationController {
         AdminNotificationDTO.setNameSender(notification.getFromAccount().getFullName());
         AdminNotificationDTO.setContentSender(notification.getContent());
         return ResponseEntity.ok().body(AdminNotificationDTO);
+    }
+
+    private void createNotificationFollowRole(String title, String url, String role, HttpSession session) {
+        List<Account> accounts = accountService.getAccounts();
+        int lastId = notificationService.getGroupNumber_LastNotification();
+
+        for (Account account : accounts) {
+            if (!account.getRole().getLabel().equals(role)) continue;
+            Notification notification = new Notification();
+            notification.setTitle(title);
+            notification.setTimeStamp(LocalDateTime.now());
+            notification.setContent(url);
+            notification.setFromAccount((Account) session.getAttribute("account"));
+            notification.setToAccount(account);
+            notification.setGroupNumber(lastId + 1);
+            notificationRepository.save(notification);
+        }
+    }
+
+    @GetMapping(value = "/send-notification")
+    public ResponseEntity<NotificationDTO> createNotification(@RequestParam List<Integer> userAccountsSelected,
+                                                              @RequestParam String title,
+                                                              @RequestParam String url,
+                                                              @RequestParam Boolean isSendToAllGymer,
+                                                              @RequestParam Boolean isSendToAllPersonalTrainer,
+                                                              HttpSession session) {
+        if (isSendToAllGymer) {
+            createNotificationFollowRole(title, url, "Gymer", session);
+            return ResponseEntity.ok().body(new NotificationDTO());
+        }
+
+        if (isSendToAllPersonalTrainer) {
+            createNotificationFollowRole(title, url, "Personal Trainer", session);
+            return ResponseEntity.ok().body(new NotificationDTO());
+        }
+
+        int lastId = notificationService.getGroupNumber_LastNotification();
+        Account account;
+        for (Integer index : userAccountsSelected) {
+            Notification notification = new Notification();
+            account = accountRepository.findById(index).get();
+
+            notification.setTimeStamp(LocalDateTime.now());
+            notification.setTitle(title);
+            notification.setContent(url);
+            notification.setFromAccount(account);
+            notification.setToAccount(account);
+            notification.setGroupNumber(lastId + 1);
+            notificationRepository.save(notification);
+        }
+        return ResponseEntity.ok().body(new NotificationDTO());
     }
 }
 

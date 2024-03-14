@@ -6,6 +6,7 @@ import com.swpproject.application.dto.RoleDTO;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.ExerciseService;
+import com.swpproject.application.service.PersonalTrainerService;
 import com.swpproject.application.utils.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +26,9 @@ public class ExerciseController {
     @Autowired
     private ExerciseService exerciseService;
 
+    @Autowired
+    private PersonalTrainerService personalTrainerService;
+
     private static final String EXERCISE_LIST_URL = "exercise/exercise-list";
     private static final String EXERCISE_DETAILS_URL = "exercise/exercise-details";
     private static final String EXERCISE_CREATE_URL = "exercise/exercise-create";
@@ -36,14 +40,12 @@ public class ExerciseController {
     public String getExerciseListPage(ModelMap model, HttpServletRequest request){
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         List<ExerciseDTOOut> exerciseDTOOutList = exerciseService.getExerciseDTOOutList(roleDTO);
-//        PageRequest pageable = PageRequest.of(page, size);
-//        int start = (int)pageable.getOffset();
-//        int end = Math.min((start + pageable.getPageSize()), exerciseDTOOutList.size());
-//        Page<ExerciseDTOOut> pageImpl = new PageImpl<>(exerciseDTOOutList.subList(start, end), pageable, exerciseDTOOutList.size());
-//        System.out.println(pageImpl.getContent().size() + " Item");
-//        String json = JsonUtils.jsonConvert(pageImpl.getContent());
+
         String json = JsonUtils.jsonConvert(exerciseDTOOutList);
         model.addAttribute("exerciseList", json);
+
+        boolean canCreate = canCreateUpdate(roleDTO);
+        model.addAttribute("canCreate", canCreate);
         return EXERCISE_LIST_URL;
     }
 
@@ -76,7 +78,12 @@ public class ExerciseController {
     }
 
     private boolean canCreateUpdate(RoleDTO roleDTO){
-        return roleDTO != null && (roleDTO.getRole() == Role.ADMIN || roleDTO.getRole() == Role.PT);
+        if(roleDTO == null) return false;
+        if(roleDTO.getRole() == Role.ADMIN) return true;
+
+        if(roleDTO.getRole() != Role.PT) return false;
+        PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByID(roleDTO.getId()).get();
+        return  personalTrainer.getIsActive();
     }
 
 

@@ -14,7 +14,7 @@
     <div class="main-wrapper">
         <div class="page-wrapper">
             <div class="content container-fluid">
-
+                <p id="warningPT" class="fs-6 text-danger fst-italic" style="display: none">You can only create exercises only if your personal trainer account has been approved</p>
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
@@ -224,23 +224,13 @@
                     </div>
                 </div>
 
-                <c:if test="${account ne null}">
-                    <c:choose>
-                        <c:when test="${account.getRole() eq 'PT' || account.getRole() eq 'ADMIN'}">
-                            <div class="card invoices-tabs-card border-0 mt-3">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="invoices-settings-btn invoices-settings-btn-one">
-                                        <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <!-- Other role-specific content here -->
-                        </c:otherwise>
-                    </c:choose>
-                </c:if>
-
+                <div class="card invoices-tabs-card border-0 mt-3" id="createExercise" style="display: none">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="invoices-settings-btn invoices-settings-btn-one">
+                            <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="exerciseContainer" class="row"></div>
 
@@ -286,6 +276,20 @@
     <script>
         var exerciseList = ${exerciseList};
         console.log(exerciseList);
+    </script>
+
+    <script>
+        var canCreat = ${canCreate};
+        var role = "${account.getRole()}";
+        console.log('Can create exercise: ' + canCreat);
+        if(canCreat && canCreat === true){
+            $('#createExercise').show();
+        }else{
+            if(role === "PT"){
+                $('#warningPT').show();
+            }
+        }
+        console.log(role)
     </script>
 
     <script src="../../../assets/js/exercise/view-list/exercise-view-list-generate.js"></script>

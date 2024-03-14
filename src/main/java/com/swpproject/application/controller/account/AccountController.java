@@ -1,13 +1,10 @@
 package com.swpproject.application.controller.account;
 
+import com.swpproject.application.dto.AccountDTO;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.service.AccountService;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -61,13 +58,3 @@ public class AccountController {
     }
 }
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-class AccountDTO {
-    private Integer id;
-    private byte[] image;
-    private String fullName;
-    private String role;
-}

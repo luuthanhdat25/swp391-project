@@ -2,15 +2,6 @@
 <%@include file="../common/head.jspf" %>
 <%@include file="../common/sidebar.jspf" %>
 
-<style>
-    .carousel-inner img {
-        max-width: 100%;
-        max-height: 300px;
-        width: 100%;
-        height: auto;
-    }
-</style>
-
 <div class="page-wrapper">
     <div class="content container-fluid">
         <div class="page-header invoices-page-header">
@@ -107,7 +98,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Name</label>
                                             <div class="col-lg-9" style="width: 100%">
-                                                <input name="fullName" id="fullNameInput" type="text" class="form-control" value="${gymer.getAccount().getFullName()}">
+                                                <input name="fullName" id="fullNameInput" type="text" class="form-control" value="${gymer.getAccount().getFullName()}" required>
                                                 <div id="error-message-fullName" style="color: red;"></div>
                                             </div>
                                         </div>
@@ -116,7 +107,7 @@
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="phone" type="text" class="form-control"
                                                        value="${gymer.getAccount().getPhone() == null ? '' : gymer.getAccount().getPhone()}"
-                                                       placeholder="${gymer.getAccount().getPhone() == null ? 'Empty' : ''}">
+                                                       placeholder="${gymer.getAccount().getPhone() == null ? 'Empty' : ''}" required>
                                             </div>
                                             <div id="error-message-phone" style="color: red;"></div>
                                         </div>
@@ -124,8 +115,8 @@
                                             <label class="col-lg-3 col-form-label">Birthday</label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="birthday" class="form-control" type="date"
-                                                       value="${gymer.getAccount().getBirthday()}">
-                                                <div id="error-message-birthday" style="color: red;"></div>
+                                                       value="${gymer.getAccount().getBirthday()}" required>
+                                                <div id="error-message-birthday" style="color: red;"></div >
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -163,11 +154,12 @@
                                             <label class="col-lg-3 col-form-label">Email</label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input type="text" class="form-control"
-                                                       name="email" value="${gymer.getAccount().getEmail()}" disabled>
+                                                       name="email" value="${gymer.getAccount().getEmail()}" disabled required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Password</label>
+                                            <label class="col-lg-12 col-form-label" style="display: flex; justify-content: space-between;">Password
+                                                <a href="#" id="changePasswordLink">Change Password?</a></label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="password" type="password" class="form-control"
                                                        value="${gymer.getAccount().getPassword()}" disabled>
@@ -178,7 +170,7 @@
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="address" type="text" class="form-control"
                                                        value="${gymer.getAccount().getAddress() == null ? '' : gymer.getAccount().getAddress()}"
-                                                       placeholder="${gymer.getAccount().getAddress() == null ? 'Empty' : ''}">
+                                                       placeholder="${gymer.getAccount().getAddress() == null ? 'Empty' : ''}" required>
                                                 <div id="error-message-address" style="color: red;"></div>
                                             </div>
                                         </div>
@@ -194,11 +186,56 @@
                     </div>
                 </div>
             </div>
-
+            <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form:form id="changePasswordForm">
+                                <div class="form-group local-forms">
+                                    <label for="currentPassword">Current Password <span class="login-danger">*</span></label>
+                                    <input class="mb-3 mt-3 form-control pass-input" type="password" placeholder="Enter Current Password" id="currentPassword" minlength="8" maxlength="20" required>
+                                    <span class="profile-views feather-eye toggle-password"></span>
+                                </div>
+                                <div class="form-group local-forms">
+                                    <label for="newPassword">New Password <span class="login-danger">*</span></label>
+                                    <input class="mb-3 form-control pass-new" type="password" placeholder="Enter New Password" id="newPassword" minlength="8" maxlength="20" required>
+                                    <span class="profile-views feather-eye new-toggle-password"></span>
+                                </div>
+                                <div class="form-group local-forms">
+                                    <label for="repeatPassword">Repeat New Password <span class="login-danger">*</span></label>
+                                    <input class="form-control pass-confirm" type="password" placeholder="Repeat Password" id="repeatPassword" minlength="8" maxlength="20" required>
+                                    <span class="profile-views feather-eye reg-toggle-password"></span>
+                                </div>
+                                <div id="changePasswordErrorMessage" style="color: red;"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" onclick="" id="changePasswordButton">Save changes</button>
+                                </div>
+                            </form:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <script>
+
+    $(document).ready(function () {
+        $("#changePasswordLink").click(function (e) {
+            e.preventDefault();
+            $("#changePasswordModal").modal("show");
+        });
+
+        $("#changePasswordForm").submit(function (e) {
+            $("#changePasswordModal").modal("hide");
+        });
+    });
+
     document.addEventListener('DOMContentLoaded', function () {
         const fileInput = document.querySelector('input[name="avatar"]');
         const avatarImage = document.getElementById('avatar-image');
@@ -210,9 +247,7 @@
         const descInput = document.getElementById('description');
         const weightInput = document.querySelector('input[name="weight"]');
         const heightInput = document.querySelector('input[name="height"]');
-        const genderMInput = document.getElementById('gender_male');
-        const genderFInput = document.getElementById('gender_female');
-        const genderOInput = document.getElementById('gender_other');
+
         weightInput.addEventListener('input', function () {
             validateNumericInput(weightInput, 'error-message-weight');
         });
@@ -264,10 +299,6 @@
                 avatarImage.src = 'data:image/jpeg;base64, ${personalTrainer.getAccount().getAvatarImageAsString()}';
             }
         });
-
-        genderInput.addEventListener('click', function() {
-            submitButton.disabled = false;
-        })
 
         fullNameInput.addEventListener('input', function () {
             validateTextWithoutSpecialCharacters(fullNameInput, 'error-message-fullName');
@@ -372,6 +403,12 @@
         }
 
 
+        const genderInputs = document.querySelectorAll('input[name="gender"]');
+        genderInputs.forEach(input => {
+            input.addEventListener('change', checkFormValidity);
+        });
+
+
         function checkFormValidity() {
             const imgErrorContainer = document.getElementById('error-message-container-img');
             const weightValid = !isNaN(weightInput.value) && weightInput.value > 0;
@@ -382,7 +419,9 @@
             const birthdayValid = birthdayInput.value <= new Date().toISOString().split('T')[0];
             const imgValid = !imgErrorContainer.textContent; // Check if there are no image errors
 
-            const isFormValid = fullNameValid && phoneValid && addressValid && birthdayValid && imgValid && weightValid && heightValid;
+            const isFormValid = fullNameValid && phoneValid && addressValid && birthdayValid && imgValid && weightValid && heightValid && genderValid;
+
+            console.log(fullNameValid);
 
             submitButton.disabled = !isFormValid;
         }
@@ -394,9 +433,6 @@
         birthdayInput.addEventListener('input', checkFormValidity);
         weightInput.addEventListener('input', checkFormValidity);
         heightInput.addEventListener('input', checkFormValidity);
-        genderMInput.addEventListener('click', checkFormValidity);
-        genderFInput.addEventListener('click', checkFormValidity);
-        genderOInput.addEventListener('click', checkFormValidity);
     });
 
 

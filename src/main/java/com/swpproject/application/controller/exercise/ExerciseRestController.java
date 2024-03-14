@@ -1,7 +1,7 @@
 package com.swpproject.application.controller.exercise;
 
-import com.swpproject.application.controller.dto.ExerciseDTOOut;
-import com.swpproject.application.controller.dto.RoleDTO;
+import com.swpproject.application.dto.ExerciseDTOOut;
+import com.swpproject.application.dto.RoleDTO;
 import com.swpproject.application.service.ExerciseService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
@@ -68,7 +68,7 @@ public class ExerciseRestController {
     private List<ExerciseDTOOut> findByEquipment(List<String> equipments, List<ExerciseDTOOut> exercises) {
         if (equipments.isEmpty()) return exercises;
         return exercises.stream()
-                .filter(exercise -> equipments.contains(exercise.getEquipment()) || exercise.getEquipment().equals("None"))
+                .filter(exercise -> equipments.contains(exercise.getEquipment()))
                 .collect(Collectors.toList());
     }
 }

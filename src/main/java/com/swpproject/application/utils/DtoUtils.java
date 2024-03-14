@@ -1,15 +1,12 @@
 package com.swpproject.application.utils;
 
-import com.swpproject.application.controller.dto.GymerDto;
-import com.swpproject.application.controller.dto.PersonalTrainerDto;
-import com.swpproject.application.enums.Goal;
+import com.swpproject.application.dto.GymerDto;
+import com.swpproject.application.dto.PersonalTrainerDto;
 import com.swpproject.application.model.Gymer;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.service.CertificateService;
 import com.swpproject.application.service.GymerService;
 import com.swpproject.application.service.PersonalTrainerService;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -69,6 +66,8 @@ public class DtoUtils {
                                             .averageVotes(4.7f)
                                             .phone(personalTrainer.getAccount().getPhone())
                                             .birthday(personalTrainer.getAccount().getBirthday().toString())
+                                            .bankName(personalTrainer.getBankName())
+                                            .bankNumber(personalTrainer.getBankNumber())
                                             .email(personalTrainer.getAccount().getEmail())
                                             .certificateList(certificatList)
                                             .build();

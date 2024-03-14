@@ -31,7 +31,7 @@
                     <span>GymOn Services</span>
                 </li>
                 <li>
-                    <a href="/personal-trainer/"><i class="fas fa-search"></i> <span>Find Personal Trainer</span> </a>
+                    <a href="/personal-trainer"><i class="fas fa-search"></i> <span>Find Personal Trainer</span> </a>
                 </li>
                 <c:if test="${account ne null}">
                     <c:choose>

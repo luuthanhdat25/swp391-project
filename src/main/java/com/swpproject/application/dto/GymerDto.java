@@ -1,15 +1,6 @@
-package com.swpproject.application.controller.dto;
+package com.swpproject.application.dto;
 
-import com.swpproject.application.enums.Gender;
-import com.swpproject.application.model.Account;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import lombok.*;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor

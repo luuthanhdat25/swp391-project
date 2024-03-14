@@ -23,6 +23,7 @@ public class OrderRequest {
     private Date datetime_start;
     private Date datetime_end;
     private int total_of_money;
+    private Integer tranking;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;

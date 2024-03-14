@@ -403,6 +403,11 @@
             }
         }
 
+        const genderInputs = document.querySelectorAll('input[name="gender"]');
+        genderInputs.forEach(input => {
+            input.addEventListener('change', checkFormValidity);
+        });
+
         function checkFormValidity() {
             const imgErrorContainer = document.getElementById('error-message-container-img');
 
@@ -411,8 +416,9 @@
             const addressValid = !/[!@#$%^&*().?":{}|<>]/.test(addressInput.value);
             const birthdayValid = birthdayInput.value <= new Date().toISOString().split('T')[0];
             const imgValid = !imgErrorContainer.textContent; // Check if there are no image errors
+            const genderValid = [...genderInputs].some(input => input.checked);
 
-            const isFormValid = fullNameValid && phoneValid && addressValid && birthdayValid && imgValid;
+            const isFormValid = fullNameValid && phoneValid && addressValid && birthdayValid && imgValid && genderValid;
 
             submitButton.disabled = !isFormValid;
         }
@@ -424,6 +430,8 @@
         birthdayInput.addEventListener('input', checkFormValidity);
 
     });
+
+
 </script>
 
 

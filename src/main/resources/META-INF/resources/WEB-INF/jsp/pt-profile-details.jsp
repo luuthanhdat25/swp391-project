@@ -75,10 +75,10 @@
     }
 
     .rate-box .star:before {
-        content: "★";
+        content: "\272c";
         display: inline-block;
         font-family: "Potta One", cursive;
-        font-size: 1.6rem;
+        font-size: 5rem;
         cursor: pointer;
         color: #0000;
         text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);

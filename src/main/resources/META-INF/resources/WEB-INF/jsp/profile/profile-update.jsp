@@ -63,7 +63,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-5 col-form-label">Weight(kg)</label>
                                                 <div class="col-lg-3" style="width: 100%">
-                                                    <input name="weight" type="text" class="form-control"
+                                                    <input name="weight" type="number" class="form-control"
                                                            value="${gymer.getWeight()}">
                                                 </div>
                                                 <div id="error-message-weight" style="color: red;"></div>
@@ -71,7 +71,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-5 col-form-label">Height(cm)</label>
                                                 <div class="col-lg-3" style="width: 100%">
-                                                    <input name="height" type="text" class="form-control"
+                                                    <input name="height" type="number" class="form-control"
                                                            value="${gymer.getHeight()}">
                                                 </div>
                                                 <div id="error-message-height" style="color: red;"></div>
@@ -323,9 +323,9 @@
 
         function validatePhoneNumber(phoneElement, errorMessageId) {
             const phoneValue = phoneElement.value;
-            const hasNonDigits = /\D/.test(phoneValue); // Check for non-digit characters
+            const hasNonDigits = /\D/.test(phoneValue);
             const errorMessageContainer = document.getElementById(errorMessageId);
-            const submitButton = document.getElementById('submitButton'); // Assuming submitButton is the correct ID
+            const submitButton = document.getElementById('submitButton');
 
             if (hasNonDigits) {
                 errorMessageContainer.textContent = 'Phone cannot contain letters or special characters.';
@@ -374,9 +374,6 @@
 
         function checkFormValidity() {
             const imgErrorContainer = document.getElementById('error-message-container-img');
-            const weightErrorContainer = document.getElementById('error-message-weight');
-            const heightErrorContainer = document.getElementById('error-message-height');
-
             const weightValid = !isNaN(weightInput.value) && weightInput.value > 0;
             const heightValid = !isNaN(heightInput.value) && heightInput.value > 0;
             const fullNameValid = !/[!@#$%^&*(),.?":{}|<>0-9]/.test(fullNameInput.value);

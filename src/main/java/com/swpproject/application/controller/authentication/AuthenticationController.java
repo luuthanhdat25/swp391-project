@@ -230,6 +230,7 @@ public class AuthenticationController {
                                HttpSession session,
                                HttpServletResponse response) {
         Optional<Account> account = accountService.getAccountByEmail(email);
+        System.out.println(PasswordUtils.hashPassword("admin123"));
         String hashing = PasswordUtils.hashPassword(password);
         if (account.isPresent() && hashing.equals(account.get().getPassword())) {
             if (account.get().getRole().equals(Role.GYMER)) {
@@ -241,6 +242,7 @@ public class AuthenticationController {
                 session.setAttribute("personalTrainer", personalTrainer);
             }
             if (account.get().getRole().equals(Role.ADMIN)) {
+
                 return "redirect:/admin-home/manage-notification";
             }
             removeAttributes(session, "email", "password");

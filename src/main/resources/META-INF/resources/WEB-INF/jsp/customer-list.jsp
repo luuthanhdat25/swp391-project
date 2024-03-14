@@ -90,6 +90,7 @@
                                     <th style="text-align: center;">Goal</th>
                                     <th style="text-align: center;">Point body</th>
                                     <th style="text-align: center;">Schedule Detail</th>
+                                    <th style="text-align: center;">Order Detail</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -104,8 +105,11 @@
                                         </td>
                                         <td><p class="text-muted">Weight ${order.getGymer().getWeight()}</p>
                                             <p class="text-muted">Height ${order.getGymer().getHeight()}</p></td>
+                                        <td><a href="/view-personal-schedule?GymerID=${order.gymer.getGymerId()}" class="view"
+                                               title="View Schedue Details" data-toggle="tooltip"><i class="fas fa-calendar-alt" style='font-size:24px'></i></a></td>
+
                                         <td><a href="/Order-Request?order_id=${order.orderId}" class="view"
-                                               title="View Details" data-toggle="tooltip"><i class="fas fa-calendar-alt" style='font-size:24px'></i></a></td>
+                                               title="View Order Details" data-toggle="tooltip"><i class="fas fa-address-book" style='font-size:24px'></i></a></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

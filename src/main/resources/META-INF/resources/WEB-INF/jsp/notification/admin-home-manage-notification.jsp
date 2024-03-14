@@ -11,20 +11,14 @@
 <div class="main-wrapper">
     <div>
         <div class="page-wrapper d-flex flex-column align-items-center"
-             style="width: 77%; height: fit-content; float: right; padding: 70px 0 40px 0;">
+             style="width: 75%; height: fit-content; float: right; padding: 70px 0 40px 0;">
 
             <div class="notification-detail d-flex flex-column align-items-center">
-                <div class="shadow p-3 mb-5 bg-body rounded" style="width: 95%; height: fit-content; background-color: #e4e4e4;
-                border-radius: 6px; padding: 10px; font-size: 20px; color: #4c4c4c;  text-align: center;
+                <div class="shadow mb-2 rounded" style="width: 94%; height: fit-content; background-color: #333B59;
+                border-radius: 6px; padding: 10px; font-size: 20px; color: #FFFFFF;  text-align: center;
                 margin-bottom: 0px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"
-                         fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16"
-                         style="margin-right: 3px; ">
-                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
-                    </svg>
                     <b>Notification management</b>
                 </div>
-
                 <div class="d-flex flex-column" style="width: 94%;">
                     <div class="card mb-4" style="background-color: #FFFFFF;">
                         <div class="card-header">
@@ -42,6 +36,50 @@
                                 </div>
                             </form>
 
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                Launch demo modal
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label>Title</label>
+                                            <input type="text" class="form-control" name="title" style="height: 100px;">
+                                            <label>URL</label>
+                                            <input type="text" class="form-control" name="title">
+
+                                            <div>
+                                                <div></div>
+                                                <button type="button" class="btn btn-success">Add</button>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="flexCheckIndeterminate">
+                                                <label class="form-check-label" for="flexCheckIndeterminate">
+                                                    Send to everyone
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="button" class="btn btn-primary">Send</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <form action="view-creating-notification-detail"
                                   method="GET" style="margin-bottom: 0;"> <%--Add notification" button--%>
                                 <button type="submit" style="height: 50px; width: 164px; background-color: #3c763d;"
@@ -55,8 +93,9 @@
                             </form>
                         </div>
                         <div class="card-body" style="width: 100%;">
-                            <table id="datatablesSimple" class="table table-hover">
-                                <thead class="table-dark">
+                            <table id="datatablesSimple"
+                                   class="table table-hover table-centered mdi-format-vertical-align-center">
+                                <thead class="table-secondary">
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Title</th>
@@ -67,21 +106,22 @@
                                 </thead>
                                 <tbody>
                                 <c:forEach var="notification" items="${NotificationList.content}">
-                                    <tr style="height: 30px;">
-                                        <th scope="row">${NotificationList.content.indexOf(notification) + IndexStarting}</th>
-                                        <td style="text-align: left;">
+                                    <tr class="shadow p-3 mb-5 bg-body rounded" style="height: 30px;">
+                                        <th scope="row"
+                                            class="align-baseline">${NotificationList.content.indexOf(notification) + IndexStarting}</th>
+                                        <td style="text-align: left;" class="align-baseline">
                                             <div class="text-truncate" style="width: 350px;">${notification.title}</div>
                                         </td>
-                                        <td>
+                                        <td class="align-baseline">
                                             <img class="rounded-circle"
                                                  style="width: 30px; height: 30px; margin-right: 5px;"
                                                  src="data:image/jpeg;base64,${notification.toAccount.getAvatarImageAsString()}">
                                         </td>
-                                        <td>
+                                        <td class="align-baseline">
                                                 ${notification.timeStamp.getHour()}:${notification.timeStamp.getMinute()}
                                                 ${notification.timeStamp.getDayOfMonth()}/${notification.timeStamp.getMonthValue()}/${notification.timeStamp.getYear()}
                                         </td>
-                                        <td>
+                                        <td class="align-baseline">
                                             <div class="d-flex justify-content-between"
                                                  style="width: 210px; height: fit-content;">
                                                 <form action="view-notification-detail" method="get"

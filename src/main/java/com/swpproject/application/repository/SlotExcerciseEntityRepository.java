@@ -59,6 +59,4 @@ public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercis
 
     public List<SlotExercise> findByWeekAndAndYear(int week,int year);
 
-    public List<SlotExercise> findAllByWeekAndYearAndPersonalTrainerAndIsPending(int week, int year, PersonalTrainer personalTrainer,boolean isPending);
-
 }

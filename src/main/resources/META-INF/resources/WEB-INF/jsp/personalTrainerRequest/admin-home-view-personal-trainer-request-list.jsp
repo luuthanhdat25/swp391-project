@@ -8,21 +8,15 @@
     <link href="../../assets/css/notification/view-notification-list.css" rel="stylesheet"/>
     <link href="../../assets/css/style-table.css" rel="stylesheet"/>
 </head>
-<body>
 
 <div class="main-wrapper">
     <div class="page-wrapper d-flex flex-column align-items-center"
-         style="width: 77%; height: fit-content; float: right; padding: 70px 0 40px 0;">
+         style="width: 75%; height: fit-content; float: right; padding: 70px 0 40px 0;">
 
         <div class="notification-detail d-flex flex-column align-items-center">
-            <div class="shadow p-3 mb-5 bg-body rounded" style="width: 95%; height: fit-content; background-color: #e4e4e4;
-                border-radius: 6px; padding: 10px; font-size: 20px; color: #4c4c4c;  text-align: center;
+            <div class="shadow mb-2 rounded" style="width: 94%; height: fit-content; background-color: #333B59;
+                border-radius: 6px; padding: 10px; font-size: 20px; color: #FFFFFF;  text-align: center;
                 margin-bottom: 0px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"
-                     fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16"
-                     style="margin-right: 3px; ">
-                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
-                </svg>
                 <b>Personal Trainer's request management</b>
             </div>
             <div class="d-flex flex-column" style="width: 94%;">
@@ -32,7 +26,7 @@
                         Personal Trainer's request table
                     </div>
                     <div class="d-flex justify-content-between align-items-center"
-                         style="width: 100%; padding: 0 15px 0 15px;">
+                         style="width: 100%; padding: 0 15px 0 15px; margin-top: 2px;">
                         <form action="manage-personal-trainer-request" method="GET"
                               style="width: 50%; margin-bottom: 0;">
                             <div class="input-group" style="width: 100%;">
@@ -45,7 +39,7 @@
                     <div class="card-body" style="width: 100%;">
                         <table id="datatablesSimple"
                                class="table table-hover table-centered mdi-format-vertical-align-center">
-                            <thead class="table-dark">
+                            <thead class="table-secondary">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">title</th>
@@ -67,7 +61,7 @@
                                     <td class="align-baseline">
                                         <img class="rounded-circle"
                                              style="width: 30px; height: 30px; margin-right: 5px;"
-                                             src="data:image/jpeg;base64,${request.personalTrainerAccount.getAvatarImageAsString()}">
+                                             src="data:image/jpeg;base64,${request.personalTrainerAccount.account.getAvatarImageAsString()}">
                                     </td>
                                     <td class="align-baseline">
                                             ${request.timeStamp.getHour()}:${request.timeStamp.getMinute()}
@@ -79,19 +73,20 @@
 
                                     <td class="align-baseline">
                                         <div class="d-flex justify-content-between"
-                                             style="width: 210px; height: fit-content;">
-                                            <form action="view-personal-trainer-request-detail" method="get" style="margin-bottom: 0;">
-                                                <input type="hidden" name="requestID" value=${request.id}>
-                                                <button type="submit" class="btn btn-info"
-                                                        style="height: 40px; width: 90px; color: #FFFFFF;">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
-                                                         fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-                                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-                                                    </svg>
-                                                    view
-                                                </button>
-                                            </form>
+                                             style="height: fit-content;">
+
+                                            <input type="hidden" name="requestID" value=${request.id}>
+                                            <button type="submit" class="btn btn-info view-detail-btn"
+                                                    style="height: 40px; width: 90px; color: #FFFFFF;"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                    data-id=${request.id}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
+                                                     fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                                                </svg>
+                                                view
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -126,7 +121,111 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #555B73;">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #FFFFFF;"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body" style="background-color: #e6e6e6;">
+                    <div class="d-flex flex-column" style="width: 100%; margin-top: 3px;">
+                        <div class="d-flex justify-content-between shadow mb-3 bg-body rounded "
+                             style="padding: 15px;">
+                            <div class="d-flex align-content-center" style="width: 80%;">
+                                <img id="personalTrainerImage" class="rounded-circle"
+                                     style="width: 110px; height: 110px; margin-right: 10px;
+                                  border: 3px solid #ffe5e6; padding: 5px;" alt="Avatar"/>
+                                <div class="d-flex flex-column bd-highlight mb-3 justify-content-center">
+                                    <h3 id="personalTrainerName" style="display: inline-block;"></h3>
+                                    <div id="title"></div>
+                                    <div id="sendAt" class="text-muted"
+                                         style="font-size: 14px; margin-top: 5px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="buttonGroup"></div>
+                        </div>
+                        <div class="shadow mb-5 bg-body rounded"
+                             style="padding: 25px; margin-top: 10px;">${RequestDetail.content}
+                            <img src="data:image/jpeg;base64,${Certificate_1}" alt="Certificate">
+                            <img src="data:image/jpeg;base64,${Certificate_2}" alt="Certificate">
+                            <img src="data:image/jpeg;base64,${Certificate_3}" alt="Certificate">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="../../../assets/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $('.view-detail-btn').click(function () {
+        var requestID = $(this).data('id');
+        $.ajax({
+            type: "GET",
+            url: "/get-personal-trainer-request-detail",
+            data: {requestID: requestID},
+            success: function (detail) {
+                showModal(detail);
+            },
+            error: function (error) {
+                console.error("Error loading notification detail: " + JSON.stringify(error));
+            }
+        });
+    });
+
+    function showModal(detail) {
+        var formattedTime = moment(detail.timeStamp).format('HH:mm, DD/MM/YYYY');
+        $('#exampleModalLabel').text(detail.personalTrainerName + "'s Request Detail");
+        $('#personalTrainerImage').attr('src', 'data:image/jpeg;base64,' + detail.personalTrainerImage);
+        $('.id').attr('value', detail.id);
+        $('#personalTrainerID').attr('value', detail.personalTrainerID);
+        $('#personalTrainerName').text(detail.personalTrainerName);
+        $('#title').text(detail.title);
+        $('#sendAt').text('Send at ' + formattedTime);
+        $('#content').text(detail.content);
+
+        var requestStatus = detail.status;
+        var buttonGroup = document.getElementById("buttonGroup");
+
+        if (requestStatus === "PENDING") {
+            buttonGroup.innerHTML = `
+            <div class="d-flex justify-content-between align-content-center">
+                <form action="reject-personal-trainer-request" method="get">
+                    <input type="hidden" name="requestID" class="id">
+                    <button type="submit" class="btn btn-danger" style="margin-right: 5px; height: fit-content;">REJECT</button>
+                </form>
+                <form action="approve-personal-trainer-request" method="get">
+                    <input type="hidden" name="requestID" class="id">
+                    <button type="submit" class="btn btn-success" style="height: fit-content;">APPROVE</button>
+                </form>
+            </div>
+        `;
+        } else if (requestStatus === "REJECTED") {
+             document.getElementById("buttonGroup").innerHTML = `
+            <div class="badge bg-secondary" style="height: fit-content;">REJECTED</div>
+        `;
+        } else if (requestStatus === "APPROVED") {
+            document.getElementById("buttonGroup").innerHTML = `
+            <div class="badge bg-secondary" style="height: fit-content;">APPROVED</div>
+        `;
+        }
+        $('#status').text(detail.status);
+        $('#exampleModal').modal('show');
+    }
+</script>
 <%@ include file="../common/script.jspf" %>
 

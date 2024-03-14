@@ -95,8 +95,10 @@
                                                         <div class="invoice-total-inner">
                                                             <p>Training slot per week <span>5</span></p>
                                                             <p>Slot duration<span>2 hours</span></p>
-                                                            <p>Training fee<span
+                                                            <p>Training fee per slot<span
                                                                     id="trainingFee">${personalTrainer.price}</span></p>
+                                                            <p>Total Slots: <span
+                                                                    id="SlectedSlot"></span></p>
                                                         </div>
                                                         <div class="invoice-total-footer">
                                                             <h4>Total Amount <span id="totalAmountSpan">$0.00</span>

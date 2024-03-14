@@ -74,14 +74,15 @@
                 <div class="row justify-content-center">
 
                     <div class="card ">
-                        <div class="people-nearby d-flex">
+                        <div class="people-nearby d-flex flex-wrap">
+                            <c:set var="rowCount" value="0" />
                             <c:forEach var="customer" items="${OrderList}" varStatus="loopStatus">
+                                <c:set var="rowCount" value="${rowCount + 1}" />
                                 <div class="col-md-6 mb-4"> <!-- Added mb-4 for margin-bottom -->
                                     <div class="panel my-panel">
                                         <div class="panel-body ">
                                             <div class="row">
                                                 <div class="col-md-2 d-flex align-items-center">
-                                                    <!-- Add d-flex align-items-center here -->
                                                     <div class="pull-left">
                                                         <img class="thumb-lg img-circle bx-s" src="${c.image}" alt="">
                                                     </div>
@@ -90,10 +91,8 @@
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <div class="info">
                                                             <h4>${customer.getGymer().getAccount().getFullName()}</h4>
-                                                            <p class="text-muted">
-                                                                Weight ${customer.getGymer().getWeight()}</p>
-                                                            <p class="text-muted">
-                                                                Height ${customer.getGymer().getHeight()}</p>
+                                                            <p class="text-muted">Weight ${customer.getGymer().getWeight()}</p>
+                                                            <p class="text-muted">Height ${customer.getGymer().getHeight()}</p>
                                                         </div>
                                                         <div class="btn-group-sm">
                                                             <a href="#" class="btn btn-success tooltips"
@@ -105,16 +104,18 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Add a line break after every second iteration -->
+                                <c:if test="${rowCount % 2 == 0}">
+                                    <div class="w-100 d-md-none"></div> <!-- For extra small and small devices -->
+                                    <div class="w-100 d-none d-md-block d-lg-none"></div> <!-- For medium devices -->
+                                </c:if>
                             </c:forEach>
-
                         </div>
 
                     </div>
-
                 </div>
             </div>
         </div>

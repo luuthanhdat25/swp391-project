@@ -209,7 +209,7 @@ public class AuthenticationController {
             certificateIDs.add(certificateLast.getId()); // Bao them vao
         });
 
-        personalTrainerRequestService.createUploadCertificate(certificateIDs, personalTrainer.getAccount()); // Bao them vao
+        personalTrainerRequestService.createUploadCertificate(certificateIDs, personalTrainer); // Bao them vao
 
         personalTrainerService.save(personalTrainer);
         Schedule schedulePersonalTrainer = new Schedule();

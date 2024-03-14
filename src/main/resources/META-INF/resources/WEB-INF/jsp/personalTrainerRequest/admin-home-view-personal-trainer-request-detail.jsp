@@ -10,26 +10,37 @@
 <div class="main-wrapper">
     <div>
         <div class="page-wrapper d-flex flex-column align-items-center"
-             style="width: 77%; float: right; padding-top: 70px;">
+             style="width: 75%; float: right; padding-top: 70px;">
 
             <div class="notification-detail d-flex justify-content-center ">
-                <div class="d-flex flex-column" style="width: 80%; margin-top: 40px;">
+                <div class="d-flex flex-column" style="width: 80%; margin-top: 3px;">
                     <form action="manage-personal-trainer-request" method="GET">
                         <button type="submit" class="btn btn-warning"
-                                style="height: 50px; width: 80px; background-color: #3c763d; margin: 3px 0 3px 0;">
+                                style="height: 50px; width: 120px; margin: 3px 0 10px 0; color: #FFFFFF;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                 class="bi bi-box-arrow-left" viewBox="0 0 16 16" style="margin-right: 5px;">
+                                <path fill-rule="evenodd"
+                                      d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
+                                <path fill-rule="evenodd"
+                                      d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+                            </svg>
                             Cancel
                         </button>
-
                     </form>
-                    <div class="d-flex justify-content-between shadow p-3 mb-5 bg-body rounded "
-                         style="padding: 20px;">
+                    <div class="d-flex justify-content-between shadow mb-3 bg-body rounded "
+                         style="padding: 15px;">
                         <div class="d-flex align-content-center">
-                            <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
-                                 style="width: 100px; height: 100px; margin-right: 20px;" alt="Avatar"/>
+                            <img src="data:image/jpeg;base64,${RequestDetail.personalTrainerAccount.account.getAvatarImageAsString()}"
+                                 class="rounded-circle"
+                                 style="width: 110px; height: 110px; margin-right: 10px;
+                                 border: 3px solid #ffe5e6; padding: 5px;" alt="Avatar"/>
                             <div class="d-flex flex-column bd-highlight mb-3 justify-content-center">
-                                <h3>${RequestDetail.personalTrainerAccount.fullName}</h3>
+                                <h3>${RequestDetail.personalTrainerAccount.account.fullName}</h3>
                                 <div>${RequestDetail.title}</div>
-                                <div>Send at ${RequestDetail.timeStamp}</div>
+                                <div class="text-muted" style="font-size: 14px; margin-top: 5px;">
+                                    Send at ${RequestDetail.timeStamp.getHour()}:${RequestDetail.timeStamp.getMinute()}
+                                    ${RequestDetail.timeStamp.getDayOfMonth()}/${RequestDetail.timeStamp.getMonthValue()}/${RequestDetail.timeStamp.getYear()}
+                                </div>
                             </div>
                         </div>
                         <c:choose>
@@ -50,13 +61,17 @@
                                 </div>
                             </c:when>
                             <c:otherwise>
-                                <div class="badge bg-secondary" style="height: fit-content;">${RequestDetail.status}</div>
+                                <div class="badge bg-secondary"
+                                     style="height: fit-content;">${RequestDetail.status}</div>
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <label style="margin-bottom: 0; margin-top: 0;">Content</label>
-                    <div class="shadow p-3 mb-5 bg-body rounded"
-                         style="padding: 5px; margin-top: 10px; height: 300px;">${RequestDetail.content}</div>
+                    <div class="shadow mb-5 bg-body rounded"
+                         style="padding: 25px; margin-top: 10px;">${RequestDetail.content}
+                        <img src="data:image/jpeg;base64,${Certificate_1}" alt="Certificate">
+                        <img src="data:image/jpeg;base64,${Certificate_2}" alt="Certificate">
+                        <img src="data:image/jpeg;base64,${Certificate_3}" alt="Certificate">
+                    </div>
                 </div>
             </div>
         </div>

@@ -159,7 +159,7 @@ public class OrderRequestController {
         PersonalTrainer personalTrainer = orderRequest.getPersonalTrainer();
         System.out.println();
         if(MSG == null || MSG.trim().isEmpty()){
-            systemNotificationService.createNotification_AcceptedHiringAndPayment(orderID); //BAO: notification
+            systemNotificationService.createNotification_AcceptedHiringAndPayment(orderRequest); //BAO: notification
             redirectAttributes.addAttribute("amountPay",orderRequest.getTotal_of_money());
             redirectAttributes.addAttribute("orderID",orderID);
             return "redirect:/order-list";
@@ -178,7 +178,7 @@ public class OrderRequestController {
             System.out.println(slotExercise.toString());
             slotExcerciseEntityService.updateSlotOrderPending(slotExercise.getId(), false);
         }
-        systemNotificationService.createNotification_PaymentSuccess(orderRequest.getGymer().getGymerId(),orderRequest.getPersonalTrainer().getId(),orderRequest.getOrderId());
+        systemNotificationService.createNotification_PaymentSuccess(orderRequest);
         session.removeAttribute("orderPayment");
         return "redirect:/Schedule-by-pt";
     }
@@ -202,7 +202,7 @@ public class OrderRequestController {
     public String declineOrder(@RequestParam("orderId")Integer orderId ){
         OrderRequest orderRequest = orderRequestService.getOrderRequestById(orderId);
         Gymer gymer = orderRequest.getGymer();
-        systemNotificationService.createNotification_DeclineHiring(gymer.getGymerId(),orderRequest.getPersonalTrainer().getId());
+        systemNotificationService.createNotification_DeclineHiring(gymer.getAccount(),orderRequest.getPersonalTrainer().getAccount(), orderRequest.getPersonalTrainer().getId());
         slotExcerciseEntityService.deleteSlot(orderId);
         orderRequestService.deleteOrder(orderId);
 

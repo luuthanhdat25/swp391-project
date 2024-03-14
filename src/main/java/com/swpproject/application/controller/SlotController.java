@@ -225,6 +225,7 @@ public class SlotController {
                         slotEntity.setAttendantStatus(Attendant.WAITING);
                         slotEntity.setGymer(gymerService.getGymerByAccount(accountSession).get());
                         slotEntity.setPersonalTrainer(personalTrainer);
+
                         slotRequest.add(slotEntity);
                     } else {
                         // Log or handle the case where the expected number of parts is not found
@@ -277,6 +278,7 @@ public class SlotController {
                     orderRequest.setDescription(desc);
                     orderRequest.setTotal_of_money(totalAmount);
                     orderRequest.setStatus(OrderStatus.Pending);
+                    orderRequest.setTranking(0);
                     System.out.println("goal" + title);
                     System.out.println("desc" + desc);
                     System.out.println("training time" + trainingTime);
@@ -331,8 +333,7 @@ public class SlotController {
                 redirectAttributes.addAttribute("year", year);
             }
         }
-        systemNotificationService.createNotification_NewRequestHiring(gymerService.getGymerByAccount(accountSession).get().getGymerId(), personalTrainer.getId());
-
+        systemNotificationService.createNotification_NewRequestHiring(orderRequest);
         return "redirect:/personal-trainer/";
 //        return "redirect:/personal-trainer/";
     }

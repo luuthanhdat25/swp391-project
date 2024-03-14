@@ -1,7 +1,7 @@
 package com.swpproject.application.controller.nutrition;
 
-import com.swpproject.application.controller.dto.NutritionDTOOut;
-import com.swpproject.application.controller.dto.RoleDTO;
+import com.swpproject.application.dto.NutritionDTOOut;
+import com.swpproject.application.dto.RoleDTO;
 import com.swpproject.application.service.NutritionService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;

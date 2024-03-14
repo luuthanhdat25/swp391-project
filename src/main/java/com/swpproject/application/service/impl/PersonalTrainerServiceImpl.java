@@ -1,9 +1,8 @@
 package com.swpproject.application.service.impl;
 
-import com.swpproject.application.controller.dto.PersonalTrainerDto;
-import com.swpproject.application.controller.dto.RoleDTO;
+import com.swpproject.application.dto.PersonalTrainerDto;
+import com.swpproject.application.dto.RoleDTO;
 import com.swpproject.application.enums.Role;
-import com.swpproject.application.model.Exercise;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.PersonalTrainerRepository;
 import com.swpproject.application.service.PersonalTrainerService;

@@ -9,6 +9,7 @@ import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.CertificateRepository;
 import com.swpproject.application.repository.PersonalTrainerRequestRepository;
 import com.swpproject.application.service.CertificateService;
+import com.swpproject.application.service.PersonalTrainerService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,8 @@ public class PersonalTrainerRequestController {
     private PersonalTrainerRequestRepository personalTrainerRequestRepository;
     @Autowired
     private CertificateService certificateService;
+    @Autowired
+    private PersonalTrainerService personalTrainerService;
 
     @RequestMapping(value = "/admin-home/manage-personal-trainer-request", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String viewManagePersonalTrainerRequest(ModelMap modelMap,
@@ -88,6 +91,9 @@ public class PersonalTrainerRequestController {
     public String approvePersonalTrainerRequest(@RequestParam("requestID") Integer requestID) {
         PersonalTrainerRequest request = personalTrainerRequestRepository.findById(requestID).get();
         request.setStatus(RequestStatus.APPROVED);
+        PersonalTrainer personalTrainer = personalTrainerService.getPersonalTrainerById(request.getPersonalTrainerAccount().getId()).get();
+        personalTrainer.setIsActive(true);
+        personalTrainerService.save(personalTrainer);
         personalTrainerRequestRepository.save(request);
         return "forward:manage-personal-trainer-request";
     }

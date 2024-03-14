@@ -1,5 +1,5 @@
 package com.swpproject.application.model;
-import com.swpproject.application.controller.dto.ExerciseDTOOut;
+import com.swpproject.application.dto.ExerciseDTOOut;
 import lombok.*;
 import org.springframework.data.relational.core.mapping.Table;
 import jakarta.persistence.*;

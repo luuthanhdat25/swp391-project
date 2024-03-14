@@ -1,6 +1,5 @@
 package com.swpproject.application.controller;
 
-import com.swpproject.application.controller.dto.RoleDTO;
 import com.swpproject.application.model.*;
 import com.swpproject.application.repository.*;
 import com.swpproject.application.service.SlotExeDetailService;

@@ -1,13 +1,14 @@
 <%@include file="../common/header.jspf" %>
 <%@include file="../common/head.jspf" %>
 <%@include file="../common/sidebar.jspf" %>
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <style>
     .carousel-inner img {
         max-width: 100%;
         max-height: 300px;
         width: 100%;
         height: auto;
+
     }
 </style>
 
@@ -25,6 +26,8 @@
                     </ul>
                 </div>
             </div>
+
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -33,15 +36,15 @@
                         </div>
 
                         <div class="card-body">
-                            <form:form action="/profile/update?id=${gymer.getGymerId()}" enctype="multipart/form-data"
-                                       method="post">
+                            <form:form action="/personal-trainer/update?id=${personalTrainer.getId()}"
+                                       enctype="multipart/form-data" method="post">
                                 <div class="student-profile-head">
-                                    <div class="row" style="height: 400px">
+                                    <div class="row" style="height: 400px;justify-content: space-between">
                                         <div class="col-lg-4 col-md-4">
                                             <div class="profile-user-box">
-                                                <div class="profile-user-img" style="top: 23px;">
+                                                <div class="profile-user-img" style="top: 23px">
                                                     <img style="border-radius: 50%;margin-left: 20px;border: 1px solid;border: 9px solid #00000014;width: 350px;height: 350px"
-                                                         src="data:image/jpeg;base64, ${gymer.getAccount().getAvatarImageAsString()}"
+                                                         src="data:image/jpeg;base64, ${personalTrainer.getAccount().getAvatarImageAsString()}"
                                                          id="avatar-image"
                                                          alt="Profile">
                                                     <div class="form-group students-up-files profile-edit-icon mb-0">
@@ -51,51 +54,36 @@
                                                                                                      name="avatar">
                                                             </label>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
                                             <div id="error-message-container-img"
                                                  style="flex: none;color: red; margin-top: 37px; padding-left: 1.5%"></div>
                                         </div>
-                                        <div class="col-lg-3 col-md-3"
+                                        <div class="col-lg-8 col-md-8"
                                              style="display: flex; flex-direction: column; justify-content: center;">
                                             <div class="form-group row">
-                                                <label class="col-lg-5 col-form-label">Weight(kg)</label>
-                                                <div class="col-lg-3" style="width: 100%">
-                                                    <input name="weight" type="number" class="form-control"
-                                                           value="${gymer.getWeight()}">
+                                                <label class="col-lg-3 col-form-label" style="width: 64px;">Bank
+                                                    Name</label>
+                                                <div class="col-lg-3" style="width: 40%">
+                                                    <input name="bankName" type="text" class="form-control"
+                                                           value="${personalTrainer.getBankName()}" disabled>
                                                 </div>
-                                                <div id="error-message-weight" style="color: red;"></div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-lg-5 col-form-label">Height(cm)</label>
-                                                <div class="col-lg-3" style="width: 100%">
-                                                    <input name="height" type="number" class="form-control"
-                                                           value="${gymer.getHeight()}">
+                                                <label class="col-lg-3 col-form-label" style="width: 78px;">Bank
+                                                    Number</label>
+                                                <div class="col-lg-3" style="width: 40%">
+                                                    <input name="bankNumber" type="text" class="form-control"
+                                                           value="${personalTrainer.getBankNumber()}" disabled>
                                                 </div>
-                                                <div id="error-message-height" style="color: red;"></div>
                                             </div>
-                                            <div class="form-group row ">
-                                                <label class="col-lg-5 col-form-label">Goal</label>
-                                                <select class="form-control col-lg-3 select" name="goal" required>
-                                                    <c:forEach var="goal" items="${goals}">
-                                                        <option value="${goal}"
-                                                                <c:if test="${gymer.getGoal() eq goal}">selected</c:if>>${goal.label}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-5"
-                                             style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
                                             <label class="col-lg-3 col-form-label">Desciption</label>
                                             <div class="form-group ">
                                                 <div class="col-lg-4">
-                                                    <textarea style="min-width: 440px; height: 200px;"
+                                                    <textarea style="width: 731px ; height: 200px; max-height: 200px"
                                                               class="form-control"
-                                                              placeholder="Enter text here" name="description" id="description"
-                                                              value="${gymer.getDescription()}">${gymer.getDescription()}</textarea>
+                                                              placeholder="Enter text here" name="description"
+                                                              id="description"
+                                                              value="${personalTrainer.getDescription()}">${personalTrainer.getDescription()}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -107,7 +95,9 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Name</label>
                                             <div class="col-lg-9" style="width: 100%">
-                                                <input name="fullName" id="fullNameInput" type="text" class="form-control" value="${gymer.getAccount().getFullName()}">
+                                                <input name="fullName" id="fullNameInput" type="text"
+                                                       class="form-control"
+                                                       value="${personalTrainer.getAccount().getFullName()}">
                                                 <div id="error-message-fullName" style="color: red;"></div>
                                             </div>
                                         </div>
@@ -115,16 +105,16 @@
                                             <label class="col-lg-3 col-form-label">Mobile</label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="phone" type="text" class="form-control"
-                                                       value="${gymer.getAccount().getPhone() == null ? '' : gymer.getAccount().getPhone()}"
-                                                       placeholder="${gymer.getAccount().getPhone() == null ? 'Empty' : ''}">
+                                                       value="${personalTrainer.getAccount().getPhone() == null ? '' : personalTrainer.getAccount().getPhone()}"
+                                                       placeholder="${personalTrainer.getAccount().getPhone() == null ? 'Empty' : ''}">
+                                                <div id="error-message-phone" style="color: red;"></div>
                                             </div>
-                                            <div id="error-message-phone" style="color: red;"></div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Birthday</label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="birthday" class="form-control" type="date"
-                                                       value="${gymer.getAccount().getBirthday()}">
+                                                       value="${personalTrainer.getAccount().getBirthday()}">
                                                 <div id="error-message-birthday" style="color: red;"></div>
                                             </div>
                                         </div>
@@ -134,7 +124,7 @@
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            id="gender_male"
-                                                           value="M" ${gymer.getAccount().getGender() == 'M' ? 'checked' : ''}>
+                                                           value="M" ${personalTrainer.getAccount().getGender() == 'M' ? 'checked' : ''}>
                                                     <label class="form-check-label" for="gender_male">
                                                         Male
                                                     </label>
@@ -142,7 +132,7 @@
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            id="gender_female"
-                                                           value="F" ${gymer.getAccount().getGender() == 'F' ? 'checked' : ''}>
+                                                           value="F" ${personalTrainer.getAccount().getGender() == 'F' ? 'checked' : ''}>
                                                     <label class="form-check-label" for="gender_female">
                                                         Female
                                                     </label>
@@ -150,7 +140,7 @@
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            id="gender_other"
-                                                           value="O" ${gymer.getAccount().getGender() == 'O' ? 'checked' : ''}>
+                                                           value="O" ${personalTrainer.getAccount().getGender() == 'O' ? 'checked' : ''}>
                                                     <label class="form-check-label" for="gender_other">
                                                         Other
                                                     </label>
@@ -162,24 +152,33 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Email</label>
                                             <div class="col-lg-9" style="width: 100%">
-                                                <input type="text" class="form-control"
-                                                       name="email" value="${gymer.getAccount().getEmail()}" disabled>
+                                                <input type="text" name="email" class="form-control"
+                                                       value="${personalTrainer.getAccount().getEmail()}" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Password</label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="password" type="password" class="form-control"
-                                                       value="${gymer.getAccount().getPassword()}" disabled>
+                                                       value="${personalTrainer.getAccount().getPassword()}" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Address</label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="address" type="text" class="form-control"
-                                                       value="${gymer.getAccount().getAddress() == null ? '' : gymer.getAccount().getAddress()}"
-                                                       placeholder="${gymer.getAccount().getAddress() == null ? 'Empty' : ''}">
+                                                       value="${personalTrainer.getAccount().getAddress() == null ? '' : personalTrainer.getAccount().getAddress()}"
+                                                       placeholder="${personalTrainer.getAccount().getAddress() == null ? 'Empty' : ''}">
                                                 <div id="error-message-address" style="color: red;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label">Price</label>
+                                            <div class="col-lg-9" style="width: 100%">
+                                                <input name="price" type="number" class="form-control"
+                                                       value="${personalTrainer.getPrice() == 0 ? "" : personalTrainer.getPrice()}"
+                                                       placeholder="${personalTrainer.getPrice() == 0 ? '0' : ''}">
+                                                <div id="error-message-price" style="color: red;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -190,6 +189,44 @@
                                     </button>
                                 </div>
                             </form:form>
+                            <div class="col-lg-4 col-md-4"
+                                 style="display: flex; align-items: center; justify-content: center;">
+                                <div id="carouselExampleIndicators" class="carousel slide"
+                                     data-bs-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                            class="active"></li>
+                                        <li data-bs-target="#carouselExampleIndicators"
+                                            data-bs-slide-to="1"></li>
+                                        <li data-bs-target="#carouselExampleIndicators"
+                                            data-bs-slide-to="2"></li>
+                                    </ol>
+                                    <div class="carousel-inner" role="listbox">
+                                        <div class="carousel-item active">
+                                            <img id="slider1" class="d-block img-fluid" src="#"
+                                                 alt="First slide">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img id="slider2" class="d-block img-fluid" src="#"
+                                                 alt="Second slide">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img id="slider3" class="d-block img-fluid" src="#"
+                                                 alt="Third slide">
+                                        </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators"
+                                       role="button" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators"
+                                       role="button" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -198,6 +235,16 @@
         </div>
     </div>
 </div>
+<script src="../../assets/js/jquery-3.6.0.min.js"></script>
+<script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/feather.min.js"></script>
+<script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../../assets/plugins/apexchart/apexcharts.min.js"></script>
+<script src="../../assets/plugins/apexchart/chart-data.js"></script>
+<script src="../../assets/plugins/select2/js/select2.min.js"></script>
+<script src="../../assets/js/script.js"></script>
+<script src="../../assets/plugins/moment/moment.min.js"></script>
+<script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const fileInput = document.querySelector('input[name="avatar"]');
@@ -205,37 +252,10 @@
         const fullNameInput = document.getElementById('fullNameInput');
         const phoneInput = document.querySelector('input[name="phone"]');
         const addressInput = document.querySelector('input[name="address"]');
+        const priceInput = document.querySelector('input[name="price"]');
         const birthdayInput = document.querySelector('input[name="birthday"]');
         const submitButton = document.getElementById('submitButton');
         const descInput = document.getElementById('description');
-        const weightInput = document.querySelector('input[name="weight"]');
-        const heightInput = document.querySelector('input[name="height"]');
-        const genderMInput = document.getElementById('gender_male');
-        const genderFInput = document.getElementById('gender_female');
-        const genderOInput = document.getElementById('gender_other');
-        weightInput.addEventListener('input', function () {
-            validateNumericInput(weightInput, 'error-message-weight');
-        });
-
-        heightInput.addEventListener('input', function () {
-            validateNumericInput(heightInput, 'error-message-height');
-        });
-
-        function validateNumericInput(inputElement, errorMessageId) {
-            const inputValue = inputElement.value;
-
-            if (isNaN(inputValue) || inputValue <= 0) {
-                const errorMessageContainer = document.getElementById(errorMessageId);
-                errorMessageContainer.textContent = 'Please enter a valid positive number.';
-                inputElement.style.border = '2px solid red';
-                submitButton.disabled = true;
-            } else {
-                const errorMessageContainer = document.getElementById(errorMessageId);
-                errorMessageContainer.textContent = '';
-                inputElement.style.border = '';
-                submitButton.disabled = false;
-            }
-        }
 
         fileInput.addEventListener('change', function () {
             const file = fileInput.files[0];
@@ -250,13 +270,11 @@
                     reader.onload = function (e) {
                         avatarImage.src = e.target.result;
                         avatarImage.style.border = '';
-                        submitButton.disabled = false;
                         clearErrorMessage('error-message-container-img');
                     };
 
                     reader.readAsDataURL(file);
                 } else {
-                    submitButton.disabled = true;
                     avatarImage.style.border = '4px solid red';
                     displayErrorMessage('Invalid image type. Please select a valid image file.', 'error-message-container-img');
                 }
@@ -264,10 +282,6 @@
                 avatarImage.src = 'data:image/jpeg;base64, ${personalTrainer.getAccount().getAvatarImageAsString()}';
             }
         });
-
-        genderInput.addEventListener('click', function() {
-            submitButton.disabled = false;
-        })
 
         fullNameInput.addEventListener('input', function () {
             validateTextWithoutSpecialCharacters(fullNameInput, 'error-message-fullName');
@@ -283,6 +297,10 @@
 
         addressInput.addEventListener('input', function () {
             validateTextForAddress(addressInput, 'error-message-address');
+        });
+
+        priceInput.addEventListener('input', function () {
+            validatePrice(priceInput);
         });
 
         birthdayInput.addEventListener('input', function () {
@@ -307,7 +325,7 @@
 
         function validateTextForAddress(inputElement, errorMessageId) {
             const inputValue = inputElement.value;
-            const hasSpecialCharacters = /[!@#$%^&*().?":{}|<>]/.test(inputValue);
+            const hasSpecialCharacters = /[!@#$%^&*()?":{}|<>]/.test(inputValue);
             const errorMessageContainer = document.getElementById(errorMessageId);
 
             if (hasSpecialCharacters) {
@@ -323,9 +341,9 @@
 
         function validatePhoneNumber(phoneElement, errorMessageId) {
             const phoneValue = phoneElement.value;
-            const hasNonDigits = /\D/.test(phoneValue);
+            const hasNonDigits = /\D/.test(phoneValue); // Check for non-digit characters
             const errorMessageContainer = document.getElementById(errorMessageId);
-            const submitButton = document.getElementById('submitButton');
+            const submitButton = document.getElementById('submitButton'); // Assuming submitButton is the correct ID
 
             if (hasNonDigits) {
                 errorMessageContainer.textContent = 'Phone cannot contain letters or special characters.';
@@ -334,6 +352,20 @@
             } else {
                 errorMessageContainer.textContent = '';
                 phoneElement.style.border = '';
+                submitButton.disabled = false;
+            }
+        }
+
+
+        function validatePrice(priceElement) {
+            const priceValue = priceElement.value;
+            if (!Number.isInteger(Number(priceValue))) {
+                displayErrorMessage('Price must be a valid integer.', 'error-message-price');
+                priceElement.style.border = '2px solid red';
+                submitButton.disabled = true;
+            } else {
+                clearErrorMessage('error-message-price');
+                priceElement.style.border = '';
                 submitButton.disabled = false;
             }
         }
@@ -371,18 +403,22 @@
             }
         }
 
+        const genderInputs = document.querySelectorAll('input[name="gender"]');
+        genderInputs.forEach(input => {
+            input.addEventListener('change', checkFormValidity);
+        });
 
         function checkFormValidity() {
             const imgErrorContainer = document.getElementById('error-message-container-img');
-            const weightValid = !isNaN(weightInput.value) && weightInput.value > 0;
-            const heightValid = !isNaN(heightInput.value) && heightInput.value > 0;
+
             const fullNameValid = !/[!@#$%^&*(),.?":{}|<>0-9]/.test(fullNameInput.value);
             const phoneValid = !/\D/.test(phoneInput.value);
             const addressValid = !/[!@#$%^&*().?":{}|<>]/.test(addressInput.value);
             const birthdayValid = birthdayInput.value <= new Date().toISOString().split('T')[0];
             const imgValid = !imgErrorContainer.textContent; // Check if there are no image errors
+            const genderValid = [...genderInputs].some(input => input.checked);
 
-            const isFormValid = fullNameValid && phoneValid && addressValid && birthdayValid && imgValid && weightValid && heightValid;
+            const isFormValid = fullNameValid && phoneValid && addressValid && birthdayValid && imgValid && genderValid;
 
             submitButton.disabled = !isFormValid;
         }
@@ -392,26 +428,21 @@
         phoneInput.addEventListener('input', checkFormValidity);
         addressInput.addEventListener('input', checkFormValidity);
         birthdayInput.addEventListener('input', checkFormValidity);
-        weightInput.addEventListener('input', checkFormValidity);
-        heightInput.addEventListener('input', checkFormValidity);
-        genderMInput.addEventListener('click', checkFormValidity);
-        genderFInput.addEventListener('click', checkFormValidity);
-        genderOInput.addEventListener('click', checkFormValidity);
+
     });
 
 
 </script>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script src="../../../assets/js/jquery-3.6.0.min.js"></script>
-<script src="../../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../../assets/js/feather.min.js"></script>
-<script src="../../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="../../../assets/plugins/apexchart/apexcharts.min.js"></script>
-<script src="../../../assets/plugins/apexchart/chart-data.js"></script>
-<script src="../../../assets/plugins/select2/js/select2.min.js"></script>
-<script src="../../../assets/js/script.js"></script>
-<script src="../../../assets/plugins/moment/moment.min.js"></script>
-<script src="../../../assets/js/bootstrap-datetimepicker.min.js"></script>
+
+<script>
+    var ptDto = ${personalTrainerDtoJson};
+    $(document).ready(function () {
+        $('#slider1').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[0]);
+        $('#slider2').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[1]);
+        $('#slider3').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[2]);
+        console.log(ptDto)
+    })
+</script>
 </body>
 </html>

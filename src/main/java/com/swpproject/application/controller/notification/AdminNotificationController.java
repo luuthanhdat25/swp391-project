@@ -4,6 +4,7 @@ import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Notification;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.NotificationRepository;
+import com.swpproject.application.service.AccountService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,8 @@ public class AdminNotificationController {
     private NotificationRepository notificationRepository;
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private AccountService accountService;
 
     @RequestMapping(value = "/admin-home/manage-notification", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String viewManageNotification(ModelMap modelMap,
@@ -130,6 +133,16 @@ public class AdminNotificationController {
         AdminNotificationDTO.setContentSender(notification.getContent());
         return ResponseEntity.ok().body(AdminNotificationDTO);
     }
+
+    @GetMapping("/admin-home/manage-account")
+    public String viewAccounts(ModelMap modelMap) {
+        List<Account> accounts = accountService.getAccounts();
+        return "view-accounts";
+    }
+
+
+
+
 }
 
 @NoArgsConstructor

@@ -19,4 +19,6 @@ public interface PersonalTrainerRepository extends JpaRepository<PersonalTrainer
     List<PersonalTrainer> findAllByIsActiveTrueAndAccountIsBanFalse();
 
     Optional<PersonalTrainer> findByIdAndIsActiveTrueAndAccountIsBanFalse(int personalTrainerId);
+    Optional<PersonalTrainer> getPersonalTrainerById(int id);
+
 }

@@ -209,7 +209,7 @@ public class AuthenticationController {
             certificateIDs.add(certificateLast.getId()); // Bao them vao
         });
 
-        personalTrainerRequestService.createUploadCertificate(certificateIDs, personalTrainer.getAccount()); // Bao them vao
+        personalTrainerRequestService.createUploadCertificate(certificateIDs, personalTrainer); // Bao them vao
 
         personalTrainerService.save(personalTrainer);
         Schedule schedulePersonalTrainer = new Schedule();
@@ -241,13 +241,17 @@ public class AuthenticationController {
                 PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(account.get().getId());
                 session.setAttribute("personalTrainer", personalTrainer);
             }
+            if (account.get().getRole().equals(Role.ADMIN)) {
+                return "redirect:/admin-home/manage-notification";
+            }
             removeAttributes(session, "email", "password");
             session.setAttribute("account", account.get());
             return "redirect:/welcome";
         } else {
-            session.setAttribute("email", email);
+            /*session.setAttribute("email", email);
             session.setAttribute("password", password);
-            return "redirect:/auth/login?failed";
+            throw new RuntimeException();*/
+           return "redirect:/auth/login?failed";
         }
     }
 

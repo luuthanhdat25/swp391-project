@@ -1,5 +1,6 @@
 package com.swpproject.application.controller.notification;
 
+import com.swpproject.application.dto.AdminNotificationDTO;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Notification;
 import com.swpproject.application.repository.AccountRepository;
@@ -203,3 +204,10 @@ class AdminNotificationDTO {
     private String nameSender;
     private String contentSender;
 }
+
+
+
+
+
+}
+

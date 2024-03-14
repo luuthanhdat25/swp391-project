@@ -1,5 +1,6 @@
 package com.swpproject.application.controller;
 
+import com.swpproject.application.dto.SlotExerciseDetailDTO;
 import com.swpproject.application.model.Exercise;
 import com.swpproject.application.model.SlotExerciseDetail;
 import com.swpproject.application.repository.ExerciseRepository;

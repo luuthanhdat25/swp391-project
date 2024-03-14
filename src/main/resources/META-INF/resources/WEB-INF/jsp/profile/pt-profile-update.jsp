@@ -1,14 +1,14 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@include file="../common/header.jspf" %>
 <%@include file="../common/head.jspf" %>
 <%@include file="../common/sidebar.jspf" %>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <style>
     .carousel-inner img {
+        margin-top: 2%;
         max-width: 100%;
-        max-height: 300px;
         width: 100%;
         height: auto;
-
     }
 </style>
 
@@ -60,20 +60,20 @@
                                             <div id="error-message-container-img"
                                                  style="flex: none;color: red; margin-top: 37px; padding-left: 1.5%"></div>
                                         </div>
+
                                         <div class="col-lg-8 col-md-8"
                                              style="display: flex; flex-direction: column; justify-content: center;">
                                             <div class="form-group row">
-                                                <label class="col-lg-3 col-form-label" style="width: 64px;">Bank
-                                                    Name</label>
-                                                <div class="col-lg-3" style="width: 40%">
-                                                    <input name="bankName" type="text" class="form-control"
-                                                           value="${personalTrainer.getBankName()}" disabled>
+                                                <label class="col-lg-3 col-form-label" style="width: 64px;">Bank Name</label>
+                                                <div class="form-group local-forms" style="width: 50%">
+                                                    <select class="form-control select" id="bankName" name="bankName" required>
+                                                    </select>
                                                 </div>
-                                                <label class="col-lg-3 col-form-label" style="width: 78px;">Bank
-                                                    Number</label>
-                                                <div class="col-lg-3" style="width: 40%">
-                                                    <input name="bankNumber" type="text" class="form-control"
-                                                           value="${personalTrainer.getBankNumber()}" disabled>
+
+                                                <label class="col-lg-3 col-form-label" style="width: 78px;">Bank Number</label>
+                                                <div class="col-lg-3" style="width: 30%">
+                                                    <input name="bankNumber" type="text" class="form-control" id="bankNumber" value="${personalTrainer.getBankNumber()}" required>
+                                                    <div id="error-message-bank-number" style="color: red;"></div>
                                                 </div>
                                             </div>
                                             <label class="col-lg-3 col-form-label">Desciption</label>
@@ -97,7 +97,7 @@
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="fullName" id="fullNameInput" type="text"
                                                        class="form-control"
-                                                       value="${personalTrainer.getAccount().getFullName()}">
+                                                       value="${personalTrainer.getAccount().getFullName()}" required>
                                                 <div id="error-message-fullName" style="color: red;"></div>
                                             </div>
                                         </div>
@@ -106,7 +106,7 @@
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="phone" type="text" class="form-control"
                                                        value="${personalTrainer.getAccount().getPhone() == null ? '' : personalTrainer.getAccount().getPhone()}"
-                                                       placeholder="${personalTrainer.getAccount().getPhone() == null ? 'Empty' : ''}">
+                                                       placeholder="${personalTrainer.getAccount().getPhone() == null ? 'Empty' : ''}" required>
                                                 <div id="error-message-phone" style="color: red;"></div>
                                             </div>
                                         </div>
@@ -157,7 +157,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Password</label>
+                                            <label class="col-lg-12 col-form-label" style="display: flex; justify-content: space-between;">Password
+                                                <a href="#" id="changePasswordLink">Change Password?</a></label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="password" type="password" class="form-control"
                                                        value="${personalTrainer.getAccount().getPassword()}" disabled>
@@ -168,16 +169,16 @@
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="address" type="text" class="form-control"
                                                        value="${personalTrainer.getAccount().getAddress() == null ? '' : personalTrainer.getAccount().getAddress()}"
-                                                       placeholder="${personalTrainer.getAccount().getAddress() == null ? 'Empty' : ''}">
+                                                       placeholder="${personalTrainer.getAccount().getAddress() == null ? 'Empty' : ''}" required>
                                                 <div id="error-message-address" style="color: red;"></div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Price</label>
+                                            <label class="col-lg-9 col-form-label">Price (Amount of money per slot (VND))</label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="price" type="number" class="form-control"
                                                        value="${personalTrainer.getPrice() == 0 ? "" : personalTrainer.getPrice()}"
-                                                       placeholder="${personalTrainer.getPrice() == 0 ? '0' : ''}">
+                                                       placeholder="Amount of money per slot (VND) | min: 10000 VND"  min="10000" required>
                                                 <div id="error-message-price" style="color: red;"></div>
                                             </div>
                                         </div>
@@ -189,7 +190,7 @@
                                     </button>
                                 </div>
                             </form:form>
-                            <div class="col-lg-4 col-md-4"
+                            <div class="col-lg-10 col-md-10"
                                  style="display: flex; align-items: center; justify-content: center;">
                                 <div id="carouselExampleIndicators" class="carousel slide"
                                      data-bs-ride="carousel">
@@ -231,7 +232,40 @@
                     </div>
                 </div>
             </div>
-
+            <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form:form id="changePasswordForm">
+                                <div class="form-group local-forms">
+                                    <label for="currentPassword">Current Password <span class="login-danger">*</span></label>
+                                    <input class="mb-3 mt-3 form-control pass-input" type="password" placeholder="Enter Current Password" id="currentPassword" minlength="8" maxlength="20" required>
+                                    <span class="profile-views feather-eye toggle-password"></span>
+                                </div>
+                                <div class="form-group local-forms">
+                                    <label for="newPassword">New Password <span class="login-danger">*</span></label>
+                                    <input class="mb-3 form-control pass-new" type="password" placeholder="Enter New Password" id="newPassword" minlength="8" maxlength="20" required>
+                                    <span class="profile-views feather-eye new-toggle-password"></span>
+                                </div>
+                                <div class="form-group local-forms">
+                                    <label for="repeatPassword">Repeat New Password <span class="login-danger">*</span></label>
+                                    <input class="form-control pass-confirm" type="password" placeholder="Repeat Password" id="repeatPassword" minlength="8" maxlength="20" required>
+                                    <span class="profile-views feather-eye reg-toggle-password"></span>
+                                </div>
+                                <div id="changePasswordErrorMessage" style="color: red;"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" onclick="" id="changePasswordButton">Save changes</button>
+                                </div>
+                            </form:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -246,6 +280,7 @@
 <script src="../../assets/plugins/moment/moment.min.js"></script>
 <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
 <script>
+    
     document.addEventListener('DOMContentLoaded', function () {
         const fileInput = document.querySelector('input[name="avatar"]');
         const avatarImage = document.getElementById('avatar-image');
@@ -281,6 +316,7 @@
             } else {
                 avatarImage.src = 'data:image/jpeg;base64, ${personalTrainer.getAccount().getAvatarImageAsString()}';
             }
+            console.log(file);
         });
 
         fullNameInput.addEventListener('input', function () {
@@ -292,7 +328,7 @@
         })
 
         phoneInput.addEventListener('input', function () {
-            validatePhoneNumber(phoneInput, 'error-message-phone');
+            validateNumber(phoneInput, 'error-message-phone');
         });
 
         addressInput.addEventListener('input', function () {
@@ -305,6 +341,7 @@
 
         birthdayInput.addEventListener('input', function () {
             validateBirthday(birthdayInput);
+
         });
 
         function validateTextWithoutSpecialCharacters(inputElement, errorMessageId) {
@@ -319,6 +356,22 @@
             } else {
                 errorMessageContainer.textContent = '';
                 inputElement.style.border = '';
+                submitButton.disabled = false;
+            }
+        }
+
+        function validateBirthday(birthdayElement) {
+            const currentDate = new Date();
+            const minimumAgeDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
+            const selectedDate = new Date(birthdayElement.value);
+
+            if (selectedDate > minimumAgeDate) {
+                displayErrorMessage('You must be at least 18 years old.', 'error-message-birthday');
+                birthdayElement.style.border = '2px solid red';
+                submitButton.disabled = true;
+            } else {
+                clearErrorMessage('error-message-birthday');
+                birthdayElement.style.border = '';
                 submitButton.disabled = false;
             }
         }
@@ -339,19 +392,19 @@
             }
         }
 
-        function validatePhoneNumber(phoneElement, errorMessageId) {
-            const phoneValue = phoneElement.value;
-            const hasNonDigits = /\D/.test(phoneValue); // Check for non-digit characters
+        function validateNumber(element, errorMessageId) {
+            const elementValue = element.value;
+            const hasNonDigits = /\D/.test(elementValue);
             const errorMessageContainer = document.getElementById(errorMessageId);
-            const submitButton = document.getElementById('submitButton'); // Assuming submitButton is the correct ID
+            const submitButton = document.getElementById('submitButton');
 
             if (hasNonDigits) {
-                errorMessageContainer.textContent = 'Phone cannot contain letters or special characters.';
-                phoneElement.style.border = '2px solid red';
+                errorMessageContainer.textContent = 'This filed must contains only numbers.';
+                element.style.border = '2px solid red';
                 submitButton.disabled = true;
             } else {
                 errorMessageContainer.textContent = '';
-                phoneElement.style.border = '';
+                element.style.border = '';
                 submitButton.disabled = false;
             }
         }
@@ -360,7 +413,7 @@
         function validatePrice(priceElement) {
             const priceValue = priceElement.value;
             if (!Number.isInteger(Number(priceValue))) {
-                displayErrorMessage('Price must be a valid integer.', 'error-message-price');
+                displayErrorMessage('Price must be a positive integer.', 'error-message-price');
                 priceElement.style.border = '2px solid red';
                 submitButton.disabled = true;
             } else {
@@ -370,18 +423,6 @@
             }
         }
 
-        function validateBirthday(birthdayElement) {
-            const currentDate = new Date().toISOString().split('T')[0];
-            if (birthdayElement.value > currentDate) {
-                displayErrorMessage('Birthday cannot exceed the current date.', 'error-message-birthday');
-                birthdayElement.style.border = '2px solid red';
-                submitButton.disabled = true;
-            } else {
-                clearErrorMessage('error-message-birthday');
-                birthdayElement.style.border = '';
-                submitButton.disabled = false;
-            }
-        }
 
         function displayErrorMessage(message, errorMessageId) {
             let errorContainer = document.getElementById(errorMessageId);
@@ -408,30 +449,166 @@
             input.addEventListener('change', checkFormValidity);
         });
 
+        const bankNameSelect = $('#bankName');
+        const personalTrainerDto = ${personalTrainerDtoJson};
+
+        function updateBankNameInDto(bankName) {
+            personalTrainerDto.bankName = bankName;
+        }
+
+        bankNameSelect.on('change', function () {
+            const selectedBankName = bankNameSelect.select2('data')[0].text;
+            updateBankNameInDto(selectedBankName);
+            checkFormValidity();
+        });
+        const bankNumberInput = document.querySelector('input[name="bankNumber"]');
+
+
+        bankNumberInput.addEventListener('input', function () {
+            validateNumber(bankNumberInput, 'error-message-bank-number');
+        });
+
         function checkFormValidity() {
             const imgErrorContainer = document.getElementById('error-message-container-img');
-
             const fullNameValid = !/[!@#$%^&*(),.?":{}|<>0-9]/.test(fullNameInput.value);
             const phoneValid = !/\D/.test(phoneInput.value);
             const addressValid = !/[!@#$%^&*().?":{}|<>]/.test(addressInput.value);
             const birthdayValid = birthdayInput.value <= new Date().toISOString().split('T')[0];
-            const imgValid = !imgErrorContainer.textContent; // Check if there are no image errors
+            const bankNameValid = bankNameSelect.select2('data')[0].text !== '';
+            const bankNumberValid = !/\D/.test(bankNumberInput.value);
+            const priceValid = !isNaN(priceInput.value) && priceInput.value > 0;
+            const imgValid = !imgErrorContainer.textContent;
             const genderValid = [...genderInputs].some(input => input.checked);
 
-            const isFormValid = fullNameValid && phoneValid && addressValid && birthdayValid && imgValid && genderValid;
+            const isFormValid = fullNameValid && phoneValid && addressValid && birthdayValid && imgValid && genderValid && priceValid & bankNameValid && bankNumberValid;
 
             submitButton.disabled = !isFormValid;
         }
-
+        fileInput.addEventListener('change', checkFormValidity);
+        bankNumberInput.addEventListener('input', checkFormValidity);
         fullNameInput.addEventListener('input', checkFormValidity);
         descInput.addEventListener('input', checkFormValidity);
         phoneInput.addEventListener('input', checkFormValidity);
         addressInput.addEventListener('input', checkFormValidity);
         birthdayInput.addEventListener('input', checkFormValidity);
-
     });
 
 
+</script>
+
+
+<script>
+    const bankNames = [
+        "Ngân hàng TMCP Ngoại Thương Việt Nam (Vietcombank)",
+        "Ngân hàng TMCP Công Thương Việt Nam (VietinBank)",
+        "Ngân hàng Thương mại Cổ phần Quân đội (MBBank)",
+        "Ngân hàng Thương mại Cổ phần Công thương Việt Nam (Techcombank)",
+        "Ngân hàng TMCP Sài Gòn Thương Tín (Sacombank)",
+        "Ngân hàng Thương mại Cổ phần Đầu tư và Phát triển Việt Nam (BIDV)",
+        "Ngân hàng TMCP Á Châu (ACB)",
+        "Ngân hàng TMCP Đông Á (DongA Bank)",
+        "Ngân hàng TMCP Hàng Hải Việt Nam (Maritime Bank)",
+        "Ngân hàng TMCP Sài Gòn (SCB)",
+        "Ngân hàng Thương mại Cổ phần Xăng dầu Petrolimex (PGBank)",
+        "Ngân hàng Thương mại Cổ phần Ngoại thương và Phát triển (PVcomBank)",
+        "Ngân hàng Thương mại Cổ phần Tiên Phong (TPBank)",
+        "Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank)",
+        "Ngân hàng TMCP Đầu tư và Phát triển Việt Nam (BIDV)",
+        "Ngân hàng Thương mại Cổ phần Kỹ thương Việt Nam (Techcombank)",
+        "Ngân hàng Thương mại Cổ phần Tiên Phong (TPBank)",
+        "Ngân hàng Thương mại Cổ phần Quốc Dân (NCB)",
+        "Ngân hàng Thương mại Cổ phần Đông Nam Á (SeABank)",
+        "Ngân hàng Thương mại Cổ phần Dầu khí Toàn Cầu (GPBank)",
+        "Ngân hàng Thương mại Cổ phần An Bình (ABBank)",
+        "Ngân hàng TMCP Sài Gòn Công Thương (Saigonbank)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng TMCP Sài Gòn (SCB)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng Thương mại Cổ phần Đông Nam Á (SeABank)",
+        "Ngân hàng Thương mại Cổ phần An Bình (ABBank)",
+        "Ngân hàng TMCP Sài Gòn Công Thương (Saigonbank)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng TMCP Công Thương Việt Nam (VietinBank)",
+        "Ngân hàng Thương mại Cổ phần Đông Á (DongA Bank)",
+        "Ngân hàng Thương mại Cổ phần Đầu tư và Phát triển Việt Nam (BIDV)",
+        "Ngân hàng TMCP Hàng Hải Việt Nam (Maritime Bank)",
+        "Ngân hàng TMCP Quân Đội (MB Bank)",
+        "Ngân hàng Thương mại Cổ phần Sài Gòn - Hà Nội (SHB)",
+        "Ngân hàng Thương mại Cổ phần Á Châu (ACB)",
+        "Ngân hàng Thương mại Cổ phần Phát triển Thành phố Hồ Chí Minh (HDBank)",
+        "Ngân hàng Thương mại Cổ phần Việt Nam Thịnh Vượng (VPBank)",
+        "Ngân hàng TMCP Quốc Dân (NCB)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng Thương mại Cổ phần Đông Nam Á (SeABank)",
+        "Ngân hàng Thương mại Cổ phần An Bình (ABBank)",
+        "Ngân hàng TMCP Sài Gòn Công Thương (Saigonbank)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng TMCP Công Thương Việt Nam (VietinBank)",
+        "Ngân hàng Thương mại Cổ phần Đông Á (DongA Bank)",
+        "Ngân hàng Thương mại Cổ phần Đầu tư và Phát triển Việt Nam (BIDV)",
+        "Ngân hàng TMCP Hàng Hải Việt Nam (Maritime Bank)",
+        "Ngân hàng TMCP Quân Đội (MB Bank)",
+        "Ngân hàng Thương mại Cổ phần Sài Gòn - Hà Nội (SHB)",
+        "Ngân hàng Thương mại Cổ phần Á Châu (ACB)",
+        "Ngân hàng Thương mại Cổ phần Phát triển Thành phố Hồ Chí Minh (HDBank)",
+        "Ngân hàng Thương mại Cổ phần Việt Nam Thịnh Vượng (VPBank)",
+        "Ngân hàng TMCP Quốc Dân (NCB)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng Thương mại Cổ phần Đông Nam Á (SeABank)",
+        "Ngân hàng Thương mại Cổ phần An Bình (ABBank)",
+        "Ngân hàng TMCP Sài Gòn Công Thương (Saigonbank)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng TMCP Công Thương Việt Nam (VietinBank)",
+        "Ngân hàng Thương mại Cổ phần Đông Á (DongA Bank)",
+        "Ngân hàng Thương mại Cổ phần Đầu tư và Phát triển Việt Nam (BIDV)",
+        "Ngân hàng TMCP Hàng Hải Việt Nam (Maritime Bank)",
+        "Ngân hàng TMCP Quân Đội (MB Bank)",
+        "Ngân hàng Thương mại Cổ phần Sài Gòn - Hà Nội (SHB)",
+        "Ngân hàng Thương mại Cổ phần Á Châu (ACB)",
+        "Ngân hàng Thương mại Cổ phần Phát triển Thành phố Hồ Chí Minh (HDBank)",
+        "Ngân hàng Thương mại Cổ phần Việt Nam Thịnh Vượng (VPBank)",
+        "Ngân hàng TMCP Quốc Dân (NCB)"
+    ];
+
+
+
+    function fetchAndPopulateBankNames() {
+        const bankSelect = document.getElementById('bankName');
+        bankNames.forEach(function(bankName) {
+            const option = document.createElement('option');
+            option.text = bankName;
+            bankSelect.add(option);
+        });
+    }
+
+    function setDefaultBankValues() {
+        const bankName = "${personalTrainerDto.getBankName()}";
+        const bankNumber = "${personalTrainer.getBankNumber()}";
+        const bankSelect = document.getElementById('bankName');
+        const bankNumberInput = document.querySelector('input[name="bankNumber"]');
+
+        for (let i = 0; i < bankSelect.options.length; i++) {
+            if (bankSelect.options[i].text === bankName) {
+                bankSelect.selectedIndex = i;
+                break;
+            }
+        }
+
+        bankNumberInput.value = bankNumber;
+    }
+
+    $(document).ready(function () {
+        $("#changePasswordLink").click(function (e) {
+            e.preventDefault();
+            $("#changePasswordModal").modal("show");
+        });
+
+        $("#changePasswordForm").submit(function (e) {
+            $("#changePasswordModal").modal("hide");
+        });
+        fetchAndPopulateBankNames();
+        setDefaultBankValues();
+    });
 </script>
 
 
@@ -443,6 +620,47 @@
         $('#slider3').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[2]);
         console.log(ptDto)
     })
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById("changePasswordForm");
+        const currentPasswordInput = document.getElementById("currentPassword");
+        const newPasswordInput = document.getElementById("newPassword");
+        const repeatPasswordInput = document.getElementById("repeatPassword");
+        const errorMessage = document.getElementById("changePasswordErrorMessage");
+
+        form.addEventListener("submit", function(event) {
+            errorMessage.textContent = "";
+
+            if (!validateCurrentPassword()) {
+                errorMessage.textContent = "Please enter a valid current password.";
+                event.preventDefault();
+            } else if (!validateNewPassword()) {
+                errorMessage.textContent = "Please enter a valid new password (8-20 characters).";
+                event.preventDefault();
+            } else if (!validateRepeatPassword()) {
+                errorMessage.textContent = "Passwords do not match.";
+                event.preventDefault();
+            }
+        });
+
+        function validateCurrentPassword() {
+            // Add your validation logic for the current password input here
+            return currentPasswordInput.value.length >= 8 && currentPasswordInput.value.length <= 20;
+        }
+
+        function validateNewPassword() {
+            // Add your validation logic for the new password input here
+            return newPasswordInput.value.length >= 8 && newPasswordInput.value.length <= 20;
+        }
+
+        function validateRepeatPassword() {
+            // Add your validation logic for the repeat password input here
+            return repeatPasswordInput.value === newPasswordInput.value;
+        }
+    });
+
+
+
 </script>
 </body>
 </html>

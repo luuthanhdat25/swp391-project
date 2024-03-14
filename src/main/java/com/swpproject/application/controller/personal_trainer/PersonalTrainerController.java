@@ -91,6 +91,8 @@ public class PersonalTrainerController {
                                 HttpSession session) throws IOException {
         PersonalTrainer personalTrainer = personalTrainerRepository.getPersonalTrainerById(personalTrainerDto.getId()).get() .toBuilder()
                 .description(personalTrainerDto.getDescription())
+                .bankName(personalTrainerDto.getBankName())
+                .bankNumber(personalTrainerDto.getBankNumber())
                 .price(personalTrainerDto.getPrice())
                 .build();
         Account account = accountService.getAccountByEmail(personalTrainer.getAccount().getEmail()).get();

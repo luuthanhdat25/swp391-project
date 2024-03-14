@@ -7,6 +7,7 @@ import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.NotificationRepository;
 import com.swpproject.application.repository.OrderRequestRepository;
 import com.swpproject.application.service.OrderRequestService;
+import com.swpproject.application.service.impl.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,8 @@ import java.time.Period;
 public class SystemNotificationService {
     @Autowired
     private NotificationRepository notificationRepository;
+    @Autowired
+    private NotificationService notificationService;
 
     public void createNotification_AcceptedHiringAndPayment(OrderRequest orderRequest) {
         Notification paymentNotification = new Notification();
@@ -29,6 +32,7 @@ public class SystemNotificationService {
         paymentNotification.setTimeStamp(LocalDateTime.now());
         paymentNotification.setFromAccount(orderRequest.getPersonalTrainer().getAccount());
         paymentNotification.setToAccount(orderRequest.getGymer().getAccount());
+        paymentNotification.setGroupNumber(notificationService.getGroupNumber_LastNotification() + 1);
         notificationRepository.save(paymentNotification);
     }
 
@@ -42,6 +46,7 @@ public class SystemNotificationService {
         requestHiringNotification.setTimeStamp(LocalDateTime.now());
         requestHiringNotification.setFromAccount(orderRequest.getGymer().getAccount());
         requestHiringNotification.setToAccount(orderRequest.getPersonalTrainer().getAccount());
+        requestHiringNotification.setGroupNumber(notificationService.getGroupNumber_LastNotification() + 1);
         notificationRepository.save(requestHiringNotification);
     }
 
@@ -55,6 +60,7 @@ public class SystemNotificationService {
         requestHiringNotification.setTimeStamp(LocalDateTime.now());
         requestHiringNotification.setFromAccount(personalTrainerAccount);
         requestHiringNotification.setToAccount(gymerAccount);
+        requestHiringNotification.setGroupNumber(notificationService.getGroupNumber_LastNotification() + 1);
         notificationRepository.save(requestHiringNotification);
     }
 
@@ -68,9 +74,12 @@ public class SystemNotificationService {
         paymentSuccessToGymer.setTimeStamp(LocalDateTime.now());
         paymentSuccessToGymer.setFromAccount(orderRequest.getGymer().getAccount());
         paymentSuccessToGymer.setToAccount(orderRequest.getGymer().getAccount());
+        paymentSuccessToGymer.setGroupNumber(notificationService.getGroupNumber_LastNotification() + 1);
         notificationRepository.save(paymentSuccessToGymer);
 
-        paymentSuccessToGymer.setToAccount(orderRequest.getPersonalTrainer().getAccount());
-        notificationRepository.save(paymentSuccessToGymer);
+        Notification paymentSuccessToPT = paymentSuccessToGymer;
+        paymentSuccessToPT.setToAccount(orderRequest.getPersonalTrainer().getAccount());
+        paymentSuccessToPT.setGroupNumber(notificationService.getGroupNumber_LastNotification() + 1);
+        notificationRepository.save(paymentSuccessToPT);
     }
 }

@@ -34,4 +34,7 @@ public class Notification {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_account_id",referencedColumnName = "id", nullable = false)
 	private Account toAccount;
+
+    @Column(name = "group_number")
+    private Integer groupNumber;
 }

@@ -1,7 +1,9 @@
 package com.swpproject.application.controller.nutrition;
 
 import com.swpproject.application.controller.dto.NutritionDTOOut;
-import com.swpproject.application.service.impl.NutritionServiceIml;
+import com.swpproject.application.controller.dto.RoleDTO;
+import com.swpproject.application.service.NutritionService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -21,17 +24,58 @@ import java.util.stream.Collectors;
 public class NutritionRestController {
 
     @Autowired
-    private NutritionServiceIml nutritionServiceIml;
+    private NutritionService nutritionService;
+
+    private enum SortEnum{LowCalo, LowFat, HighProtein, NoSort}
 
     @PostMapping("/search")
-    public ResponseEntity<List<NutritionDTOOut>> searchNutritions(@RequestBody FilterObject filterObject) {
-        List<NutritionDTOOut> nutritionDTOOutList = nutritionServiceIml.getNutritionDTOOutList();
+    public ResponseEntity<List<NutritionDTOOut>> searchNutritions(
+            @RequestBody FilterObject filterObject,
+            HttpServletRequest request
+    ) {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        List<NutritionDTOOut> nutritionDTOOutList = nutritionService.getNutritionDTOOutList(roleDTO);
+
         nutritionDTOOutList = findByNameContaining(filterObject.getSearchName(), nutritionDTOOutList);
+        SortEnum sortEnum = getSortSearchEnum(filterObject);
+        nutritionDTOOutList = sortEnum == SortEnum.NoSort
+                                        ? filterAllCategory(filterObject, nutritionDTOOutList)
+                                        : sortByCategory(sortEnum, nutritionDTOOutList);
+
+        return ResponseEntity.ok().body(nutritionDTOOutList);
+    }
+
+    private SortEnum getSortSearchEnum(FilterObject filterObject){
+        if(filterObject.getCaloMin() == filterObject.getCaloMax()) return SortEnum.LowCalo;
+        if(filterObject.getFatMax() == filterObject.getFatMin()) return SortEnum.LowFat;
+        if(filterObject.getProteinMax() == filterObject.getProteinMin()) return SortEnum.HighProtein;
+        return SortEnum.NoSort;
+    }
+
+    private List<NutritionDTOOut> filterAllCategory(FilterObject filterObject, List<NutritionDTOOut> nutritionDTOOutList){
         nutritionDTOOutList = findByCaloRange(filterObject.getCaloMin(), filterObject.getCaloMax(), nutritionDTOOutList);
         nutritionDTOOutList = findByProteinRange(filterObject.getProteinMin(), filterObject.getProteinMax(), nutritionDTOOutList);
         nutritionDTOOutList = findByFatRange(filterObject.getFatMin(), filterObject.getFatMax(), nutritionDTOOutList);
         nutritionDTOOutList = findByCarbRange(filterObject.getCarbMin(), filterObject.getCarbMax(), nutritionDTOOutList);
-        return ResponseEntity.ok().body(nutritionDTOOutList);
+        return nutritionDTOOutList;
+    }
+
+    private List<NutritionDTOOut> sortByCategory(SortEnum sortEnum, List<NutritionDTOOut> nutritionDTOOutList) {
+        Comparator<NutritionDTOOut> comparator = null;
+
+        if (sortEnum == SortEnum.LowCalo) {
+            comparator = Comparator.comparing(NutritionDTOOut::getCaloIn);
+        } else if (sortEnum == SortEnum.LowFat) {
+            comparator = Comparator.comparing(NutritionDTOOut::getFat);
+        } else if (sortEnum == SortEnum.HighProtein) {
+            comparator = Comparator.comparing(NutritionDTOOut::getProtein).reversed();
+        }
+
+        if (comparator != null) {
+            nutritionDTOOutList.sort(comparator);
+        }
+
+        return nutritionDTOOutList;
     }
 
     private List<NutritionDTOOut> findByNameContaining(String keyword, List<NutritionDTOOut> nutritionDTOOutList) {
@@ -48,22 +92,22 @@ public class NutritionRestController {
                 .collect(Collectors.toList());
     }
 
-    public List<NutritionDTOOut> findByCaloRange(int min, int max, List<NutritionDTOOut> nutritionDTOOutList) {
+    private List<NutritionDTOOut> findByCaloRange(int min, int max, List<NutritionDTOOut> nutritionDTOOutList) {
         Predicate<NutritionDTOOut> caloFilter = nutritionDTOOut -> nutritionDTOOut.getCaloIn() >= min && max >= nutritionDTOOut.getCaloIn();
         return findByRange(nutritionDTOOutList, caloFilter);
     }
 
-    public List<NutritionDTOOut> findByProteinRange(int min, int max, List<NutritionDTOOut> nutritionDTOOutList) {
+    private List<NutritionDTOOut> findByProteinRange(int min, int max, List<NutritionDTOOut> nutritionDTOOutList) {
         Predicate<NutritionDTOOut> proteinFilter = nutritionDTOOut -> nutritionDTOOut.getProtein() >= min && max >= nutritionDTOOut.getProtein();
         return findByRange(nutritionDTOOutList, proteinFilter);
     }
 
-    public List<NutritionDTOOut> findByFatRange(int min, int max, List<NutritionDTOOut> nutritionDTOOutList) {
+    private List<NutritionDTOOut> findByFatRange(int min, int max, List<NutritionDTOOut> nutritionDTOOutList) {
         Predicate<NutritionDTOOut> fatFilter = nutritionDTOOut -> nutritionDTOOut.getFat() >= min && max >= nutritionDTOOut.getFat();
         return findByRange(nutritionDTOOutList, fatFilter);
     }
 
-    public List<NutritionDTOOut> findByCarbRange(int min, int max, List<NutritionDTOOut> nutritionDTOOutList) {
+    private List<NutritionDTOOut> findByCarbRange(int min, int max, List<NutritionDTOOut> nutritionDTOOutList) {
         Predicate<NutritionDTOOut> carbFilter = nutritionDTOOut -> nutritionDTOOut.getCarb() >= min && max >= nutritionDTOOut.getCarb();
         return findByRange(nutritionDTOOutList, carbFilter);
     }

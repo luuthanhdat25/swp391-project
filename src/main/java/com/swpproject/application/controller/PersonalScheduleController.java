@@ -1,5 +1,6 @@
 package com.swpproject.application.controller;
 
+import com.swpproject.application.controller.dto.RoleDTO;
 import com.swpproject.application.model.*;
 import com.swpproject.application.repository.*;
 import com.swpproject.application.service.SlotExeDetailService;
@@ -163,7 +164,7 @@ public class PersonalScheduleController {
             for (String idNutrition : selectedNutritions) {
                 //Create slot nutrition details
                 SlotNutritionDetail slotNutritionDetail = new SlotNutritionDetail();
-                Nutrition nutrition = nutritionRepository.findByNutritionId(Integer.parseInt(idNutrition));
+                Nutrition nutrition = nutritionRepository.findById(Integer.parseInt(idNutrition)).get();
                 String[] amount = nutritionAmount.split(",");
                 slotNutritionDetail.setAmount(Integer.parseInt(amount[j]));
                 slotNutritionDetail.setNutrition(nutrition);

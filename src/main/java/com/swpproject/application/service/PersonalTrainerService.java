@@ -1,9 +1,8 @@
 package com.swpproject.application.service;
 
+import com.swpproject.application.controller.dto.PersonalTrainerDto;
+import com.swpproject.application.controller.dto.RoleDTO;
 import com.swpproject.application.model.PersonalTrainer;
-import com.swpproject.application.repository.PersonalTrainerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,4 +18,9 @@ public interface PersonalTrainerService {
     public Optional<PersonalTrainer> findPersonalTrainerByID(Integer personalTrainerID);
     public List<PersonalTrainer> getAll();
 
+    List<PersonalTrainer> getPersonalTrainerListAuthentication(RoleDTO roleDTO);
+
+    List<PersonalTrainerDto> getPersonalTrainerDTOList(RoleDTO roleDTO);
+
+    Optional<PersonalTrainer> findPersonalTrainerByIdAuthentication(int personalTrainerId, RoleDTO roleDTO);
 }

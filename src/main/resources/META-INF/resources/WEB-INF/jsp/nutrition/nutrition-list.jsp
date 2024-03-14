@@ -1,6 +1,6 @@
-<%@include file="common/header.jspf" %>
-<%@include file="common/head.jspf" %>
-<%@include file="common/sidebar.jspf" %>
+<%@include file="../common/header.jspf" %>
+<%@include file="../common/head.jspf" %>
+<%@include file="../common/sidebar.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <style>
     .rounded-image {
@@ -24,22 +24,29 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-sub-header">
-                                <h3 class="page-title">Nutrition</h3>
-                                <ul class="breadcrumb">
-                                    <li class="breadcrumb-item "><a class="text-muted"
-                                            href="teachers.html">Nutrition</a></li>
-                                </ul>
+                                <h3 class="page-title">Nutrition Wiki</h3>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card invoices-tabs-card border-0 mt-3">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="invoices-settings-btn invoices-settings-btn-one">
-                            <a href="/nutrition/create" class="btn"><i class="feather feather-plus-circle"></i>New Nutrition</a>
-                        </div>
-                    </div>
-                </div>
+
+                <c:if test="${account ne null}">
+                    <c:choose>
+                        <c:when test="${account.getRole() eq 'PT' || account.getRole() eq 'ADMIN'}">
+                            <div class="card invoices-tabs-card border-0 mt-3">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="invoices-settings-btn invoices-settings-btn-one">
+                                        <a href="/nutrition/create" class="btn"><i class="feather feather-plus-circle"></i>New Nutrition</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <!-- Other role-specific content here -->
+                        </c:otherwise>
+                    </c:choose>
+                </c:if>
+
                 <div class="card mt-3">
                     <div class="card-body">
                         <div class="row">
@@ -48,7 +55,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="personal-activity">
-                                                <div class="mb-3 w-100 input-group">
+                                                <div class="w-100 input-group">
                                                     <label for="searchInput"
                                                         class="form-label visually-hidden">Search by Name</label>
                                                     <span class="input-group-text"><i
@@ -58,12 +65,12 @@
                                                 </div>
                                             </div>
 
-<%--                                            <div class="form-check form-switch">--%>
-<%--                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">--%>
-<%--                                                <label class="form-check-label" for="flexSwitchCheckChecked">Advance Search</label>--%>
-<%--                                            </div>--%>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                <label class="form-check-label" for="flexSwitchCheckDefault">Advanced Search</label>
+                                            </div>
 
-                                            <div id="advancedSearch"  class="mt-2">
+                                            <div id="advancedSearch" style="display: none"  class="mt-2">
                                                 <div class="mb-3 w-100">
                                                     <div class="d-flex justify-content-between">
                                                         <div class="d-flex">
@@ -187,17 +194,17 @@
                                             </div>
 
 
-<%--                                            <div id="normalSearch">--%>
-<%--                                                <div id="buttonGroup" class="w-auto" role="group" aria-label="Basic radio toggle button group">--%>
-<%--                                                    <button type="button" class="btn btn-outline-primary btn-md mt-2" onclick="toggleButton(this)">Low Calories</button>--%>
-<%--                                                    <button type="button" class="btn btn-outline-primary btn-md mt-2" onclick="toggleButton(this)">Low Fat</button>--%>
-<%--                                                    <br>--%>
-<%--                                                    <button type="button" class="btn btn-outline-primary btn-sm mt-2" onclick="toggleButton(this)">High Protein</button>--%>
-<%--                                                </div>--%>
-<%--                                                <div>--%>
-<%--                                                    <button type="button" class="btn btn-primary mt-3 btn-sm" onclick="resetButtons()">Reset</button>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
+                                            <div id="normalSearch">
+                                                <div id="buttonGroup" class="w-auto" role="group" aria-label="Basic radio toggle button group">
+                                                    <button id="lowCalo" type="button" class="btn btn-outline-primary btn-md mt-2" onclick="toggleButton(this)">Low Calories</button>
+                                                    <button id="lowFat" type="button" class="btn btn-outline-primary btn-md mt-2" onclick="toggleButton(this)">Low Fat</button>
+                                                    <br>
+                                                    <button id="highProtein" type="button" class="btn btn-outline-primary btn-sm mt-2" onclick="toggleButton(this)">High Protein</button>
+                                                </div>
+                                                <div>
+                                                    <button id="resetSort" type="button" class="btn btn-primary mt-3 btn-sm" onclick="resetButtons(this)">Reset</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -235,31 +242,36 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg"> <!-- Use modal-lg for larger modal -->
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body row">
-                            <div class="col-8">
-                                <img class="w-100 mb-2" style="object-fit: cover;" id="modal-image" src=""
-                                    alt="Nutrition Image">
+                            <div class="col-md-8"> <!-- Use col-md-* for responsiveness -->
+                                <img class="w-100 mb-2" style="object-fit: cover;" id="modal-image" src="" alt="Nutrition Image">
                             </div>
-                            <div class="col-4">
+                            <div class="col-md-4"> <!-- Use col-md-* for responsiveness -->
                                 <p id="modal-calo"></p>
                                 <p id="modal-protein"></p>
                                 <p id="modal-fat"></p>
                                 <p id="modal-carb"></p>
-
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <a id="editButton" href="" class="btn btn-primary"> <i
-                                    class="far fa-edit me-2"></i>Edit</a>
+<%--                            <c:if test="${account ne null}">--%>
+<%--                                <c:choose>--%>
+<%--                                    <c:when test="${account.getRole() eq 'PT' && personalTrainer.getAccount().getId() eq account.getId()}">--%>
+<%--                                    </c:when>--%>
+<%--                                    <c:otherwise>--%>
+<%--                                        <!-- Other role-specific content here -->--%>
+<%--                                    </c:otherwise>--%>
+<%--                                </c:choose>--%>
+<%--                            </c:if>--%>
+                            <a id="editButton" style="display: none" href="" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
+
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -267,64 +279,30 @@
             </div>
 
             <footer>
-                <p>Copyright © 2024 Gym On.</p>
             </footer>
         </div>
     </div>
 
 
-    <script src="../../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../../../assets/js/jquery-3.6.0.min.js"></script>
 
-    <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../../assets/js/feather.min.js"></script>
+    <script src="../../../assets/js/feather.min.js"></script>
 
-    <script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <script src="../../assets/js/script.js"></script>
-
-<%--    <script>--%>
-<%--        $(document).ready(function(){--%>
-<%--            // Ẩn div advancedSearch khi trang được tải--%>
-<%--            $('#advancedSearch').hide();--%>
-
-<%--            // Xử lý sự kiện khi switch được bật hoặc tắt--%>
-<%--            $('#flexSwitchCheckChecked').change(function() {--%>
-<%--                if($(this).is(":checked")) {--%>
-<%--                    // Nếu switch được bật, ẩn div normalSearch và hiện div advancedSearch với hiệu ứng slide--%>
-<%--                    $('#normalSearch').slideUp();--%>
-<%--                    $('#advancedSearch').slideDown();--%>
-<%--                } else {--%>
-<%--                    // Nếu switch được tắt, ẩn div advancedSearch và hiện div normalSearch với hiệu ứng slide--%>
-<%--                    $('#advancedSearch').slideUp();--%>
-<%--                    $('#normalSearch').slideDown();--%>
-<%--                }--%>
-<%--            });--%>
-<%--        });--%>
-<%--    </script>--%>
+    <script src="../../../assets/js/script.js"></script>
 
     <script>
-        var nutritionList = ${ nutritionList };
+        var nutritionList = ${nutritionList};
         console.log(nutritionList);
+        var personalTrainerId = ${personalTrainer.getId()};
+        console.log(personalTrainerId)
     </script>
-    <script>
-        function toggleButton(button) {
-            var buttons = document.querySelectorAll('#buttonGroup .btn');
-            buttons.forEach(function(btn) {
-                btn.classList.remove('active');
-            });
-            button.classList.add('active');
-        }
 
-        function resetButtons() {
-            var buttons = document.querySelectorAll('#buttonGroup .btn');
-            buttons.forEach(function(btn) {
-                btn.classList.remove('active');
-            });
-        }
-    </script>
-    <script src="../../assets/js/nutrition/view_list/nutrition-view-list-generate.js"></script>
-    <script src="../../assets/js/nutrition/view_list/nutrition-view-list-filter.js"></script>
+    <script src="../../../assets/js/nutrition/view_list/nutrition-view-list-generate.js"></script>
+    <script src="../../../assets/js/nutrition/view_list/nutrition-view-list-filter.js"></script>
 </body>
 
 </html>

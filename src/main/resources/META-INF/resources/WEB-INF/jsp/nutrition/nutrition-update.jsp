@@ -1,6 +1,6 @@
-<%@include file="common/header.jspf" %>
-<%@include file="common/head.jspf" %>
-<%@include file="common/sidebar.jspf" %>
+<%@include file="../common/header.jspf" %>
+<%@include file="../common/head.jspf" %>
+<%@include file="../common/sidebar.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <body>
@@ -12,10 +12,6 @@
                         <div class="col-sm-12">
                             <div class="page-sub-header">
                                 <h3 class="page-title">Nutrition Update</h3>
-                                <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/nutrition/">Nutrition</a></li>
-                                    <li class="breadcrumb-item active">Nutrition Update</li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -39,19 +35,19 @@
 
                                                 <div class="row mt-3">
                                                     <div class="col">
-                                                        <div>Calories</div>
+                                                        <div>Calories/100g</div>
                                                         <input name="calories" id="caloryInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number calories" />
                                                     </div>
                                                     <div class="col">
-                                                        <div>Protein</div>
+                                                        <div>Protein/100g</div>
                                                         <input name="protein" id="proteinInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number protein" />
                                                     </div>
                                                     <div class="col">
-                                                        <div>Fat</div>
+                                                        <div>Fat/100g</div>
                                                         <input name="fat" id="fatInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number fat" />
                                                     </div>
                                                     <div class="col">
-                                                        <div>Carb</div>
+                                                        <div>Carb/100g</div>
                                                         <input name="carb" id="carbInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number carb" />
                                                     </div>
                                                 </div>
@@ -101,7 +97,6 @@
             </div>
 
             <footer>
-                <p>Copyright © 2024 Gym On .</p>
             </footer>
 
         </div>
@@ -110,23 +105,23 @@
 
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="../../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../../../assets/js/jquery-3.6.0.min.js"></script>
 
-    <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../../assets/js/feather.min.js"></script>
+    <script src="../../../assets/js/feather.min.js"></script>
 
-    <script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <script src="../../assets/js/script.js"></script>
+    <script src="../../../assets/js/script.js"></script>
 
     <script>
         var nutrition = ${nutrition}
     </script>
 
-    <script src="../../assets/js/exercise/create/exercise-create-image-import.js"></script>
-    <script src="../../assets/js/nutrition/update/nutrition-update-load-old-data.js"></script>
-    <script src="../../assets/js/nutrition/update/nutrition-update-submit-handler.js"></script>
+    <script src="../../../assets/js/exercise/create/exercise-create-image-import.js"></script>
+    <script src="../../../assets/js/nutrition/update/nutrition-update-load-old-data.js"></script>
+    <script src="../../../assets/js/nutrition/update/nutrition-update-submit-handler.js"></script>
 
 </body>
 

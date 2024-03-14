@@ -60,18 +60,21 @@
                                             <div class="d-flex mb-1 mt-3">
                                                 <div style="margin-right: 5px;">Send to:</div>
                                                 <div class="form-check" style="margin-right: 10px;">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-                                                    <label class="form-check-label" for="flexCheckIndeterminate"> All gymers  </label>
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                           id="allGymers">
+                                                    <label class="form-check-label" for="allGymers"> All gymers </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-                                                    <label class="form-check-label" for="flexCheckIndeterminate"> All personal trainers </label>
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                           id="allPersonalTrainer">
+                                                    <label class="form-check-label" for="allPersonalTrainer"> All
+                                                        personal trainers </label>
                                                 </div>
                                             </div>
 
-                                            <div class="border border-2 mb-1"
-                                                 style="width: 100%; height: 42px; margin-right: 5px; background-color: #FFFFFF; "></div>
-
+                                            <div class="border border-2 mb-1 d-flex flex-wrap accountSelected"
+                                                 style="width: 100%; height: fit-content; padding: 10px; margin-right: 5px; background-color: #FFFFFF; overflow-y: scroll;">
+                                            </div>
                                             <div>
                                                 <div style="width: 100%; height: 300px; background-color: #f7f7f7;"
                                                      class="border border-2">
@@ -81,138 +84,12 @@
                                                                style="width: 70%; margin: 5px;"
                                                                placeholder="Enter username" name="username">
                                                         <button style="width: 100px; height: 40px" type="button"
-                                                                class="btn btn-success">Search
+                                                                class="btn btn-success search-username-btn"
+                                                                data-id=username>Search
                                                         </button>
                                                     </div>
-                                                    <div class="overflow-auto"
-                                                         style="height: 80%; width: 100%; padding: 5px 5px 5px 5px;">
-                                                        <div class="d-flex flex-column align-items-center">
-                                                            <div style="width: 98%; height: 50px; border-radius: 5px; padding: 2px;"
-                                                                 class="d-flex justify-content-between align-items-center mb-1 bg-white shadow rounded">
-                                                                <div class="d-flex align-items-center">
-                                                                    <img class="rounded-circle"
-                                                                         style="width: 43px; height: 43px; margin-right: 5px;"
-                                                                         src="https://avatars2.githubusercontent.com/u/38502132?v=4?s=100">
-                                                                    Victor Dave
-                                                                </div>
-                                                                <div>
-                                                                    <div class="badge badge-info m-r-5">Gymer</div>
-                                                                    <button type="button"
-                                                                            style="width: 40px; height: 40px; border-radius: 50%;">
-                                                                        +
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex flex-column align-items-center">
-                                                            <div style="width: 98%; height: 50px; border-radius: 5px; padding: 2px;"
-                                                                 class="d-flex justify-content-between align-items-center mb-1 bg-white shadow rounded">
-                                                                <div class="d-flex align-items-center">
-                                                                    <img class="rounded-circle"
-                                                                         style="width: 43px; height: 43px; margin-right: 5px;"
-                                                                         src="https://avatars2.githubusercontent.com/u/38502132?v=4?s=100">
-                                                                    Victor Dave
-                                                                </div>
-                                                                <div>
-                                                                    <div class="badge badge-info m-r-5">Gymer</div>
-                                                                    <button type="button"
-                                                                            style="width: 40px; height: 40px; border-radius: 50%;">
-                                                                        +
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex flex-column align-items-center">
-                                                            <div style="width: 98%; height: 50px; border-radius: 5px; padding: 2px;"
-                                                                 class="d-flex justify-content-between align-items-center mb-1 bg-white shadow rounded">
-                                                                <div class="d-flex align-items-center">
-                                                                    <img class="rounded-circle"
-                                                                         style="width: 43px; height: 43px; margin-right: 5px;"
-                                                                         src="https://avatars2.githubusercontent.com/u/38502132?v=4?s=100">
-                                                                    Victor Dave
-                                                                </div>
-                                                                <div>
-                                                                    <div class="badge badge-info m-r-5">Gymer</div>
-                                                                    <button type="button"
-                                                                            style="width: 40px; height: 40px; border-radius: 50%;">
-                                                                        +
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex flex-column align-items-center">
-                                                            <div style="width: 98%; height: 50px; border-radius: 5px; padding: 2px;"
-                                                                 class="d-flex justify-content-between align-items-center mb-1 bg-white shadow rounded">
-                                                                <div class="d-flex align-items-center">
-                                                                    <img class="rounded-circle"
-                                                                         style="width: 43px; height: 43px; margin-right: 5px;"
-                                                                         src="https://avatars2.githubusercontent.com/u/38502132?v=4?s=100">
-                                                                    Victor Dave
-                                                                </div>
-                                                                <div>
-                                                                    <div class="badge badge-info m-r-5">Gymer</div>
-                                                                    <button type="button"
-                                                                            style="width: 40px; height: 40px; border-radius: 50%;">
-                                                                        +
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex flex-column align-items-center">
-                                                            <div style="width: 98%; height: 50px; border-radius: 5px; padding: 2px;"
-                                                                 class="d-flex justify-content-between align-items-center mb-1 bg-white shadow rounded">
-                                                                <div class="d-flex align-items-center">
-                                                                    <img class="rounded-circle"
-                                                                         style="width: 43px; height: 43px; margin-right: 5px;"
-                                                                         src="https://avatars2.githubusercontent.com/u/38502132?v=4?s=100">
-                                                                    Victor Dave
-                                                                </div>
-                                                                <div>
-                                                                    <div class="badge badge-info m-r-5">Gymer</div>
-                                                                    <button type="button"
-                                                                            style="width: 40px; height: 40px; border-radius: 50%;">
-                                                                        +
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex flex-column align-items-center">
-                                                            <div style="width: 98%; height: 50px; border-radius: 5px; padding: 2px;"
-                                                                 class="d-flex justify-content-between align-items-center mb-1 bg-white shadow rounded">
-                                                                <div class="d-flex align-items-center">
-                                                                    <img class="rounded-circle"
-                                                                         style="width: 43px; height: 43px; margin-right: 5px;"
-                                                                         src="https://avatars2.githubusercontent.com/u/38502132?v=4?s=100">
-                                                                    Victor Dave
-                                                                </div>
-                                                                <div>
-                                                                    <div class="badge badge-info m-r-5">Gymer</div>
-                                                                    <button type="button"
-                                                                            style="width: 40px; height: 40px; border-radius: 50%;">
-                                                                        +
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex flex-column align-items-center">
-                                                            <div style="width: 98%; height: 50px; border-radius: 5px; padding: 2px;"
-                                                                 class="d-flex justify-content-between align-items-center mb-1 bg-white shadow rounded">
-                                                                <div class="d-flex align-items-center">
-                                                                    <img class="rounded-circle"
-                                                                         style="width: 43px; height: 43px; margin-right: 5px;"
-                                                                         src="https://avatars2.githubusercontent.com/u/38502132?v=4?s=100">
-                                                                    Victor Dave
-                                                                </div>
-                                                                <div>
-                                                                    <div class="badge badge-info m-r-5">Gymer</div>
-                                                                    <button type="button"
-                                                                            style="width: 40px; height: 40px; border-radius: 50%;">
-                                                                        +
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <div class="overflow-auto accounts"
+                                                         style="height: 80%; width: 100%; padding: 5px 5px 5px 5px;"></div>
                                                 </div>
                                             </div>
 
@@ -392,6 +269,83 @@
 <script src="../../../assets/js/jquery-3.6.0.min.js"></script>
 
 <script type="text/javascript">
+    function createAccountElement(account) {
+        var listItem = $("<div class='d-flex flex-column align-items-center'></div>");
+        var accountDiv = $("<div class='d-flex justify-content-between align-items-center mb-1 bg-white shadow rounded' style='width: 98%; height: 50px; border-radius: 5px; padding: 2px;'></div>");
+        var image = $("<img class='rounded-circle' style='width: 43px; height: 43px; margin-right: 10px; object-fit: cover'>");
+        image.attr("src", "data:image/jpeg;base64," + account.image);
+
+        var fullName = $("<div></div>").text(account.fullName);
+        var roleBadge = $("<div class='badge badge-info m-r-5'></div>").text(account.role);
+        var addButton = $("<button type='button' style='width: 40px; height: 40px; border-radius: 50%;'>+</button>");
+
+        addButton.data("accountId", account.id);
+        addButton.on("click", function () {
+            var accountId = $(this).data("accountId");
+            getAccountDetail(accountId);
+        });
+
+        accountDiv.append($("<div class='d-flex align-items-center'></div>").append(image).append(fullName));
+        accountDiv.append($("<div></div>").append(roleBadge).append(addButton));
+        listItem.append(accountDiv);
+        return listItem;
+    }
+
+    function getAccountDetail(accountID) {
+        $.ajax({
+            type: "GET",
+            url: "/get-account-detail",
+            data: {accountID: accountID},
+            success: function (data) {
+                var accountElement = createAccountSelected(data);
+                $('.accountSelected').append(accountElement);
+            },
+            error: function (error) {
+                console.error("Error loading account detail: " + JSON.stringify(error));
+            }
+        });
+    }
+
+    function createAccountSelected(data) {
+        var accountDiv = $("<div style='padding: 10px; width: fit-content; height: 40px; border-radius: 5px; " +
+            "background-color: #f8d794; margin: 0 5px 5px 0; white-space: nowrap;' class='d-flex justify-content-between align-items-center'></div>");
+        var image = $("<img class='rounded-circle' style='width: 30px; height: 30px; margin-right: 10px; object-fit: cover'>");
+        image.attr("src", "data:image/jpeg;base64," + data.image);
+        var nameDiv = $("<div style='width: fit-content;'></div>").text(data.fullName);
+        var closeButton = $("<button style='background: transparent; border: none; cursor: pointer;'>x</button>");
+
+        closeButton.click(function () {
+            accountDiv.remove(); // Xóa div khi nút được nhấn
+        });
+
+
+        accountDiv.append(image);
+        accountDiv.append(nameDiv);
+        accountDiv.append(closeButton);
+        return accountDiv;
+    }
+
+    $('.search-username-btn').click(function () {
+        var name = $('input[name="username"]').val();
+
+        $.ajax({
+            type: "GET",
+            url: "/search-account-by-name",
+            data: {name: name},
+            success: function (accounts) {
+                $('.accounts').empty();
+
+                $.each(accounts, function (index, account) {
+                    var accountElement = createAccountElement(account);
+                    $('.accounts').append(accountElement);
+                });
+            },
+            error: function (error) {
+                console.error("Error loading notification detail: " + JSON.stringify(error));
+            }
+        });
+    });
+
     $('.view-detail-btn').click(function () {
         var notificationID = $(this).data('id');
         $.ajax({

@@ -1,14 +1,17 @@
 package com.swpproject.application.controller.personal_trainer;
 
-import com.swpproject.application.dto.PersonalTrainerDto;
+import com.swpproject.application.controller.dto.PersonalTrainerDto;
+import com.swpproject.application.controller.dto.RoleDTO;
 import com.swpproject.application.enums.Gender;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.service.AccountService;
 import com.swpproject.application.service.CertificateService;
+import com.swpproject.application.service.PersonalTrainerService;
 import com.swpproject.application.utils.DtoUtils;
 import com.swpproject.application.utils.JsonUtils;
 import com.swpproject.application.repository.PersonalTrainerRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +34,7 @@ public class PersonalTrainerController {
     private final PersonalTrainerRepository personalTrainerRepository;
     private final CertificateService certificateService;
     private final DtoUtils dtoUtils;
+    private final PersonalTrainerService personalTrainerService;
 
     private final AccountService accountService;
 
@@ -38,17 +42,20 @@ public class PersonalTrainerController {
     public PersonalTrainerController(
             PersonalTrainerRepository personalTrainerRepository,
             CertificateService certificateService,
-            DtoUtils dtoUtils,
+            DtoUtils dtoUtils, PersonalTrainerService personalTrainerService,
             AccountService accountService
     ) {
         this.personalTrainerRepository = personalTrainerRepository;
         this.certificateService = certificateService;
         this.dtoUtils = dtoUtils;
+        this.personalTrainerService = personalTrainerService;
         this.accountService = accountService;
     }
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getPersonalTrainerListPage(ModelMap model) {
-        List<PersonalTrainerDto> personalTrainerDTOList = dtoUtils.getPersonalTrainerDtoList();
+
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    public String getPersonalTrainerListPage(ModelMap model, HttpServletRequest request) {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        List<PersonalTrainerDto> personalTrainerDTOList = personalTrainerService.getPersonalTrainerDTOList(roleDTO);
         String json = JsonUtils.jsonConvert(personalTrainerDTOList);
         model.addAttribute("personalTrainerList", json);
         return "personal-trainer-list";

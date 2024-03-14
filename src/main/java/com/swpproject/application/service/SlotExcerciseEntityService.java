@@ -70,4 +70,11 @@ public class SlotExcerciseEntityService {
         return slotExcerciseEntityRepository.findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(week,year,gymer,isPending);
     }
 
+    public SlotExercise getTop1SlotExerciseByOrderID(Integer orderId){
+        return slotExcerciseEntityRepository.findTopByOrderRequest_OrderId(orderId);
+    }
+    public List<SlotExercise> getAllSlotNotExcepOrder(int week,int year,OrderRequest orderRequest){
+        return slotExcerciseEntityRepository.findByWeekAndAndYearAndOrderRequestIsNot(week,year,orderRequest);
+    }
+
 }

@@ -1,7 +1,9 @@
 package com.swpproject.application.service;
 
 
+import com.swpproject.application.model.Gymer;
 import com.swpproject.application.model.OrderRequest;
+import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.model.SlotExercise;
 import com.swpproject.application.repository.SlotExcerciseEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,4 +61,13 @@ public class SlotExcerciseEntityService {
     public List<SlotExercise> getAllSlotByWeek(int week, int year){
         return slotExcerciseEntityRepository.findByWeekAndAndYear(week,year);
     }
+
+    public List<SlotExercise> findAllByWeekAndYearAndPersonalTrainerAndIsPending(int week, int year, PersonalTrainer personalTrainer, boolean isPending){
+        return slotExcerciseEntityRepository.findAllByWeekAndYearAndPersonalTrainerAndIsPending(week,year,personalTrainer,isPending);
+    }
+
+    public List<SlotExercise> findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(int week, int year, Gymer gymer, boolean isPending){
+        return slotExcerciseEntityRepository.findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(week,year,gymer,isPending);
+    }
+
 }

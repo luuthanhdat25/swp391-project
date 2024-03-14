@@ -131,9 +131,11 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Gender:</label>
-                                                            <input type="text" placeholder="${pt.account.gender}"
-                                                                   readonly
-                                                                   class="form-control">
+                                                            <input type="text" placeholder="<c:choose>
+                                                                <c:when test='${pt.account.gender eq "M"}'>Male</c:when>
+                                                                <c:when test='${pt.account.gender eq "F"}'>Female</c:when>
+                                                                <c:when test='${pt.account.gender eq "O"}'>Other</c:when>
+                                                                </c:choose>" readonly class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -228,7 +230,7 @@
                                                             - ${hour + 2}:00
                                                         </td>
                                                         <c:forEach var="day"
-                                                                   items="${['Monday', 'Tuesday', 'Wednesday', 'Thusday', 'Friday', 'Saturday', 'Sunday']}">
+                                                                   items="${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}">
                                                             <c:set var="disabled" value="false"/>
                                                             <c:set var="pending" value="false"/>
 

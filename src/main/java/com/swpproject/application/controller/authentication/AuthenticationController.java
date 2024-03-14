@@ -233,6 +233,7 @@ public class AuthenticationController {
         Optional<Account> account = accountService.getAccountByEmail(email);
         String hashing = PasswordUtils.hashPassword(password);
         if (account.isPresent() && hashing.equals(account.get().getPassword())) {
+            session.setAttribute("account",account);
             if (account.get().getRole().equals(Role.GYMER)) {
                 Gymer gymer = gymerService.getGymerByAccount(account.get()).get();
                 session.setAttribute("gymer", gymer);

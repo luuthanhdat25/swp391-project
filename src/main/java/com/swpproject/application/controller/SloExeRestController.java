@@ -1,10 +1,14 @@
 package com.swpproject.application.controller;
 
+import com.swpproject.application.controller.dto.ExerciseDTOOut;
+import com.swpproject.application.controller.dto.RoleDTO;
 import com.swpproject.application.model.Exercise;
 import com.swpproject.application.model.SlotExerciseDetail;
 import com.swpproject.application.repository.ExerciseRepository;
 import com.swpproject.application.repository.SlotExeDetailRepository;
 import com.swpproject.application.repository.SlotExeRepository;
+import com.swpproject.application.service.ExerciseService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,21 +31,26 @@ public class SloExeRestController {
     private SlotExeDetailRepository slotExeDetailRepository;
 
     @GetMapping("")
-    public ResponseEntity<List<SlotExerciseDetailDTO>> searchExercises(@RequestParam String id) {
+    public ResponseEntity<List<SlotExerciseDetailDTO>> searchExercises(@RequestParam String id
+            , HttpServletRequest request) {
         // Loại bỏ 3 kí tự đầu
         String modifiedId = id.substring(3);
 
         List<SlotExerciseDetail> slotExerciseDetails =
                 slotExeDetailRepository.findAllBySlotExercise_Id(Integer.parseInt(modifiedId));
-        List<Exercise> exerciseList = exerciseRepository.findAll();
+        List<Exercise> exercises = exerciseRepository.findAll();
+        List<ExerciseDTO> exerciseDTOS = new ArrayList<>();
         List<SlotExerciseDetailDTO> slotExerciseDetailDTOs = new ArrayList<>();
-
+        for (Exercise exercise : exercises){
+            ExerciseDTO exerciseDTO = new ExerciseDTO(exercise.getId(),exercise.getName());
+            exerciseDTOS.add(exerciseDTO);
+        }
         for (SlotExerciseDetail slotExerciseDetail : slotExerciseDetails) {
             SlotExerciseDetailDTO slotExerciseDetailDTO = new SlotExerciseDetailDTO();
             slotExerciseDetailDTO.setId(slotExerciseDetail.getId());
             slotExerciseDetailDTO.setSetExe(slotExerciseDetail.getSetExe());
             slotExerciseDetailDTO.setRep(slotExerciseDetail.getRep());
-            slotExerciseDetailDTO.setExerciseList(exerciseList);
+            slotExerciseDetailDTO.setExercises(exerciseDTOS);
             slotExerciseDetailDTO.setExerciseId(slotExerciseDetail.getExercise().getId());
             slotExerciseDetailDTO.setDescription(slotExerciseDetail.getSlotExercise().getDescription());
             slotExerciseDetailDTO.setCheck("Exe");
@@ -57,10 +66,19 @@ public class SloExeRestController {
 @Setter
 class SlotExerciseDetailDTO {
     private Integer id;
-    private List<Exercise> exerciseList;
+    private List<ExerciseDTO> exercises;
     private int exerciseId;
     private int setExe;
     private int rep;
     private String description;
     private String check;
+}
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+class ExerciseDTO {
+    private Integer id;
+    private String name;
 }

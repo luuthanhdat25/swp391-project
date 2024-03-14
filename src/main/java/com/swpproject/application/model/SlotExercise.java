@@ -27,14 +27,6 @@ public class SlotExercise {
     private boolean isPending;
     private Attendant attendantStatus;
 
-    public boolean isPending() {
-        return isPending;
-    }
-
-    public void setPending(boolean pending) {
-        isPending = pending;
-    }
-
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;

@@ -66,4 +66,8 @@ public class SlotExcerciseEntityService {
     public List<SlotExercise> getAllSlotNotExcepOrder(int week,int year,OrderRequest orderRequest){
         return slotExcerciseEntityRepository.findByWeekAndAndYearAndOrderRequestIsNot(week,year,orderRequest);
     }
+
+    public List<SlotExercise> GetSlotOfOrder(OrderRequest orderRequest){
+        return  slotExcerciseEntityRepository.findAllByOrderRequest(orderRequest);
+    }
 }

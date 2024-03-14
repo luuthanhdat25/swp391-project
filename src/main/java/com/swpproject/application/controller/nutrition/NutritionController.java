@@ -5,7 +5,9 @@ import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Nutrition;
 import com.swpproject.application.dto.NutritionDTOIn;
 import com.swpproject.application.dto.NutritionDTOOut;
+import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.service.NutritionService;
+import com.swpproject.application.service.PersonalTrainerService;
 import com.swpproject.application.utils.JsonUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +31,9 @@ public class NutritionController {
     @Autowired
     private NutritionService nutritionService;
 
+    @Autowired
+    private PersonalTrainerService personalTrainerService;
+
     private static final String NUTRITION_LIST_URL = "nutrition/nutrition-list";
     private static final String NUTRITION_CREATE_URL = "nutrition/nutrition-create";
     private static final String NUTRITION_UPDATE_URL = "nutrition/nutrition-update";
@@ -41,8 +46,10 @@ public class NutritionController {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         List<NutritionDTOOut> nutritionDTOOutList = nutritionService.getNutritionDTOOutList(roleDTO);
         String nutritionDTOOutListJson = JsonUtils.jsonConvert(nutritionDTOOutList);
-        System.out.println("Length nutrition: " + nutritionDTOOutList.size());
         model.addAttribute("nutritionList", nutritionDTOOutListJson);
+
+        boolean canCreate = canCreateUpdate(roleDTO);
+        model.addAttribute("canCreate", canCreate);
         return NUTRITION_LIST_URL;
     }
 
@@ -57,7 +64,12 @@ public class NutritionController {
     }
 
     private boolean canCreateUpdate(RoleDTO roleDTO){
-        return roleDTO != null && (roleDTO.getRole() == Role.ADMIN || roleDTO.getRole() == Role.PT);
+        if(roleDTO == null) return false;
+        if(roleDTO.getRole() == Role.ADMIN) return true;
+
+        if(roleDTO.getRole() != Role.PT) return false;
+        PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByID(roleDTO.getId()).get();
+        return  personalTrainer.getIsActive();
     }
 
 

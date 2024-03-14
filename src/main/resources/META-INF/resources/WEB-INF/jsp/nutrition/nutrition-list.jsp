@@ -30,22 +30,13 @@
                     </div>
                 </div>
 
-                <c:if test="${account ne null}">
-                    <c:choose>
-                        <c:when test="${account.getRole() eq 'PT' || account.getRole() eq 'ADMIN'}">
-                            <div class="card invoices-tabs-card border-0 mt-3">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="invoices-settings-btn invoices-settings-btn-one">
-                                        <a href="/nutrition/create" class="btn"><i class="feather feather-plus-circle"></i>New Nutrition</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <!-- Other role-specific content here -->
-                        </c:otherwise>
-                    </c:choose>
-                </c:if>
+                <div class="card invoices-tabs-card border-0 mt-3" id="createNutrition" style="display: none">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="invoices-settings-btn invoices-settings-btn-one">
+                            <a href="/nutrition/create" class="btn"><i class="feather feather-plus-circle"></i>New Nutrition</a>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="card mt-3">
                     <div class="card-body">
@@ -285,10 +276,11 @@
     <script src="../../../assets/js/script.js"></script>
 
     <script>
-        <%--var nutritionList = ${nutritionList};--%>
-        // console.log(nutritionList);
-        var personalTrainerId = ${personalTrainer.getId()};
-        console.log(personalTrainerId)
+        var canCreat = ${canCreate};
+        console.log('Can create Nutrition: ' + canCreat);
+        if(canCreat && canCreat === true){
+            $('#createNutrition').show();
+        }
     </script>
 
     <script src="../../../assets/js/nutrition/view_list/nutrition-view-list-generate.js"></script>

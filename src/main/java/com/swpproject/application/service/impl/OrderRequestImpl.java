@@ -12,7 +12,10 @@ import java.util.List;
 
 @Service
 public class OrderRequestImpl implements OrderRequestService {
-
+    @Override
+    public boolean checkGymerOrderExist(Integer gymerID, OrderStatus orderStatus) {
+        return orderRequestRepository.existsByGymer_GymerIdAndAndStatus(gymerID,orderStatus);
+    }
 
     @Override
     public OrderRequest getOrderRequestById(Integer orderId) {
@@ -39,6 +42,10 @@ public class OrderRequestImpl implements OrderRequestService {
 //    public void updateStatusOrder(String orderStatus, Integer orderId) {
 //        orderRequestRepository.updateOrderStatusById(orderId,orderStatus);
 //    }
+
+    public List<OrderRequest> getOrderList(PersonalTrainer personalTrainer, OrderStatus orderStatus){
+        return  orderRequestRepository.findAllByPersonalTrainerAndStatus(personalTrainer,orderStatus);
+    }
     @Override
     public void deleteOrder(Integer orderId) {
         orderRequestRepository.deleteById(orderId);

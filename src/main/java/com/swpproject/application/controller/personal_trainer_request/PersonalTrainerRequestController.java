@@ -3,23 +3,29 @@ package com.swpproject.application.controller.personal_trainer_request;
 import com.swpproject.application.enums.RequestStatus;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Certificate;
+import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.model.PersonalTrainerRequest;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.CertificateRepository;
 import com.swpproject.application.repository.PersonalTrainerRequestRepository;
 import com.swpproject.application.service.CertificateService;
+import com.swpproject.application.service.PersonalTrainerService;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -29,6 +35,10 @@ import java.util.stream.Collectors;
 public class PersonalTrainerRequestController {
     @Autowired
     private PersonalTrainerRequestRepository personalTrainerRequestRepository;
+    @Autowired
+    private CertificateService certificateService;
+    @Autowired
+    private PersonalTrainerService personalTrainerService;
 
     @RequestMapping(value = "/admin-home/manage-personal-trainer-request", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String viewManagePersonalTrainerRequest(ModelMap modelMap,
@@ -62,7 +72,7 @@ public class PersonalTrainerRequestController {
 
             if (requestFilters.isEmpty()) {
                 modelMap.addAttribute("TotalPage", personalTrainerRequests.getTotalPages());
-                return "personalTrainerRequest/admin-home-view-personal-trainer-request-list";
+                return "personalTrainerRequest/admin-home-manage-personal-trainer-request";
             }
 
             Collections.sort(requestFilters, Comparator.comparing(PersonalTrainerRequest::getTimeStamp).reversed());
@@ -74,20 +84,16 @@ public class PersonalTrainerRequestController {
 
         modelMap.put("PersonalTrainerRequestList", personalTrainerRequests);
         modelMap.addAttribute("TotalPage", personalTrainerRequests.getTotalPages());
-         return "personalTrainerRequest/admin-home-view-personal-trainer-request-list";
-    }
-
-    @RequestMapping(value = "admin-home/view-personal-trainer-request-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getPersonalTrainerRequestDetail(ModelMap modelMap, @RequestParam("requestID") int requestID) {
-        PersonalTrainerRequest request = personalTrainerRequestRepository.findById(requestID).get();
-        modelMap.addAttribute("RequestDetail", request);
-        return "personalTrainerRequest/admin-home-view-personal-trainer-request-detail";
+        return "personalTrainerRequest/admin-home-manage-personal-trainer-request";
     }
 
     @RequestMapping(value = "admin-home/approve-personal-trainer-request", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String approvePersonalTrainerRequest(@RequestParam("requestID") Integer requestID) {
         PersonalTrainerRequest request = personalTrainerRequestRepository.findById(requestID).get();
         request.setStatus(RequestStatus.APPROVED);
+        PersonalTrainer personalTrainer = personalTrainerService.getPersonalTrainerById(request.getPersonalTrainerAccount().getId()).get();
+        personalTrainer.setIsActive(true);
+        personalTrainerService.save(personalTrainer);
         personalTrainerRequestRepository.save(request);
         return "forward:manage-personal-trainer-request";
     }
@@ -99,4 +105,44 @@ public class PersonalTrainerRequestController {
         personalTrainerRequestRepository.save(request);
         return "forward:manage-personal-trainer-request";
     }
+
+    @ResponseBody
+    @GetMapping(value = "/get-personal-trainer-request-detail")
+    public ResponseEntity<PersonalTrainerRequestDTO> getPersonalTrainerRequestDetail(@RequestParam int requestID) {
+        PersonalTrainerRequest request = personalTrainerRequestRepository.findById(requestID).get();
+        PersonalTrainerRequestDTO requestDTO = new PersonalTrainerRequestDTO();
+        requestDTO.setId(request.getId());
+        requestDTO.setPersonalTrainerID(request.getPersonalTrainerAccount().getId());
+        requestDTO.setTitle(request.getTitle());
+        requestDTO.setContent(request.getContent());
+        requestDTO.setTimeStamp(request.getTimeStamp());
+        requestDTO.setStatus(request.getStatus());
+        requestDTO.setPersonalTrainerImage(request.getPersonalTrainerAccount().getAccount().getAvatarImage());
+        requestDTO.setPersonalTrainerName(request.getPersonalTrainerAccount().getAccount().getFullName());
+
+        List<byte[]> certificateDatas = certificateService.getAllCertificatesData(request.getPersonalTrainerAccount());
+        requestDTO.setCerificate_1(certificateDatas.get(0));
+        requestDTO.setCerificate_2(certificateDatas.get(1));
+        requestDTO.setCerificate_3(certificateDatas.get(2));
+        return ResponseEntity.ok().body(requestDTO);
+    }
+}
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+class PersonalTrainerRequestDTO {
+    private Integer id;
+    private Integer personalTrainerID;
+    private String title;
+    private String content;
+    private LocalDateTime timeStamp;
+    private RequestStatus status;
+    private byte[] personalTrainerImage;
+    private String personalTrainerName;
+
+    private byte[] cerificate_1;
+    private byte[] cerificate_2;
+    private byte[] cerificate_3;
 }

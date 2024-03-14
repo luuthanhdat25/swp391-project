@@ -1,6 +1,9 @@
 package com.swpproject.application.repository;
 
+import com.swpproject.application.model.Gymer;
 import com.swpproject.application.model.OrderRequest;
+import com.swpproject.application.model.PersonalTrainer;
+import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.model.SlotExercise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +15,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Repository
-public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercise, Long> {
+public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercise, Integer> {
     public List<SlotExercise> getSlotExcerciseByPersonalTrainer_IdAndIsPending(Integer PersonalTrainerId, boolean pending);
 
     public List<SlotExercise> findAllBySchedule_IdAndGymer_GymerIdAndIsPending(
@@ -52,8 +55,13 @@ public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercis
     @Transactional
     public void deleteAllByOrderRequest_OrderId(Integer orderID);
 
+    public List<SlotExercise> findByWeekAndAndYearAndOrderRequestIsNot(int week,int year,OrderRequest orderRequest);
+
+    public SlotExercise findTopByOrderRequest_OrderId(Integer id);
+
     public List<SlotExercise> findByWeekAndAndYear(int week,int year);
 
+    public List<SlotExercise> findAllByWeekAndYearAndPersonalTrainerAndIsPending(int week, int year, PersonalTrainer personalTrainer, boolean isPending);
 
-
+    public List<SlotExercise> findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(int week, int year, Gymer gymer, boolean isPending);
 }

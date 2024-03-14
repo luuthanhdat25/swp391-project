@@ -1,8 +1,8 @@
 package com.swpproject.application.controller.exercise;
 
-import com.swpproject.application.controller.dto.ExerciseDTOIn;
-import com.swpproject.application.controller.dto.ExerciseDTOOut;
-import com.swpproject.application.controller.dto.RoleDTO;
+import com.swpproject.application.dto.ExerciseDTOIn;
+import com.swpproject.application.dto.ExerciseDTOOut;
+import com.swpproject.application.dto.RoleDTO;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.ExerciseService;

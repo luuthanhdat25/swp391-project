@@ -20,7 +20,7 @@
 		this.coverLayer = this.element.getElementsByClassName('cd-schedule__cover-layer')[0];
 
 		this.modalMaxWidth = 1000;
-		this.modalMaxHeight = 480;
+		this.modalMaxHeight = 700;
 
 		this.animating = false;
 		this.supportAnimation = Util.cssSupports('transition');
@@ -313,18 +313,19 @@
 			success: function(response) {
 				var formContent = '<form class="exercise-form">';
 				formContent += '<div class="row my-2"></div>'; // Hàng trắng phía trên
-
 				if (response[0].check === "Exe") {
-					// Duyệt qua từng đối tượng exe trong danh sách response
-					response.forEach(function(slotExerciseDetailDTO, index) {
+					response.forEach(function (slotExerciseDetailDTO, index) {
 						formContent += '<div class="row exercise-item mb-2">'; // Khoảng trống dưới mỗi hàng
 						formContent += '<div class="col-1"></div>'; // Khoảng trống bên trái
-						formContent += '<div class="col-sm-4">';
-						formContent += '<label for="exerciseName_' + index + '">Exercise Name:</label>';
-						formContent += '<select id="exerciseName_' + index + '" name="exerciseName_' + index + '" class="form-control">';
+						formContent += '<div class="col-sm-4 exercise-fields">'; // Thêm class để điều khiển hiển thị
+						formContent += '<div class="form-group">';
+						formContent += '<label>Exercise'; // Bắt đầu của thẻ label
+						formContent += '</label>'; // Kết thúc của thẻ label
+						formContent += '<select class="form-control exercise-select" name="exerciseName_' + index + '">';
+						formContent += '<option disabled selected>Choose exercise</option>';
 
 						// Duyệt qua từng phần tử của exerciseList
-						slotExerciseDetailDTO.exerciseList.forEach(function(exercise) {
+						slotExerciseDetailDTO.exercises.forEach(function (exercise) {
 							// Kiểm tra nếu id của exercise trùng khớp với exerciseId
 							var selected = (exercise.id === slotExerciseDetailDTO.exerciseId) ? 'selected' : '';
 							// Thêm một tùy chọn vào select với value là id của exercise và hiển thị là tên của exercise
@@ -333,43 +334,53 @@
 
 						formContent += '</select>';
 						formContent += '</div>';
-
-
-						formContent += '<div class="col-sm-2">';
-						formContent += '<label for="setExe_' + index + '">Set:</label>';
-						formContent += '<input type="text" id="setExe_' + index + '" name="setExe_' + index + '" class="form-control" value="' + slotExerciseDetailDTO.setExe + '">';
 						formContent += '</div>';
 
-						formContent += '<div class="col-sm-2">';
-						formContent += '<label for="rep_' + index + '">Rep:</label>';
-						formContent += '<input type="text" id="rep_' + index + '" name="rep_' + index + '" class="form-control" value="' + slotExerciseDetailDTO.rep + '">';
+						formContent += '<div class="col-sm-2 exercise-fields">';
+						formContent += '<div class="form-group">';
+						formContent += '<label>Set</label>';
+						formContent += '<input type="text" class="form-control exercise-set" placeholder="Enter set" name="setExe_' + index + '" value="' + slotExerciseDetailDTO.setExe + '">';
 						formContent += '</div>';
-						formContent += '</div>'
+						formContent += '</div>';
+
+						formContent += '<div class="col-sm-2 exercise-fields">';
+						formContent += '<div class="form-group">';
+						formContent += '<label>Rep</label>';
+						formContent += '<input type="text" class="form-control exercise-rep" placeholder="Enter rep" name="rep_' + index + '" value="' + slotExerciseDetailDTO.rep + '">';
+						formContent += '</div>';
+						formContent += '</div>';
+
+						formContent += '</div>';
+
 					});
 				} else {
-					// Duyệt qua từng đối tượng nutri trong danh sách response
-					response.forEach(function(slotNutritionDetailDTO, index) {
+					response.forEach(function (slotNutritionDetailDTO, index) {
 						formContent += '<div class="row exercise-item mb-2">'; // Mở một hàng mới
 						formContent += '<div class="col-1"></div>'; // Khoảng trống bên trái
-						formContent += '<div class="col-sm-4">';
-						formContent += '<label for="nutritionName_' + index + '">Nutrition Name:</label>';
-						formContent += '<select id="nutritionName_' + index + '" name="nutritionName_' + index + '" class="form-control">';
+						formContent += '<div class="col-sm-4 nutrition-fields">'; // Thêm class để điều khiển hiển thị
+						formContent += '<div class="form-group">';
+						formContent += '<label>Nutrition'; // Bắt đầu của thẻ label
+						formContent += '</label>'; // Kết thúc của thẻ label
+						formContent += '<select class="form-control nutrition-select" name="nutritionName_' + index + '">'; // Đặt Name cho select
+						formContent += '<option disabled selected>Choose nutrition</option>';
 
-						// Duyệt qua từng phần tử của nutritionList
-						slotNutritionDetailDTO.nutritionList.forEach(function(nutrition) {
-							// Kiểm tra nếu id của nutrition trùng khớp với nutritionId
-							var selected = (nutrition.nutritionId === slotNutritionDetailDTO.nutriId) ? 'selected' : '';
-							// Thêm một tùy chọn vào select với value là id của nutrition và hiển thị là tên của nutrition
-							formContent += '<option value="' + nutrition.nutritionId + '" ' + selected + '>' + nutrition.name + '</option>';
+						// Duyệt qua từng phần tử của nutritions
+						slotNutritionDetailDTO.nutritions.forEach(function (nutrition) {
+							var selected = (nutrition.id === slotNutritionDetailDTO.nutritionId) ? 'selected' : '';
+							formContent += '<option value="' + nutrition.id + '" ' + selected + '>' + nutrition.name + '</option>';
 						});
 
 						formContent += '</select>';
 						formContent += '</div>';
-
-						formContent += '<div class="col-sm-4">';
-						formContent += '<label for="amount_' + index + '">Amount:</label>';
-						formContent += '<input type="text" id="amount_' + index + '" name="amount_' + index + '" class="form-control" value="' + slotNutritionDetailDTO.amount + '">';
 						formContent += '</div>';
+
+						formContent += '<div class="col-sm-4 nutrition-fields">';
+						formContent += '<div class="form-group">';
+						formContent += '<label>Amount</label>';
+						formContent += '<input type="text" class="form-control nutrition-amount" placeholder="Enter amount" name="amount_' + index + '" value="' + slotNutritionDetailDTO.amount + '">';
+						formContent += '</div>';
+						formContent += '</div>';
+
 						formContent += '</div>'; // Đóng tag div của hàng
 					});
 				}
@@ -382,23 +393,29 @@
 				formContent += '</div>';
 				formContent += '</div>';
 
+				formContent += '<div class="bank-details-btn row justify-content-center mt-4">';
+				formContent += '  <div class="offset-7">'; // Offset by one column to the right
+				formContent += '    <button class="btn bank-save-btn" type="submit">Save</button>';
+				formContent += '  </div>';
+				formContent += '</div>';
+
+
 				formContent += '</form>';
+
 
 				// Hiển thị biểu mẫu nội dung của sự kiện
 				self.modal.getElementsByClassName('cd-schedule-modal__event-info')[0].innerHTML = formContent;
 				Util.addClass(self.modal, 'cd-schedule-modal--content-loaded');
 			}
 			,
-			error: function(xhr, status, error) {
+			error: function (xhr, status, error) {
 				console.error(xhr.responseText);
 			}
-
 		});
 	};
 
 
-
-	ScheduleTemplate.prototype.getEventContent = function(string) {
+	ScheduleTemplate.prototype.getEventContent = function (string) {
 		// reset the loaded event content so that it can be inserted in the modal
 		var div = document.createElement('div');
 		div.innerHTML = string.trim();
@@ -427,7 +444,7 @@
 		return timeStamp;
 	};
 
-	var scheduleTemplate = document.getElementsByClassName('js-cd-schedule'),	
+	var scheduleTemplate = document.getElementsByClassName('js-cd-schedule'),
 		scheduleTemplateArray = [],
 		resizing = false;
 	if( scheduleTemplate.length > 0 ) { // init ScheduleTemplate objects
@@ -437,7 +454,7 @@
 			})(i);
 		}
 
-		window.addEventListener('resize', function(event) { 
+		window.addEventListener('resize', function(event) {
 			// on resize - update events position and modal position (if open)
 			if( !resizing ) {
 				resizing = true;

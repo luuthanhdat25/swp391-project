@@ -197,6 +197,8 @@
                     <div class="modal-body">
                         <div class="bank-inner-details" id="scheduleDetails">
                             <div class="row">
+                                <input type="hidden" value="${week}" name="week">
+                                <input type="hidden" value="${year}" name="year">
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <label>Type of slot</label>
@@ -261,9 +263,6 @@
                                                 <option value="${exe.id}" >${exe.name}</option>
                                             </c:forEach>
                                         </select>
-                                        <div id="exercisePreview">
-                                            <!-- Placeholder for exercise image preview -->
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 exercise-fields" style="display: none;">
@@ -337,22 +336,12 @@
 <script src="assets/js/jquery-ui.min.js"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var selectElement = document.getElementById('exerciseSelect');
-        var exercisePreview = document.getElementById('exercisePreview');
-
-        selectElement.addEventListener('mouseover', function (event) {
-            var option = event.target;
-            if (option.tagName === 'OPTION') {
-                var imageDescription = option.getAttribute('data-image');
-                if (imageDescription) {
-                    exercisePreview.innerHTML = '<img src="' + imageDescription + '" alt="Exercise Image">';
-                } else {
-                    exercisePreview.innerHTML = ''; // Clear preview if no image description is provided
-                }
-            }
-        });
-    });
+    // Hàm để đóng modal
+    function closeModal() {
+        var modal = document.querySelector('.modal');
+        var modalInstance = bootstrap.Modal.getInstance(modal);
+        modalInstance.hide();
+    }
 </script>
 
 <script>

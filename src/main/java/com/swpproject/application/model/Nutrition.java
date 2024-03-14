@@ -1,5 +1,5 @@
 package com.swpproject.application.model;
-import com.swpproject.application.controller.dto.NutritionDTOOut;
+import com.swpproject.application.dto.NutritionDTOOut;
 import lombok.*;
 import org.springframework.data.relational.core.mapping.Table;
 import jakarta.persistence.*;

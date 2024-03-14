@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Data
 @Entity
-@Table(name = "personal_traier_request")
+@Table(name = "personal_trainer_request")
 public class PersonalTrainerRequest {
 
     @Id
@@ -31,7 +31,7 @@ public class PersonalTrainerRequest {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "personal_trainer_id",referencedColumnName = "id", nullable = false)
-    private Account personalTrainerAccount;
+    private PersonalTrainer personalTrainerAccount;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, columnDefinition = "varchar(20)")

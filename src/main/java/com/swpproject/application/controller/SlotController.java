@@ -40,10 +40,27 @@ public class SlotController {
     private SystemNotificationService systemNotificationService;
 
     @RequestMapping(value = "bookPT", method = RequestMethod.GET)
-    public String viewSChedulePT(HttpSession session) {
+    public String viewSChedulePT(HttpSession session,Model model) {
         Account accountSession = (Account) session.getAttribute("account");
+        Gymer gymerSession = gymerService.getGymerByAccount(accountSession).get();
+
+
         if(accountSession == null){
             return "redirect:/auth/login";
+        }
+        boolean checkOrderExist = orderRequestService.checkGymerOrderExist(gymerSession.getGymerId(),OrderStatus.OnDoing);
+        boolean checkOrderWaiting = orderRequestService.checkGymerOrderExist(gymerSession.getGymerId(),OrderStatus.Pending);
+        if (checkOrderExist){
+            model.addAttribute("MSGAnount","You booked another Personal Trainer");
+            model.addAttribute("MSGDescError","You Can't book this Personal Trainer because you are booking another personal trainer");
+            return "book-fail";
+
+        }else if(checkOrderWaiting){
+            model.addAttribute("MSGAnount", "Please wait for another order accept or decline");
+            model.addAttribute("MSGDescError","You Can't book this Personal Trainer because you are book another personal trainer," +
+                    "please wait for this order update");
+            return "book-fail";
+
         }
         return "book-pt";
     }
@@ -208,6 +225,7 @@ public class SlotController {
                         slotEntity.setAttendantStatus(Attendant.WAITING);
                         slotEntity.setGymer(gymerService.getGymerByAccount(accountSession).get());
                         slotEntity.setPersonalTrainer(personalTrainer);
+
                         slotRequest.add(slotEntity);
                     } else {
                         // Log or handle the case where the expected number of parts is not found
@@ -229,6 +247,7 @@ public class SlotController {
                 }
 
             }
+            System.out.println(flag);
             List<SlotExercise> conflictsList = new ArrayList<>();
             int checkWeek = week;
             int checkYear = year;
@@ -248,6 +267,10 @@ public class SlotController {
                 System.out.println("conflic slot: " + conflictsList.size());
                 System.out.println("PT ID : " + personalTrainer.getId());
                 System.out.println(" ScheduleID: " + schedulePersonalTrainerEntity.getId());
+                redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
+                redirectAttributes.addAttribute("week", week);
+                redirectAttributes.addAttribute("year", year);
+                return "redirect:/bookPT1";
             }else{
                     orderRequest.setPersonalTrainer(personalTrainer); //set personal Trainer for order request
                     orderRequest.setTitle(title);
@@ -255,6 +278,7 @@ public class SlotController {
                     orderRequest.setDescription(desc);
                     orderRequest.setTotal_of_money(totalAmount);
                     orderRequest.setStatus(OrderStatus.Pending);
+                    orderRequest.setTranking(0);
                     System.out.println("goal" + title);
                     System.out.println("desc" + desc);
                     System.out.println("training time" + trainingTime);
@@ -296,6 +320,7 @@ public class SlotController {
                                     slotEntity.setPersonalTrainer(personalTrainer);
                                     slotEntity.setOrderRequest(orderRequest);
                                     slotExcerciseEntityService.SaveSlotExcercise(slotEntity);
+//                                    System.out.println(slotEntity.toString());
                                 } else {
                                     System.out.println("Invalid slot format: " + checkedSlot);
                                 }
@@ -303,15 +328,21 @@ public class SlotController {
                         }
                     }
                 }
+                redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
+                redirectAttributes.addAttribute("week", week);
+                redirectAttributes.addAttribute("year", year);
             }
         }
-        systemNotificationService.createNotification_NewRequestHiring(gymerService.getGymerByAccount(accountSession).get().getGymerId(), personalTrainer.getId());
-        redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
-        redirectAttributes.addAttribute("week", week);
-        redirectAttributes.addAttribute("year", year);
-        return "redirect:/bookPT1";
+        systemNotificationService.createNotification_NewRequestHiring(orderRequest);
+        return "redirect:/personal-trainer/";
 //        return "redirect:/personal-trainer/";
     }
 
 
+
+    public boolean checkBookSecond(Account account){
+        Gymer gymer = gymerService.getGymerByAccount(account).get();
+
+        return false;
+    }
 }

@@ -1,4 +1,4 @@
-package com.swpproject.application.controller.dto;
+package com.swpproject.application.dto;
 
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;

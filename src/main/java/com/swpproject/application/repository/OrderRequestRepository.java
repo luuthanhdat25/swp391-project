@@ -15,4 +15,8 @@ public interface OrderRequestRepository extends JpaRepository<OrderRequest,Integ
 //    @Modifying
 //    @Query("UPDATE OrderRequest o SET o.status = :newStatus WHERE o.orderId = :orderId")
 //    void updateOrderStatus( Integer orderId, OrderStatus newStatus);
+
+    boolean existsByGymer_GymerIdAndAndStatus(Integer gymerID, OrderStatus orderStatus);
+    List<OrderRequest> findAllByPersonalTrainerAndStatus(PersonalTrainer personalTrainer,OrderStatus orderStatus);
+
 }

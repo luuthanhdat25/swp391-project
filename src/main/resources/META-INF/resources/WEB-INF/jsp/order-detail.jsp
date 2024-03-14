@@ -35,22 +35,23 @@
 
                                     <form:form action="${pageContext.request.contextPath}/accept-order" method="post">
                                     <h5 class="card-title">Purpose details</h5>
-                                        <div class="form-group">
-                                            <label>Gymer Name:</label>
-                                            <input type="text" class="form-control" disabled value="${account.fullName}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Email:</label>
-                                            <input type="text" class="form-control" disabled value="${account.email}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>BirthDay:</label>
-                                            <input type="text" class="form-control" disabled value="${account.birthday.toString()}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Address:</label>
-                                            <input type="text" class="form-control" disabled value="${account.address}">
-                                        </div>
+                                    <div class="form-group">
+                                        <label>Gymer Name:</label>
+                                        <input type="text" class="form-control" disabled value="${account.fullName}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email:</label>
+                                        <input type="text" class="form-control" disabled value="${account.email}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>BirthDay:</label>
+                                        <input type="text" class="form-control" disabled
+                                               value="${account.birthday.toString()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Address:</label>
+                                        <input type="text" class="form-control" disabled value="${account.address}">
+                                    </div>
 
                                 </div>
                                 <div class="col-md-6">
@@ -90,6 +91,26 @@
                                                    class="form-control">
                                         </div>
                                     </div>
+                                    <div class="row">
+
+                                        <div id="calendar-events" class="col-md-6">
+                                            <div class="ui-color-key">
+                                                <div class="calendar-events" data-class="bg-info">
+                                                    <li style="background-color: #F5556F">Conflic slot</li>
+                                                </div>
+                                                <div class="calendar-events" data-class="bg-success">
+                                                    <li style="background-color: #93D199;">Slot Pending</li>
+                                                </div>
+                                                <div class="calendar-events" data-class="bg-danger">
+                                                    <li style="background-color: rgb(194, 192, 192);">Ordered</li>
+                                                </div>
+                                                <div class="calendar-events" data-class="bg-danger">
+                                                    <li style="background-color: #0BCBE3;">Slot ordering</li>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -114,11 +135,37 @@
                                             <td style="width: 150px;" class="time-column">${hour}:00 - ${hour + 2}:00
                                             </td>
                                             <c:forEach var="day"
-                                                       items="${['Monday', 'Tuesday', 'Wednesday', 'Thusday', 'Friday', 'Saturday', 'Sunday']}">
+                                                       items="${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}">
                                                 <c:set var="disabled" value="false"/>
+                                                <c:set var="pending" value="false"/>
+                                                <c:set var="conflic" value="false"/>
+                                                <c:set var="ordering" value="false"/>
+                                                <c:set var="slotContent" value=""/>
                                                 <c:forEach items="${allSlots}" var="scheduleSlot">
-                                                    <c:if test="${scheduleSlot.day eq day && fn:substringBefore(scheduleSlot.start_hour, ':') == hour && fn:substringBefore(scheduleSlot.end_hour, ':') == (hour + 2)}">
+                                                    <c:if test="${scheduleSlot.day eq day && fn:substringBefore(scheduleSlot.start_hour, ':') == hour
+                                                    && fn:substringBefore(scheduleSlot.end_hour, ':') == (hour + 2)}">
                                                         <c:set var="disabled" value="true"/>
+                                                        <c:set var="ordering" value="true"/>
+                                                        <c:set var="slotContent" value="${scheduleSlot.getGymer().getAccount().getFullName()}"/>
+                                                    </c:if>
+                                                </c:forEach>
+                                                <c:forEach items="${conflicSlot}" var="scheduleSlot">
+                                                    <c:if test="${scheduleSlot.day eq day && fn:substringBefore(scheduleSlot.start_hour, ':') == hour
+                                                     && fn:substringBefore(scheduleSlot.end_hour, ':') == (hour + 2)}">
+                                                        <c:set var="disabled" value="true"/>
+                                                        <c:set var="conflic" value="true"/>
+
+                                                    </c:if>
+                                                </c:forEach>
+                                                <c:forEach items="${orderedSlot}" var="scheduleSlot">
+                                                    <c:if test="${scheduleSlot.day eq day && fn:substringBefore(scheduleSlot.start_hour, ':') == hour
+                                                    && fn:substringBefore(scheduleSlot.end_hour, ':') == (hour + 2)}">
+                                                        <c:if test="${scheduleSlot.isPending()}">
+                                                            <c:set var="pending" value="true"/>
+                                                        </c:if>
+                                                        <c:set var="disabled" value="true"/>
+                                                        <c:set var="slotContent" value="${scheduleSlot.getGymer().getAccount().getFullName()}"/>
+
                                                     </c:if>
                                                 </c:forEach>
                                                 <c:choose>
@@ -130,7 +177,44 @@
                                                                    onchange="limitSlots(this)"
                                                                 ${disabled ? 'disabled="disabled" ' : ''}
                                                             />
-                                                            <label for="${day.toLowerCase()}-${hour}${hour + 2}" style="background-color: rgb(194, 192, 192);;">${account.fullName}</label>
+                                                            <label for="${day.toLowerCase()}-${hour}${hour + 2}" style="
+                                                            <c:choose>
+                                                            <c:when test="${disabled && pending}">
+                                                                    background-color: #93D199;
+                                                            </c:when>
+                                                            <c:when test="${disabled && ordering}">
+                                                                    background-color: #0BCBE3;
+                                                            </c:when>
+                                                            <c:when test="${disabled && conflic}">
+                                                                    background-color: #F5556F;
+                                                            </c:when>
+                                                            <c:when test="${disabled && !pending && !conflic && !ordering}">
+                                                                    background-color: rgb(194, 192, 192);
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                    /* Add any other styles you want for other cases */
+                                                            </c:otherwise>
+                                                                    </c:choose>"> <c:choose>
+                                                                <c:when test="${disabled && pending}">
+                                                                    <c:out value="${slotContent}"/>
+                                                                </c:when>
+                                                                <c:when test="${disabled && ordering}">
+                                                                    <c:out value="${slotContent}"/>
+                                                                </c:when>
+                                                                <c:when test="${disabled && conflic}">
+                                                                    <c:out value="${slotContent}"/>
+                                                                </c:when>
+                                                                <c:when test="${disabled && !pending && !conflic && !ordering}">
+                                                                    <c:out value="${slotContent}"/>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    /* Add any other styles you want for other cases */
+                                                                </c:otherwise>
+                                                            </c:choose>
+
+
+                                                                    </label>
+
                                                         </td>
                                                     </c:when>
                                                     <c:otherwise>
@@ -148,7 +232,6 @@
                             </div>
 
 
-
                             <div>
                                 <div id="conflictAlert" class="alert alert-danger" style="display:none;">
                                     <strong>Conflicting slot!</strong> There is a schedule conflict.
@@ -156,24 +239,28 @@
                                 <c:choose>
                                     <c:when test="${empty MSG}">
                                         <!-- Display the "Accept" button only if MSG is empty -->
-                                        <button type="submit" class="btn btn-primary" name="action" value="accept">Accept</button>
-                                        <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary" name="action" value="decline">Decline</a>
+                                        <button type="submit" class="btn btn-primary" name="action" value="accept">
+                                            Accept
+                                        </button>
+                                        <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
+                                           name="action" value="decline">Decline</a>
 
                                     </c:when>
                                     <c:otherwise>
                                         <!-- If MSG is not empty, display the "Decline" button -->
-                                        <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary" name="action" value="decline">Decline</a>
+                                        <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
+                                           name="action" value="decline">Decline</a>
                                     </c:otherwise>
                                 </c:choose>
 
                             </div>
-                                <input type="hidden" name="MSG" value="${MSG}">
+                            <input type="hidden" name="MSG" value="${MSG}">
 
 
-                                <input type="hidden" name="order" value="${param.order_id}">
-                                <c:forEach var="slot" items="${allSlots}" varStatus="loop">
-                                    <input type="hidden" name="slotOrder" value="${slot.id}" />
-                                </c:forEach>
+                            <input type="hidden" name="order" value="${param.order_id}">
+                            <c:forEach var="slot" items="${allSlots}" varStatus="loop">
+                                <input type="hidden" name="slotOrder" value="${slot.id}"/>
+                            </c:forEach>
 
                             </form:form>
                         </div>
@@ -195,9 +282,9 @@
     if (msgValue !== "") {
         // If MSG is not empty, show the conflict alert for 2 seconds
         document.getElementById("conflictAlert").style.display = "block";
-        setTimeout(function() {
+        setTimeout(function () {
             document.getElementById("conflictAlert").style.display = "none";
-        }, 2000);
+        }, 10000);
     }
 </script>
 <script>

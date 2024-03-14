@@ -1,6 +1,8 @@
 package com.swpproject.application.service;
 
-import com.swpproject.application.controller.dto.*;
+import com.swpproject.application.dto.NutritionDTOIn;
+import com.swpproject.application.dto.NutritionDTOOut;
+import com.swpproject.application.dto.RoleDTO;
 import com.swpproject.application.model.Nutrition;
 import org.springframework.stereotype.Service;
 

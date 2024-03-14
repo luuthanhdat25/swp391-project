@@ -175,7 +175,12 @@ function handleSearch(id) {
         success: function(response) {
             console.log('Response: ');
             console.log(response);
-            renderNutritionList(response)
+
+            if (response && response.length > 0) {
+                renderNutritionList(response)
+            } else {
+                document.getElementById('nutritionTableBody').innerHTML = "<p class='fs-3 text text-secondary mt-3'>Not found any Nutrition!</p>";
+            }
         },
         error: function(xhr, status, error) {
             console.error(error);

@@ -261,17 +261,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-<%--                            <c:if test="${account ne null}">--%>
-<%--                                <c:choose>--%>
-<%--                                    <c:when test="${account.getRole() eq 'PT' && personalTrainer.getAccount().getId() eq account.getId()}">--%>
-<%--                                    </c:when>--%>
-<%--                                    <c:otherwise>--%>
-<%--                                        <!-- Other role-specific content here -->--%>
-<%--                                    </c:otherwise>--%>
-<%--                                </c:choose>--%>
-<%--                            </c:if>--%>
                             <a id="editButton" style="display: none" href="" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
-
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>

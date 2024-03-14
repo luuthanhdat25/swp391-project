@@ -1,5 +1,6 @@
 package com.swpproject.application.controller;
 
+import com.swpproject.application.dto.SlotExerciseDetailDTO;
 import com.swpproject.application.model.Exercise;
 import com.swpproject.application.model.SlotExerciseDetail;
 import com.swpproject.application.repository.ExerciseRepository;
@@ -51,16 +52,3 @@ public class SloExeRestController {
     }
 }
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-class SlotExerciseDetailDTO {
-    private Integer id;
-    private List<Exercise> exerciseList;
-    private int exerciseId;
-    private int setExe;
-    private int rep;
-    private String description;
-    private String check;
-}

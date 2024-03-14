@@ -1,15 +1,11 @@
 package com.swpproject.application.controller.notification;
 
+import com.swpproject.application.dto.AdminNotificationDTO;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Notification;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.NotificationRepository;
 import com.swpproject.application.service.AccountService;
-import jakarta.servlet.http.HttpSession;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -134,25 +130,34 @@ public class AdminNotificationController {
         return ResponseEntity.ok().body(AdminNotificationDTO);
     }
 
-    @GetMapping("/admin-home/manage-account")
-    public String viewAccounts(ModelMap modelMap) {
-        List<Account> accounts = accountService.getAccounts();
-        return "view-accounts";
-    }
+    @RequestMapping(value = "/admin-home/manage-account", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    public String viewAccounts(ModelMap modelMap,
+                               @RequestParam(name = "papeNo", defaultValue = "1") int papeNo) {
+        int pageSize = 10;
+        Pageable pageable = PageRequest.of(papeNo - 1, pageSize);
+        Page<Account> accounts = Page.empty();
+
+        modelMap.put("IndexStarting", pageSize * (papeNo - 1) + 1);
+        modelMap.addAttribute("CurrentPage", papeNo);
+        modelMap.put("accountList", accounts);
+
+        List<Account> accountList = accountService.getAccounts();
+//        Collections.sort(notificationList, Comparator.comparing(Notification::getTimeStamp).reversed());
+
+        int fromIndex = Math.min((papeNo - 1) * pageSize, accountList.size() - 1);
+        int toIndex = Math.min(fromIndex + pageSize - 1, accountList.size() - 1);
+        if (fromIndex >= 0) {
+            List<Account> pageContent = accountList.subList(fromIndex, toIndex + 1);
+            accounts = new PageImpl<>(pageContent, pageable, accountList.size());
+        }
+        modelMap.put("accountList",accounts);
+        modelMap.addAttribute("TotalPage",accounts.getTotalPages());
+        return"view-accounts";
+}
+
 
 
 
 
 }
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-class AdminNotificationDTO {
-    private String title;
-    private byte[] avatarSender;
-    private LocalDateTime timeStamp;
-    private String nameSender;
-    private String contentSender;
-}

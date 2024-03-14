@@ -193,21 +193,8 @@ public class AdminNotificationController {
     }
 }
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-class AdminNotificationDTO {
-    private String title;
-    private byte[] avatarSender;
-    private LocalDateTime timeStamp;
-    private String nameSender;
-    private String contentSender;
-}
 
 
 
 
-
-}
 

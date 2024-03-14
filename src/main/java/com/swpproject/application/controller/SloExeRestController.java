@@ -1,12 +1,9 @@
 package com.swpproject.application.controller;
 
-import com.swpproject.application.dto.SlotExerciseDetailDTO;
 import com.swpproject.application.model.Exercise;
 import com.swpproject.application.model.SlotExerciseDetail;
 import com.swpproject.application.repository.ExerciseRepository;
 import com.swpproject.application.repository.SlotExeDetailRepository;
-import com.swpproject.application.repository.SlotExeRepository;
-import com.swpproject.application.service.ExerciseService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

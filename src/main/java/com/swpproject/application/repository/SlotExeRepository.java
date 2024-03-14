@@ -40,8 +40,13 @@ public class SlotExeRepository {
         return jdbcTemplate.query(sql, new Object[]{week, year, id}, new BeanPropertyRowMapper<>(SlotExercise.class));
     }
 
-    public List<SlotExercise> findSlotExeByWeekAndYearAndPTIdAndIsPending(int week, int year, Integer id, boolean isPending) {
+    public List<SlotExercise> findSlotExeByWeekAndYearAndPTIdAndIsPending(int week, int year, Integer id, int isPending) {
         String sql = "SELECT * FROM slot_exercise WHERE week = ? AND year = ? AND personal_trainer_id = ? AND is_pending = ?";
+        return jdbcTemplate.query(sql, new Object[]{week,year, id, isPending}, new BeanPropertyRowMapper<>(SlotExercise.class));
+    }
+
+    public List<SlotExercise> findSlotExeByWeekAndYearAndGymerIdAndIsPending(int week, int year, Integer id, boolean isPending) {
+        String sql = "SELECT * FROM slot_exercise WHERE week = ? AND year = ? AND gymer_id = ? AND is_pending = ?";
         return jdbcTemplate.query(sql, new Object[]{week,year, id, isPending}, new BeanPropertyRowMapper<>(SlotExercise.class));
     }
 
@@ -54,4 +59,13 @@ public class SlotExeRepository {
         String sql = "SELECT * FROM slot_exercise WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(SlotExercise.class));
     }
+
+    public boolean existsByWeekAndSlot(int week, int year, String startHour, String endHour) {
+        String sql = "SELECT COUNT(*) FROM slot_exercise " +
+                "WHERE week = ? AND year = ? " +
+                "AND start_hour = ? AND end_hour = ?";
+        int count = jdbcTemplate.queryForObject(sql, Integer.class, week, year, startHour, endHour);
+        return count > 0;
+    }
+
 }

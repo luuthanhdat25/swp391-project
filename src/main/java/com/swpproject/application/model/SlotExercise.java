@@ -18,22 +18,14 @@
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer id;
 
-        private String day;
-        private String start_hour;
-        private String end_hour;
-        private int week;
-        private int year;
-        private String description;
-        private boolean isPending;
-        private Attendant attendantStatus;
-
-        public boolean isPending() {
-            return isPending;
-        }
-
-        public void setPending(boolean pending) {
-            isPending = pending;
-        }
+    private String day;
+    private String start_hour;
+    private String end_hour;
+    private int week;
+    private int year;
+    private String description;
+    private boolean isPending;
+    private Attendant attendantStatus;
 
         @ManyToOne
         @JoinColumn(name = "schedule_id", nullable = false)

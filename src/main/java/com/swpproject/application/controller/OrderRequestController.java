@@ -133,7 +133,7 @@ public class OrderRequestController {
         model.addAttribute( "allSlots", slotOrder);
         model.addAttribute("conflicSlot",slotConflic);
         model.addAttribute("orderedSlot",slotOrdered);
-
+        model.addAttribute("orderRequest",orderRequest);
 
         System.out.println("conflic slot:"+slotConflic.size());
         System.out.println("slot Ordered:" + slotOrdered.size());
@@ -180,7 +180,7 @@ public class OrderRequestController {
         }
         systemNotificationService.createNotification_PaymentSuccess(orderRequest);
         session.removeAttribute("orderPayment");
-        return "redirect:/Schedule-by-pt";
+        return "redirect:/view-schedule-withpt";
     }
 
     @RequestMapping("order-list")

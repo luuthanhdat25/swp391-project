@@ -17,7 +17,7 @@
         <div class="page-header invoices-page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <ul class="breadcrumb invoices-breadcrumb">
+                    <ul>
                         <li class="breadcrumb-item invoices-breadcrumb-item">
                             <a href="javascript:history.go(-1)">
                                 <i class="fe fe-chevrons-left"></i> Back to profile
@@ -150,18 +150,11 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Email</label>
+                                            <label class="col-lg-12 col-form-label" style="display: flex; justify-content: space-between;">Email
+                                                <a href="#" id="changePasswordLink">Change Password?</a></label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input type="text" name="email" class="form-control"
                                                        value="${personalTrainer.getAccount().getEmail()}" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-12 col-form-label" style="display: flex; justify-content: space-between;">Password
-                                                <a href="#" id="changePasswordLink">Change Password?</a></label>
-                                            <div class="col-lg-9" style="width: 100%">
-                                                <input name="password" type="password" class="form-control"
-                                                       value="${personalTrainer.getAccount().getPassword()}" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -185,7 +178,6 @@
                                     </div>
                                 </div>
                                 <div class="text-end">
-                                    <button href="javascript:history.go(-1)" class="btn btn-primary">Back</button>
                                     <button id="submitButton" type="submit" class="btn btn-primary" disabled>Submit
                                     </button>
                                 </div>
@@ -232,43 +224,129 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form:form id="changePasswordForm">
-                                <div class="form-group local-forms">
-                                    <label for="currentPassword">Current Password <span class="login-danger">*</span></label>
-                                    <input class="mb-3 mt-3 form-control pass-input" type="password" placeholder="Enter Current Password" id="currentPassword" minlength="8" maxlength="20" required>
-                                    <span class="profile-views feather-eye toggle-password"></span>
-                                </div>
-                                <div class="form-group local-forms">
-                                    <label for="newPassword">New Password <span class="login-danger">*</span></label>
-                                    <input class="mb-3 form-control pass-new" type="password" placeholder="Enter New Password" id="newPassword" minlength="8" maxlength="20" required>
-                                    <span class="profile-views feather-eye new-toggle-password"></span>
-                                </div>
-                                <div class="form-group local-forms">
-                                    <label for="repeatPassword">Repeat New Password <span class="login-danger">*</span></label>
-                                    <input class="form-control pass-confirm" type="password" placeholder="Repeat Password" id="repeatPassword" minlength="8" maxlength="20" required>
-                                    <span class="profile-views feather-eye reg-toggle-password"></span>
-                                </div>
-                                <div id="changePasswordErrorMessage" style="color: red;"></div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" onclick="" id="changePasswordButton">Save changes</button>
-                                </div>
-                            </form:form>
-                        </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <div class="form-group local-forms">
+                        <label for="currentPassword">Current Password <span class="login-danger">*</span></label>
+                        <input class="mb-1 mt-3 form-control pass-input" type="password" placeholder="Enter Current Password" id="currentPassword" minlength="8" maxlength="20" required>
+                        <span class="profile-views feather-eye-off toggle-password" id="currentPasswordEye"></span>
                     </div>
-                </div>
+                    <div class="error-message" id="currentPasswordError" style="color: red"></div>
+                    <div class="form-group local-forms">
+                        <label for="newPassword">New Password <span class="login-danger">*</span></label>
+                        <input class="mb-1 form-control pass-new" type="password" placeholder="Enter New Password" id="newPassword" minlength="8" maxlength="20" required>
+                        <span class="profile-views feather-eye-off new-toggle-password" id="newPasswordEye"></span>
+                    </div>
+                    <div class="error-message" id="newPasswordError" style="color: red"></div>
+                    <div class="form-group local-forms">
+                        <label for="repeatPassword">Repeat New Password <span class="login-danger">*</span></label>
+                        <input class="mb-1 form-control pass-confirm" type="password" placeholder="Repeat Password" id="repeatPassword" minlength="8" maxlength="20" required>
+                        <span class="profile-views feather-eye-off reg-toggle-password" id="repeatPasswordEye"></span>
+                    </div>
+                    <div class="error-message" id="repeatPasswordError" style="color: red"></div>
+                    <div id="changePasswordErrorMessage" style="color: red;"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="changePasswordButton">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // Function to validate the form
+    function validateForm() {
+        var currentPassword = document.getElementById("currentPassword");
+        var newPassword = document.getElementById("newPassword");
+        var repeatPassword = document.getElementById("repeatPassword");
+        var isValid = true;
+        // Reset error messages and borders
+        document.getElementById("currentPasswordError").innerHTML = "";
+        document.getElementById("newPasswordError").innerHTML = "";
+        document.getElementById("repeatPasswordError").innerHTML = "";
+
+        // Reset margin-bottom
+        var formGroups = document.getElementsByClassName("form-group local-forms");
+        for (var i = 0; i < formGroups.length; i++) {
+            formGroups[i].style.marginBottom = "20px";
+        }
+
+        // Check current password
+        if (currentPassword.value === "") {
+            document.getElementById("currentPasswordError").innerHTML = "Current Password is required.";
+            currentPassword.style.border = "1px solid red";
+            currentPassword.parentElement.style.marginTop = "20px";
+            currentPassword.parentElement.style.marginBottom = "0px"; // Adjust margin-bottom
+            isValid = false;
+        } else {
+            currentPassword.style.border = "1px solid #000000";
+        }
+
+        // Check new password
+        if (newPassword.value === "") {
+            document.getElementById("newPasswordError").innerHTML = "New Password is required.";
+            newPassword.style.border = "1px solid red";
+            newPassword.parentElement.style.marginTop = "20px";
+            newPassword.parentElement.style.marginBottom = "0px"; // Adjust margin-bottom
+            isValid = false;
+        } else if (newPassword.value.length < 8 || newPassword.value.length > 20) {
+            document.getElementById("newPasswordError").innerHTML = "New Password must be between 8 and 20 characters.";
+            newPassword.style.border = "1px solid red";
+            newPassword.parentElement.style.marginTop = "20px";
+            newPassword.parentElement.style.marginBottom = "0px"; // Adjust margin-bottom
+            isValid = false;
+        }
+
+        if (repeatPassword.value === "") {
+            document.getElementById("repeatPasswordError").innerHTML = "Repeat Password is required.";
+            repeatPassword.style.border = "1px solid red";
+            repeatPassword.parentElement.style.marginTop = "20px";
+            repeatPassword.parentElement.style.marginBottom = "0px";
+            isValid = false;
+        } else if (repeatPassword.value.length < 8 || repeatPassword.value.length > 20) {
+            document.getElementById("repeatPasswordError").innerHTML = "Repeat Password must be between 8 and 20 characters.";
+            repeatPassword.style.border = "1px solid red";
+            repeatPassword.parentElement.style.marginTop = "20px";
+            repeatPassword.parentElement.style.marginBottom = "0px";
+            isValid = false;
+        }
+
+        // Check if new password and repeat password match
+        if (newPassword.value !== repeatPassword.value) {
+            document.getElementById("newPasswordError").innerHTML = "New Password and Repeat Password do not match.";
+            document.getElementById("repeatPasswordError").innerHTML = "New Password and Repeat Password do not match.";
+            newPassword.style.border = "1px solid red";
+            repeatPassword.style.border = "1px solid red";
+            newPassword.parentElement.style.marginBottom = "0px"; // Adjust margin-bottom
+            repeatPassword.parentElement.style.marginBottom = "0px"; // Adjust margin-bottom
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    // Function to handle form submission
+    document.getElementById("changePasswordButton").addEventListener("click", function() {
+        if (validateForm()) {
+            console.log("Form submitted successfully!");
+            // You can proceed with form submission or other actions here
+        }
+    });
+</script>
+
 <script src="../../assets/js/jquery-3.6.0.min.js"></script>
 <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/feather.min.js"></script>
@@ -279,6 +357,11 @@
 <script src="../../assets/js/script.js"></script>
 <script src="../../assets/plugins/moment/moment.min.js"></script>
 <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
+
+
+
+
+
 <script>
     
     document.addEventListener('DOMContentLoaded', function () {
@@ -316,7 +399,6 @@
             } else {
                 avatarImage.src = 'data:image/jpeg;base64, ${personalTrainer.getAccount().getAvatarImageAsString()}';
             }
-            console.log(file);
         });
 
         fullNameInput.addEventListener('input', function () {
@@ -492,11 +574,10 @@
         addressInput.addEventListener('input', checkFormValidity);
         birthdayInput.addEventListener('input', checkFormValidity);
     });
-
-
 </script>
 
 
+<%-- Bank List Options--%>
 <script>
     const bankNames = [
         "Ngân hàng TMCP Ngoại Thương Việt Nam (Vietcombank)",
@@ -618,49 +699,7 @@
         $('#slider1').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[0]);
         $('#slider2').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[1]);
         $('#slider3').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[2]);
-        console.log(ptDto)
     })
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const form = document.getElementById("changePasswordForm");
-        const currentPasswordInput = document.getElementById("currentPassword");
-        const newPasswordInput = document.getElementById("newPassword");
-        const repeatPasswordInput = document.getElementById("repeatPassword");
-        const errorMessage = document.getElementById("changePasswordErrorMessage");
-
-        form.addEventListener("submit", function(event) {
-            errorMessage.textContent = "";
-
-            if (!validateCurrentPassword()) {
-                errorMessage.textContent = "Please enter a valid current password.";
-                event.preventDefault();
-            } else if (!validateNewPassword()) {
-                errorMessage.textContent = "Please enter a valid new password (8-20 characters).";
-                event.preventDefault();
-            } else if (!validateRepeatPassword()) {
-                errorMessage.textContent = "Passwords do not match.";
-                event.preventDefault();
-            }
-        });
-
-        function validateCurrentPassword() {
-            // Add your validation logic for the current password input here
-            return currentPasswordInput.value.length >= 8 && currentPasswordInput.value.length <= 20;
-        }
-
-        function validateNewPassword() {
-            // Add your validation logic for the new password input here
-            return newPasswordInput.value.length >= 8 && newPasswordInput.value.length <= 20;
-        }
-
-        function validateRepeatPassword() {
-            // Add your validation logic for the repeat password input here
-            return repeatPasswordInput.value === newPasswordInput.value;
-        }
-    });
-
-
-
 </script>
 </body>
 </html>

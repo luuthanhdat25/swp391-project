@@ -83,7 +83,7 @@
                                             <label class="col-lg-3 col-form-label">Desciption</label>
                                             <div class="form-group ">
                                                 <div class="col-lg-4">
-                                                    <textarea style="min-width: 440px; height: 200px;"
+                                                    <textarea style="min-width: 440px; height: 253px; max-height: 253px; min-height: 253px"
                                                               class="form-control"
                                                               placeholder="Enter text here" name="description" id="description"
                                                               value="${gymer.getDescription()}">${gymer.getDescription()}</textarea>
@@ -198,17 +198,17 @@
                                 <div class="form-group local-forms">
                                     <label for="currentPassword">Current Password <span class="login-danger">*</span></label>
                                     <input class="mb-3 mt-3 form-control pass-input" type="password" placeholder="Enter Current Password" id="currentPassword" minlength="8" maxlength="20" required>
-                                    <span class="profile-views feather-eye toggle-password"></span>
+                                    <span class="profile-views feather-eye-off toggle-password"></span>
                                 </div>
                                 <div class="form-group local-forms">
                                     <label for="newPassword">New Password <span class="login-danger">*</span></label>
                                     <input class="mb-3 form-control pass-new" type="password" placeholder="Enter New Password" id="newPassword" minlength="8" maxlength="20" required>
-                                    <span class="profile-views feather-eye new-toggle-password"></span>
+                                    <span class="profile-views feather-eye-off new-toggle-password"></span>
                                 </div>
                                 <div class="form-group local-forms">
                                     <label for="repeatPassword">Repeat New Password <span class="login-danger">*</span></label>
                                     <input class="form-control pass-confirm" type="password" placeholder="Repeat Password" id="repeatPassword" minlength="8" maxlength="20" required>
-                                    <span class="profile-views feather-eye reg-toggle-password"></span>
+                                    <span class="profile-views feather-eye-off reg-toggle-password"></span>
                                 </div>
                                 <div id="changePasswordErrorMessage" style="color: red;"></div>
                                 <div class="modal-footer">
@@ -296,7 +296,7 @@
                     displayErrorMessage('Invalid image type. Please select a valid image file.', 'error-message-container-img');
                 }
             } else {
-                avatarImage.src = 'data:image/jpeg;base64, ${personalTrainer.getAccount().getAvatarImageAsString()}';
+                avatarImage.src = 'data:image/jpeg;base64, ${gymer.getAccount().getAvatarImageAsString()}';
             }
         });
 
@@ -425,7 +425,7 @@
 
             submitButton.disabled = !isFormValid;
         }
-
+        fileInput.addEventListener('change', checkFormValidity);
         fullNameInput.addEventListener('input', checkFormValidity);
         descInput.addEventListener('input', checkFormValidity);
         phoneInput.addEventListener('input', checkFormValidity);

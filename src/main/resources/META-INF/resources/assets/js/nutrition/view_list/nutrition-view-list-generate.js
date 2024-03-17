@@ -45,7 +45,7 @@ $(document).ready(function () {
         var id = $(this).data('id');
         var ptId = $(this).data('ptid');
 
-        var gam = '/100g';
+        var gam = 'g/100g';
         modal.find('.modal-title').text(name);
         modal.find('#modal-image').attr('src', 'data:image/jpeg;base64,' + image);
         modal.find('#modal-calo').text('Calories: ' + calo + gam);

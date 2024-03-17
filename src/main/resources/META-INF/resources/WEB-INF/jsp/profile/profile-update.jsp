@@ -7,7 +7,7 @@
         <div class="page-header invoices-page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <ul class="breadcrumb invoices-breadcrumb">
+                    <ul>
                         <li class="breadcrumb-item invoices-breadcrumb-item">
                             <a href="javascript:history.go(-1)">
                                 <i class="fe fe-chevrons-left"></i> Back to profile
@@ -157,14 +157,14 @@
                                                        name="email" value="${gymer.getAccount().getEmail()}" disabled required>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-12 col-form-label" style="display: flex; justify-content: space-between;">Password
-                                                <a href="#" id="changePasswordLink">Change Password?</a></label>
-                                            <div class="col-lg-9" style="width: 100%">
-                                                <input name="password" type="password" class="form-control"
-                                                       value="${gymer.getAccount().getPassword()}" disabled>
-                                            </div>
-                                        </div>
+<%--                                        <div class="form-group row">--%>
+<%--                                            <label class="col-lg-12 col-form-label" style="display: flex; justify-content: space-between;">Password</label>--%>
+<%--&lt;%&ndash;                                                <a href="#" id="changePasswordLink">Change Password?</a></label>&ndash;%&gt;--%>
+<%--                                            <div class="col-lg-9" style="width: 100%">--%>
+<%--                                                <input name="password" type="password" class="form-control"--%>
+<%--                                                       value="${gymer.getAccount().getPassword()}" disabled>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Address</label>
                                             <div class="col-lg-9" style="width: 100%">
@@ -177,7 +177,7 @@
                                     </div>
                                 </div>
                                 <div class="text-end">
-                                    <button href="javascript:history.go(-1)" class="btn btn-primary">Back</button>
+<%--                                    <button href="javascript:history.go(-1)" class="btn btn-primary">Back</button>--%>
                                     <button id="submitButton" type="submit" class="btn btn-primary" disabled>Submit
                                     </button>
                                 </div>

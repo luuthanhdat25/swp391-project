@@ -45,6 +45,7 @@ public class NutritionController {
     public String getNutritionListPage(ModelMap model, HttpServletRequest request) {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         List<NutritionDTOOut> nutritionDTOOutList = nutritionService.getNutritionDTOOutList(roleDTO);
+
         String nutritionDTOOutListJson = JsonUtils.jsonConvert(nutritionDTOOutList);
         model.addAttribute("nutritionList", nutritionDTOOutListJson);
 

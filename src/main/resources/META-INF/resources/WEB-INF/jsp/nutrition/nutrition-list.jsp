@@ -206,9 +206,9 @@
                                 <div class="student-personals-grp">
                                     <div class="card mb-0">
                                         <div class="card-body">
-                                            <div class="table-responsive">
+                                            <div class="table-responsive" style="height: 500px; overflow-y: auto">
 
-                                                <table class="table star-student table-center mb-0 table-striped">
+                                                <table class="table star-student table-center mb-0 table-striped" >
                                                     <thead class="student-thread">
                                                         <tr>
                                                             <th></th>
@@ -220,9 +220,14 @@
                                                             <th>Author</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody id="nutritionTableBody"></tbody>
+                                                    <tbody id="nutritionTableBody" ></tbody>
                                                 </table>
+                                            </div>
 
+                                            <div class="mt-3 w-100 d-flex justify-content-center">
+                                                <nav aria-label="Page navigation example">
+                                                    <ul class="pagination" id="pagination"></ul>
+                                                </nav>
                                             </div>
                                         </div>
                                     </div>
@@ -287,6 +292,9 @@
                 $('#warningPT').show();
             }
         }
+
+        var nutritionList = ${nutritionList}
+        console.log(nutritionList)
     </script>
 
     <script src="../../../assets/js/nutrition/view_list/nutrition-view-list-generate.js"></script>

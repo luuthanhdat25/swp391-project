@@ -1,4 +1,4 @@
-package com.swpproject.application.controller;
+package com.swpproject.application.controller.booking;
 
 
 import com.swpproject.application.controller.notification.SystemNotificationService;
@@ -47,7 +47,7 @@ public class OrderRequestController {
         Account accountProfile = gymer.getAccount();
         model.addAttribute("orderRequest", orderRequest);
         model.addAttribute("accountOrder", accountProfile);
-        model.addAttribute("gymer", gymer);
+        model.addAttribute("gymerOrder", gymer);
         List<SlotExercise> slotOrder = slotExcerciseEntityService.GetSlotOfOrder(orderRequest);
         model.addAttribute("DateStart",orderRequest.getDatetime_start());
         model.addAttribute("DateEnd",orderRequest.getDatetime_end());
@@ -159,6 +159,8 @@ public class OrderRequestController {
         PersonalTrainer personalTrainer = orderRequest.getPersonalTrainer();
         System.out.println();
         if(MSG == null || MSG.trim().isEmpty()){
+            orderRequest.setStatus(OrderStatus.Accepted);
+            orderRequestService.saveOrUpdateOrderRequest(orderRequest);
             systemNotificationService.createNotification_AcceptedHiringAndPayment(orderRequest); //BAO: notification
             redirectAttributes.addAttribute("amountPay",orderRequest.getTotal_of_money());
             redirectAttributes.addAttribute("orderID",orderID);

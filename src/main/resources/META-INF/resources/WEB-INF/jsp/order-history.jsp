@@ -12,7 +12,6 @@
         height: 50px;
         border-radius: 50%; /* Làm cho hình ảnh tròn */
     }
-
 </style>
 <script !src="">
     $(document).ready(function () {
@@ -44,41 +43,47 @@
                             <h5 class="card-title">Request form</h5>
                         </div>
                         <div class="card-body">
-                            <c:if test="${not empty OrderRequestList}">
+                            <c:if test="${not empty OrderHistory}">
                                 <table>
                                     <thead>
                                     <tr>
-                                        <th style="text-align: left;">Name</th>
+                                        <th style="text-align: left;">Personal Trainer</th>
                                         <th style="text-align: center;">Order Date</th>
                                         <th style="text-align: center;">Status</th>
                                         <th style="text-align: center;">Net Amount</th>
                                         <th style="text-align: center;">Order Detail</th>
+                                        <th style="text-align: center;">payment</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach var="order" items="${OrderRequestList}">
+                                    <c:forEach var="order" items="${OrderHistory}">
                                         <tr>
                                             <td style="text-align: left;">
                                                 <img class="img-thumbnail" src="data:image/png;base64,${order.gymer.account.getAvatarImageAsString()}" alt="Customer image Image">
-                                                    ${order.gymer.getAccount().getFullName()}
+                                                    ${order.personalTrainer.getAccount().getFullName()}
                                             </td>
                                             <td>${order.datetime_start}</td>
                                             <td>
-                                                <div class="badge ${order.getStatusString() == 'Pending' ? 'badge-danger' : (order.getStatusString() == 'OnDoing' ? 'badge-success' : (order.getStatusString() == 'Accepted' ? 'badge-info' : 'badge-warning'))}">
-                                                        ${order.getStatusString()}
-                                                </div>
+                                                <div class="badge ${order.getStatusString() == 'Pending' ? 'badge-danger' : (order.getStatusString() == 'OnDoing' ? 'badge-success' : 'badge-warning')}">${order.getStatusString()}</div>
+                                            </td>
+                                            <td>${order.total_of_money} VND</td>
+                                            <td><a href="/gymer-orderdetail?order_id=${order.orderId}" class="view"
+                                                   title="View Details" data-toggle="tooltip"><i class="fas fa-address-book" style='font-size:24px'></i></a></td>
+                                            <td>
+                                                <c:if test="${order.status == 'Accepted'}">
+                                                    <a href="/pay?amountPay=${order.total_of_money}&orderID=${order.orderId}" class="pay" title="Pay Now" data-toggle="tooltip">
+                                                        <i class="fas fa-money-bill" style="font-size:24px"></i>
+                                                    </a>
+                                                </c:if>
                                             </td>
 
-                                            <td>${order.total_of_money} VND</td>
-                                            <td><a href="/Order-Request?order_id=${order.orderId}" class="view"
-                                                   title="View Details" data-toggle="tooltip"><i class="fas fa-address-book" style='font-size:24px'></i></a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
                                 </table>
                             </c:if>
 
-                            <c:if test="${empty OrderRequestList}">
+                            <c:if test="${empty OrderHistory}">
                                 <p>No Order yet.</p>
                             </c:if>
 

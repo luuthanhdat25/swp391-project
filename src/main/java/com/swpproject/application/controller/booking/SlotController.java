@@ -1,4 +1,4 @@
-package com.swpproject.application.controller;
+package com.swpproject.application.controller.booking;
 
 import com.swpproject.application.controller.notification.SystemNotificationService;
 import com.swpproject.application.enums.Attendant;
@@ -49,6 +49,7 @@ public class SlotController {
         }
         boolean checkOrderExist = orderRequestService.checkGymerOrderExist(gymerSession.getGymerId(),OrderStatus.OnDoing);
         boolean checkOrderWaiting = orderRequestService.checkGymerOrderExist(gymerSession.getGymerId(),OrderStatus.Pending);
+        boolean checkOrderPaying = orderRequestService.checkGymerOrderExist(gymerSession.getGymerId(),OrderStatus.Accepted);
         if (checkOrderExist){
             model.addAttribute("MSGAnount","You booked another Personal Trainer");
             model.addAttribute("MSGDescError","You Can't book this Personal Trainer because you are booking another personal trainer");
@@ -59,6 +60,12 @@ public class SlotController {
             model.addAttribute("MSGDescError","You Can't book this Personal Trainer because you are book another personal trainer," +
                     "please wait for this order update");
             return "book-fail";
+        } else if (checkOrderPaying) {
+            model.addAttribute("MSGAnount","Your previous request is accepted");
+            model.addAttribute("MSGDescError","Sorry because you can not book more Personal Trainer at the same time," +
+                    "Your previous request is accepted. Please pay for that order.");
+                return "book-fail";
+
         }
         return "book-pt";
     }

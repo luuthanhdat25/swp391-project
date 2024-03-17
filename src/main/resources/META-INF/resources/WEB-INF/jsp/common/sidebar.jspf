@@ -49,9 +49,8 @@
                     <c:choose>
                         <c:when test="${account.getRole() ne 'PT'}">
                             <li>
-                                <a href="/order-list"><i class="fas fa-history"></i> <span>Order History</span></a>
+                                <a href="/order-history"><i class="fas fa-history"></i> <span>Order History</span></a>
                             </li>
-
                             <li class="submenu">
                                 <a href="#"><i class="feather-grid"></i> <span>Tracking & Statistics</span> <span
                                         class="menu-arrow"></span></a>

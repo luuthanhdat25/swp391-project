@@ -18,6 +18,7 @@
             <div class="row align-items-center">
                 <div class="col">
                     <ul>
+                    <ul>
                         <li class="breadcrumb-item invoices-breadcrumb-item">
                             <a href="javascript:history.go(-1)">
                                 <i class="fe fe-chevrons-left"></i> Back to profile
@@ -157,6 +158,14 @@
                                                        value="${personalTrainer.getAccount().getEmail()}" disabled>
                                             </div>
                                         </div>
+<%--                                        <div class="form-group row">--%>
+<%--                                            <label class="col-lg-12 col-form-label" style="display: flex; justify-content: space-between;">Password</label>--%>
+<%--&lt;%&ndash;                                                <a href="#" id="changePasswordLink">Change Password?</a></label>&ndash;%&gt;--%>
+<%--                                            <div class="col-lg-9" style="width: 100%">--%>
+<%--                                                <input name="password" type="password" class="form-control"--%>
+<%--                                                       value="${personalTrainer.getAccount().getPassword()}" disabled>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Address</label>
                                             <div class="col-lg-9" style="width: 100%">

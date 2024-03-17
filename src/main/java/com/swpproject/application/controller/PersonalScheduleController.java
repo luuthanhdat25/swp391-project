@@ -3,10 +3,7 @@ package com.swpproject.application.controller;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.*;
 import com.swpproject.application.repository.*;
-import com.swpproject.application.service.PersonalTrainerService;
-import com.swpproject.application.service.SlotExcerciseEntityService;
-import com.swpproject.application.service.SlotExeDetailService;
-import com.swpproject.application.service.SlotNutriDetailService;
+import com.swpproject.application.service.*;
 import com.swpproject.application.service.impl.ScheduleServiceImplement;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -50,7 +47,7 @@ public class PersonalScheduleController {
     private PersonalTrainerService personalTrainerService;
     @Autowired
     private ExerciseRepository exerciseRepository;
-
+    @Autowired private GymerService gymerService;
     @Autowired
     private ScheduleServiceImplement scheduleServiceImplement;
 
@@ -67,7 +64,7 @@ public class PersonalScheduleController {
         Account account = (Account) session.getAttribute("account");
         if (account.getRole().equals(Role.PT)){
             PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(account.getId());
-            List<SlotExercise> slotExercises = slotExcerciseEntityService.findAllByWeekAndYearAndPersonalTrainerAndIsPending(week,year,personalTrainer,true);
+            List<SlotExercise> slotExercises = slotExcerciseEntityService.findAllByWeekAndYearAndPersonalTrainerAndIsPending(week,year,personalTrainer,false);
             model.addAttribute("slotExercises", slotExercises);
         }
         return "forward:/view-pt-schedule?year=" + year + "&week=" + week;
@@ -75,7 +72,12 @@ public class PersonalScheduleController {
 
     // gymer view schedule created by Personal Trainer
     @GetMapping(value = "/view-schedule-withpt")
-    public String viewScheduleWithPT(Model model) {
+    public String viewScheduleWithPT(Model model,HttpSession session,
+                                     @RequestParam(value = "GymerID",required = false) Integer gymerID ) {
+        if(gymerID != null){
+            Gymer gymer = gymerService.getGymerById(gymerID).get();
+            session.setAttribute("GymerCustomer",gymer);
+        }
         return "gymer-schedule";
     }
 
@@ -83,12 +85,16 @@ public class PersonalScheduleController {
     public String showScheduleWithPT(@RequestParam("week") int week,
                                      @RequestParam("year") int year, Model model,
                                      HttpSession session) {
+
+
         Gymer gymer = (Gymer) session.getAttribute("gymer");
+        if(gymer == null){
+            gymer = (Gymer) session.getAttribute("GymerCustomer");
+        }
         if (gymer != null) {
-            List<SlotExercise> slotExes = slotExcerciseEntityService.findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(week,year,gymer,true);
+            List<SlotExercise> slotExes = slotExcerciseEntityService.findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(week,year,gymer,false);
             model.addAttribute("slotExes", slotExes);
         }
-
         return "forward:/view-schedule-withpt?year=" + year + "&week=" + week;
     }
 
@@ -104,6 +110,7 @@ public class PersonalScheduleController {
                                                  Model model, HttpSession session) {
         int scheduleId = 0;
         Gymer gymer = (Gymer) session.getAttribute("gymer");
+
         if (gymer != null) {
             Schedule schedule = scheduleServiceImplement.findScheduleByGymerIdAndPTId(gymer.getGymerId(),null).get();
             scheduleId = schedule.getId();

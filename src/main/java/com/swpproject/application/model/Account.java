@@ -59,6 +59,9 @@ public class Account {
     @Column(name = "avatar_image")
     private byte[] avatarImage;
 
+    public String getGenderString(){
+        return this.gender.getDesc();
+    }
     public String getAvatarImageAsString() {
         return Base64.getEncoder().encodeToString(avatarImage);
     }

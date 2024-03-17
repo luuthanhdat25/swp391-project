@@ -27,7 +27,8 @@ function generatePersonalTrainers(personalTrainerList) {
         const headingDetail = $('<div class="heading-detail d-flex align-items-center"></div>');
         const trainerName = $('<h5 class="mb-0"></h5>').text(personalTrainer.fullName);
         const ratingContainer = $('<div></div>');
-        const rating = $('<h6 class="text-muted mb-0 ms-2"></h6>').text(personalTrainer.averageVotes + ' (' + personalTrainer.numberOfVotes +  ' rating)');
+        // const rating = $('<h6 class="text-muted mb-0 ms-2"></h6>').text(personalTrainer.averageVotes + ' (' + personalTrainer.numberOfVotes +  ' rating)');
+        const rating =  '';
         ratingContainer.append(rating);
         headingDetail.append(trainerName, ratingContainer);
         const personalActivity = $('<div class="personal-activity mt-2"></div>');

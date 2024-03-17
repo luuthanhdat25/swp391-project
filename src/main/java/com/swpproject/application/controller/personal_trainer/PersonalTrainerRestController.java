@@ -50,12 +50,12 @@ public class PersonalTrainerRestController {
         personalTrainerDTOList = filterByPrice(filterObject.getPriceMin(), filterObject.getPriceMax(), personalTrainerDTOList);
         personalTrainerDTOList = filterByGender(filterObject.getGender(), personalTrainerDTOList);
 
-        if(roleDTO != null && roleDTO.getRole() == Role.GYMER){
-            HttpSession session = request.getSession();
-            Account account = (Account)  session.getAttribute("account");
-            String origin = account.getAddress();
-            personalTrainerDTOList = filterAndSortByDistance(origin, filterObject.getDistanceMax(), personalTrainerDTOList);
-        }
+//        if(roleDTO != null && roleDTO.getRole() == Role.GYMER){
+//            HttpSession session = request.getSession();
+//            Account account = (Account)  session.getAttribute("account");
+//            String origin = account.getAddress();
+//            personalTrainerDTOList = filterAndSortByDistance(origin, filterObject.getDistanceMax(), personalTrainerDTOList);
+//        }
 
         return ResponseEntity.ok().body(personalTrainerDTOList);
     }

@@ -64,7 +64,7 @@ public class PersonalScheduleController {
         Account account = (Account) session.getAttribute("account");
         if (account.getRole().equals(Role.PT)){
             PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(account.getId());
-            List<SlotExercise> slotExercises = slotExcerciseEntityService.findAllByWeekAndYearAndPersonalTrainerAndIsPending(week,year,personalTrainer,true);
+            List<SlotExercise> slotExercises = slotExcerciseEntityService.findAllByWeekAndYearAndPersonalTrainerAndIsPending(week,year,personalTrainer,false);
             model.addAttribute("slotExercises", slotExercises);
         }
         return "forward:/view-pt-schedule?year=" + year + "&week=" + week;

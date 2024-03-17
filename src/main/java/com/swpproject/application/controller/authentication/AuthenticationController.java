@@ -243,8 +243,8 @@ public class AuthenticationController {
             if (account.get().getRole().equals(Role.GYMER)) {
                 Gymer gymer = gymerService.getGymerByAccount(account.get()).get();
                 session.setAttribute("gymer", gymer);
-//                OrderRequest orderRequest= (OrderRequest)orderRequestRepository.findByGymer(gymer);
-//                session.setAttribute("order",orderRequest);
+                OrderRequest orderRequest= (OrderRequest)orderRequestRepository.findByGymer(gymer);
+                session.setAttribute("order",orderRequest);
             }
             if (account.get().getRole().equals(Role.PT)) {
                 PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(account.get().getId());

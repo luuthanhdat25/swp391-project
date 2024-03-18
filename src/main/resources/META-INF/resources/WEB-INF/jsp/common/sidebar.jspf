@@ -23,7 +23,7 @@
                         <li>
                             <a href="/view-personal-schedule"><i class="fas fa-chalkboard-teacher"></i> <span>My Schedule</span></a>
                         </li>
-                        <c:if test="${order ne null}">
+                        <c:if test="${order.size() > 0}">
                             <li>
                                 <a href="/view-schedule-withpt"><i class="fas fa-chalkboard-teacher"></i> <span>Schedule Created By PT</span></a>
                             </li>

@@ -3,13 +3,6 @@
 <%@include file="../common/head.jspf" %>
 <%@include file="../common/sidebar.jspf" %>
 
-<style>
-    .ex-image {
-        width: 100%;
-        height: 9rem;
-        object-fit: cover;
-    }
-</style>
 <body>
     <div class="main-wrapper">
         <div class="page-wrapper">
@@ -232,23 +225,15 @@
                     </div>
                 </div>
 
-                <div id="exerciseContainer" class="row"></div>
+                <div id="exerciseContainer" class="row" style="height: 760px; overflow-y: auto"></div>
 
-<%--                <div>--%>
-<%--                    <ul class="pagination mb-4">--%>
-<%--                        <li class="page-item disabled">--%>
-<%--                            <a class="page-link" href="#" tabindex="-1">Previous</a>--%>
-<%--                        </li>--%>
-<%--                        <li class="page-item active">--%>
-<%--                            <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>--%>
-<%--                        </li>--%>
-<%--                        <li class="page-item"><a class="page-link" href="#">2</a></li>--%>
-<%--                        <li class="page-item"><a class="page-link" href="#">3</a></li>--%>
-<%--                        <li class="page-item">--%>
-<%--                            <a class="page-link" href="#">Next</a>--%>
-<%--                        </li>--%>
-<%--                    </ul>--%>
-<%--                </div>--%>
+                <div class="mt-3 w-100 d-flex justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="pagination"></ul>
+                    </nav>
+                </div>
+
+                <div class="w-100" style="height: 2rem"></div>
             </div>
         </div>
     </div>
@@ -293,6 +278,5 @@
     </script>
 
     <script src="../../../assets/js/exercise/view-list/exercise-view-list-generate.js"></script>
-    <script src="../../../assets/js/exercise/view-list/exercise-view-list-filter.js"></script>
 </body>
 

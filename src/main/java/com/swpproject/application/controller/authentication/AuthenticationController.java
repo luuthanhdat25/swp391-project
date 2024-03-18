@@ -251,7 +251,8 @@ public class AuthenticationController {
                 session.setAttribute("personalTrainer", personalTrainer);
             }
             if (account.get().getRole().equals(Role.ADMIN)) {
-
+                removeAttributes(session, "email", "password");
+                session.setAttribute("account", account.get());
                 return "redirect:/admin-home/manage-notification";
             }
             removeAttributes(session, "email", "password");

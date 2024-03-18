@@ -42,7 +42,7 @@
                         Manage Exercise</a>
                 </li>
                 <li style="margin-bottom: 4px;" class="shadow bg-body rounded">
-                    <a href="manage-personal-trainer-request" style="text-decoration: none;" onclick="">
+                    <a href="manage-nutrition" style="text-decoration: none;" onclick="">
                         <img style="height: 25px; width: 25px; margin-right: 5px;"
                              src="../../assets/img/icons/nutrition.png" alt="Nutrition Wiki">
                         Manage Nutrition</a>

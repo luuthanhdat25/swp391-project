@@ -12,9 +12,6 @@
                         <div class="col-sm-12">
                             <div class="page-sub-header">
                                 <h3 class="page-title">Personal Trainer</h3>
-                                <ul class="breadcrumb">
-                                    <li class="breadcrumb-item "><a class="text-muted" href="/personal-trainer">Personal Trainer</a></li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -60,8 +57,8 @@
                                                 </div>
                                             </div>
 
-                                            <div class="w-100 mt-4 mb-3" id="distanceSlider" style="display: none">
-                                                <div class="d-flex justify-content-between">
+                                            <div class="w-100 mt-4 mb-3">
+                                                <div class="d-flex justify-content-between" style="display: none" id="distanceFilter">
                                                     <div class="d-flex">
                                                         <i class="feather-map-pin text-primary"></i>
                                                         <h6 class="px-2">Distance</h6>
@@ -69,19 +66,27 @@
                                                     </div>
                                                     <h6 class="font-weight-light" id="distance-preview">Within 100km</h6>
                                                 </div>
-                                                <div class="">
-                                                    <div class="sliderBar bar" id="distanceProgressBar">
-                                                        <div class="progressBar bar"></div>
+
+                                                <a class="text-danger" href="profile/details" id="waringAddress" style="display: none">
+                                                    <u>Please fill in your address to use this function</u>
+                                                </a>
+
+                                                <div id="distanceSlider" style="display: none">
+                                                    <div>
+                                                        <div class="sliderBar bar" id="distanceProgressBar">
+                                                            <div class="progressBar bar"></div>
+                                                        </div>
+                                                        <div class="range-input" id="distanceSliderBar">
+                                                            <input type="range" class="range-max" min="0" max="100" value="100">
+                                                        </div>
                                                     </div>
-                                                    <div class="range-input" id="distanceSliderBar">
-                                                        <input type="range" class="range-max" min="0" max="100" value="100">
+
+                                                    <div class="input-group mt-3" id="distanceInput">
+                                                        <input type="number" class="form-control" id="distanceMaxInput" placeholder="Within" value="100">
+                                                        <button id="submitDistance" class="btn btn-primary" type="button">></button>
                                                     </div>
                                                 </div>
 
-                                                <div class="input-group mt-3" id="distanceInput">
-                                                    <input type="number" class="form-control" id="distanceMaxInput" placeholder="Within" value="100">
-                                                    <button id="submitDistance" class="btn btn-primary" type="button">></button>
-                                                </div>
                                             </div>
 
                                             <div class="personal-activity">
@@ -98,8 +103,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-8 " id="personalTrainerContainer">
 
+                            <div class="col-lg-8" >
+                                <div  id="personalTrainerContainer" style="height: 700px;"></div>
+                                <div class="mt-3 w-100 d-flex justify-content-center">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination" id="pagination"></ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -129,7 +140,7 @@
         }
         var role = "${account.getRole().getLabel()}";
         console.log(personalTrainerList)
-
+        var canSearchDistance = ${canSearchDistance};
     </script>
 
     <script src="../../assets/js/personal-trainer/personal-trainer-list-generate.js"></script>

@@ -3,6 +3,7 @@ package com.swpproject.application.controller.personal_trainer;
 import com.swpproject.application.dto.PersonalTrainerDto;
 import com.swpproject.application.dto.RoleDTO;
 import com.swpproject.application.enums.Gender;
+import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.service.AccountService;
@@ -57,10 +58,19 @@ public class PersonalTrainerController {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         List<PersonalTrainerDto> personalTrainerDTOList = personalTrainerService.getPersonalTrainerDTOList(roleDTO);
         String json = JsonUtils.jsonConvert(personalTrainerDTOList);
+
+        model.addAttribute("canSearchDistance", canSearchDistance(roleDTO, request));
         model.addAttribute("personalTrainerList", json);
         return "personal-trainer-list";
     }
 
+    private boolean canSearchDistance(RoleDTO roleDTO, HttpServletRequest request){
+        if(roleDTO == null || roleDTO.getRole() != Role.GYMER) return false;
+        HttpSession session = request.getSession();
+        Account account = (Account)  session.getAttribute("account");
+        String originAddress = account.getAddress();
+        return originAddress != null && !originAddress.isEmpty();
+    }
 
     @RequestMapping(value = "/details", method = RequestMethod.GET)
     public String view_profile_details(@RequestParam(name = "id", required = false) int id, ModelMap model) {
@@ -91,6 +101,8 @@ public class PersonalTrainerController {
                                 HttpSession session) throws IOException {
         PersonalTrainer personalTrainer = personalTrainerRepository.getPersonalTrainerById(personalTrainerDto.getId()).get() .toBuilder()
                 .description(personalTrainerDto.getDescription())
+                .bankName(personalTrainerDto.getBankName())
+                .bankNumber(personalTrainerDto.getBankNumber())
                 .price(personalTrainerDto.getPrice())
                 .build();
         Account account = accountService.getAccountByEmail(personalTrainer.getAccount().getEmail()).get();
@@ -106,6 +118,7 @@ public class PersonalTrainerController {
             account.setAvatarImage(avatar.getBytes());
         }
         personalTrainer.setAccount(account);
+
         personalTrainer.setPrice(Integer.valueOf(personalTrainerDto.getPrice()));
         session.setAttribute("account", account);
         session.setAttribute("personalTrainer", personalTrainer);
@@ -113,8 +126,6 @@ public class PersonalTrainerController {
         personalTrainerRepository.save(personalTrainer);
         return "redirect:/profile/details?ptid=" + id;
     }
-
-
 }
 
 

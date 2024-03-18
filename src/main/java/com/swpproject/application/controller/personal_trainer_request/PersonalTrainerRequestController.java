@@ -1,5 +1,6 @@
 package com.swpproject.application.controller.personal_trainer_request;
 
+import com.swpproject.application.dto.PersonalTrainerRequestDTO;
 import com.swpproject.application.enums.RequestStatus;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Certificate;
@@ -128,21 +129,3 @@ public class PersonalTrainerRequestController {
     }
 }
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-class PersonalTrainerRequestDTO {
-    private Integer id;
-    private Integer personalTrainerID;
-    private String title;
-    private String content;
-    private LocalDateTime timeStamp;
-    private RequestStatus status;
-    private byte[] personalTrainerImage;
-    private String personalTrainerName;
-
-    private byte[] cerificate_1;
-    private byte[] cerificate_2;
-    private byte[] cerificate_3;
-}

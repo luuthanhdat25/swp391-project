@@ -21,7 +21,7 @@
                                         ${MSGAnount}  <br>
                                         ${MSGDescError}.
                                     </p>
-                                    <a href="/personal-trainer/" class="btn btn-primary">Continue</a>
+                                    <a href="/personal-trainer" class="btn btn-primary">Continue</a>
                                 </div>
                             </div>
                         </div>

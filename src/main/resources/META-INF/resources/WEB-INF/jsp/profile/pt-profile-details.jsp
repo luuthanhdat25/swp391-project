@@ -183,58 +183,58 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card blog-comments">
-<%--                                <div class="card-header">--%>
-<%--                                    <h4 class="card-title"--%>
-<%--                                        style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">--%>
-<%--                                        Feedback--%>
-<%--                                        <button type="submit" class="btn btn-info">Evaluate</button>--%>
-<%--                                    </h4>--%>
+<%--                    <div class="row">--%>
+<%--                        <div class="col-lg-12">--%>
+<%--                            <div class="card blog-comments">--%>
+<%--&lt;%&ndash;                                <div class="card-header">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                    <h4 class="card-title"&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                        style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                        Feedback&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                        <button type="submit" class="btn btn-info">Evaluate</button>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                    </h4>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                </div>&ndash;%&gt;--%>
+<%--                                <div class="card-body pb-0">--%>
+<%--                                    <ul class="comments-list">--%>
+<%--                                        <li>--%>
+<%--                                            <div class="comment">--%>
+<%--                                                <div class="comment-author">--%>
+<%--                                                    <img class="avatar" alt=""--%>
+<%--                                                         src="../../assets/img/profiles/avatar-13.jpg">--%>
+<%--                                                </div>--%>
+<%--                                                <div class="comment-block">--%>
+<%--                                                    <div class="comment-by">--%>
+<%--                                                        <h5 class="blog-author-name">example@gmail.com<span--%>
+<%--                                                                class="blog-date"> <i--%>
+<%--                                                                class="feather-clock me-1"></i>Feb--%>
+<%--                                                                    6, 2024</span></h5>--%>
+<%--                                                        <div class="rate">--%>
+<%--                                                            <input type="radio" id="star5" name="rate" value="5"/>--%>
+<%--                                                            <label for="star5" title="text">5 stars</label>--%>
+<%--                                                            <input type="radio" id="star4" name="rate" value="4"/>--%>
+<%--                                                            <label for="star4" title="text">4 stars</label>--%>
+<%--                                                            <input type="radio" id="star3" name="rate" value="3"/>--%>
+<%--                                                            <label for="star3" title="text">3 stars</label>--%>
+<%--                                                            <input type="radio" id="star2" name="rate" value="2"/>--%>
+<%--                                                            <label for="star2" title="text">2 stars</label>--%>
+<%--                                                            <input type="radio" id="star1" name="rate" value="1"/>--%>
+<%--                                                            <label for="star1" title="text">1 star</label>--%>
+<%--                                                        </div>--%>
+<%--                                                    </div>--%>
+<%--                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.--%>
+<%--                                                        Nam--%>
+<%--                                                        viverra euismod odio, gravida pellentesque urna varius--%>
+<%--                                                        vitae,--%>
+<%--                                                        gravida pellentesque urna varius vitae. Lorem ipsum--%>
+<%--                                                        dolor sit--%>
+<%--                                                        amet, consectetur adipiscing elit.</p>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
+<%--                                        </li>--%>
+<%--                                    </ul>--%>
 <%--                                </div>--%>
-                                <div class="card-body pb-0">
-                                    <ul class="comments-list">
-                                        <li>
-                                            <div class="comment">
-                                                <div class="comment-author">
-                                                    <img class="avatar" alt=""
-                                                         src="../../assets/img/profiles/avatar-13.jpg">
-                                                </div>
-                                                <div class="comment-block">
-                                                    <div class="comment-by">
-                                                        <h5 class="blog-author-name">example@gmail.com<span
-                                                                class="blog-date"> <i
-                                                                class="feather-clock me-1"></i>Feb
-                                                                    6, 2024</span></h5>
-                                                        <div class="rate">
-                                                            <input type="radio" id="star5" name="rate" value="5"/>
-                                                            <label for="star5" title="text">5 stars</label>
-                                                            <input type="radio" id="star4" name="rate" value="4"/>
-                                                            <label for="star4" title="text">4 stars</label>
-                                                            <input type="radio" id="star3" name="rate" value="3"/>
-                                                            <label for="star3" title="text">3 stars</label>
-                                                            <input type="radio" id="star2" name="rate" value="2"/>
-                                                            <label for="star2" title="text">2 stars</label>
-                                                            <input type="radio" id="star1" name="rate" value="1"/>
-                                                            <label for="star1" title="text">1 star</label>
-                                                        </div>
-                                                    </div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                        Nam
-                                                        viverra euismod odio, gravida pellentesque urna varius
-                                                        vitae,
-                                                        gravida pellentesque urna varius vitae. Lorem ipsum
-                                                        dolor sit
-                                                        amet, consectetur adipiscing elit.</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
                 </div>
             </div>
         </div>

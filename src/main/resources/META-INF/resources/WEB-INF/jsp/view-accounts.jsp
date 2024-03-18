@@ -11,8 +11,8 @@
 
 </style>
 
-    <link href="../../assets/css/notification/view-notification-list.css" rel="stylesheet"/>
-    <link href="../../assets/css/style-table.css" rel="stylesheet"/>
+    <link href="../assets/css/notification/view-notification-list.css" rel="stylesheet"/>
+    <link href="../assets/css/style-table.css" rel="stylesheet"/>
 </head>
 
 <div class="main-wrapper">
@@ -24,21 +24,21 @@
                 <div class="shadow mb-2 rounded" style="width: 94%; height: fit-content; background-color: #333B59;
                 border-radius: 6px; padding: 10px; font-size: 20px; color: #FFFFFF;  text-align: center;
                 margin-bottom: 0px;">
-                    <b>Notification management</b>
+                    <b>Account management</b>
                 </div>
                 <div class="d-flex flex-column" style="width: 94%;">
                     <div class="card mb-4" style="background-color: #FFFFFF;">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Notification table
+                            Account table
                         </div>
                         <div class="d-flex justify-content-between align-items-center"
-                             style="width: 100%; padding: 0 15px 0 15px;">
+                             style="width: 50%; padding: 0 15px 0 15px;">
                             <form action="manage-notification" method="GET" style="width: 50%; margin-bottom: 0;">
                                 <div class="input-group" style="width: 100%;">
 
                                     <input type="text" class="form-control" style="border: 1px solid #4c4c4c;"
-                                           placeholder="Enter notification's title" name="title">
+                                           placeholder="Enter name here" name="title">
                                     <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                                 </div>
                             </form>
@@ -260,7 +260,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="account" items="${account}">
+                                <c:forEach var="account" items="${accountList}">
                                     <tr>
                                         <td style="text-align: left;"><img class="img-thumbnail" src="data:image/png;base64,${account.getAvatarImageAsString()}" alt="Customer image Image">
                                                 ${account.fullName} </td>
@@ -341,6 +341,83 @@
 <script src="../../../assets/js/jquery-3.6.0.min.js"></script>
 
 <script type="text/javascript">
+    function createAccountElement(account) {
+        var listItem = $("<div class='d-flex flex-column align-items-center'></div>");
+        var accountDiv = $("<div class='d-flex justify-content-between align-items-center mb-1 bg-white shadow rounded' style='width: 98%; height: 50px; border-radius: 5px; padding: 2px;'></div>");
+        var image = $("<img class='rounded-circle' style='width: 43px; height: 43px; margin-right: 10px; object-fit: cover'>");
+        image.attr("src", "data:image/jpeg;base64," + account.image);
+
+        var fullName = $("<div></div>").text(account.fullName);
+        var roleBadge = $("<div class='badge badge-info m-r-5'></div>").text(account.role);
+        var addButton = $("<button type='button' style='width: 40px; height: 40px; border-radius: 50%;'>+</button>");
+
+        addButton.data("accountId", account.id);
+        addButton.on("click", function () {
+            var accountId = $(this).data("accountId");
+            getAccountDetail(accountId);
+        });
+
+        accountDiv.append($("<div class='d-flex align-items-center'></div>").append(image).append(fullName));
+        accountDiv.append($("<div></div>").append(roleBadge).append(addButton));
+        listItem.append(accountDiv);
+        return listItem;
+    }
+
+    function getAccountDetail(accountID) {
+        $.ajax({
+            type: "GET",
+            url: "/get-account-detail",
+            data: {accountID: accountID},
+            success: function (data) {
+                var accountElement = createAccountSelected(data);
+                $('.accountSelected').append(accountElement);
+            },
+            error: function (error) {
+                console.error("Error loading account detail: " + JSON.stringify(error));
+            }
+        });
+    }
+
+    function createAccountSelected(data) {
+        var accountDiv = $("<div style='padding: 10px; width: fit-content; height: 40px; border-radius: 5px; " +
+            "background-color: #f8d794; margin: 0 5px 5px 0; white-space: nowrap;' class='d-flex justify-content-between align-items-center'></div>");
+        var image = $("<img class='rounded-circle' style='width: 30px; height: 30px; margin-right: 10px; object-fit: cover'>");
+        image.attr("src", "data:image/jpeg;base64," + data.image);
+        var nameDiv = $("<div style='width: fit-content;'></div>").text(data.fullName);
+        var closeButton = $("<button style='background: transparent; border: none; cursor: pointer;'>x</button>");
+
+        closeButton.click(function () {
+            accountDiv.remove(); // Xóa div khi nút được nhấn
+        });
+
+
+        accountDiv.append(image);
+        accountDiv.append(nameDiv);
+        accountDiv.append(closeButton);
+        return accountDiv;
+    }
+
+    $('.search-username-btn').click(function () {
+        var name = $('input[name="username"]').val();
+
+        $.ajax({
+            type: "GET",
+            url: "/search-account-by-name",
+            data: {name: name},
+            success: function (accounts) {
+                $('.accounts').empty();
+
+                $.each(accounts, function (index, account) {
+                    var accountElement = createAccountElement(account);
+                    $('.accounts').append(accountElement);
+                });
+            },
+            error: function (error) {
+                console.error("Error loading notification detail: " + JSON.stringify(error));
+            }
+        });
+    });
+
     $('.view-detail-btn').click(function () {
         var notificationID = $(this).data('id');
         $.ajax({

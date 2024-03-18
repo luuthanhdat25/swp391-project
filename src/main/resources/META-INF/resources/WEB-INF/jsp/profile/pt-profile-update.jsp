@@ -1,14 +1,15 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@page import="com.swpproject.application.utils.PasswordUtils" %>
 <%@include file="../common/header.jspf" %>
 <%@include file="../common/head.jspf" %>
 <%@include file="../common/sidebar.jspf" %>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <style>
     .carousel-inner img {
+        margin-top: 2%;
         max-width: 100%;
-        max-height: 300px;
         width: 100%;
         height: auto;
-
     }
 </style>
 
@@ -17,7 +18,7 @@
         <div class="page-header invoices-page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <ul class="breadcrumb invoices-breadcrumb">
+                    <ul>
                         <li class="breadcrumb-item invoices-breadcrumb-item">
                             <a href="javascript:history.go(-1)">
                                 <i class="fe fe-chevrons-left"></i> Back to profile
@@ -60,20 +61,25 @@
                                             <div id="error-message-container-img"
                                                  style="flex: none;color: red; margin-top: 37px; padding-left: 1.5%"></div>
                                         </div>
+
                                         <div class="col-lg-8 col-md-8"
                                              style="display: flex; flex-direction: column; justify-content: center;">
                                             <div class="form-group row">
                                                 <label class="col-lg-3 col-form-label" style="width: 64px;">Bank
                                                     Name</label>
-                                                <div class="col-lg-3" style="width: 40%">
-                                                    <input name="bankName" type="text" class="form-control"
-                                                           value="${personalTrainer.getBankName()}" disabled>
+                                                <div class="form-group local-forms" style="width: 50%">
+                                                    <select class="form-control select" id="bankName" name="bankName"
+                                                            required>
+                                                    </select>
                                                 </div>
+
                                                 <label class="col-lg-3 col-form-label" style="width: 78px;">Bank
                                                     Number</label>
-                                                <div class="col-lg-3" style="width: 40%">
+                                                <div class="col-lg-3" style="width: 30%">
                                                     <input name="bankNumber" type="text" class="form-control"
-                                                           value="${personalTrainer.getBankNumber()}" disabled>
+                                                           id="bankNumber" value="${personalTrainer.getBankNumber()}"
+                                                           required>
+                                                    <div id="error-message-bank-number" style="color: red;"></div>
                                                 </div>
                                             </div>
                                             <label class="col-lg-3 col-form-label">Desciption</label>
@@ -97,7 +103,7 @@
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="fullName" id="fullNameInput" type="text"
                                                        class="form-control"
-                                                       value="${personalTrainer.getAccount().getFullName()}">
+                                                       value="${personalTrainer.getAccount().getFullName()}" required>
                                                 <div id="error-message-fullName" style="color: red;"></div>
                                             </div>
                                         </div>
@@ -106,7 +112,8 @@
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="phone" type="text" class="form-control"
                                                        value="${personalTrainer.getAccount().getPhone() == null ? '' : personalTrainer.getAccount().getPhone()}"
-                                                       placeholder="${personalTrainer.getAccount().getPhone() == null ? 'Empty' : ''}">
+                                                       placeholder="${personalTrainer.getAccount().getPhone() == null ? 'Empty' : ''}"
+                                                       required>
                                                 <div id="error-message-phone" style="color: red;"></div>
                                             </div>
                                         </div>
@@ -121,27 +128,30 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Gender</label>
                                             <div class="col-lg-9" style="width: 100%">
-                                                <div class="form-check form-check-inline">
+                                                <div class="form-check form-check-inline" style="cursor: pointer">
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            id="gender_male"
                                                            value="M" ${personalTrainer.getAccount().getGender() == 'M' ? 'checked' : ''}>
-                                                    <label class="form-check-label" for="gender_male">
+                                                    <label class="form-check-label" for="gender_male"
+                                                           style="cursor: pointer">
                                                         Male
                                                     </label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
+                                                <div class="form-check form-check-inline" style="cursor: pointer">
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            id="gender_female"
                                                            value="F" ${personalTrainer.getAccount().getGender() == 'F' ? 'checked' : ''}>
-                                                    <label class="form-check-label" for="gender_female">
+                                                    <label class="form-check-label" for="gender_female"
+                                                           style="cursor: pointer">
                                                         Female
                                                     </label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
+                                                <div class="form-check form-check-inline" style="cursor: pointer">
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            id="gender_other"
                                                            value="O" ${personalTrainer.getAccount().getGender() == 'O' ? 'checked' : ''}>
-                                                    <label class="form-check-label" for="gender_other">
+                                                    <label class="form-check-label" for="gender_other"
+                                                           style="cursor: pointer">
                                                         Other
                                                     </label>
                                                 </div>
@@ -150,17 +160,12 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Email</label>
+                                            <label class="col-lg-12 col-form-label"
+                                                   style="display: flex; justify-content: space-between;">Email
+                                                <a href="#" id="changePasswordLink">Change Password?</a></label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input type="text" name="email" class="form-control"
                                                        value="${personalTrainer.getAccount().getEmail()}" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Password</label>
-                                            <div class="col-lg-9" style="width: 100%">
-                                                <input name="password" type="password" class="form-control"
-                                                       value="${personalTrainer.getAccount().getPassword()}" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -168,28 +173,30 @@
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="address" type="text" class="form-control"
                                                        value="${personalTrainer.getAccount().getAddress() == null ? '' : personalTrainer.getAccount().getAddress()}"
-                                                       placeholder="${personalTrainer.getAccount().getAddress() == null ? 'Empty' : ''}">
+                                                       placeholder="${personalTrainer.getAccount().getAddress() == null ? 'Empty' : ''}"
+                                                       required>
                                                 <div id="error-message-address" style="color: red;"></div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Price</label>
+                                            <label class="col-lg-9 col-form-label">Price (Amount of money per slot
+                                                (VND))</label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="price" type="number" class="form-control"
                                                        value="${personalTrainer.getPrice() == 0 ? "" : personalTrainer.getPrice()}"
-                                                       placeholder="${personalTrainer.getPrice() == 0 ? '0' : ''}">
+                                                       placeholder="Amount of money per slot (VND) | min: 10000 VND"
+                                                       min="10000" required>
                                                 <div id="error-message-price" style="color: red;"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-end">
-                                    <button href="javascript:history.go(-1)" class="btn btn-primary">Back</button>
                                     <button id="submitButton" type="submit" class="btn btn-primary" disabled>Submit
                                     </button>
                                 </div>
                             </form:form>
-                            <div class="col-lg-4 col-md-4"
+                            <div class="col-lg-10 col-md-10"
                                  style="display: flex; align-items: center; justify-content: center;">
                                 <div id="carouselExampleIndicators" class="carousel slide"
                                      data-bs-ride="carousel">
@@ -231,10 +238,182 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <div class="form-group local-forms">
+                        <label for="currentPassword">Current Password <span class="login-danger">*</span></label>
+                        <input class="mb-1 mt-3 form-control pass-input" type="password"
+                               placeholder="Enter Current Password" autocomplete="no" id="currentPassword" minlength="8"
+                               maxlength="20" required>
+                        <span class="profile-views feather-eye-off toggle-password" id="currentPasswordEye"></span>
+                    </div>
+                    <div class="error-message" id="currentPasswordError" style="color: red"></div>
+                    <div class="form-group local-forms">
+                        <label for="newPassword">New Password <span class="login-danger">*</span></label>
+                        <input class="mb-1 form-control pass-new" type="password" placeholder="Enter New Password"
+                               id="newPassword" autocomplete="no" minlength="8" maxlength="20" required>
+                        <span class="profile-views feather-eye-off new-toggle-password" id="newPasswordEye"></span>
+                    </div>
+                    <div class="error-message" id="newPasswordError" style="color: red"></div>
+                    <div class="form-group local-forms">
+                        <label for="repeatPassword">Repeat New Password <span class="login-danger">*</span></label>
+                        <input class="mb-1 form-control pass-confirm" type="password" placeholder="Repeat Password"
+                               id="repeatPassword" autocomplete="no" minlength="8" maxlength="20" required>
+                        <span class="profile-views feather-eye-off reg-toggle-password" id="repeatPasswordEye"></span>
+                    </div>
+                    <div class="error-message" id="repeatPasswordError" style="color: red"></div>
+                    <div class="error-message" id="successChange" style="color: green"></div>
+                    <div id="changePasswordErrorMessage" style="color: red;"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="changePasswordButton">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to validate the form
+    function validateForm() {
+        var currentPassword = document.getElementById("currentPassword");
+        var newPassword = document.getElementById("newPassword");
+        var repeatPassword = document.getElementById("repeatPassword");
+        var isValid = true;
+
+        $(document).ready(function () {
+            $("#changePasswordLink").click(function (e) {
+                e.preventDefault();
+                resetError(currentPassword);
+                resetError(newPassword);
+                resetError(repeatPassword);
+                $("#changePasswordModal").modal("show");
+            });
+
+            $("#changePasswordForm").submit(function (e) {
+                $("#changePasswordModal").modal("hide");
+            });
+        });
+
+        // Reset error messages, borders, and success message
+        resetError(currentPassword);
+        resetError(newPassword);
+        resetError(repeatPassword);
+        document.getElementById("successChange").innerHTML = "";
+
+        console.log("currentPassword --> " + currentPassword.value)
+        console.log("newPassword --> " + newPassword.value)
+        console.log("repeatPassword --> " + newPassword.value)
+
+        // Validate current password
+        isValid = validateField(currentPassword, "Current Password", 8, 20) && isValid;
+
+        // Validate new password
+        isValid = validateField(newPassword, "New Password", 8, 20) && isValid;
+
+        // Validate repeat password
+        isValid = validateField(repeatPassword, "Repeat Password", 8, 20) && isValid;
+
+        // Check if new password and repeat password match
+        if (newPassword.value !== repeatPassword.value) {
+            setErrorMessage(newPassword, "New Password and Repeat Password do not match.");
+            setErrorMessage(repeatPassword, "New Password and Repeat Password do not match.");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    function resetError(element) {
+        element.style.border = "1px solid #000000";
+        var errorMessageId = element.id + "Error";
+
+        document.getElementById(errorMessageId).innerHTML = "";
+    }
+
+    function validateField(field, fieldName, minLength, maxLength) {
+        if (field.value === "") {
+            setErrorMessage(field, fieldName + " is required.");
+            return false;
+        } else if (field.value.length < minLength || field.value.length > maxLength) {
+            setErrorMessage(field, fieldName + " must have length between " + minLength + " and " + maxLength + " characters.");
+            return false;
+        }
+        return true;
+    }
+
+    function setErrorMessage(field, message) {
+        var errorMessageId = field.id + "Error";
+        document.getElementById(errorMessageId).innerHTML = message;
+        console.log("errorMessageId --> " + errorMessageId)
+        field.style.border = "1px solid red";
+        field.parentElement.style.marginTop = "20px";
+        field.parentElement.style.marginBottom = "0px";
+    }
+
+
+    document.getElementById("changePasswordButton").addEventListener("click", function () {
+        var currentPassword = document.getElementById("currentPassword");
+        var newPassword = document.getElementById("newPassword");
+        var repeatPassword = document.getElementById("repeatPassword");
+
+        if (validateForm()) {
+            $.ajax({
+                type: "POST",
+                url: "/auth/changepass",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    currentPassword: currentPassword.value,
+                    newPassword: newPassword.value,
+                    repeatPassword: repeatPassword.value
+                }),
+                success: function () {
+                    showSuccessMessage("Change password successfully!");
+                },
+                error: function (xhr) {
+                    var errorMessage = xhr.responseText;
+                    var parts = errorMessage.split("|");
+                    if (parts.length === 2) {
+                        var errorCode = parts[0];
+                        var errorDetail = parts[1];
+                        if (errorCode === "new") {
+                            setErrorMessage(newPassword,errorDetail)
+                            repeatPassword.style.marginTop = "30px"
+                        } else if (errorCode === "cur") {
+                            setErrorMessage(currentPassword,errorDetail)
+                            newPassword.style.marginTop = "30px"
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    function showSuccessMessage(message) {
+        var successChange = document.getElementById("successChange");
+        successChange.innerHTML = message;
+        successChange.style.color = "green";
+    }
+
+    function showErrorMessages(field, message) {
+        document.getElementById(field).style.border = "1px solid red";
+        document.getElementById("repeatPasswordError").innerHTML = message;
+        document.getElementById("repeatPasswordError").style.color = "red";
+    }
+</script>
+
 <script src="../../assets/js/jquery-3.6.0.min.js"></script>
 <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/feather.min.js"></script>
@@ -245,7 +424,10 @@
 <script src="../../assets/js/script.js"></script>
 <script src="../../assets/plugins/moment/moment.min.js"></script>
 <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
+
+
 <script>
+
     document.addEventListener('DOMContentLoaded', function () {
         const fileInput = document.querySelector('input[name="avatar"]');
         const avatarImage = document.getElementById('avatar-image');
@@ -292,7 +474,7 @@
         })
 
         phoneInput.addEventListener('input', function () {
-            validatePhoneNumber(phoneInput, 'error-message-phone');
+            validateNumber(phoneInput, 'error-message-phone');
         });
 
         addressInput.addEventListener('input', function () {
@@ -305,6 +487,7 @@
 
         birthdayInput.addEventListener('input', function () {
             validateBirthday(birthdayInput);
+
         });
 
         function validateTextWithoutSpecialCharacters(inputElement, errorMessageId) {
@@ -319,6 +502,22 @@
             } else {
                 errorMessageContainer.textContent = '';
                 inputElement.style.border = '';
+                submitButton.disabled = false;
+            }
+        }
+
+        function validateBirthday(birthdayElement) {
+            const currentDate = new Date();
+            const minimumAgeDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
+            const selectedDate = new Date(birthdayElement.value);
+
+            if (selectedDate > minimumAgeDate) {
+                displayErrorMessage('You must be at least 18 years old.', 'error-message-birthday');
+                birthdayElement.style.border = '2px solid red';
+                submitButton.disabled = true;
+            } else {
+                clearErrorMessage('error-message-birthday');
+                birthdayElement.style.border = '';
                 submitButton.disabled = false;
             }
         }
@@ -339,19 +538,19 @@
             }
         }
 
-        function validatePhoneNumber(phoneElement, errorMessageId) {
-            const phoneValue = phoneElement.value;
-            const hasNonDigits = /\D/.test(phoneValue); // Check for non-digit characters
+        function validateNumber(element, errorMessageId) {
+            const elementValue = element.value;
+            const hasNonDigits = /\D/.test(elementValue);
             const errorMessageContainer = document.getElementById(errorMessageId);
-            const submitButton = document.getElementById('submitButton'); // Assuming submitButton is the correct ID
+            const submitButton = document.getElementById('submitButton');
 
             if (hasNonDigits) {
-                errorMessageContainer.textContent = 'Phone cannot contain letters or special characters.';
-                phoneElement.style.border = '2px solid red';
+                errorMessageContainer.textContent = 'This filed must contains only numbers.';
+                element.style.border = '2px solid red';
                 submitButton.disabled = true;
             } else {
                 errorMessageContainer.textContent = '';
-                phoneElement.style.border = '';
+                element.style.border = '';
                 submitButton.disabled = false;
             }
         }
@@ -360,7 +559,7 @@
         function validatePrice(priceElement) {
             const priceValue = priceElement.value;
             if (!Number.isInteger(Number(priceValue))) {
-                displayErrorMessage('Price must be a valid integer.', 'error-message-price');
+                displayErrorMessage('Price must be a positive integer.', 'error-message-price');
                 priceElement.style.border = '2px solid red';
                 submitButton.disabled = true;
             } else {
@@ -370,18 +569,6 @@
             }
         }
 
-        function validateBirthday(birthdayElement) {
-            const currentDate = new Date().toISOString().split('T')[0];
-            if (birthdayElement.value > currentDate) {
-                displayErrorMessage('Birthday cannot exceed the current date.', 'error-message-birthday');
-                birthdayElement.style.border = '2px solid red';
-                submitButton.disabled = true;
-            } else {
-                clearErrorMessage('error-message-birthday');
-                birthdayElement.style.border = '';
-                submitButton.disabled = false;
-            }
-        }
 
         function displayErrorMessage(message, errorMessageId) {
             let errorContainer = document.getElementById(errorMessageId);
@@ -408,30 +595,157 @@
             input.addEventListener('change', checkFormValidity);
         });
 
+        const bankNameSelect = $('#bankName');
+        const personalTrainerDto = ${personalTrainerDtoJson};
+
+        function updateBankNameInDto(bankName) {
+            personalTrainerDto.bankName = bankName;
+        }
+
+        bankNameSelect.on('change', function () {
+            const selectedBankName = bankNameSelect.select2('data')[0].text;
+            updateBankNameInDto(selectedBankName);
+            checkFormValidity();
+        });
+        const bankNumberInput = document.querySelector('input[name="bankNumber"]');
+
+
+        bankNumberInput.addEventListener('input', function () {
+            validateNumber(bankNumberInput, 'error-message-bank-number');
+        });
+
         function checkFormValidity() {
             const imgErrorContainer = document.getElementById('error-message-container-img');
-
             const fullNameValid = !/[!@#$%^&*(),.?":{}|<>0-9]/.test(fullNameInput.value);
             const phoneValid = !/\D/.test(phoneInput.value);
             const addressValid = !/[!@#$%^&*().?":{}|<>]/.test(addressInput.value);
             const birthdayValid = birthdayInput.value <= new Date().toISOString().split('T')[0];
-            const imgValid = !imgErrorContainer.textContent; // Check if there are no image errors
+            const bankNameValid = bankNameSelect.select2('data')[0].text !== '';
+            const bankNumberValid = !/\D/.test(bankNumberInput.value);
+            const priceValid = !isNaN(priceInput.value) && priceInput.value > 0;
+            const imgValid = !imgErrorContainer.textContent;
             const genderValid = [...genderInputs].some(input => input.checked);
 
-            const isFormValid = fullNameValid && phoneValid && addressValid && birthdayValid && imgValid && genderValid;
+            const isFormValid = fullNameValid && phoneValid && addressValid && birthdayValid && imgValid && genderValid && priceValid & bankNameValid && bankNumberValid;
 
             submitButton.disabled = !isFormValid;
         }
 
+        fileInput.addEventListener('change', checkFormValidity);
+        bankNumberInput.addEventListener('input', checkFormValidity);
         fullNameInput.addEventListener('input', checkFormValidity);
         descInput.addEventListener('input', checkFormValidity);
         phoneInput.addEventListener('input', checkFormValidity);
         addressInput.addEventListener('input', checkFormValidity);
         birthdayInput.addEventListener('input', checkFormValidity);
-
     });
+</script>
 
 
+<%-- Bank List Options--%>
+<script>
+    const bankNames = [
+        "Ngân hàng TMCP Ngoại Thương Việt Nam (Vietcombank)",
+        "Ngân hàng TMCP Công Thương Việt Nam (VietinBank)",
+        "Ngân hàng Thương mại Cổ phần Quân đội (MBBank)",
+        "Ngân hàng Thương mại Cổ phần Công thương Việt Nam (Techcombank)",
+        "Ngân hàng TMCP Sài Gòn Thương Tín (Sacombank)",
+        "Ngân hàng Thương mại Cổ phần Đầu tư và Phát triển Việt Nam (BIDV)",
+        "Ngân hàng TMCP Á Châu (ACB)",
+        "Ngân hàng TMCP Đông Á (DongA Bank)",
+        "Ngân hàng TMCP Hàng Hải Việt Nam (Maritime Bank)",
+        "Ngân hàng TMCP Sài Gòn (SCB)",
+        "Ngân hàng Thương mại Cổ phần Xăng dầu Petrolimex (PGBank)",
+        "Ngân hàng Thương mại Cổ phần Ngoại thương và Phát triển (PVcomBank)",
+        "Ngân hàng Thương mại Cổ phần Tiên Phong (TPBank)",
+        "Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank)",
+        "Ngân hàng TMCP Đầu tư và Phát triển Việt Nam (BIDV)",
+        "Ngân hàng Thương mại Cổ phần Kỹ thương Việt Nam (Techcombank)",
+        "Ngân hàng Thương mại Cổ phần Tiên Phong (TPBank)",
+        "Ngân hàng Thương mại Cổ phần Quốc Dân (NCB)",
+        "Ngân hàng Thương mại Cổ phần Đông Nam Á (SeABank)",
+        "Ngân hàng Thương mại Cổ phần Dầu khí Toàn Cầu (GPBank)",
+        "Ngân hàng Thương mại Cổ phần An Bình (ABBank)",
+        "Ngân hàng TMCP Sài Gòn Công Thương (Saigonbank)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng TMCP Sài Gòn (SCB)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng Thương mại Cổ phần Đông Nam Á (SeABank)",
+        "Ngân hàng Thương mại Cổ phần An Bình (ABBank)",
+        "Ngân hàng TMCP Sài Gòn Công Thương (Saigonbank)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng TMCP Công Thương Việt Nam (VietinBank)",
+        "Ngân hàng Thương mại Cổ phần Đông Á (DongA Bank)",
+        "Ngân hàng Thương mại Cổ phần Đầu tư và Phát triển Việt Nam (BIDV)",
+        "Ngân hàng TMCP Hàng Hải Việt Nam (Maritime Bank)",
+        "Ngân hàng TMCP Quân Đội (MB Bank)",
+        "Ngân hàng Thương mại Cổ phần Sài Gòn - Hà Nội (SHB)",
+        "Ngân hàng Thương mại Cổ phần Á Châu (ACB)",
+        "Ngân hàng Thương mại Cổ phần Phát triển Thành phố Hồ Chí Minh (HDBank)",
+        "Ngân hàng Thương mại Cổ phần Việt Nam Thịnh Vượng (VPBank)",
+        "Ngân hàng TMCP Quốc Dân (NCB)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng Thương mại Cổ phần Đông Nam Á (SeABank)",
+        "Ngân hàng Thương mại Cổ phần An Bình (ABBank)",
+        "Ngân hàng TMCP Sài Gòn Công Thương (Saigonbank)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng TMCP Công Thương Việt Nam (VietinBank)",
+        "Ngân hàng Thương mại Cổ phần Đông Á (DongA Bank)",
+        "Ngân hàng Thương mại Cổ phần Đầu tư và Phát triển Việt Nam (BIDV)",
+        "Ngân hàng TMCP Hàng Hải Việt Nam (Maritime Bank)",
+        "Ngân hàng TMCP Quân Đội (MB Bank)",
+        "Ngân hàng Thương mại Cổ phần Sài Gòn - Hà Nội (SHB)",
+        "Ngân hàng Thương mại Cổ phần Á Châu (ACB)",
+        "Ngân hàng Thương mại Cổ phần Phát triển Thành phố Hồ Chí Minh (HDBank)",
+        "Ngân hàng Thương mại Cổ phần Việt Nam Thịnh Vượng (VPBank)",
+        "Ngân hàng TMCP Quốc Dân (NCB)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng Thương mại Cổ phần Đông Nam Á (SeABank)",
+        "Ngân hàng Thương mại Cổ phần An Bình (ABBank)",
+        "Ngân hàng TMCP Sài Gòn Công Thương (Saigonbank)",
+        "Ngân hàng Thương mại Cổ phần Quốc tế (VIB)",
+        "Ngân hàng TMCP Công Thương Việt Nam (VietinBank)",
+        "Ngân hàng Thương mại Cổ phần Đông Á (DongA Bank)",
+        "Ngân hàng Thương mại Cổ phần Đầu tư và Phát triển Việt Nam (BIDV)",
+        "Ngân hàng TMCP Hàng Hải Việt Nam (Maritime Bank)",
+        "Ngân hàng TMCP Quân Đội (MB Bank)",
+        "Ngân hàng Thương mại Cổ phần Sài Gòn - Hà Nội (SHB)",
+        "Ngân hàng Thương mại Cổ phần Á Châu (ACB)",
+        "Ngân hàng Thương mại Cổ phần Phát triển Thành phố Hồ Chí Minh (HDBank)",
+        "Ngân hàng Thương mại Cổ phần Việt Nam Thịnh Vượng (VPBank)",
+        "Ngân hàng TMCP Quốc Dân (NCB)"
+    ];
+
+
+    function fetchAndPopulateBankNames() {
+        const bankSelect = document.getElementById('bankName');
+        bankNames.forEach(function (bankName) {
+            const option = document.createElement('option');
+            option.text = bankName;
+            bankSelect.add(option);
+        });
+    }
+
+    function setDefaultBankValues() {
+        const bankName = "${personalTrainerDto.getBankName()}";
+        const bankNumber = "${personalTrainer.getBankNumber()}";
+        const bankSelect = document.getElementById('bankName');
+        const bankNumberInput = document.querySelector('input[name="bankNumber"]');
+
+        for (let i = 0; i < bankSelect.options.length; i++) {
+            if (bankSelect.options[i].text === bankName) {
+                bankSelect.selectedIndex = i;
+                break;
+            }
+        }
+
+        bankNumberInput.value = bankNumber;
+    }
+
+    $(document).ready(function () {
+        fetchAndPopulateBankNames();
+        setDefaultBankValues();
+    });
 </script>
 
 
@@ -441,7 +755,6 @@
         $('#slider1').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[0]);
         $('#slider2').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[1]);
         $('#slider3').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[2]);
-        console.log(ptDto)
     })
 </script>
 </body>

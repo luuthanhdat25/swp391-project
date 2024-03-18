@@ -118,6 +118,7 @@ public class PersonalTrainerController {
             account.setAvatarImage(avatar.getBytes());
         }
         personalTrainer.setAccount(account);
+
         personalTrainer.setPrice(Integer.valueOf(personalTrainerDto.getPrice()));
         session.setAttribute("account", account);
         session.setAttribute("personalTrainer", personalTrainer);

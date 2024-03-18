@@ -3,6 +3,7 @@ package com.swpproject.application.controller.authentication;
 import com.swpproject.application.dto.AccountDTO;
 import com.swpproject.application.dto.Base64Dto;
 import com.swpproject.application.controller.personal_trainer_request.PersonalTrainerRequestService;
+import com.swpproject.application.dto.PasswordDto;
 import com.swpproject.application.dto.PersonalTrainerDto;
 import com.swpproject.application.model.*;
 import com.swpproject.application.repository.OrderRequestRepository;
@@ -12,6 +13,8 @@ import com.swpproject.application.utils.PasswordUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,6 +24,7 @@ import java.util.*;
 import static com.swpproject.application.utils.ProfileUtils.*;
 
 import static com.swpproject.application.utils.SessionUtils.*;
+import static com.swpproject.application.utils.PasswordUtils.*;
 
 @RequestMapping("/auth")
 @Controller
@@ -236,7 +240,6 @@ public class AuthenticationController {
                                HttpSession session,
                                HttpServletResponse response) {
         Optional<Account> account = accountService.getAccountByEmail(email);
-        System.out.println(PasswordUtils.hashPassword("admin123"));
         String hashing = PasswordUtils.hashPassword(password);
         if (account.isPresent() && hashing.equals(account.get().getPassword())) {
             session.setAttribute("account",account);
@@ -259,9 +262,8 @@ public class AuthenticationController {
             session.setAttribute("account", account.get());
             return "redirect:/welcome";
         } else {
-            /*session.setAttribute("email", email);
+            session.setAttribute("email", email);
             session.setAttribute("password", password);
-            throw new RuntimeException();*/
            return "redirect:/auth/login?failed";
         }
     }
@@ -344,4 +346,38 @@ public class AuthenticationController {
         return "redirect:/auth/login?successfully";
     }
 
+
+    @PostMapping("changepass")
+    public ResponseEntity<String> changePassword(@RequestBody PasswordDto passwordDto, HttpSession session) {
+        Object user = session.getAttribute("personalTrainer");
+        if (user == null) {
+            user = session.getAttribute("gymer");
+        }
+
+        if (user instanceof PersonalTrainer || user instanceof Gymer) {
+            Account account = null;
+            if (user instanceof PersonalTrainer) {
+                account = ((PersonalTrainer) user).getAccount();
+            } else {
+                account = ((Gymer) user).getAccount();
+            }
+
+            String currentPasswordHash = hashPassword(passwordDto.getCurrentPassword());
+            String newPasswordHash = hashPassword(passwordDto.getNewPassword());
+
+            if (!currentPasswordHash.equals(account.getPassword())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("cur|Current password did not match with the actual password!");
+            } else {
+                if (newPasswordHash.equals(account.getPassword())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("new|New password must not be the same as the current password!");
+                } else {
+                    account.setPassword(newPasswordHash);
+                    accountService.save(account);
+                    return ResponseEntity.ok("Password changed successfully!");
+                }
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User session not found.");
+        }
+    }
 }

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@page import="com.swpproject.application.utils.PasswordUtils" %>
 <%@include file="../common/header.jspf" %>
 <%@include file="../common/head.jspf" %>
 <%@include file="../common/sidebar.jspf" %>
@@ -17,7 +18,6 @@
         <div class="page-header invoices-page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <ul>
                     <ul>
                         <li class="breadcrumb-item invoices-breadcrumb-item">
                             <a href="javascript:history.go(-1)">
@@ -65,15 +65,20 @@
                                         <div class="col-lg-8 col-md-8"
                                              style="display: flex; flex-direction: column; justify-content: center;">
                                             <div class="form-group row">
-                                                <label class="col-lg-3 col-form-label" style="width: 64px;">Bank Name</label>
+                                                <label class="col-lg-3 col-form-label" style="width: 64px;">Bank
+                                                    Name</label>
                                                 <div class="form-group local-forms" style="width: 50%">
-                                                    <select class="form-control select" id="bankName" name="bankName" required>
+                                                    <select class="form-control select" id="bankName" name="bankName"
+                                                            required>
                                                     </select>
                                                 </div>
 
-                                                <label class="col-lg-3 col-form-label" style="width: 78px;">Bank Number</label>
+                                                <label class="col-lg-3 col-form-label" style="width: 78px;">Bank
+                                                    Number</label>
                                                 <div class="col-lg-3" style="width: 30%">
-                                                    <input name="bankNumber" type="text" class="form-control" id="bankNumber" value="${personalTrainer.getBankNumber()}" required>
+                                                    <input name="bankNumber" type="text" class="form-control"
+                                                           id="bankNumber" value="${personalTrainer.getBankNumber()}"
+                                                           required>
                                                     <div id="error-message-bank-number" style="color: red;"></div>
                                                 </div>
                                             </div>
@@ -107,7 +112,8 @@
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="phone" type="text" class="form-control"
                                                        value="${personalTrainer.getAccount().getPhone() == null ? '' : personalTrainer.getAccount().getPhone()}"
-                                                       placeholder="${personalTrainer.getAccount().getPhone() == null ? 'Empty' : ''}" required>
+                                                       placeholder="${personalTrainer.getAccount().getPhone() == null ? 'Empty' : ''}"
+                                                       required>
                                                 <div id="error-message-phone" style="color: red;"></div>
                                             </div>
                                         </div>
@@ -122,27 +128,30 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Gender</label>
                                             <div class="col-lg-9" style="width: 100%">
-                                                <div class="form-check form-check-inline">
+                                                <div class="form-check form-check-inline" style="cursor: pointer">
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            id="gender_male"
                                                            value="M" ${personalTrainer.getAccount().getGender() == 'M' ? 'checked' : ''}>
-                                                    <label class="form-check-label" for="gender_male">
+                                                    <label class="form-check-label" for="gender_male"
+                                                           style="cursor: pointer">
                                                         Male
                                                     </label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
+                                                <div class="form-check form-check-inline" style="cursor: pointer">
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            id="gender_female"
                                                            value="F" ${personalTrainer.getAccount().getGender() == 'F' ? 'checked' : ''}>
-                                                    <label class="form-check-label" for="gender_female">
+                                                    <label class="form-check-label" for="gender_female"
+                                                           style="cursor: pointer">
                                                         Female
                                                     </label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
+                                                <div class="form-check form-check-inline" style="cursor: pointer">
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            id="gender_other"
                                                            value="O" ${personalTrainer.getAccount().getGender() == 'O' ? 'checked' : ''}>
-                                                    <label class="form-check-label" for="gender_other">
+                                                    <label class="form-check-label" for="gender_other"
+                                                           style="cursor: pointer">
                                                         Other
                                                     </label>
                                                 </div>
@@ -151,36 +160,32 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-12 col-form-label" style="display: flex; justify-content: space-between;">Email
+                                            <label class="col-lg-12 col-form-label"
+                                                   style="display: flex; justify-content: space-between;">Email
                                                 <a href="#" id="changePasswordLink">Change Password?</a></label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input type="text" name="email" class="form-control"
                                                        value="${personalTrainer.getAccount().getEmail()}" disabled>
                                             </div>
                                         </div>
-<%--                                        <div class="form-group row">--%>
-<%--                                            <label class="col-lg-12 col-form-label" style="display: flex; justify-content: space-between;">Password</label>--%>
-<%--&lt;%&ndash;                                                <a href="#" id="changePasswordLink">Change Password?</a></label>&ndash;%&gt;--%>
-<%--                                            <div class="col-lg-9" style="width: 100%">--%>
-<%--                                                <input name="password" type="password" class="form-control"--%>
-<%--                                                       value="${personalTrainer.getAccount().getPassword()}" disabled>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Address</label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="address" type="text" class="form-control"
                                                        value="${personalTrainer.getAccount().getAddress() == null ? '' : personalTrainer.getAccount().getAddress()}"
-                                                       placeholder="${personalTrainer.getAccount().getAddress() == null ? 'Empty' : ''}" required>
+                                                       placeholder="${personalTrainer.getAccount().getAddress() == null ? 'Empty' : ''}"
+                                                       required>
                                                 <div id="error-message-address" style="color: red;"></div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-lg-9 col-form-label">Price (Amount of money per slot (VND))</label>
+                                            <label class="col-lg-9 col-form-label">Price (Amount of money per slot
+                                                (VND))</label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="price" type="number" class="form-control"
                                                        value="${personalTrainer.getPrice() == 0 ? "" : personalTrainer.getPrice()}"
-                                                       placeholder="Amount of money per slot (VND) | min: 10000 VND"  min="10000" required>
+                                                       placeholder="Amount of money per slot (VND) | min: 10000 VND"
+                                                       min="10000" required>
                                                 <div id="error-message-price" style="color: red;"></div>
                                             </div>
                                         </div>
@@ -248,22 +253,27 @@
                 <form id="changePasswordForm">
                     <div class="form-group local-forms">
                         <label for="currentPassword">Current Password <span class="login-danger">*</span></label>
-                        <input class="mb-1 mt-3 form-control pass-input" type="password" placeholder="Enter Current Password" id="currentPassword" minlength="8" maxlength="20" required>
+                        <input class="mb-1 mt-3 form-control pass-input" type="password"
+                               placeholder="Enter Current Password" autocomplete="no" id="currentPassword" minlength="8"
+                               maxlength="20" required>
                         <span class="profile-views feather-eye-off toggle-password" id="currentPasswordEye"></span>
                     </div>
                     <div class="error-message" id="currentPasswordError" style="color: red"></div>
                     <div class="form-group local-forms">
                         <label for="newPassword">New Password <span class="login-danger">*</span></label>
-                        <input class="mb-1 form-control pass-new" type="password" placeholder="Enter New Password" id="newPassword" minlength="8" maxlength="20" required>
+                        <input class="mb-1 form-control pass-new" type="password" placeholder="Enter New Password"
+                               id="newPassword" autocomplete="no" minlength="8" maxlength="20" required>
                         <span class="profile-views feather-eye-off new-toggle-password" id="newPasswordEye"></span>
                     </div>
                     <div class="error-message" id="newPasswordError" style="color: red"></div>
                     <div class="form-group local-forms">
                         <label for="repeatPassword">Repeat New Password <span class="login-danger">*</span></label>
-                        <input class="mb-1 form-control pass-confirm" type="password" placeholder="Repeat Password" id="repeatPassword" minlength="8" maxlength="20" required>
+                        <input class="mb-1 form-control pass-confirm" type="password" placeholder="Repeat Password"
+                               id="repeatPassword" autocomplete="no" minlength="8" maxlength="20" required>
                         <span class="profile-views feather-eye-off reg-toggle-password" id="repeatPasswordEye"></span>
                     </div>
                     <div class="error-message" id="repeatPasswordError" style="color: red"></div>
+                    <div class="error-message" id="successChange" style="color: green"></div>
                     <div id="changePasswordErrorMessage" style="color: red;"></div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -282,78 +292,126 @@
         var newPassword = document.getElementById("newPassword");
         var repeatPassword = document.getElementById("repeatPassword");
         var isValid = true;
-        // Reset error messages and borders
-        document.getElementById("currentPasswordError").innerHTML = "";
-        document.getElementById("newPasswordError").innerHTML = "";
-        document.getElementById("repeatPasswordError").innerHTML = "";
 
-        // Reset margin-bottom
-        var formGroups = document.getElementsByClassName("form-group local-forms");
-        for (var i = 0; i < formGroups.length; i++) {
-            formGroups[i].style.marginBottom = "20px";
-        }
+        $(document).ready(function () {
+            $("#changePasswordLink").click(function (e) {
+                e.preventDefault();
+                resetError(currentPassword);
+                resetError(newPassword);
+                resetError(repeatPassword);
+                $("#changePasswordModal").modal("show");
+            });
 
-        // Check current password
-        if (currentPassword.value === "") {
-            document.getElementById("currentPasswordError").innerHTML = "Current Password is required.";
-            currentPassword.style.border = "1px solid red";
-            currentPassword.parentElement.style.marginTop = "20px";
-            currentPassword.parentElement.style.marginBottom = "0px"; // Adjust margin-bottom
-            isValid = false;
-        } else {
-            currentPassword.style.border = "1px solid #000000";
-        }
+            $("#changePasswordForm").submit(function (e) {
+                $("#changePasswordModal").modal("hide");
+            });
+        });
 
-        // Check new password
-        if (newPassword.value === "") {
-            document.getElementById("newPasswordError").innerHTML = "New Password is required.";
-            newPassword.style.border = "1px solid red";
-            newPassword.parentElement.style.marginTop = "20px";
-            newPassword.parentElement.style.marginBottom = "0px"; // Adjust margin-bottom
-            isValid = false;
-        } else if (newPassword.value.length < 8 || newPassword.value.length > 20) {
-            document.getElementById("newPasswordError").innerHTML = "New Password must be between 8 and 20 characters.";
-            newPassword.style.border = "1px solid red";
-            newPassword.parentElement.style.marginTop = "20px";
-            newPassword.parentElement.style.marginBottom = "0px"; // Adjust margin-bottom
-            isValid = false;
-        }
+        // Reset error messages, borders, and success message
+        resetError(currentPassword);
+        resetError(newPassword);
+        resetError(repeatPassword);
+        document.getElementById("successChange").innerHTML = "";
 
-        if (repeatPassword.value === "") {
-            document.getElementById("repeatPasswordError").innerHTML = "Repeat Password is required.";
-            repeatPassword.style.border = "1px solid red";
-            repeatPassword.parentElement.style.marginTop = "20px";
-            repeatPassword.parentElement.style.marginBottom = "0px";
-            isValid = false;
-        } else if (repeatPassword.value.length < 8 || repeatPassword.value.length > 20) {
-            document.getElementById("repeatPasswordError").innerHTML = "Repeat Password must be between 8 and 20 characters.";
-            repeatPassword.style.border = "1px solid red";
-            repeatPassword.parentElement.style.marginTop = "20px";
-            repeatPassword.parentElement.style.marginBottom = "0px";
-            isValid = false;
-        }
+        console.log("currentPassword --> " + currentPassword.value)
+        console.log("newPassword --> " + newPassword.value)
+        console.log("repeatPassword --> " + newPassword.value)
+
+        // Validate current password
+        isValid = validateField(currentPassword, "Current Password", 8, 20) && isValid;
+
+        // Validate new password
+        isValid = validateField(newPassword, "New Password", 8, 20) && isValid;
+
+        // Validate repeat password
+        isValid = validateField(repeatPassword, "Repeat Password", 8, 20) && isValid;
 
         // Check if new password and repeat password match
         if (newPassword.value !== repeatPassword.value) {
-            document.getElementById("newPasswordError").innerHTML = "New Password and Repeat Password do not match.";
-            document.getElementById("repeatPasswordError").innerHTML = "New Password and Repeat Password do not match.";
-            newPassword.style.border = "1px solid red";
-            repeatPassword.style.border = "1px solid red";
-            newPassword.parentElement.style.marginBottom = "0px"; // Adjust margin-bottom
-            repeatPassword.parentElement.style.marginBottom = "0px"; // Adjust margin-bottom
+            setErrorMessage(newPassword, "New Password and Repeat Password do not match.");
+            setErrorMessage(repeatPassword, "New Password and Repeat Password do not match.");
             isValid = false;
         }
 
         return isValid;
     }
 
-    // Function to handle form submission
-    document.getElementById("changePasswordButton").addEventListener("click", function() {
+    function resetError(element) {
+        element.style.border = "1px solid #000000";
+        var errorMessageId = element.id + "Error";
+
+        document.getElementById(errorMessageId).innerHTML = "";
+    }
+
+    function validateField(field, fieldName, minLength, maxLength) {
+        if (field.value === "") {
+            setErrorMessage(field, fieldName + " is required.");
+            return false;
+        } else if (field.value.length < minLength || field.value.length > maxLength) {
+            setErrorMessage(field, fieldName + " must have length between " + minLength + " and " + maxLength + " characters.");
+            return false;
+        }
+        return true;
+    }
+
+    function setErrorMessage(field, message) {
+        var errorMessageId = field.id + "Error";
+        document.getElementById(errorMessageId).innerHTML = message;
+        console.log("errorMessageId --> " + errorMessageId)
+        field.style.border = "1px solid red";
+        field.parentElement.style.marginTop = "20px";
+        field.parentElement.style.marginBottom = "0px";
+    }
+
+
+    document.getElementById("changePasswordButton").addEventListener("click", function () {
+        var currentPassword = document.getElementById("currentPassword");
+        var newPassword = document.getElementById("newPassword");
+        var repeatPassword = document.getElementById("repeatPassword");
+
         if (validateForm()) {
-            console.log("Form submitted successfully!");
-            // You can proceed with form submission or other actions here
+            $.ajax({
+                type: "POST",
+                url: "/auth/changepass",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    currentPassword: currentPassword.value,
+                    newPassword: newPassword.value,
+                    repeatPassword: repeatPassword.value
+                }),
+                success: function () {
+                    showSuccessMessage("Change password successfully!");
+                },
+                error: function (xhr) {
+                    var errorMessage = xhr.responseText;
+                    var parts = errorMessage.split("|");
+                    if (parts.length === 2) {
+                        var errorCode = parts[0];
+                        var errorDetail = parts[1];
+                        if (errorCode === "new") {
+                            setErrorMessage(newPassword,errorDetail)
+                            repeatPassword.style.marginTop = "30px"
+                        } else if (errorCode === "cur") {
+                            setErrorMessage(currentPassword,errorDetail)
+                            newPassword.style.marginTop = "30px"
+                        }
+                    }
+                }
+            });
         }
     });
+
+    function showSuccessMessage(message) {
+        var successChange = document.getElementById("successChange");
+        successChange.innerHTML = message;
+        successChange.style.color = "green";
+    }
+
+    function showErrorMessages(field, message) {
+        document.getElementById(field).style.border = "1px solid red";
+        document.getElementById("repeatPasswordError").innerHTML = message;
+        document.getElementById("repeatPasswordError").style.color = "red";
+    }
 </script>
 
 <script src="../../assets/js/jquery-3.6.0.min.js"></script>
@@ -368,11 +426,8 @@
 <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
 
 
-
-
-
 <script>
-    
+
     document.addEventListener('DOMContentLoaded', function () {
         const fileInput = document.querySelector('input[name="avatar"]');
         const avatarImage = document.getElementById('avatar-image');
@@ -575,6 +630,7 @@
 
             submitButton.disabled = !isFormValid;
         }
+
         fileInput.addEventListener('change', checkFormValidity);
         bankNumberInput.addEventListener('input', checkFormValidity);
         fullNameInput.addEventListener('input', checkFormValidity);
@@ -661,10 +717,9 @@
     ];
 
 
-
     function fetchAndPopulateBankNames() {
         const bankSelect = document.getElementById('bankName');
-        bankNames.forEach(function(bankName) {
+        bankNames.forEach(function (bankName) {
             const option = document.createElement('option');
             option.text = bankName;
             bankSelect.add(option);
@@ -688,14 +743,6 @@
     }
 
     $(document).ready(function () {
-        $("#changePasswordLink").click(function (e) {
-            e.preventDefault();
-            $("#changePasswordModal").modal("show");
-        });
-
-        $("#changePasswordForm").submit(function (e) {
-            $("#changePasswordModal").modal("hide");
-        });
         fetchAndPopulateBankNames();
         setDefaultBankValues();
     });

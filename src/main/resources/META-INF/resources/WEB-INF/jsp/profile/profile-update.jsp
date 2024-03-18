@@ -151,20 +151,13 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Email</label>
+                                            <label class="col-lg-12 col-form-label" style="display: flex; justify-content: space-between;">Email
+                                                <a href="#" id="changePasswordLink">Change Password?</a></label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input type="text" class="form-control"
                                                        name="email" value="${gymer.getAccount().getEmail()}" disabled required>
                                             </div>
                                         </div>
-<%--                                        <div class="form-group row">--%>
-<%--                                            <label class="col-lg-12 col-form-label" style="display: flex; justify-content: space-between;">Password</label>--%>
-<%--&lt;%&ndash;                                                <a href="#" id="changePasswordLink">Change Password?</a></label>&ndash;%&gt;--%>
-<%--                                            <div class="col-lg-9" style="width: 100%">--%>
-<%--                                                <input name="password" type="password" class="form-control"--%>
-<%--                                                       value="${gymer.getAccount().getPassword()}" disabled>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Address</label>
                                             <div class="col-lg-9" style="width: 100%">
@@ -186,45 +179,167 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form:form id="changePasswordForm">
-                                <div class="form-group local-forms">
-                                    <label for="currentPassword">Current Password <span class="login-danger">*</span></label>
-                                    <input class="mb-3 mt-3 form-control pass-input" type="password" placeholder="Enter Current Password" id="currentPassword" minlength="8" maxlength="20" required>
-                                    <span class="profile-views feather-eye-off toggle-password"></span>
-                                </div>
-                                <div class="form-group local-forms">
-                                    <label for="newPassword">New Password <span class="login-danger">*</span></label>
-                                    <input class="mb-3 form-control pass-new" type="password" placeholder="Enter New Password" id="newPassword" minlength="8" maxlength="20" required>
-                                    <span class="profile-views feather-eye-off new-toggle-password"></span>
-                                </div>
-                                <div class="form-group local-forms">
-                                    <label for="repeatPassword">Repeat New Password <span class="login-danger">*</span></label>
-                                    <input class="form-control pass-confirm" type="password" placeholder="Repeat Password" id="repeatPassword" minlength="8" maxlength="20" required>
-                                    <span class="profile-views feather-eye-off reg-toggle-password"></span>
-                                </div>
-                                <div id="changePasswordErrorMessage" style="color: red;"></div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" onclick="" id="changePasswordButton">Save changes</button>
-                                </div>
-                            </form:form>
-                        </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <div class="form-group local-forms">
+                        <label for="currentPassword">Current Password <span class="login-danger">*</span></label>
+                        <input class="mb-1 mt-3 form-control pass-input" type="password"
+                               placeholder="Enter Current Password" autocomplete="no" id="currentPassword" minlength="8"
+                               maxlength="20" required>
+                        <span class="profile-views feather-eye-off toggle-password" id="currentPasswordEye"></span>
                     </div>
-                </div>
+                    <div class="error-message" id="currentPasswordError" style="color: red"></div>
+                    <div class="form-group local-forms">
+                        <label for="newPassword">New Password <span class="login-danger">*</span></label>
+                        <input class="mb-1 form-control pass-new" type="password" placeholder="Enter New Password"
+                               id="newPassword" autocomplete="no" minlength="8" maxlength="20" required>
+                        <span class="profile-views feather-eye-off new-toggle-password" id="newPasswordEye"></span>
+                    </div>
+                    <div class="error-message" id="newPasswordError" style="color: red"></div>
+                    <div class="form-group local-forms">
+                        <label for="repeatPassword">Repeat New Password <span class="login-danger">*</span></label>
+                        <input class="mb-1 form-control pass-confirm" type="password" placeholder="Repeat Password"
+                               id="repeatPassword" autocomplete="no" minlength="8" maxlength="20" required>
+                        <span class="profile-views feather-eye-off reg-toggle-password" id="repeatPasswordEye"></span>
+                    </div>
+                    <div class="error-message" id="repeatPasswordError" style="color: red"></div>
+                    <div class="error-message" id="successChange" style="color: green"></div>
+                    <div id="changePasswordErrorMessage" style="color: red;"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="changePasswordButton">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-<script>
 
+<script>
+    // Function to validate the form
+    function validateForm() {
+        var currentPassword = document.getElementById("currentPassword");
+        var newPassword = document.getElementById("newPassword");
+        var repeatPassword = document.getElementById("repeatPassword");
+        var isValid = true;
+
+        // Reset error messages, borders, and success message
+        resetError(currentPassword);
+        resetError(newPassword);
+        resetError(repeatPassword);
+        document.getElementById("successChange").innerHTML = "";
+
+        console.log("currentPassword --> " + currentPassword.value)
+        console.log("newPassword --> " + newPassword.value)
+        console.log("repeatPassword --> " + newPassword.value)
+
+        // Validate current password
+        isValid = validateField(currentPassword, "Current Password", 8, 20) && isValid;
+
+        // Validate new password
+        isValid = validateField(newPassword, "New Password", 8, 20) && isValid;
+
+        // Validate repeat password
+        isValid = validateField(repeatPassword, "Repeat Password", 8, 20) && isValid;
+
+        // Check if new password and repeat password match
+        if (newPassword.value !== repeatPassword.value) {
+            setErrorMessage(newPassword, "New Password and Repeat Password do not match.");
+            setErrorMessage(repeatPassword, "New Password and Repeat Password do not match.");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    function resetError(element) {
+        element.style.border = "1px solid #000000";
+        var errorMessageId = element.id + "Error";
+
+        document.getElementById(errorMessageId).innerHTML = "";
+    }
+
+    function validateField(field, fieldName, minLength, maxLength) {
+        if (field.value === "") {
+            setErrorMessage(field, fieldName + " is required.");
+            return false;
+        } else if (field.value.length < minLength || field.value.length > maxLength) {
+            setErrorMessage(field, fieldName + " must have length between " + minLength + " and " + maxLength + " characters.");
+            return false;
+        }
+        return true;
+    }
+
+    function setErrorMessage(field, message) {
+        var errorMessageId = field.id + "Error";
+        document.getElementById(errorMessageId).innerHTML = message;
+        console.log("errorMessageId --> " + errorMessageId)
+        field.style.border = "1px solid red";
+        field.parentElement.style.marginTop = "20px";
+        field.parentElement.style.marginBottom = "0px";
+    }
+
+
+    document.getElementById("changePasswordButton").addEventListener("click", function () {
+        var currentPassword = document.getElementById("currentPassword");
+        var newPassword = document.getElementById("newPassword");
+        var repeatPassword = document.getElementById("repeatPassword");
+
+        if (validateForm()) {
+            $.ajax({
+                type: "POST",
+                url: "/auth/changepass",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    currentPassword: currentPassword.value,
+                    newPassword: newPassword.value,
+                    repeatPassword: repeatPassword.value
+                }),
+                success: function () {
+                    showSuccessMessage("Change password successfully!");
+                },
+                error: function (xhr) {
+                    var errorMessage = xhr.responseText;
+                    var parts = errorMessage.split("|");
+                    if (parts.length === 2) {
+                        var errorCode = parts[0];
+                        var errorDetail = parts[1];
+                        if (errorCode === "new") {
+                            setErrorMessage(newPassword,errorDetail)
+                            repeatPassword.style.marginTop = "30px"
+                        } else if (errorCode === "cur") {
+                            setErrorMessage(currentPassword,errorDetail)
+                            newPassword.style.marginTop = "30px"
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    function showSuccessMessage(message) {
+        var successChange = document.getElementById("successChange");
+        successChange.innerHTML = message;
+        successChange.style.color = "green";
+    }
+
+    function showErrorMessages(field, message) {
+        document.getElementById(field).style.border = "1px solid red";
+        document.getElementById("repeatPasswordError").innerHTML = message;
+        document.getElementById("repeatPasswordError").style.color = "red";
+    }
+</script>
+<script>
     $(document).ready(function () {
         $("#changePasswordLink").click(function (e) {
             e.preventDefault();

@@ -137,7 +137,7 @@ public class PersonalTrainerRestController {
 
         CompletableFuture<Void> allOfFutures = CompletableFuture.allOf(futures);
 
-        allOfFutures.join(); // Đợi cho tất cả các tác vụ hoàn thành
+        allOfFutures.join();
 
         return new ArrayList<>(personalTrainerDTOAddressDistanceList);
     }

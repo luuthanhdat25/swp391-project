@@ -58,17 +58,18 @@ public class PersonalTrainerController {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         List<PersonalTrainerDto> personalTrainerDTOList = personalTrainerService.getPersonalTrainerDTOList(roleDTO);
         String json = JsonUtils.jsonConvert(personalTrainerDTOList);
+
+        model.addAttribute("canSearchDistance", canSearchDistance(roleDTO, request));
         model.addAttribute("personalTrainerList", json);
-
-        if(roleDTO != null && roleDTO.getRole() == Role.GYMER){
-            HttpSession session = request.getSession();
-            Account account = (Account)  session.getAttribute("account");
-            String originAddress = account.getAddress();
-            boolean canSearchDistance = originAddress != null && !originAddress.isEmpty();
-            model.addAttribute("canSearchDistance", canSearchDistance);
-        }
-
         return "personal-trainer-list";
+    }
+
+    private boolean canSearchDistance(RoleDTO roleDTO, HttpServletRequest request){
+        if(roleDTO == null || roleDTO.getRole() != Role.GYMER) return false;
+        HttpSession session = request.getSession();
+        Account account = (Account)  session.getAttribute("account");
+        String originAddress = account.getAddress();
+        return originAddress != null && !originAddress.isEmpty();
     }
 
     @RequestMapping(value = "/details", method = RequestMethod.GET)

@@ -1,12 +1,18 @@
+var itemsPerPage = 3;
+var currentPage = 1;
+
 function formatPrice(price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-function generatePersonalTrainers(personalTrainerList) {
+function displayItems(page) {
+    var startIndex = (page - 1) * itemsPerPage;
+    var endIndex = startIndex + itemsPerPage;
+    var paginatedItems = personalTrainerList.slice(startIndex, endIndex);
     const container = $('<div class="student-personals-grp"></div>');
     var defaultIconUrl = 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg';
 
-    personalTrainerList.forEach(personalTrainer => {
+    paginatedItems.forEach(personalTrainer => {
         var displayDescription;
         if(personalTrainer.description){
             var limitlength = 200;
@@ -61,4 +67,28 @@ function generatePersonalTrainers(personalTrainerList) {
     $('#personalTrainerContainer').html(container);
 }
 
-generatePersonalTrainers(personalTrainerList);
+function renderPagination() {
+    var totalPages = Math.ceil(personalTrainerList.length / itemsPerPage);
+    var paginationHtml = '';
+
+    paginationHtml += '<li class="page-item ' + (currentPage === 1 ? 'disabled' : '') + '"><a class="page-link" href="#" data-page="' + (currentPage - 1) + '">Previous</a></li>';
+    for (var i = 1; i <= totalPages; i++) {
+        paginationHtml += '<li class="page-item ' + (currentPage === i ? 'active' : '') + '"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+    }
+    paginationHtml += '<li class="page-item ' + (currentPage === totalPages ? 'disabled' : '') + '"><a class="page-link" href="#" data-page="' + (currentPage + 1) + '">Next</a></li>';
+
+    $('#pagination').html(paginationHtml);
+}
+
+displayItems(currentPage);
+renderPagination();
+
+$(document).on('click', '.pagination .page-link', function(e) {
+    e.preventDefault();
+    var page = parseInt($(this).data('page'));
+    if (!isNaN(page)) {
+        currentPage = page;
+        displayItems(currentPage);
+        renderPagination();
+    }
+});

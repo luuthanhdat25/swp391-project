@@ -177,8 +177,14 @@ function handleSearch(id) {
             console.log(response);
 
             if (response && response.length > 0) {
-                renderNutritionList(response)
+                nutritionList = response;
+                currentPage = 1;
+                displayItems(currentPage);
+                renderPagination();
             } else {
+                nutritionList = [];
+                renderPagination();
+                $('.page-item').addClass('disabled');
                 document.getElementById('nutritionTableBody').innerHTML = "<p class='fs-3 text text-secondary mt-3'>Not found any Nutrition!</p>";
             }
         },
@@ -234,6 +240,4 @@ $(document).ready(function () {
     $("#submitCarb").click(function () {
         handleSearch();
     });
-
-    handleSearch();
 })

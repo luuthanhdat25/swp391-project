@@ -2,8 +2,10 @@ package com.swpproject.application.service;
 
 
 import com.swpproject.application.enums.OrderStatus;
+import com.swpproject.application.model.Gymer;
 import com.swpproject.application.model.OrderRequest;
 import com.swpproject.application.model.PersonalTrainer;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,4 +20,6 @@ public interface OrderRequestService {
     public  boolean checkGymerOrderExist(Integer gymerID,OrderStatus orderStatus);
 
     public List<OrderRequest> getOrderList(PersonalTrainer personalTrainer, OrderStatus orderStatus);
+
+    public List<OrderRequest> getOrderHistoryGymer(Gymer gymer);
 }

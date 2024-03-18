@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -113,6 +114,12 @@ public class AdminNotificationController {
     public String deleteNotificationDetail(@RequestParam("deleteNotificationID") int deleteNotificationID) {
         notificationRepository.deleteById(deleteNotificationID);
         return "forward:manage-notification";
+    }
+    @RequestMapping("admin-home/manage-account")
+    public String viewAllAccount(Model model){
+        List<Account> accountList = accountService.getAccounts();
+        model.addAttribute("accountList",accountList);
+        return "view-accounts";
     }
 
     @RequestMapping(value = "admin-home/view-creating-notification-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")

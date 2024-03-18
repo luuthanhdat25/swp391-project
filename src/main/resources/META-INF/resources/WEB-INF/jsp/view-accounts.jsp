@@ -260,7 +260,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="account" items="${account}">
+                                <c:forEach var="account" items="${accountList}">
                                     <tr>
                                         <td style="text-align: left;"><img class="img-thumbnail" src="data:image/png;base64,${account.getAvatarImageAsString()}" alt="Customer image Image">
                                                 ${account.fullName} </td>

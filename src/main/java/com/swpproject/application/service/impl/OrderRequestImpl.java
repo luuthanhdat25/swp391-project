@@ -1,6 +1,7 @@
 package com.swpproject.application.service.impl;
 
 import com.swpproject.application.enums.OrderStatus;
+import com.swpproject.application.model.Gymer;
 import com.swpproject.application.model.OrderRequest;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.repository.OrderRequestRepository;
@@ -12,6 +13,11 @@ import java.util.List;
 
 @Service
 public class OrderRequestImpl implements OrderRequestService {
+    @Override
+    public List<OrderRequest> getOrderHistoryGymer(Gymer gymer) {
+        return orderRequestRepository.getOrderRequestByGymer(gymer);
+    }
+
     @Override
     public boolean checkGymerOrderExist(Integer gymerID, OrderStatus orderStatus) {
         return orderRequestRepository.existsByGymer_GymerIdAndAndStatus(gymerID,orderStatus);

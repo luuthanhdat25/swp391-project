@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('#exerciseImage').html('<img class="w-100 mb-2" src="data:image/jpeg;base64,' + exercise.imageDescription + '" style="border-radius: .25rem;" alt="Exercise Image">');
-
+    console.log("data:image/jpeg;base64," + exercise.personalTrainer_image)
     var level = '';
     if (exercise.level === 'Beginner') {
         level = 'bg-success';

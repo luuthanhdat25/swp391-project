@@ -3,6 +3,7 @@ package com.swpproject.application.controller.personal_trainer;
 import com.swpproject.application.dto.PersonalTrainerDto;
 import com.swpproject.application.dto.RoleDTO;
 import com.swpproject.application.enums.Gender;
+import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.service.AccountService;
@@ -58,9 +59,17 @@ public class PersonalTrainerController {
         List<PersonalTrainerDto> personalTrainerDTOList = personalTrainerService.getPersonalTrainerDTOList(roleDTO);
         String json = JsonUtils.jsonConvert(personalTrainerDTOList);
         model.addAttribute("personalTrainerList", json);
+
+        if(roleDTO != null && roleDTO.getRole() == Role.GYMER){
+            HttpSession session = request.getSession();
+            Account account = (Account)  session.getAttribute("account");
+            String originAddress = account.getAddress();
+            boolean canSearchDistance = originAddress != null && !originAddress.isEmpty();
+            model.addAttribute("canSearchDistance", canSearchDistance);
+        }
+
         return "personal-trainer-list";
     }
-
 
     @RequestMapping(value = "/details", method = RequestMethod.GET)
     public String view_profile_details(@RequestParam(name = "id", required = false) int id, ModelMap model) {
@@ -115,8 +124,6 @@ public class PersonalTrainerController {
         personalTrainerRepository.save(personalTrainer);
         return "redirect:/profile/details?ptid=" + id;
     }
-
-
 }
 
 

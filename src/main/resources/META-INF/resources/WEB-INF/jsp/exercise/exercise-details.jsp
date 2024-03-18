@@ -26,7 +26,9 @@
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center heading-detail">
                                                 <h2 id="exerciseName"></h2>
-                                                <a id="personalTrainerImage" style="display: none" href="personal-trainer/profile/"><img class="rounded-circle"  src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg" style="width: 4rem; height: 4rem; max-width: 100px; object-fit: cover" alt="Small Image"></a>
+                                                <a  style="display: none" href="personal-trainer/profile/" id="personalTrainerImageAtag">
+                                                    <img id="personalTrainerImage" class="rounded-circle"  src="" style="width: 4rem; height: 4rem; max-width: 100px; object-fit: cover" alt="Small Image">
+                                                </a>
                                                 <a id="editButton" style="display: none" href="" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
                                             </div>
                                             <hr>
@@ -79,7 +81,8 @@
             if(role === "PT" && exercise.personalTrainer_id + '' === personalTrainerId){
                 $('#editButton').show()
             }else{
-                $('#personalTrainerImage').show()
+                $('#personalTrainerImageAtag').show()
+                $('#personalTrainerImage').attr('src', "data:image/jpeg;base64," + exercise.personalTrainer_image);
             }
 
         });

@@ -197,6 +197,12 @@
                                             <div id="conflictAlert" class="alert alert-danger" style="display:none;">
                                                 <strong>Conflicting slot!</strong> There is a schedule conflict. please choose againe!
                                             </div>
+                                            <c:if test="${ErrorMessage ne null}">
+                                                <div  class="alert alert-danger" >
+                                                    <strong>${ErrorMessage}</strong>
+                                                </div>
+                                            </c:if>
+
                                             <table class="table table-bordered">
                                                 <thead>
                                                 <tr>

@@ -324,7 +324,6 @@
 						formContent += '</label>'; // Kết thúc của thẻ label
 						formContent += '<select class="form-control exercise-select" name="exerciseSelect">';
 						formContent += '<option disabled selected>Choose exercise</option>';
-
 						// Duyệt qua từng phần tử của exerciseList
 						slotExerciseDetailDTO.exercises.forEach(function (exercise) {
 							// Kiểm tra nếu id của exercise trùng khớp với exerciseId
@@ -332,7 +331,6 @@
 							// Thêm một tùy chọn vào select với value là id của exercise và hiển thị là tên của exercise
 							formContent += '<option value="' + exercise.id + '" ' + selected + '>' + exercise.name + '</option>';
 						});
-
 						formContent += '</select>';
 						formContent += '</div>';
 						formContent += '</div>';
@@ -386,7 +384,6 @@
 						formContent += '</div>'; // Đóng tag div của hàng
 					});
 				}
-
 				formContent += '<div class="row mb-2">';
 				formContent += '<div class="col-1"></div>';
 				formContent += '<div class="col-sm-8">';
@@ -484,7 +481,6 @@
 				}
 			}
 		});
-
 		function checkResize(){
 			for(var i = 0; i < scheduleTemplateArray.length; i++) {
 				scheduleTemplateArray[i].scheduleReset();

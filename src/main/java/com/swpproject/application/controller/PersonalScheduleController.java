@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,7 +26,6 @@ import java.util.Optional;
 
 @Controller
 public class PersonalScheduleController {
-
     @Autowired
     private SlotExcerciseEntityService slotExcerciseEntityService;
 
@@ -47,7 +47,8 @@ public class PersonalScheduleController {
     private PersonalTrainerService personalTrainerService;
     @Autowired
     private ExerciseRepository exerciseRepository;
-    @Autowired private GymerService gymerService;
+    @Autowired
+    private GymerService gymerService;
     @Autowired
     private ScheduleServiceImplement scheduleServiceImplement;
 
@@ -59,12 +60,12 @@ public class PersonalScheduleController {
 
     @GetMapping(value = "/selectTime", params = {"week", "year"})
     public String showSchedulePT(@RequestParam("week") int week,
-                                     @RequestParam("year") int year, Model model,
-                                     HttpSession session) {
+                                 @RequestParam("year") int year, Model model,
+                                 HttpSession session) {
         Account account = (Account) session.getAttribute("account");
-        if (account.getRole().equals(Role.PT)){
+        if (account.getRole().equals(Role.PT)) {
             PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(account.getId());
-            List<SlotExercise> slotExercises = slotExcerciseEntityService.findAllByWeekAndYearAndPersonalTrainerAndIsPending(week,year,personalTrainer,false);
+            List<SlotExercise> slotExercises = slotExcerciseEntityService.findAllByWeekAndYearAndPersonalTrainerAndIsPending(week, year, personalTrainer, false);
             model.addAttribute("slotExercises", slotExercises);
         }
         return "forward:/view-pt-schedule?year=" + year + "&week=" + week;
@@ -72,11 +73,11 @@ public class PersonalScheduleController {
 
     // gymer view schedule created by Personal Trainer
     @GetMapping(value = "/view-schedule-withpt")
-    public String viewScheduleWithPT(Model model,HttpSession session,
-                                     @RequestParam(value = "GymerID",required = false) Integer gymerID ) {
-        if(gymerID != null){
+    public String viewScheduleWithPT(Model model, HttpSession session,
+                                     @RequestParam(value = "GymerID", required = false) Integer gymerID) {
+        if (gymerID != null) {
             Gymer gymer = gymerService.getGymerById(gymerID).get();
-            session.setAttribute("GymerCustomer",gymer);
+            session.setAttribute("GymerCustomer", gymer);
         }
         return "gymer-schedule";
     }
@@ -88,11 +89,11 @@ public class PersonalScheduleController {
 
 
         Gymer gymer = (Gymer) session.getAttribute("gymer");
-        if(gymer == null){
+        if (gymer == null) {
             gymer = (Gymer) session.getAttribute("GymerCustomer");
         }
         if (gymer != null) {
-            List<SlotExercise> slotExes = slotExcerciseEntityService.findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(week,year,gymer,false);
+            List<SlotExercise> slotExes = slotExcerciseEntityService.findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(week, year, gymer, false);
             model.addAttribute("slotExes", slotExes);
         }
         return "forward:/view-schedule-withpt?year=" + year + "&week=" + week;
@@ -112,7 +113,7 @@ public class PersonalScheduleController {
         Gymer gymer = (Gymer) session.getAttribute("gymer");
 
         if (gymer != null) {
-            Schedule schedule = scheduleServiceImplement.findScheduleByGymerIdAndPTId(gymer.getGymerId(),null).get();
+            Schedule schedule = scheduleServiceImplement.findScheduleByGymerIdAndPTId(gymer.getGymerId(), null).get();
             scheduleId = schedule.getId();
             List<SlotExercise> slotExercises = slotExeRepository.findSlotExeByWeekAndYearAndScheduleId(week, year, scheduleId);
             model.addAttribute("slotExercises", slotExercises);
@@ -127,7 +128,7 @@ public class PersonalScheduleController {
 
         model.addAttribute("week", week);
         model.addAttribute("year", year);
-        return "forward:/view-personal-schedule?week="+week+"&year="+year;
+        return "forward:/view-personal-schedule?week=" + week + "&year=" + year;
     }
 
     @PostMapping(value = "/view-personal-schedule")
@@ -145,7 +146,7 @@ public class PersonalScheduleController {
                           HttpSession session) {
 
         Gymer gymer = (Gymer) session.getAttribute("gymer");
-        Schedule schedule = scheduleServiceImplement.findScheduleByGymerIdAndPTId(gymer.getGymerId(),null).get();
+        Schedule schedule = scheduleServiceImplement.findScheduleByGymerIdAndPTId(gymer.getGymerId(), null).get();
 
         if ("Exercise".equals(typeOfSlot)) {
             //Create slot exercise
@@ -202,5 +203,68 @@ public class PersonalScheduleController {
         }
         return "redirect:/selectWeek?week=" + week + "&year=" + year;
     }
+
+    @PostMapping(value = "/update-personal-schedule")
+    public String updateSlot(@RequestParam(value = "slotExerciseDetailId", required = false) String slotExerciseDetailId, @RequestParam(value = "exerciseSelect", required = false) String selectedExercises, @RequestParam(value = "exerciseSet", required = false) String exerciseSet, @RequestParam(value = "exerciseRep", required = false) String exerciseRep, @RequestParam(value = "slotNutritionDetailId", required = false) String slotNutritionDetailId, @RequestParam(value = "nutritionSelect", required = false) String selectedNutritions, @RequestParam(value = "nutritionAmount", required = false) String nutritionAmount, @RequestParam("description") String description) {
+
+        // In ra các giá trị của request param
+        System.out.println("slotExerciseDetailId: " + slotExerciseDetailId);
+        int week = 0;
+        int year = 0;
+        if (slotExerciseDetailId != null) {
+            String[] exeDetailId = slotExerciseDetailId.split(",");
+            String[] exerciseId = selectedExercises.split(",");
+            String[] set = exerciseSet.split(",");
+            String[] rep = exerciseRep.split(",");
+            for (int i = 0; i < exeDetailId.length; i++) {
+                SlotExerciseDetail slotExerciseDetail = slotExeDetailService.getSlotExeDetailById(Integer.parseInt(exeDetailId[i])).get();
+                slotExerciseDetail.setExercise(exerciseRepository.findNonPrivateById(Integer.parseInt(exerciseId[i])).get());
+                slotExerciseDetail.setSetExe(Integer.parseInt(set[i]));
+                slotExerciseDetail.setRep(Integer.parseInt(rep[i]));
+                slotExerciseDetail.getSlotExercise().setDescription(description);
+                week = slotExerciseDetail.getSlotExercise().getWeek();
+                year = slotExerciseDetail.getSlotExercise().getYear();
+                slotExeDetailService.save(slotExerciseDetail);
+            }
+        } else {
+            String[] nutriDetailId = slotNutritionDetailId.split(",");
+            String[] nutritionId = selectedNutritions.split(",");
+            String[] amount = nutritionAmount.split(",");
+            for (int i = 0; i < nutriDetailId.length; i++) {
+                SlotNutritionDetail slotNutritionDetail = slotNutriDetailService.findById(Integer.parseInt(nutriDetailId[i])).get();
+                slotNutritionDetail.setNutrition(nutritionRepository.findNonPrivateById(Integer.parseInt(nutritionId[i])).get());
+                slotNutritionDetail.setAmount(Integer.parseInt(amount[i]));
+                slotNutritionDetail.getSlotNutrition().setDescription(description);
+                week = slotNutritionDetail.getSlotNutrition().getWeek();
+                year = slotNutritionDetail.getSlotNutrition().getYear();
+                slotNutriDetailService.save(slotNutritionDetail);
+            }
+        }
+        return "redirect:/selectWeek?week=" + week + "&year=" + year;
+    }
+
+    @Transactional
+    @PostMapping(value = "/delete-personal-slot")
+    public String deleteSlot(@RequestParam(value = "slotExerciseId", required = false) String slotExerciseId,
+                             @RequestParam(value = "slotNutritionId", required = false) String slotNutritionId) {
+        int week=0;
+        int year=0;
+        System.out.println(slotExerciseId);
+        System.out.println(slotNutritionId);
+        if (slotExerciseId!=null){
+            SlotExercise slotExercise = slotExeRepository.findById(Integer.parseInt(slotExerciseId));
+            week = slotExercise.getWeek();
+            year = slotExercise.getYear();
+            slotExeRepository.deleteById(slotExercise.getId());
+        } else {
+            SlotNutrition slotNutrition = slotNutriRepository.findSlotNutritionById(Integer.parseInt(slotNutritionId));
+            week = slotNutrition.getWeek();
+            year = slotNutrition.getYear();
+            slotNutriRepository.deleteById(slotNutrition.getId());
+        }
+        return "redirect:/selectWeek?week=" + week + "&year=" + year;
+    }
+
+
 }
 

@@ -291,6 +291,6 @@ public class PersonalScheduleController {
         }
         return "redirect:/selectWeek?week=" + week + "&year=" + year;
     }
-    
+
 }
 

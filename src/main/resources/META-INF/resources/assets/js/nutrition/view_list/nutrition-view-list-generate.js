@@ -36,7 +36,6 @@ $(document).ready(function () {
     });
 });
 
-
 function displayItems(page) {
     var startIndex = (page - 1) * itemsPerPage;
     var endIndex = startIndex + itemsPerPage;
@@ -45,13 +44,23 @@ function displayItems(page) {
     var defaultIconUrl = 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg';
     var html = '';
 
-    $.each(paginatedItems, function (index, nutrition) {
+    var index = startIndex + 1; // Initialize index outside the loop
+
+    $.each(paginatedItems, function (i, nutrition) {
         var displayName = nutrition.name.length > 12 ? nutrition.name.substring(0, 12) + '...' : nutrition.name;
+        var ptImage;
+        if (nutrition.personalTrainerImage) {
+            console.log("Yes")
+            ptImage = "data:image/jpeg;base64," + nutrition.personalTrainerImage;
+        } else {
+            console.log("No")
+            ptImage = "../../assets/img/sm-logo.png";
+        }
         var row = '<tr>' +
-            '<td>' + (index + 1) + '</td>' +
+            '<td>' + index + '</td>' +
             '<td class="text-start">' +
             '<h2 class="table-avatar">' +
-            '<a href="#" class="me-2 nutrition-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + nutrition.name + '" data-calo="' + nutrition.caloIn + '" data-protein="' + nutrition.protein + '" data-fat="' + nutrition.fat + '" data-carb="' + nutrition.carb + '" data-image="' + (nutrition.imageDescription || defaultIconUrl) + '" data-id="' + nutrition.nutritionId + '" data-ptid="' + nutrition.personalTrainerId + '" data-ptimage="' + (nutrition.personalTrainerImage || defaultIconUrl) +'">' +
+            '<a href="#" class="me-2 nutrition-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + nutrition.name + '" data-calo="' + nutrition.caloIn + '" data-protein="' + nutrition.protein + '" data-fat="' + nutrition.fat + '" data-carb="' + nutrition.carb + '" data-image="' + (nutrition.imageDescription || defaultIconUrl) + '" data-id="' + nutrition.nutritionId + '" data-ptid="' + nutrition.personalTrainerId + '" data-ptimage="' + (nutrition.personalTrainerImage || defaultIconUrl) + '">' +
             '<img class=" rounded-image" src="data:image/jpeg;base64,' + (nutrition.imageDescription || defaultIconUrl) + '" alt="User Image">' +
             '<p class="m-0 ms-2">' + displayName + '</p>' +
             '</a>' +
@@ -63,15 +72,17 @@ function displayItems(page) {
             '<td>' + nutrition.carb + '</td>' +
             '<td>' +
             '<a href="#" class="avatar avatar-sm me-2 nutrition-detail" data-bs-toggle="modal" data-bs-target="#exampleModal">' +
-            '<img class="avatar-img rounded-circle" src="data:image/jpeg;base64,' + (nutrition.personalTrainerImage || defaultIconUrl) + '" alt="User Image">' +
+            '<img class="avatar-img rounded-circle" src="' + ptImage + '" alt="User Image">' +
             '</a>' +
             '</td>' +
             '</tr>';
         html += row;
+        index++;
     });
 
     tbody.html(html);
 }
+
 
 function renderPagination() {
     var totalPages = Math.ceil(nutritionList.length / itemsPerPage);

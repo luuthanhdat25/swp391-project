@@ -118,7 +118,6 @@
                     listItem.append("<a href=" + notification.contentSender + "><div class='media d-flex'></div></a>");
                     listItem.find('.media').append(avatar);
                     listItem.find('.media').append(mediaBody);
-
                     notificationList.append(listItem);
                 });
             },

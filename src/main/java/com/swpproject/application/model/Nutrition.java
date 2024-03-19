@@ -45,8 +45,10 @@ public class Nutrition {
         nutritionDTOOut.setCarb(getCarb());
         nutritionDTOOut.setImageDescription(getImageDescription());
         nutritionDTOOut.setIsPrivate(getIsPrivate() + "");
-        nutritionDTOOut.setPersonalTrainerId(getPersonalTrainer().getId());
-        nutritionDTOOut.setPersonalTrainerImage(getPersonalTrainer().getAccount().getAvatarImage());
+        if(personalTrainer != null){
+            nutritionDTOOut.setPersonalTrainerId(getPersonalTrainer().getId());
+            nutritionDTOOut.setPersonalTrainerImage(getPersonalTrainer().getAccount().getAvatarImage());
+        }
         return nutritionDTOOut;
     }
 }

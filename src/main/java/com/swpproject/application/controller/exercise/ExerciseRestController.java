@@ -2,6 +2,7 @@ package com.swpproject.application.controller.exercise;
 
 import com.swpproject.application.dto.ExerciseDTOOut;
 import com.swpproject.application.dto.RoleDTO;
+import com.swpproject.application.model.Exercise;
 import com.swpproject.application.service.ExerciseService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
@@ -9,9 +10,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,6 +34,16 @@ public class ExerciseRestController {
 
         exerciseDTOOutList = getExerciseDTOOutListAppliedSearchFilter(filterObject, exerciseDTOOutList);
         return ResponseEntity.ok().body(exerciseDTOOutList);
+    }
+
+//    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    @GetMapping("/{id}")
+    public ResponseEntity<ExerciseDTOOut> getExerciseDetails(@PathVariable int id, HttpServletRequest request) {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        Optional<Exercise> optionalExercise = exerciseService.findExerciseById(id, roleDTO);
+        if(optionalExercise.isEmpty()) return ResponseEntity.notFound().build();
+        ExerciseDTOOut exerciseDTOOut = optionalExercise.get().getExerciseDTOOutAllInfor();
+        return ResponseEntity.ok().body(exerciseDTOOut);
     }
 
     private List<ExerciseDTOOut> getExerciseDTOOutListAppliedSearchFilter(FilterObject filterObject, List<ExerciseDTOOut> exerciseDTOOutList){

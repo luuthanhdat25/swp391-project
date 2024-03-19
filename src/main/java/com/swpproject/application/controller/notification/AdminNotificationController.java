@@ -6,13 +6,14 @@ import com.swpproject.application.model.Notification;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.NotificationRepository;
 import com.swpproject.application.service.AccountService;
-import com.swpproject.application.service.AccountService;
 import com.swpproject.application.service.impl.NotificationService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.aspectj.weaver.ast.Not;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,15 +21,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Controller
@@ -42,52 +40,84 @@ public class AdminNotificationController {
     @Autowired
     private AccountService accountService;
 
-    @RequestMapping(value = "/admin-home/manage-notification", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    @RequestMapping(value = "/admin-home/manage-notification", method = RequestMethod.GET)
     public String viewManageNotification(ModelMap modelMap,
                                          @RequestParam(name = "papeNo", defaultValue = "1") int papeNo,
-                                         @RequestParam(name = "title", defaultValue = "") String title) {
+                                         @RequestParam(name = "title", defaultValue = "") String title, HttpSession session) {
         int pageSize = 10;
+        Account accountAdmin = (Account) session.getAttribute("admin");
         Pageable pageable = PageRequest.of(papeNo - 1, pageSize);
-        Page<Notification> notifications = Page.empty();
+        Page<GroupNotificationList> groupNotificationListPage = Page.empty();
 
-        modelMap.put("IndexStarting", pageSize * (papeNo - 1) + 1);
         modelMap.addAttribute("CurrentPage", papeNo);
-        modelMap.put("NotificationList", notifications);
+        modelMap.put("IndexStarting", pageSize * (papeNo - 1) + 1);
         modelMap.put("title", title);
 
         if (title == null || title.isEmpty()) {
-
-            List<Notification> notificationList = notificationRepository.findAll();
-            Collections.sort(notificationList, Comparator.comparing(Notification::getTimeStamp).reversed());
-
-            int fromIndex = Math.min((papeNo - 1) * pageSize, notificationList.size() - 1);
-            int toIndex = Math.min(fromIndex + pageSize - 1, notificationList.size() - 1);
-            if (fromIndex >= 0) {
-                List<Notification> pageContent = notificationList.subList(fromIndex, toIndex + 1);
-                notifications = new PageImpl<>(pageContent, pageable, notificationList.size());
-            }
-        } else {
+            List<GroupNotificationList> groupNotificationLists = getGroupNotificationLists(
+                    notification -> notification.getFromAccount().getId().equals(accountAdmin.getId()));
+            groupNotificationListPage = getNotificationListPage(papeNo, pageSize, groupNotificationLists, pageable);
+        }
+        else {
             String titleLowerCase = title.toLowerCase();
-            List<Notification> notificationFilter = notificationRepository.findAll().stream()
-                    .filter(notification -> notification.getTitle().toLowerCase().contains(titleLowerCase))
-                    .collect(Collectors.toList());
+            List<GroupNotificationList> groupNotificationLists = getGroupNotificationLists(
+                    notification -> notification.getTitle().toLowerCase().contains(titleLowerCase)
+                    && notification.getFromAccount().getId().equals(accountAdmin.getId()));
 
-
-            if (notificationFilter.isEmpty()) {
-                modelMap.addAttribute("TotalPage", notifications.getTotalPages());
+            if (groupNotificationLists.isEmpty()) {
+                modelMap.put("NotificationList", groupNotificationListPage);
+                modelMap.addAttribute("TotalPage", groupNotificationListPage.getTotalPages());
                 return "notification/admin-home-manage-notification";
             }
-
-            Collections.sort(notificationFilter, Comparator.comparing(Notification::getTimeStamp).reversed());
-            int fromIndex = Math.min((papeNo - 1) * pageSize, notificationFilter.size() - 1);
-            int toIndex = Math.min(fromIndex + pageSize - 1, notificationFilter.size() - 1);
-            List<Notification> pageContent = notificationFilter.subList(fromIndex, toIndex + 1);
-            notifications = new PageImpl<>(pageContent, pageable, notificationFilter.size());
+            groupNotificationListPage = getNotificationListPage(papeNo, pageSize, groupNotificationLists, pageable);
         }
 
-        modelMap.put("NotificationList", notifications);
-        modelMap.addAttribute("TotalPage", notifications.getTotalPages());
+        modelMap.put("NotificationList", groupNotificationListPage);
+        modelMap.addAttribute("TotalPage", groupNotificationListPage.getTotalPages());
         return "notification/admin-home-manage-notification";
+    }
+
+    private Page<GroupNotificationList> getNotificationListPage(int papeNo, int pageSize,
+                                         List<GroupNotificationList> groupNotificationLists,
+                                         Pageable pageable) {
+        int fromIndex = Math.min((papeNo - 1) * pageSize, groupNotificationLists.size() - 1);
+        int toIndex = Math.min(fromIndex + pageSize - 1, groupNotificationLists.size() - 1);
+        if (fromIndex >= 0) {
+            List<GroupNotificationList> pageContent = groupNotificationLists.subList(fromIndex, toIndex + 1);
+            return new PageImpl<>(pageContent, pageable, groupNotificationLists.size());
+        }
+        return Page.empty();
+    }
+
+    @NotNull
+    private List<GroupNotificationList> getGroupNotificationLists(Predicate<Notification> notificationPredicate) {
+        List<Notification> adminNotifications = notificationRepository.findAll().stream()
+                .filter(notificationPredicate).collect(Collectors.toList());
+        Collections.sort(adminNotifications, Comparator.comparing(Notification::getGroupNumber).reversed());
+        List<GroupNotificationList> groupNotificationLists = getGroupNotificationlist(adminNotifications);
+        return groupNotificationLists;
+    }
+
+    private List<GroupNotificationList> getGroupNotificationlist(List<Notification> notifications) {
+        List<GroupNotificationList> groupNotificationLists = new ArrayList<>();
+        GroupNotificationList groupNotificationList = new GroupNotificationList();
+
+        if (notifications.isEmpty()) return groupNotificationLists;
+        for (int i = 0; i < notifications.size(); i++) {
+            if (i != 0 && notifications.get(i).getGroupNumber().equals(notifications.get(i - 1).getGroupNumber())) {
+                groupNotificationList.addImageData(notifications.get(i).getToAccount().getAvatarImageAsString());
+                continue;
+            }
+            if (i != 0) groupNotificationLists.add(groupNotificationList);
+            groupNotificationList = new GroupNotificationList();
+            groupNotificationList.setGroupNumber(notifications.get(i).getGroupNumber());
+            groupNotificationList.setTitle(notifications.get(i).getTitle());
+            groupNotificationList.setContent(notifications.get(i).getContent());
+            groupNotificationList.setTimeStamp(notifications.get(i).getTimeStamp());
+            groupNotificationList.addImageData(notifications.get(i).getToAccount().getAvatarImageAsString());
+        }
+        groupNotificationLists.add(groupNotificationList);
+        return groupNotificationLists;
     }
 
     @RequestMapping(value = "admin-home/view-notification-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
@@ -100,17 +130,16 @@ public class AdminNotificationController {
     @RequestMapping(value = "admin-home/create-notification-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String createNotificationDetail(@RequestParam("title") String notificationTitle,
                                            @RequestParam("content") String notificationContent,
-                                           @RequestParam("senderID") Integer senderID,
-                                           @RequestParam("receiverID") Integer receiverID) {
+                                           @RequestParam("receiverID") Integer receiverID,  HttpSession session) {
         Notification notification = new Notification();
         notification.setTitle(notificationTitle);
         notification.setContent(notificationContent);
         notification.setTimeStamp(LocalDateTime.now());
 
-        Account senderAccount = accountRepository.findById(senderID).get();
+        Account accountAdmin = (Account) session.getAttribute("admin");
         Account receiverAccount = accountRepository.findById(receiverID).get();
 
-        notification.setFromAccount(senderAccount);
+        notification.setFromAccount(accountAdmin);
         notification.setToAccount(receiverAccount);
         notificationRepository.save(notification);
         return "forward:manage-notification";
@@ -184,7 +213,7 @@ public class AdminNotificationController {
             notification.setTimeStamp(LocalDateTime.now());
             notification.setTitle(title);
             notification.setContent(url);
-            notification.setFromAccount(account);
+            notification.setFromAccount((Account) session.getAttribute("admin"));
             notification.setToAccount(account);
             notification.setGroupNumber(lastId + 1);
             notificationRepository.save(notification);
@@ -192,9 +221,3 @@ public class AdminNotificationController {
         return ResponseEntity.ok().body(new NotificationDTO());
     }
 }
-
-
-
-
-
-

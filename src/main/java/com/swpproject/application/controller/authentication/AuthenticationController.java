@@ -251,11 +251,11 @@ public class AuthenticationController {
                 session.setAttribute("personalTrainer", personalTrainer);
             }
             if (account.get().getRole().equals(Role.ADMIN)) {
-
+                session.setAttribute("admin", account.get());
                 return "redirect:/admin-home/manage-notification";
             }
             removeAttributes(session, "email", "password");
-            session.setAttribute("account", account.get());
+            session.setAttribute("account", account);
             return "redirect:/welcome";
         } else {
             /*session.setAttribute("email", email);

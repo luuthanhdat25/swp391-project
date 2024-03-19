@@ -129,31 +129,64 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="notification" items="${NotificationList.content}">
+                                <c:forEach var="GroupNotificationList" items="${NotificationList.content}">
                                     <tr class="shadow p-3 mb-5 bg-body rounded" style="height: 30px;">
                                         <th scope="row"
-                                            class="align-baseline">${NotificationList.content.indexOf(notification) + IndexStarting}</th>
+                                            class="align-baseline">${NotificationList.content.indexOf(GroupNotificationList) + IndexStarting}</th>
                                         <td style="text-align: left;" class="align-baseline">
-                                            <div class="text-truncate" style="width: 350px;">${notification.title}</div>
+                                            <div class="text-truncate"
+                                                 style="width: 350px;">${GroupNotificationList.title}</div>
                                         </td>
                                         <td class="align-baseline">
-                                            <img class="rounded-circle"
-                                                 style="width: 30px; height: 30px; margin-right: 5px;"
-                                                 src="data:image/jpeg;base64,${notification.toAccount.getAvatarImageAsString()}">
+                                            <div class="d-flex align-baseline"
+                                                 style="width: 100px; height: fit-content;">
+                                                <div style="color: #ffffff00;">i</div>
+
+                                                <c:choose>
+                                                    <c:when test="${fn:length(GroupNotificationList.imageDatas) > 3}">
+                                                        <c:forEach var="imageData"
+                                                                   items="${GroupNotificationList.imageDatas}"
+                                                                   varStatus="loop">
+                                                            <c:if test="${loop.index < 3}">
+                                                                <img class="rounded-circle"
+                                                                     style="width: 30px; height: 30px; border: 3px solid #e4e4df;
+                                                                            margin-right: -5px;"
+                                                                     src="data:image/jpeg;base64,${imageData}"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <div class="rounded-circle"
+                                                             style="border: 3px solid #e4e4df; padding: 1px; background-color: #FFFFFF;">
+                                                            <div class="rounded-circle d-flex align-items-center justify-content-center"
+                                                                 style="width: 24px; height: 24px; font-size: 10px; font-weight: bold;">
+                                                                +${fn:length(GroupNotificationList.imageDatas) - 3}</div>
+                                                        </div>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:forEach var="imageData"
+                                                                   items="${GroupNotificationList.imageDatas}">
+                                                            <img class="rounded-circle"
+                                                                 style="width: 30px; height: 30px; border: 3px solid #e4e4df;
+                                                                            margin-right: -5px;"
+                                                                 src="data:image/jpeg;base64,${imageData}"/>
+                                                        </c:forEach>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
                                         </td>
                                         <td class="align-baseline">
-                                                ${notification.timeStamp.getHour()}:${notification.timeStamp.getMinute()}
-                                                ${notification.timeStamp.getDayOfMonth()}/${notification.timeStamp.getMonthValue()}/${notification.timeStamp.getYear()}
+                                                ${GroupNotificationList.timeStamp.getHour()}:${GroupNotificationList.timeStamp.getMinute()}
+                                                ${GroupNotificationList.timeStamp.getDayOfMonth()}/${GroupNotificationList.timeStamp.getMonthValue()}/${GroupNotificationList.timeStamp.getYear()}
                                         </td>
                                         <td class="align-baseline">
                                             <div class="d-flex justify-content-between"
                                                  style="width: 210px; height: fit-content;">
 
-                                                <input type="hidden" name="notificationID" value=${notification.id}>
+                                                <input type="hidden" name="notificationID"
+                                                       value=${GroupNotificationList.groupNumber}>
                                                 <button type="submit" class="btn btn-info view-detail-btn"
                                                         style="height: 40px; width: 90px; color: #FFFFFF;"
                                                         data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                        data-id=${notification.id}>
+                                                        data-id=${GroupNotificationList.groupNumber}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
                                                          fill="currentColor" class="bi bi-eye-fill"
                                                          viewBox="0 0 16 16">
@@ -166,7 +199,7 @@
                                                 <form action="delete-notification-detail" method="get"
                                                       style="margin-bottom: 0;">
                                                     <input type="hidden" name="deleteNotificationID"
-                                                           value=${notification.id}>
+                                                           value=${GroupNotificationList.groupNumber}>
                                                     <button type="submit" class="btn btn-danger"
                                                             style="height: 40px; width: 110px;">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
@@ -314,13 +347,19 @@
 
         var fullName = $("<div></div>").text(account.fullName);
         var roleBadge = $("<div class='badge badge-info m-r-5'></div>").text(account.role);
-        var addButton = $("<button type='button' style='width: 40px; height: 40px; border-radius: 50%;'>+</button>");
-
-        addButton.data("accountId", account.id);
-        addButton.on("click", function () {
-            var accountId = $(this).data("accountId");
-            getAccountDetail(accountId);
-        });
+        var isAlreadySelected = userAccountsSelected.includes(account.id);
+        var addButton;
+        if (isAlreadySelected) {
+            addButton = $("<button type='button' style='width: 40px; height: 40px; border-radius: 50%;' disabled>-</button>");
+        } else {
+            addButton = $("<button type='button' style='width: 40px; height: 40px; border-radius: 50%;'>+</button>");
+            addButton.data("accountId", account.id);
+            addButton.on("click", function () {
+                var accountId = $(this).data("accountId");
+                getAccountDetail(accountId);
+                searchUserByName();
+            });
+        }
 
         accountDiv.append($("<div class='d-flex align-items-center'></div>").append(image).append(fullName));
         accountDiv.append($("<div></div>").append(roleBadge).append(addButton));
@@ -358,6 +397,7 @@
             if (index !== -1) {
                 userAccountsSelected.splice(index, 1);
             }
+            searchUserByName();
         });
 
         accountDiv.append(image);
@@ -366,7 +406,7 @@
         return accountDiv;
     }
 
-    $('.search-username-btn').click(function () {
+    function searchUserByName() {
         var name = $('input[name="username"]').val();
 
         $.ajax({
@@ -385,6 +425,10 @@
                 console.error("Error loading notification detail: " + JSON.stringify(error));
             }
         });
+    }
+
+    $('.search-username-btn').click(function () {
+        searchUserByName();
     });
 
     $('.view-detail-btn').click(function () {

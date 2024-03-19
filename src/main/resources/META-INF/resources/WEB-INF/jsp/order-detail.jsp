@@ -31,8 +31,6 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-
-
                                     <form:form action="${pageContext.request.contextPath}/accept-order" method="post">
                                     <h5 class="card-title">Purpose details</h5>
                                     <div class="form-group">

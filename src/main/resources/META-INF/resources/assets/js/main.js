@@ -323,7 +323,6 @@
 						formContent += '</label>'; // Kết thúc của thẻ label
 						formContent += '<select class="form-control exercise-select" name="exerciseName_' + index + '">';
 						formContent += '<option disabled selected>Choose exercise</option>';
-
 						// Duyệt qua từng phần tử của exerciseList
 						slotExerciseDetailDTO.exercises.forEach(function (exercise) {
 							// Kiểm tra nếu id của exercise trùng khớp với exerciseId
@@ -331,7 +330,6 @@
 							// Thêm một tùy chọn vào select với value là id của exercise và hiển thị là tên của exercise
 							formContent += '<option value="' + exercise.id + '" ' + selected + '>' + exercise.name + '</option>';
 						});
-
 						formContent += '</select>';
 						formContent += '</div>';
 						formContent += '</div>';
@@ -384,7 +382,6 @@
 						formContent += '</div>'; // Đóng tag div của hàng
 					});
 				}
-
 				formContent += '<div class="row mb-2">';
 				formContent += '<div class="col-1"></div>';
 				formContent += '<div class="col-sm-8">';
@@ -392,17 +389,12 @@
 				formContent += '<textarea id="description" name="description" class="form-control">' + response[0].description + '</textarea>';
 				formContent += '</div>';
 				formContent += '</div>';
-
 				formContent += '<div class="bank-details-btn row justify-content-center mt-4">';
 				formContent += '  <div class="offset-7">'; // Offset by one column to the right
 				formContent += '    <button class="btn bank-save-btn" type="submit">Save</button>';
 				formContent += '  </div>';
 				formContent += '</div>';
-
-
 				formContent += '</form>';
-
-
 				// Hiển thị biểu mẫu nội dung của sự kiện
 				self.modal.getElementsByClassName('cd-schedule-modal__event-info')[0].innerHTML = formContent;
 				Util.addClass(self.modal, 'cd-schedule-modal--content-loaded');

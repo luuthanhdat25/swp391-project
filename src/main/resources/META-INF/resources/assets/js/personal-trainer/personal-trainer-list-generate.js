@@ -25,7 +25,7 @@ function displayItems(page) {
 
         // Left column (Image)
         const leftColumn = $('<div class="col"></div>');
-        const image = $('<img class="rounded-circle" style="height: 4rem; width: 4rem" alt="Profile">').attr('src', 'data:image/jpeg;base64,' + (personalTrainer.avatarImage || defaultIconUrl));
+        const image = $('<img class="rounded-circle" style="height: 4rem; width: 4rem; object-fit: cover" alt="Profile">').attr('src', 'data:image/jpeg;base64,' + (personalTrainer.avatarImage || defaultIconUrl));
         leftColumn.append(image);
 
         // Middle column (Details)

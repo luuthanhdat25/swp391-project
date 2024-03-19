@@ -58,14 +58,17 @@
                                             </div>
 
                                             <div class="w-100 mt-4 mb-3">
-                                                <div class="d-flex justify-content-between" style="display: none" id="distanceFilter">
-                                                    <div class="d-flex">
-                                                        <i class="feather-map-pin text-primary"></i>
-                                                        <h6 class="px-2">Distance</h6>
-                                                        <p style="font-style: italic; opacity: 0.7; font-size: 0.9rem;">- From your address</p>
+                                                <div  style="display: none" id="distanceFilter">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex">
+                                                            <i class="feather-map-pin text-primary"></i>
+                                                            <h6 class="px-2">Distance</h6>
+                                                            <p style="font-style: italic; opacity: 0.7; font-size: 0.9rem;">- From your address</p>
+                                                        </div>
+                                                        <h6 class="font-weight-light" id="distance-preview">Within 100km</h6>
                                                     </div>
-                                                    <h6 class="font-weight-light" id="distance-preview">Within 100km</h6>
                                                 </div>
+
 
                                                 <a class="text-danger" href="profile/details" id="waringAddress" style="display: none">
                                                     <u>Please fill in your address to use this function</u>

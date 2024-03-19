@@ -20,4 +20,5 @@ public class ExerciseDTOOut {
     private byte[] imageDescription;
     private int personalTrainer_id;
     private byte[] personalTrainer_image;
+    private int isPrivate;
 }

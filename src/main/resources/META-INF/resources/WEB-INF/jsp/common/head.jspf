@@ -56,7 +56,7 @@
                                     <img class="rounded-circle"
                                          src="data:image/jpeg;base64,${account.getAvatarImageAsString()}"
                                          width="31"
-                                         alt="#">
+                                         alt="#" style="object-fit: cover">
                             <div class="user-text">
                                 <h6>${account.getFullName()}</h6>
                                 <p class="text-muted mb-0" style="font-weight: 700;">${account.getRole().getLabel()}</p>
@@ -67,7 +67,7 @@
                         <div class="user-header">
                             <div class="avatar avatar-sm">
                                 <img src="data:image/jpeg;base64,${account.getAvatarImageAsString()}" alt="User Image"
-                                     class="avatar-img rounded-circle">
+                                     class="avatar-img rounded-circle" >
                             </div>
                             <div class="user-text">
                                 <h6>${account.getFullName()}</h6>

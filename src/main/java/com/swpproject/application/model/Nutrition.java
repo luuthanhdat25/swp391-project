@@ -44,7 +44,7 @@ public class Nutrition {
         nutritionDTOOut.setFat(getFat());
         nutritionDTOOut.setCarb(getCarb());
         nutritionDTOOut.setImageDescription(getImageDescription());
-        nutritionDTOOut.setIsPrivate(getIsPrivate() + "");
+        nutritionDTOOut.setIsPrivate(getIsPrivate());
         if(personalTrainer != null){
             nutritionDTOOut.setPersonalTrainerId(getPersonalTrainer().getId());
             nutritionDTOOut.setPersonalTrainerImage(getPersonalTrainer().getAccount().getAvatarImage());

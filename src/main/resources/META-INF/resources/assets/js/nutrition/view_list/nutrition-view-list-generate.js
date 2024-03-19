@@ -16,10 +16,13 @@ $(document).ready(function () {
         var image = $(this).data('image');
         var id = $(this).data('id');
         var ptId = $(this).data('ptid');
+        var ptimage = $(this).data('ptimage')
 
         var gam = 'g/100g';
         modal.find('.modal-title').text(name);
+        modal.find('#ptid').attr('href', ptId)
         modal.find('#modal-image').attr('src', 'data:image/jpeg;base64,' + image);
+        modal.find('#modal-image-pt').attr('src', ptimage);
         modal.find('#modal-calo').text('Calories: ' + calo + gam);
         modal.find('#modal-protein').text('Protein: ' + protein + gam);
         modal.find('#modal-fat').text('Fat: ' + fat + gam);
@@ -27,10 +30,13 @@ $(document).ready(function () {
         var editButton = modal.find('#editButton');
 
             console.log('ptId ' +ptId)
-            console.log('personalTrainerId ' +personalTrainerId)
-        if (ptId === personalTrainerId) {
+            console.log('personalTrainerId ' + personalTrainerId)
+        if (ptId.toString() === personalTrainerId.toString()) {
             editButton.show();
+        }else{
+            editButton.hide();
         }
+
         $('#editButton').attr('href', '/nutrition/details/edit?id=' + id);
         $('#exampleModal').modal('show');
     });
@@ -50,17 +56,15 @@ function displayItems(page) {
         var displayName = nutrition.name.length > 12 ? nutrition.name.substring(0, 12) + '...' : nutrition.name;
         var ptImage;
         if (nutrition.personalTrainerImage) {
-            console.log("Yes")
             ptImage = "data:image/jpeg;base64," + nutrition.personalTrainerImage;
         } else {
-            console.log("No")
             ptImage = "../../assets/img/sm-logo.png";
         }
         var row = '<tr>' +
             '<td>' + index + '</td>' +
             '<td class="text-start">' +
             '<h2 class="table-avatar">' +
-            '<a href="#" class="me-2 nutrition-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + nutrition.name + '" data-calo="' + nutrition.caloIn + '" data-protein="' + nutrition.protein + '" data-fat="' + nutrition.fat + '" data-carb="' + nutrition.carb + '" data-image="' + (nutrition.imageDescription || defaultIconUrl) + '" data-id="' + nutrition.nutritionId + '" data-ptid="' + nutrition.personalTrainerId + '" data-ptimage="' + (nutrition.personalTrainerImage || defaultIconUrl) + '">' +
+            '<a href="#" class="me-2 nutrition-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + nutrition.name + '" data-calo="' + nutrition.caloIn + '" data-protein="' + nutrition.protein + '" data-fat="' + nutrition.fat + '" data-carb="' + nutrition.carb + '" data-image="' + (nutrition.imageDescription || defaultIconUrl) + '" data-id="' + nutrition.nutritionId + '" data-ptid="' + nutrition.personalTrainerId + '" data-ptimage="' + ptImage + '">' +
             '<img class=" rounded-image" src="data:image/jpeg;base64,' + (nutrition.imageDescription || defaultIconUrl) + '" alt="User Image">' +
             '<p class="m-0 ms-2">' + displayName + '</p>' +
             '</a>' +

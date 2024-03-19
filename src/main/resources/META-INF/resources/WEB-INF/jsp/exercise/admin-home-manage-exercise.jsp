@@ -30,24 +30,24 @@
             <div class="shadow mb-2 rounded" style="width: 94%; height: fit-content; background-color: #333B59;
                 border-radius: 6px; padding: 10px; font-size: 20px; color: #FFFFFF;  text-align: center;
                 margin-bottom: 0px;">
-                <b>Nutrition management</b>
+                <b>Exercise management</b>
             </div>
             <div class="d-flex flex-column" style="width: 94%;">
                 <div class="card mb-4" style="background-color: #FFFFFF;">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Nutrition on System
+                        Exercise on System
                     </div>
                     <div class="d-flex justify-content-between align-items-center" style="width: 100%; padding: 0 15px 0 15px; margin-top: 2px;">
                         <div class="input-group" style="width: 100%;">
                             <input type="text" class="form-control" style="border: 1px solid #4c4c4c;"
-                                   placeholder="Enter the name of nutrition" name="title">
+                                   placeholder="Enter the name of exercise" name="title">
                             <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                         </div>
                         <div class="d-flex justify-content-center align-items-center h-auto" style="width: 10rem">
                             <div>
                                 <select class="form-select" id="selectOption">
-                                    <option value="all">All Nutrition</option>
+                                    <option value="all">All exercise</option>
                                     <option value="admin">Only Admin</option>
                                 </select>
                             </div>
@@ -55,7 +55,7 @@
 
                     </div>
                     <div class="invoices-settings-btn invoices-settings-btn- mt-3 d-flex justify-content-start">
-                        <a href="/admin-home/manage-nutrition/create" class="btn" style="margin-left: 15px"><i class="feather feather-plus-circle"></i>New Nutrition</a>
+                        <a href="/admin-home/manage-exercise/create" class="btn" style="margin-left: 15px"><i class="feather feather-plus-circle"></i>New Exercise</a>
                     </div>
 
                     <div class="card-body" style="width: 100%; height: 550px; overflow-y: auto">
@@ -65,10 +65,9 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Calories/100g</th>
-                                <th scope="col">Protein/100g</th>
-                                <th scope="col">Fat/100g</th>
-                                <th scope="col">Carb/100g</th>
+                                <th scope="col">Level</th>
+                                <th scope="col">Affected Muscle</th>
+                                <th scope="col">Equipment</th>
                                 <th scope="col">Author</th>
                                 <th scope="col">Public</th>
                             </tr>
@@ -99,7 +98,7 @@
             </div>
             <div class="modal-body row">
                 <div class="col-md-8"> <!-- Use col-md-* for responsiveness -->
-                    <img class="w-100 mb-2" style="object-fit: cover;" id="modal-image" src="" alt="Nutrition Image">
+                    <img class="w-100 mb-2" style="object-fit: cover;" id="modal-image" src="" alt="exercise Image">
                 </div>
                 <div class="col-md-4"> <!-- Use col-md-* for responsiveness -->
                     <p id="modal-calo"></p>
@@ -126,8 +125,8 @@
 <script src="../../../assets/js/script.js"></script>
 
 <script>
-    var nutritionList = ${nutritionList}
-    console.log(nutritionList)
+    var exerciseList = ${exerciseList}
+    console.log(exerciseList)
 
     var itemsPerPage = 6;
     var currentPage = 1;
@@ -136,35 +135,34 @@
     function displayItems(page) {
         var startIndex = (page - 1) * itemsPerPage;
         var endIndex = startIndex + itemsPerPage;
-        var paginatedItems = nutritionList.slice(startIndex, endIndex);
+        var paginatedItems = exerciseList.slice(startIndex, endIndex);
         var defaultIconUrl = 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg';
         var html = '';
         var index = startIndex + 1; // Calculate initial index based on the current page
 
-        $.each(paginatedItems, function (i, nutrition) {
-            var displayName = nutrition.name.length > 20 ? nutrition.name.substring(0, 20) + '...' : nutrition.name;
+        $.each(paginatedItems, function (i, exercise) {
+            var displayName = exercise.name.length > 20 ? exercise.name.substring(0, 20) + '...' : exercise.name;
             var ptImage;
-            if (nutrition.personalTrainerImage) {
-                ptImage = "data:image/jpeg;base64," + nutrition.personalTrainerImage;
+            if (exercise.personalTrainer_image) {
+                ptImage = "data:image/jpeg;base64," + exercise.personalTrainer_image;
             } else {
                 ptImage = "../../assets/img/sm-logo.png";
             }
             var row = '<tr class="align-middle">' +
                 '<td class="align-middle">' + index + '</td>' +
-                '<td class="text-start align-middle">' +
+                '<td class="text-start align-middle"> ' +
                 '<h2 class="table-avatar">' +
-                '<a href="#" class="me-2 nutrition-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + nutrition.name + '" data-calo="' + nutrition.caloIn + '" data-protein="' + nutrition.protein + '" data-fat="' + nutrition.fat + '" data-carb="' + nutrition.carb + '" data-image="' + (nutrition.imageDescription || defaultIconUrl) + '" data-id="' + nutrition.nutritionId + '" data-ptid="' + nutrition.personalTrainerId + '" data-ptimage="' + (nutrition.personalTrainerImage || defaultIconUrl) + '">' +
-                '<img class=" rounded-image" src="data:image/jpeg;base64,' + (nutrition.imageDescription || defaultIconUrl) + '" alt="User Image">' +
+                '<a href="#" class="me-2 exercise-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + exercise.name + '" data-calo="' + exercise.caloIn + '" data-protein="' + exercise.protein + '" data-fat="' + exercise.fat + '" data-carb="' + exercise.carb + '" data-image="' + (exercise.imageDescription || defaultIconUrl) + '" data-id="' + exercise.exerciseId + '" data-ptid="' + exercise.personalTrainerId + '" data-ptimage="' + (exercise.personalTrainerImage || defaultIconUrl) + '">' +
+                '<img class=" rounded-image" src="data:image/jpeg;base64,' + (exercise.imageDescription || defaultIconUrl) + '" alt="User Image">' +
                 '<p class="m-0 ms-2" style="padding-left: 10px">' + displayName + '</p>' +
                 '</a>' +
                 '</h2>' +
                 '</td>' +
-                '<td class="align-middle">' + nutrition.caloIn + '</td>' +
-                '<td class="align-middle">' + nutrition.protein + '</td>' +
-                '<td class="align-middle">' + nutrition.fat + '</td>' +
-                '<td class="align-middle">' + nutrition.carb + '</td>' +
+                '<td class="align-middle">' + exercise.level + '</td>' +
+                '<td class="align-middle">' + exercise.type + '</td>' +
+                '<td class="align-middle">' + exercise.equipment + '</td>' +
                 '<td class="align-middle">' +
-                '<a href="/personal-trainer/details?id=' + nutrition.personalTrainerId + '" class="avatar avatar-sm me-2">' +
+                '<a href="/personal-trainer/details?id=' + exercise.personalTrainerId + '" class="avatar avatar-sm me-2">' +
                 '<img class="avatar-img rounded-circle" src="' + ptImage + '" alt="User Image">' +
                 '</a>' +
                 '</td>' +
@@ -188,7 +186,7 @@
 
 
     function renderPagination() {
-        var totalPages = Math.ceil(nutritionList.length / itemsPerPage);
+        var totalPages = Math.ceil(exerciseList.length / itemsPerPage);
         var paginationHtml = '';
 
         paginationHtml += '<li class="page-item ' + (currentPage === 1 ? 'disabled' : '') + '"><a class="page-link" href="#" data-page="' + (currentPage - 1) + '">Previous</a></li>';
@@ -214,7 +212,7 @@
     renderPagination();
 
     $(document).ready(function () {
-        $(document).on('click', '.nutrition-detail', function (event) {
+        $(document).on('click', '.exercise-detail', function (event) {
             event.preventDefault();
             var modal = $('#exampleModal');
             var name = $(this).data('name');
@@ -242,7 +240,7 @@
             } else {
                 editButton.hide();
             }
-            editButton.attr('href', '/nutrition/details/edit?id=' + id);
+            editButton.attr('href', '/exercise/details/edit?id=' + id);
             modal.modal('show');
         });
     });

@@ -16,6 +16,22 @@
                 </li>
 
                 <c:if test="${account ne null}">
+                    <c:choose>
+                        <c:when test="${account.getRole() ne 'PT'}">
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <a href="/my-exercise"><i class="fas fa-history"></i> <span>My Exercise</span></a>
+                            </li>
+                            <li>
+                                <a href="/my-nutrition"><i class="fas fa-history"></i> <span>My Nutrition</span></a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+                </c:if>
+
+                <c:if test="${account ne null}">
                     <li class="menu-title">
                         <span>GymOn Schedule</span>
                     </li>

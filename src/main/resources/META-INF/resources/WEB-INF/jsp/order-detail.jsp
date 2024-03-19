@@ -91,26 +91,35 @@
                                                    class="form-control">
                                         </div>
                                     </div>
-                                    <div class="row">
 
-                                        <div id="calendar-events" class="col-md-6">
-                                            <div class="ui-color-key">
-                                                <div class="calendar-events" data-class="bg-info">
-                                                    <li style="background-color: #F5556F">Conflic slot</li>
+                                    <c:choose>
+                                        <c:when test="${gymer ne null}">
+
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="row">
+
+                                                <div id="calendar-events" class="col-md-6">
+                                                    <div class="ui-color-key">
+                                                        <div class="calendar-events" data-class="bg-info">
+                                                            <li style="background-color: #F5556F">Conflic slot</li>
+                                                        </div>
+                                                        <div class="calendar-events" data-class="bg-success">
+                                                            <li style="background-color: #93D199;">Slot Pending</li>
+                                                        </div>
+                                                        <div class="calendar-events" data-class="bg-danger">
+                                                            <li style="background-color: rgb(194, 192, 192);">Ordered</li>
+                                                        </div>
+                                                        <div class="calendar-events" data-class="bg-danger">
+                                                            <li style="background-color: #0BCBE3;">Slot ordering</li>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="calendar-events" data-class="bg-success">
-                                                    <li style="background-color: #93D199;">Slot Pending</li>
-                                                </div>
-                                                <div class="calendar-events" data-class="bg-danger">
-                                                    <li style="background-color: rgb(194, 192, 192);">Ordered</li>
-                                                </div>
-                                                <div class="calendar-events" data-class="bg-danger">
-                                                    <li style="background-color: #0BCBE3;">Slot ordering</li>
-                                                </div>
+
                                             </div>
-                                        </div>
+                                        </c:otherwise>
+                                    </c:choose>
 
-                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -146,7 +155,11 @@
                                                     && fn:substringBefore(scheduleSlot.end_hour, ':') == (hour + 2)}">
                                                         <c:set var="disabled" value="true"/>
                                                         <c:set var="ordering" value="true"/>
-                                                        <c:set var="slotContent" value="${scheduleSlot.getGymer().getAccount().getFullName()}"/>
+                                                        <c:choose>
+                                                            <c:when test="${gymer ne null}"><c:set var="slotContent" value="${scheduleSlot.getPersonalTrainer().getAccount().getFullName()}"/></c:when>
+                                                            <c:otherwise><c:set var="slotContent" value="${scheduleSlot.getGymer().getAccount().getFullName()}"/></c:otherwise>
+                                                        </c:choose>
+
                                                     </c:if>
                                                 </c:forEach>
                                                 <c:forEach items="${conflicSlot}" var="scheduleSlot">
@@ -154,7 +167,6 @@
                                                      && fn:substringBefore(scheduleSlot.end_hour, ':') == (hour + 2)}">
                                                         <c:set var="disabled" value="true"/>
                                                         <c:set var="conflic" value="true"/>
-
                                                     </c:if>
                                                 </c:forEach>
                                                 <c:forEach items="${orderedSlot}" var="scheduleSlot">
@@ -165,7 +177,6 @@
                                                         </c:if>
                                                         <c:set var="disabled" value="true"/>
                                                         <c:set var="slotContent" value="${scheduleSlot.getGymer().getAccount().getFullName()}"/>
-
                                                     </c:if>
                                                 </c:forEach>
                                                 <c:choose>
@@ -179,14 +190,14 @@
                                                             />
                                                             <label for="${day.toLowerCase()}-${hour}${hour + 2}" style="
                                                             <c:choose>
+                                                            <c:when test="${disabled && conflic}">
+                                                                    background-color: #F5556F;
+                                                            </c:when>
                                                             <c:when test="${disabled && pending}">
                                                                     background-color: #93D199;
                                                             </c:when>
                                                             <c:when test="${disabled && ordering}">
                                                                     background-color: #0BCBE3;
-                                                            </c:when>
-                                                            <c:when test="${disabled && conflic}">
-                                                                    background-color: #F5556F;
                                                             </c:when>
                                                             <c:when test="${disabled && !pending && !conflic && !ordering}">
                                                                     background-color: rgb(194, 192, 192);
@@ -236,26 +247,49 @@
                                 <div id="conflictAlert" class="alert alert-danger" style="display:none;">
                                     <strong>Conflicting slot!</strong> There is a schedule conflict.
                                 </div>
+
                                 <c:choose>
-                                    <c:when test="${orderRequest.getStatusString() == 'Pending'}">
-                                        <c:choose>
-                                            <c:when test="${empty MSG}">
-                                                <!-- Display the "Accept" button only if MSG is empty -->
-                                                <button type="submit" class="btn btn-primary" name="action" value="accept">
-                                                    Accept
-                                                </button>
-                                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
-                                                   name="action" value="decline">Decline</a>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <!-- If MSG is not empty, display the "Decline" button -->
-                                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
-                                                   name="action" value="decline">Decline</a>
-                                            </c:otherwise>
-                                        </c:choose>
+                                    <c:when test="${gymer ne null } ">
                                     </c:when>
-                                    <c:otherwise></c:otherwise>
+                                    <c:otherwise>
+                                        <c:choose>
+                                            <c:when test="${orderRequest.getStatusString() == 'Pending'}">
+                                                <c:choose>
+                                                    <c:when test="${empty MSG}">
+                                                        <!-- Display the "Accept" button only if MSG is empty -->
+                                                        <button type="submit" class="btn btn-primary" name="action" value="accept">
+                                                            Accept
+                                                        </button>
+                                                        <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
+                                                           name="action" value="decline">Decline</a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <!-- If MSG is not empty, display the "Decline" button -->
+                                                        <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
+                                                           name="action" value="decline">Decline</a>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:when>
+                                            <c:otherwise></c:otherwise>
+                                        </c:choose>
+                                    </c:otherwise>
                                 </c:choose>
+
+
+
+
+                                                <!-- Display the "Accept" button only if MSG is empty -->
+<%--                                                <button type="submit" class="btn btn-primary" name="action" value="accept">--%>
+<%--                                                    Accept--%>
+<%--                                                </button>--%>
+<%--                                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"--%>
+<%--                                                   name="action" value="decline">Decline</a>--%>
+
+<%--                                                <!-- If MSG is not empty, display the "Decline" button -->--%>
+<%--                                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"--%>
+<%--                                                   name="action" value="decline">Decline</a>--%>
+
+
 
 
                             </div>
@@ -273,7 +307,6 @@
                 </div>
             </div>
         </div>
-
         <footer>
             <p>Copyright © 2022 Dreamguys.</p>
         </footer>

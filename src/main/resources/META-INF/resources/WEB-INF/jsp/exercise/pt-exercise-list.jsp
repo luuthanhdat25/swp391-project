@@ -2,6 +2,18 @@
 <%@include file="../common/header.jspf" %>
 <%@include file="../common/head.jspf" %>
 <%@include file="../common/sidebar.jspf" %>
+<style>
+    .rounded-image {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    th {
+        text-align: center;
+    }
+</style>
 
 <body>
     <div class="main-wrapper">
@@ -10,11 +22,15 @@
                 <p id="warningPT" class="fs-6 text-danger fst-italic" style="display: none">You can only create exercises only if your personal trainer account has been approved</p>
                 <div class="page-header">
                     <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="page-title">Exercise Wiki</h3>
+                        <h3 class="page-title col">My Exercise</h3>
+                        <div class="col-auto">
+                            <div class="invoices-settings-btn invoices-settings-btn-one" id="createExercise" style="display: none">
+                                <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+
 
                 <div class="mt-3">
                     <form id="search-exercise" class="w-100 d-flex">
@@ -217,16 +233,27 @@
                     </div>
                 </div>
 
-                <div class="card invoices-tabs-card border-0 mt-3" id="createExercise" style="display: none">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="invoices-settings-btn invoices-settings-btn-one">
-                            <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>
-                        </div>
-                    </div>
+
+
+                <div class="card-body" style="width: 100%; height: 550px; overflow-y: auto">
+                    <table id="datatablesSimple"
+                           class="table table-hover table-centered mdi-format-vertical-align-center">
+                        <thead class="table-secondary">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Affected Muscle</th>
+                            <th scope="col">Equipment</th>
+                            <th scope="col">Publish</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody">
+
+                        </tbody>
+                    </table>
+
                 </div>
-
-                <div id="exerciseContainer" class="row" style="height: 760px; overflow-y: auto"></div>
-
                 <div class="mt-3 w-100 d-flex justify-content-center">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination" id="pagination"></ul>
@@ -276,7 +303,122 @@
         }
         console.log(role)
     </script>
+    <script>
+        var exerciseList = ${exerciseList}
+            console.log(exerciseList)
 
-    <script src="../../../assets/js/exercise/view-list/exercise-view-list-generate.js"></script>
+        var itemsPerPage = 6;
+        var currentPage = 1;
+        var tbody = $('#tbody');
+
+        function displayItems(page) {
+            var startIndex = (page - 1) * itemsPerPage;
+            var endIndex = startIndex + itemsPerPage;
+            var paginatedItems = exerciseList.slice(startIndex, endIndex);
+            var defaultIconUrl = 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg';
+            var html = '';
+            var index = startIndex + 1; // Calculate initial index based on the current page
+
+            $.each(paginatedItems, function (i, exercise) {
+                var displayName = exercise.name.length > 30 ? exercise.name.substring(0, 30) + '...' : exercise.name;
+                var isPublic = !exercise.isPrivate;
+                var statusText = isPublic ? 'Public' : 'Private';
+                var statusColor = isPublic ? 'bg-success' : 'bg-danger';
+
+                var row = '<tr class="align-middle">' +
+                    '<td class="align-middle">' + index + '</td>' +
+                    '<td class="text-start align-middle"> ' +
+                    '<h2 class="table-avatar">' +
+                    '<a href="#" class="me-2 exercise-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + exercise.name + '" data-calo="' + exercise.caloIn + '" data-protein="' + exercise.protein + '" data-fat="' + exercise.fat + '" data-carb="' + exercise.carb + '" data-image="' + (exercise.imageDescription || defaultIconUrl) + '" data-id="' + exercise.exerciseId + '" data-ptid="' + exercise.personalTrainerId + '" data-ptimage="' + (exercise.personalTrainerImage || defaultIconUrl) + '">' +
+                    '<img class=" rounded-image" src="data:image/jpeg;base64,' + (exercise.imageDescription || defaultIconUrl) + '" alt="User Image">' +
+                    '<p class="m-0 ms-2" style="padding-left: 10px">' + displayName + '</p>' +
+                    '</a>' +
+                    '</h2>' +
+                    '</td>' +
+                    '<td class="align-middle">' + exercise.level + '</td>' +
+                    '<td class="align-middle">' + exercise.type + '</td>' +
+                    '<td class="align-middle">' + exercise.equipment + '</td>' +
+                    '<td class="align-middle">' +
+                    '<div class="rounded-3  ' + statusColor +'">' +
+                    '<span class="text-white fw-bold">' + statusText + '</span>' +
+                    '</div>' +
+                    '</td>' +
+                    '</tr>';
+                html += row;
+                index++; // Increment the index for each row
+            });
+
+            tbody.html(html);
+        }
+
+
+
+
+
+
+
+        function renderPagination() {
+            var totalPages = Math.ceil(exerciseList.length / itemsPerPage);
+            var paginationHtml = '';
+
+            paginationHtml += '<li class="page-item ' + (currentPage === 1 ? 'disabled' : '') + '"><a class="page-link" href="#" data-page="' + (currentPage - 1) + '">Previous</a></li>';
+            for (var i = 1; i <= totalPages; i++) {
+                paginationHtml += '<li class="page-item ' + (currentPage === i ? 'active' : '') + '"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+            }
+            paginationHtml += '<li class="page-item ' + (currentPage === totalPages ? 'disabled' : '') + '"><a class="page-link" href="#" data-page="' + (currentPage + 1) + '">Next</a></li>';
+
+            $('#pagination').html(paginationHtml);
+        }
+
+        $(document).on('click', '.pagination .page-link', function(e) {
+            e.preventDefault();
+            var page = parseInt($(this).data('page'));
+            if (!isNaN(page)) {
+                currentPage = page;
+                displayItems(currentPage);
+                renderPagination();
+            }
+        });
+
+        displayItems(currentPage);
+        renderPagination();
+
+        $(document).ready(function () {
+            $(document).on('click', '.exercise-detail', function (event) {
+                event.preventDefault();
+                var modal = $('#exampleModal');
+                var name = $(this).data('name');
+                var calo = $(this).data('calo');
+                var protein = $(this).data('protein');
+                var fat = $(this).data('fat');
+                var carb = $(this).data('carb');
+                var image = $(this).data('image');
+                var id = $(this).data('id');
+                var ptId = $(this).data('ptid');
+
+                var gam = 'g/100g';
+                modal.find('.modal-title').text(name);
+                modal.find('#modal-image').attr('src', 'data:image/jpeg;base64,' + image);
+                modal.find('#modal-calo').text('Calories: ' + calo + gam);
+                modal.find('#modal-protein').text('Protein: ' + protein + gam);
+                modal.find('#modal-fat').text('Fat: ' + fat + gam);
+                modal.find('#modal-carb').text('Carbohydrates: ' + carb + gam);
+                var editButton = modal.find('#editButton');
+
+                console.log('ptId ' + ptId)
+                console.log('personalTrainerId ' + personalTrainerId)
+                if (ptId === personalTrainerId) {
+                    editButton.show();
+                } else {
+                    editButton.hide();
+                }
+                editButton.attr('href', '/exercise/details/edit?id=' + id);
+                modal.modal('show');
+            });
+        });
+
+    </script>
+
+<%--    <script src="../../../assets/js/exercise/view-list/exercise-view-list-generate.js"></script>--%>
 </body>
 

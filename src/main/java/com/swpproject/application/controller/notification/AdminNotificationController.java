@@ -6,13 +6,8 @@ import com.swpproject.application.model.Notification;
 import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.NotificationRepository;
 import com.swpproject.application.service.AccountService;
-import com.swpproject.application.service.AccountService;
 import com.swpproject.application.service.impl.NotificationService;
 import jakarta.servlet.http.HttpSession;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -120,6 +114,12 @@ public class AdminNotificationController {
     public String deleteNotificationDetail(@RequestParam("deleteNotificationID") int deleteNotificationID) {
         notificationRepository.deleteById(deleteNotificationID);
         return "forward:manage-notification";
+    }
+    @RequestMapping("admin-home/manage-account")
+    public String viewAllAccount(Model model){
+        List<Account> accountList = accountService.getAccounts();
+        model.addAttribute("accountList",accountList);
+        return "view-accounts";
     }
 
     @RequestMapping(value = "admin-home/view-creating-notification-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")

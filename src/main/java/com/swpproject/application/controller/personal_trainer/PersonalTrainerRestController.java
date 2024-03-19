@@ -50,12 +50,15 @@ public class PersonalTrainerRestController {
         personalTrainerDTOList = filterByPrice(filterObject.getPriceMin(), filterObject.getPriceMax(), personalTrainerDTOList);
         personalTrainerDTOList = filterByGender(filterObject.getGender(), personalTrainerDTOList);
 
-//        if(roleDTO != null && roleDTO.getRole() == Role.GYMER){
-//            HttpSession session = request.getSession();
-//            Account account = (Account)  session.getAttribute("account");
-//            String origin = account.getAddress();
-//            personalTrainerDTOList = filterAndSortByDistance(origin, filterObject.getDistanceMax(), personalTrainerDTOList);
-//        }
+        if(roleDTO != null && roleDTO.getRole() == Role.GYMER){
+            HttpSession session = request.getSession();
+            Account account = (Account)  session.getAttribute("account");
+            String origin = account.getAddress();
+            if(origin != null && !origin.isEmpty()){
+                System.out.println("distance Max: " + filterObject.getDistanceMax());
+                personalTrainerDTOList = filterAndSortByDistance(origin, filterObject.getDistanceMax(), personalTrainerDTOList);
+            }
+        }
 
         return ResponseEntity.ok().body(personalTrainerDTOList);
     }
@@ -134,12 +137,7 @@ public class PersonalTrainerRestController {
 
         CompletableFuture<Void> allOfFutures = CompletableFuture.allOf(futures);
 
-        allOfFutures.thenRun(() -> {
-            System.out.println("All find");
-            for (PersonalTrainerDTOAddressDistance addressTest : personalTrainerDTOAddressDistanceList) {
-                System.out.println(addressTest.toString());
-            }
-        });
+        allOfFutures.join();
 
         return new ArrayList<>(personalTrainerDTOAddressDistanceList);
     }
@@ -152,6 +150,7 @@ public class PersonalTrainerRestController {
 
         connection.setRequestMethod("GET");
         int responseCode = connection.getResponseCode();
+        System.out.println(responseCode);
         if (responseCode == HttpURLConnection.HTTP_OK) {
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder response = new StringBuilder();
@@ -163,8 +162,10 @@ public class PersonalTrainerRestController {
             String jsonResponse = response.toString();
             return parseDistance(jsonResponse);
         } else {
-            throw new IOException("Failed to fetch data. Response code: " + responseCode);
+//            throw new IOException("Failed to fetch data. Response code: " + responseCode);
+            return 9.3f;
         }
+
     }
 
     private String getURLConnectionString(String origin, String destination){

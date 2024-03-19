@@ -1,7 +1,14 @@
 if(role) {
     $(document).ready(function(){
+
         if(role === "Gymer") {
-            $("#distanceSlider").show(); // If the role is Gymer, show the distanceSlider
+            console.log(canSearchDistance)
+            $("#distanceFilter").show();
+            if(canSearchDistance){
+                $("#distanceSlider").show();
+            }else{
+                $("#waringAddress").show();
+            }
         } else {
             $("#distanceSlider").hide(); // Otherwise, hide it
         }
@@ -33,12 +40,18 @@ function handleSearch() {
         contentType: "application/json",
         data: JSON.stringify(searchData),
         success: function(response) {
+            console.log('Response: ');
             console.log(response);
 
             if (response && response.length > 0) {
-                generatePersonalTrainers(response)
+                personalTrainerList = response;
+                currentPage = 1;
+                displayItems(currentPage);
+                renderPagination();
             } else {
-                // Xử lý trường hợp không có phần tử bên trong
+                personalTrainerList = [];
+                renderPagination();
+                $('.page-item').addClass('disabled');
                 document.getElementById('personalTrainerContainer').innerHTML = "<p class='fs-3 text text-secondary mt-3'>Not found any Personal Trainer!</p>";
             }
         },

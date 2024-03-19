@@ -59,4 +59,10 @@ public class SlotExeRepository {
         String sql = "SELECT * FROM slot_exercise WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(SlotExercise.class));
     }
+
+    public void deleteById(int id) {
+        String sql = "DELETE FROM slot_exercise WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
+
 }

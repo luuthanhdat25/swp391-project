@@ -1,5 +1,6 @@
 if(role) {
     $(document).ready(function(){
+
         if(role === "Gymer") {
             console.log(canSearchDistance)
             $("#distanceFilter").show();

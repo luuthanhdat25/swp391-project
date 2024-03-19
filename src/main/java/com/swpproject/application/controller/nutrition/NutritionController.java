@@ -51,6 +51,10 @@ public class NutritionController {
 
         boolean canCreate = canCreateUpdate(roleDTO);
         model.addAttribute("canCreate", canCreate);
+        if(canCreate && roleDTO.getRole() == Role.PT){
+            model.addAttribute("personalTrainerId", roleDTO.getId());
+        }
+
         return NUTRITION_LIST_URL;
     }
 

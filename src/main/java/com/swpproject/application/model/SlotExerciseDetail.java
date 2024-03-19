@@ -23,7 +23,7 @@ public class SlotExerciseDetail {
     @JoinColumn(name = "exercise_id", nullable = true)
     private Exercise exercise;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "slot_exercise_id", nullable = true)
     private SlotExercise slotExercise;
 

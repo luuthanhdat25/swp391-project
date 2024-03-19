@@ -54,7 +54,16 @@ public class PersonalScheduleController {
 
     // view pt schedule
     @GetMapping(value = "/view-pt-schedule")
-    public String showPTSchedule(Model model) {
+    public String showPTSchedule(@RequestParam(value = "week", required = false) Integer week,
+                                 @RequestParam(value = "year", required = false) Integer year,
+                                 Model model) {
+        if (week==null && year==null){
+            LocalDate currentDate = LocalDate.now();
+            // Lấy vị trí của tuần trong năm
+            week = currentDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
+            year = currentDate.getYear();
+            return "redirect:/selectTime?week="+week+"&year="+year;
+        }
         return "pt-schedule";
     }
 
@@ -74,10 +83,19 @@ public class PersonalScheduleController {
     // gymer view schedule created by Personal Trainer
     @GetMapping(value = "/view-schedule-withpt")
     public String viewScheduleWithPT(Model model, HttpSession session,
+                                     @RequestParam(value = "week", required = false) Integer week,
+                                     @RequestParam(value = "year", required = false) Integer year,
                                      @RequestParam(value = "GymerID", required = false) Integer gymerID) {
         if (gymerID != null) {
             Gymer gymer = gymerService.getGymerById(gymerID).get();
             session.setAttribute("GymerCustomer", gymer);
+        }
+        if (week==null && year==null){
+            LocalDate currentDate = LocalDate.now();
+            // Lấy vị trí của tuần trong năm
+            week = currentDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
+            year = currentDate.getYear();
+            return "redirect:/select-week?week="+week+"&year="+year;
         }
         return "gymer-schedule";
     }
@@ -101,7 +119,16 @@ public class PersonalScheduleController {
 
     //Gymer view personal schedule
     @GetMapping(value = "/view-personal-schedule")
-    public String showPersonalSchedule(Model model) {
+    public String showPersonalSchedule(@RequestParam(value = "week", required = false) Integer week,
+                                       @RequestParam(value = "year", required = false) Integer year,
+                                       Model model) {
+        if (week==null && year==null){
+            LocalDate currentDate = LocalDate.now();
+            // Lấy vị trí của tuần trong năm
+            week = currentDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
+            year = currentDate.getYear();
+            return "redirect:/selectWeek?week="+week+"&year="+year;
+        }
         return "view-schedule";
     }
 
@@ -264,7 +291,6 @@ public class PersonalScheduleController {
         }
         return "redirect:/selectWeek?week=" + week + "&year=" + year;
     }
-
-
+    
 }
 

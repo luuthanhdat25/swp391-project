@@ -105,7 +105,7 @@
                                         </td>
                                         <td><p class="text-muted">Weight ${order.getGymer().getWeight()}</p>
                                             <p class="text-muted">Height ${order.getGymer().getHeight()}</p></td>
-                                        <td><a href="/view-personal-schedule?GymerID=${order.gymer.getGymerId()}" class="view"
+                                        <td><a href="/view-schedule-withpt?GymerID=${order.gymer.getGymerId()}" class="view"
                                                title="View Schedue Details" data-toggle="tooltip"><i class="fas fa-calendar-alt" style='font-size:24px'></i></a></td>
 
                                         <td><a href="/Order-Request?order_id=${order.orderId}" class="view"

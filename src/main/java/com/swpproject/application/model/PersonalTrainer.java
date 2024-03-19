@@ -42,7 +42,7 @@ public class PersonalTrainer {
     @Column(name = "price")
     private Integer price;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id",referencedColumnName = "id")
     private Account account;
 

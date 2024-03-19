@@ -27,11 +27,11 @@ public class OrderRequest {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Gymer_ID",referencedColumnName = "id",nullable = false)
     private Gymer gymer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PT_ID",referencedColumnName = "id", nullable = false)
     private PersonalTrainer personalTrainer;
 

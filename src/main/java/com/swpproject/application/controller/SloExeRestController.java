@@ -44,6 +44,7 @@ public class SloExeRestController {
         for (SlotExerciseDetail slotExerciseDetail : slotExerciseDetails) {
             SlotExerciseDetailDTO slotExerciseDetailDTO = new SlotExerciseDetailDTO();
             slotExerciseDetailDTO.setId(slotExerciseDetail.getId());
+            slotExerciseDetailDTO.setSlotId(Integer.parseInt(modifiedId));
             slotExerciseDetailDTO.setSetExe(slotExerciseDetail.getSetExe());
             slotExerciseDetailDTO.setRep(slotExerciseDetail.getRep());
             slotExerciseDetailDTO.setExercises(exerciseDTOS);
@@ -62,6 +63,7 @@ public class SloExeRestController {
 @Setter
 class SlotExerciseDetailDTO {
     private Integer id;
+    private Integer slotId;
     private List<ExerciseDTO> exercises;
     private int exerciseId;
     private int setExe;

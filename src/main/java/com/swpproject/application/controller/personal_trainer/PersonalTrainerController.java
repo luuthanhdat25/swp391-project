@@ -1,13 +1,16 @@
 package com.swpproject.application.controller.personal_trainer;
 
+import com.swpproject.application.dto.EvaluationDto;
 import com.swpproject.application.dto.PersonalTrainerDto;
 import com.swpproject.application.dto.RoleDTO;
 import com.swpproject.application.enums.Gender;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
+import com.swpproject.application.model.Evaluation;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.service.AccountService;
 import com.swpproject.application.service.CertificateService;
+import com.swpproject.application.service.EvaluationService;
 import com.swpproject.application.service.PersonalTrainerService;
 import com.swpproject.application.utils.DtoUtils;
 import com.swpproject.application.utils.JsonUtils;
@@ -37,6 +40,7 @@ public class PersonalTrainerController {
     private final DtoUtils dtoUtils;
     private final PersonalTrainerService personalTrainerService;
 
+    private final EvaluationService evaluationService;
     private final AccountService accountService;
 
     @Autowired
@@ -44,13 +48,15 @@ public class PersonalTrainerController {
             PersonalTrainerRepository personalTrainerRepository,
             CertificateService certificateService,
             DtoUtils dtoUtils, PersonalTrainerService personalTrainerService,
-            AccountService accountService
+            AccountService accountService,
+            EvaluationService evaluationService
     ) {
         this.personalTrainerRepository = personalTrainerRepository;
         this.certificateService = certificateService;
         this.dtoUtils = dtoUtils;
         this.personalTrainerService = personalTrainerService;
         this.accountService = accountService;
+        this.evaluationService = evaluationService;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
@@ -75,9 +81,15 @@ public class PersonalTrainerController {
     @RequestMapping(value = "/details", method = RequestMethod.GET)
     public String view_profile_details(@RequestParam(name = "id", required = false) int id, ModelMap model) {
         Optional<PersonalTrainer> personalTrainer = personalTrainerRepository.findById(id);
+        List<Evaluation> evaluationList = evaluationService.findAllEvaluationsByPersonalTrainerId(id);
+        List<EvaluationDto> evaluationDtoList = evaluationService.findAllEvaluationsByPersonalTrainerId(personalTrainer.get().getId())
+                                                                .stream()
+                                                                .map(DtoUtils::convertEvaluationToEvaluationDto)
+                                                                .toList();
         PersonalTrainerDto personalTrainerDTO = dtoUtils.convertPersonalTrainerToPersonalTrainerDto(personalTrainer.get());
         String json = JsonUtils.jsonConvert(personalTrainerDTO);
         model.addAttribute("personaltrainer", json);
+        model.addAttribute("evaluations", evaluationDtoList);
         return "pt-profile-details";
     }
 

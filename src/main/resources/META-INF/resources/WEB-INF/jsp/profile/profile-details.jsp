@@ -17,7 +17,7 @@
                         <div class="col-md-12">
                             <div class="student-profile-head">
                                 <div class="profile-bg-img">
-                                    <img src="../../assets/img/profile-bg.jpg" alt="Profile">
+                                    <img src="../../assets/img/profile-bg.png" alt="Profile">
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4">

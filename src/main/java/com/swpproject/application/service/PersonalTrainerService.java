@@ -2,6 +2,7 @@ package com.swpproject.application.service;
 
 import com.swpproject.application.dto.PersonalTrainerDto;
 import com.swpproject.application.dto.RoleDTO;
+import com.swpproject.application.model.Gymer;
 import com.swpproject.application.model.PersonalTrainer;
 import org.springframework.stereotype.Service;
 

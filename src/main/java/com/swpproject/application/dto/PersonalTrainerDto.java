@@ -1,5 +1,6 @@
 package com.swpproject.application.dto;
 
+import com.swpproject.application.model.Evaluation;
 import lombok.*;
 
 import java.util.List;

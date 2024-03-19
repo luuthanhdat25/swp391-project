@@ -21,7 +21,7 @@
                         <div class="col-md-12">
                             <div class="student-profile-head">
                                 <div class="profile-bg-img">
-                                    <img src="../../assets/img/profile-bg.jpg" alt="Profile">
+                                    <img src="../../assets/img/profile-bg.png" alt="Profile">
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4">
@@ -183,58 +183,48 @@
                             </div>
                         </div>
                     </div>
-<%--                    <div class="row">--%>
-<%--                        <div class="col-lg-12">--%>
-<%--                            <div class="card blog-comments">--%>
-<%--&lt;%&ndash;                                <div class="card-header">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                    <h4 class="card-title"&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                        style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                        Feedback&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                        <button type="submit" class="btn btn-info">Evaluate</button>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                    </h4>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                </div>&ndash;%&gt;--%>
-<%--                                <div class="card-body pb-0">--%>
-<%--                                    <ul class="comments-list">--%>
-<%--                                        <li>--%>
-<%--                                            <div class="comment">--%>
-<%--                                                <div class="comment-author">--%>
-<%--                                                    <img class="avatar" alt=""--%>
-<%--                                                         src="../../assets/img/profiles/avatar-13.jpg">--%>
-<%--                                                </div>--%>
-<%--                                                <div class="comment-block">--%>
-<%--                                                    <div class="comment-by">--%>
-<%--                                                        <h5 class="blog-author-name">example@gmail.com<span--%>
-<%--                                                                class="blog-date"> <i--%>
-<%--                                                                class="feather-clock me-1"></i>Feb--%>
-<%--                                                                    6, 2024</span></h5>--%>
-<%--                                                        <div class="rate">--%>
-<%--                                                            <input type="radio" id="star5" name="rate" value="5"/>--%>
-<%--                                                            <label for="star5" title="text">5 stars</label>--%>
-<%--                                                            <input type="radio" id="star4" name="rate" value="4"/>--%>
-<%--                                                            <label for="star4" title="text">4 stars</label>--%>
-<%--                                                            <input type="radio" id="star3" name="rate" value="3"/>--%>
-<%--                                                            <label for="star3" title="text">3 stars</label>--%>
-<%--                                                            <input type="radio" id="star2" name="rate" value="2"/>--%>
-<%--                                                            <label for="star2" title="text">2 stars</label>--%>
-<%--                                                            <input type="radio" id="star1" name="rate" value="1"/>--%>
-<%--                                                            <label for="star1" title="text">1 star</label>--%>
-<%--                                                        </div>--%>
-<%--                                                    </div>--%>
-<%--                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.--%>
-<%--                                                        Nam--%>
-<%--                                                        viverra euismod odio, gravida pellentesque urna varius--%>
-<%--                                                        vitae,--%>
-<%--                                                        gravida pellentesque urna varius vitae. Lorem ipsum--%>
-<%--                                                        dolor sit--%>
-<%--                                                        amet, consectetur adipiscing elit.</p>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-<%--                                        </li>--%>
-<%--                                    </ul>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card blog-comments">
+                                <div class="card-header">
+                                    <h4 class="card-title"
+                                        style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">
+                                        Feedback
+                                    </h4>
+                                </div>
+                                <div class="card-body pb-0">
+                                    <ul class="comments-list">
+                                        <li>
+                                                <c:forEach items="${evaluations}" var="evaluation">
+                                                    <div class="comment">
+                                                    <div class="comment-author">
+                                                        <img class="avatar" alt=""
+                                                             src="data:image/png;base64,${evaluation.getGymer().getAccount().getAvatarImageAsString()}">
+                                                    </div>
+                                                    <div class="comment-block">
+                                                        <div class="comment-by">
+                                                            <h5 class="blog-author-name">${evaluation.getGymer().getAccount().getFullName()}<span
+                                                                    class="blog-date"> <i
+                                                                    class="feather-clock me-1"></i>${evaluation.getEvaluationDateTime()}</span>
+                                                            </h5>
+                                                            <div class="rate">
+                                                                <c:forEach begin="1" end="5" var="i">
+                                                                    <span class="star" style="color: ${i <= evaluation.getStarRating() ? 'gold' : 'gray'}">&#9733;</span>
+                                                                </c:forEach>
+                                                            </div>
+                                                        </div>
+                                                        <p class="caption" style="font-size: 14px">${evaluation.getCommentFeedback()}</p>
+                                                    </div>
+                                                        <br>
+                                                </c:forEach>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

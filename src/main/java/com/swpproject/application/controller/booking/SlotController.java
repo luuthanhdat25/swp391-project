@@ -1,4 +1,4 @@
-package com.swpproject.application.controller;
+package com.swpproject.application.controller.booking;
 
 import com.swpproject.application.controller.notification.SystemNotificationService;
 import com.swpproject.application.enums.Attendant;
@@ -22,33 +22,23 @@ import java.util.*;
 @Controller
 public class SlotController {
 
-    @Autowired
-    private SlotExcerciseEntityService slotExcerciseEntityService;
-
-    @Autowired
-    private AccountServiceImpl accountService;
-    @Autowired
-    private GymerService gymerService;
-
-    @Autowired
-    private PersonalTrainerService personalTrainerService;
-    @Autowired
-    private SchedulePersonalTrainerService schedulePersonalTrainerService;
-    @Autowired
-    private OrderRequestService orderRequestService;
-    @Autowired
-    private SystemNotificationService systemNotificationService;
+    @Autowired private SlotExcerciseEntityService slotExcerciseEntityService;
+    @Autowired private AccountServiceImpl accountService;
+    @Autowired private GymerService gymerService;
+    @Autowired private PersonalTrainerService personalTrainerService;
+    @Autowired private SchedulePersonalTrainerService schedulePersonalTrainerService;
+    @Autowired private OrderRequestService orderRequestService;
+    @Autowired private SystemNotificationService systemNotificationService;
 
     @RequestMapping(value = "bookPT", method = RequestMethod.GET)
     public String viewSChedulePT(HttpSession session,Model model) {
         Gymer gymerSession = (Gymer) session.getAttribute("gymer");
-
-
         if(gymerSession == null){
             return "redirect:/auth/login";
         }
         boolean checkOrderExist = orderRequestService.checkGymerOrderExist(gymerSession.getGymerId(),OrderStatus.OnDoing);
         boolean checkOrderWaiting = orderRequestService.checkGymerOrderExist(gymerSession.getGymerId(),OrderStatus.Pending);
+        boolean checkOrderPaying = orderRequestService.checkGymerOrderExist(gymerSession.getGymerId(),OrderStatus.Accepted);
         if (checkOrderExist){
             model.addAttribute("MSGAnount","You booked another Personal Trainer");
             model.addAttribute("MSGDescError","You Can't book this Personal Trainer because you are booking another personal trainer");
@@ -59,6 +49,11 @@ public class SlotController {
             model.addAttribute("MSGDescError","You Can't book this Personal Trainer because you are book another personal trainer," +
                     "please wait for this order update");
             return "book-fail";
+        } else if (checkOrderPaying) {
+            model.addAttribute("MSGAnount","Your previous request is accepted");
+            model.addAttribute("MSGDescError","Sorry because you can not book more Personal Trainer at the same time," +
+                    "Your previous request is accepted. Please pay for that order.");
+                return "book-fail";
         }
         return "book-pt";
     }
@@ -127,9 +122,6 @@ public class SlotController {
                                    @RequestParam(name = "totalPrice", required = false) String totalPrice,
                                    Model model, HttpSession session,
                                    RedirectAttributes redirectAttributes) {
-
-
-
         PersonalTrainer personalTrainer = new PersonalTrainer();
         personalTrainer = personalTrainerService.findPersonalTrainerByID(personalTrainerID).get();
         Schedule schedulePersonalTrainerEntity = schedulePersonalTrainerService.findScheduleByPtId(personalTrainer.getId());
@@ -141,30 +133,19 @@ public class SlotController {
         double doubleValue = Double.parseDouble(totalPrice);
         Integer totalAmount = (int) doubleValue;
         System.out.println("Total price: " + totalAmount);
-
         LocalDate currentDate;
         Date StartDateAsDate;
         Date EndDateAsDate;
-
-
-
         currentDate = LocalDate.now();
         StartDateAsDate = Date.valueOf(currentDate);
-
-
 //        List<SlotExercise> slotOrdered = slotExcerciseEntityService.getSlotGreater(StartDateAsDate, false);
-
-
         List<SlotExercise> slotRequest = new ArrayList<>();
-
-
         int cloudWeek = week;
         int cloudYear = year;
         List<SlotExercise> slotInWeekAndYearOrdered = new ArrayList<>();
         List<SlotExercise>  getAllSlotIntime = new ArrayList<>();
         if (checkedSlots != null && !checkedSlots.isEmpty()) {
             for (int i = 1; i <= trainingTime; i++) {
-
                 List<SlotExercise> SlotInWeekAndYear = slotExcerciseEntityService.getAllSlotByWeek(cloudWeek, cloudYear);
                 slotInWeekAndYearOrdered.addAll(SlotInWeekAndYear);
                 for (String checkedSlot : checkedSlots) {
@@ -281,7 +262,6 @@ public class SlotController {
                                     slotEntity.setPersonalTrainer(personalTrainer);
                                     slotEntity.setOrderRequest(orderRequest);
                                     slotExcerciseEntityService.SaveSlotExcercise(slotEntity);
-//                                    System.out.println(slotEntity.toString());
                                 } else {
                                     System.out.println("Invalid slot format: " + checkedSlot);
                                 }
@@ -295,12 +275,10 @@ public class SlotController {
                         }
                     }
                 }
-
             }
         }
         systemNotificationService.createNotification_NewRequestHiring(orderRequest);
         return "redirect:/personal-trainer";
-//        return "redirect:/personal-trainer/";
     }
     public boolean checkBookSecond(Account account){
         Gymer gymer = gymerService.getGymerByAccount(account).get();

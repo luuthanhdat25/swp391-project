@@ -46,7 +46,7 @@ public class AuthenticationController {
 
     @Autowired
     private CertificateService certificateService;
-
+    @Autowired OrderRequestService orderRequestService;
     @Autowired
     private GymerService gymerService;
     @Autowired
@@ -246,7 +246,7 @@ public class AuthenticationController {
             if (account.get().getRole().equals(Role.GYMER)) {
                 Gymer gymer = gymerService.getGymerByAccount(account.get()).get();
                 session.setAttribute("gymer", gymer);
-                OrderRequest orderRequest= (OrderRequest)orderRequestRepository.findByGymer(gymer);
+                List<OrderRequest> orderRequest= orderRequestService.getOrderHistoryGymer(gymer);
                 session.setAttribute("order",orderRequest);
             }
             if (account.get().getRole().equals(Role.PT)) {

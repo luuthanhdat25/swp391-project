@@ -2,7 +2,10 @@ package com.swpproject.application.enums;
 
 public enum OrderStatus {
 
-    Pending("Pending"), OnDoing("On Doing"),expire("Expire");
+    Pending("Pending")
+    ,OnDoing("On Doing")
+    ,Expire("Expire")
+    ,Accepted("Accepted");
     private final String desc;
 
 

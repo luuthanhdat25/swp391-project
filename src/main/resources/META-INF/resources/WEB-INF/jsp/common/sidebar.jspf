@@ -16,20 +16,36 @@
                 </li>
 
                 <c:if test="${account ne null}">
+                    <c:choose>
+                        <c:when test="${account.getRole() ne 'PT'}">
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <a href="/my-exercise"><i class="fas fa-history"></i> <span>My Exercise</span></a>
+                            </li>
+                            <li>
+                                <a href="/my-nutrition"><i class="fas fa-history"></i> <span>My Nutrition</span></a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+                </c:if>
+
+                <c:if test="${account ne null}">
                     <li class="menu-title">
                         <span>GymOn Schedule</span>
                     </li>
-                    <c:if test="${gymer ne null}">
+                    <c:if test="${account.role ne 'PT'}">
                         <li>
                             <a href="/view-personal-schedule"><i class="fas fa-chalkboard-teacher"></i> <span>My Schedule</span></a>
                         </li>
-                        <c:if test="${order ne null}">
+                        <c:if test="${order.size() > 0}">
                             <li>
                                 <a href="/view-schedule-withpt"><i class="fas fa-chalkboard-teacher"></i> <span>Schedule Created By PT</span></a>
                             </li>
                         </c:if>
                     </c:if>
-                    <c:if test="${personalTrainer ne null}">
+                    <c:if test="${account.role ne 'GYMER'}">
                         <li>
                             <a href="/view-pt-schedule"><i class="fas fa-chalkboard-teacher"></i> <span>My Schedule</span></a>
                         </li>
@@ -46,12 +62,10 @@
                     <a href="/personal-trainer"><i class="fas fa-search"></i> <span>Find Personal Trainer</span> </a>
                 </li>
                 <c:if test="${account ne null}">
-                    <c:choose>
-                        <c:when test="${account.getRole() ne 'PT'}">
+                    <c:if test="${account.role ne 'PT'}">
                             <li>
-                                <a href="/order-list"><i class="fas fa-history"></i> <span>Order History</span></a>
+                                <a href="/order-history"><i class="fas fa-history"></i> <span>Order History</span></a>
                             </li>
-
                             <li class="submenu">
                                 <a href="#"><i class="feather-grid"></i> <span>Tracking & Statistics</span> <span
                                         class="menu-arrow"></span></a>
@@ -60,14 +74,12 @@
                                     <li><a href="teacher-dashboard.html">Calories Statistic</a></li>
                                 </ul>
                             </li>
-                        </c:when>
-                        <c:otherwise>
+                    </c:if>
+                    <c:if test="${account.role ne 'GYMER'}">
                             <li>
                                 <a href="/order-list"><i class="fas fa-history"></i> <span>Order Requests</span></a>
                             </li>
-                        </c:otherwise>
-                    </c:choose>
-
+                    </c:if>
                 </c:if>
             </ul>
         </div>

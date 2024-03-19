@@ -40,6 +40,7 @@ public class SlotNutriRestController {
         List<SlotNutritionDetailDTO> slotNutritionDetailDTOS = new ArrayList<>();
         for (SlotNutritionDetail slotNutritionDetail : slotNutritionDetails) {
             SlotNutritionDetailDTO slotNutritionDetailDTO = new SlotNutritionDetailDTO();
+            slotNutritionDetailDTO.setSlotId(Integer.parseInt(modifiedId));
             slotNutritionDetailDTO.setId(slotNutritionDetail.getId());
             slotNutritionDetailDTO.setAmount(slotNutritionDetail.getAmount());
             slotNutritionDetailDTO.setDescription(slotNutritionDetail.getSlotNutrition().getDescription());
@@ -58,6 +59,7 @@ public class SlotNutriRestController {
 @Setter
 class SlotNutritionDetailDTO {
     private Integer id;
+    private Integer slotId;
     private List<NutritionDTO> nutritions;
     private int nutritionId;
     private int amount;

@@ -1,7 +1,8 @@
-package com.swpproject.application.controller;
+package com.swpproject.application.controller.booking;
 
 
 import com.swpproject.application.controller.notification.SystemNotificationService;
+import com.swpproject.application.enums.Attendant;
 import com.swpproject.application.enums.OrderStatus;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.OrderRequestService;
@@ -47,21 +48,41 @@ public class OrderRequestController {
         Account accountProfile = gymer.getAccount();
         model.addAttribute("orderRequest", orderRequest);
         model.addAttribute("accountOrder", accountProfile);
-        model.addAttribute("gymer", gymer);
+        model.addAttribute("gymerOrder", gymer);
         List<SlotExercise> slotOrder = slotExcerciseEntityService.GetSlotOfOrder(orderRequest);
         model.addAttribute("DateStart",orderRequest.getDatetime_start());
         model.addAttribute("DateEnd",orderRequest.getDatetime_end());
-        LocalDate currentDate;
-        Date StartDateAsDate;
+
+        // Get ordered slots
+        List<SlotExercise> slotOrdered = getOrderedSlots(orderRequest);
+
+        // Check conflicts and get conflicted slots
+        List<SlotExercise> slotConflic = checkAndRetrieveConflicts(slotOrdered, slotOrder,gymer);
+
+        // Build and set conflict message
+        String conflictMessage = buildConflictMessage(slotConflic);
+        model.addAttribute("MSG", conflictMessage);
+
+        // Add attributes to the model
+        model.addAttribute("allSlots", slotOrder);
+        model.addAttribute("conflicSlot",slotConflic);
+        model.addAttribute("orderedSlot",slotOrdered);
+        model.addAttribute("orderRequest",orderRequest);
+
+        System.out.println("conflic slot:"+slotConflic.size());
+        System.out.println("slot Ordered:" + slotOrdered.size());
+        System.out.println("slot ordering: " + slotOrder.size());
+
+        return "order-detail";
+    }
+    // hàm trả về các slot mà đã được order
+    private List<SlotExercise> getOrderedSlots(OrderRequest orderRequest) {
         List<SlotExercise> slotOrdered = new ArrayList<>();
         SlotExercise firstSlotinOrder = slotExcerciseEntityService.getTop1SlotExerciseByOrderID(orderRequest.getOrderId());
-//        System.out.println("Gymer: " + firstSlotinOrder.toString());
-
         int weekStart = firstSlotinOrder.getWeek();
         int trainingTime = calculateWeeksDifference(orderRequest.getDatetime_start(),orderRequest.getDatetime_end());
         int yearStart = firstSlotinOrder.getYear();
         for (int i = 1; i <= trainingTime; i++) {
-
             System.out.println("week: " + weekStart);
             List<SlotExercise> slotCheckInTime = slotExcerciseEntityService.getAllSlotNotExcepOrder(weekStart, yearStart,orderRequest);
             System.out.println("check slot in time" + slotCheckInTime.size());
@@ -73,20 +94,20 @@ public class OrderRequestController {
                 yearStart++;
             }
         }
+        return slotOrdered;
+    }
 
-        currentDate = LocalDate.now();
-        StartDateAsDate = Date.valueOf(currentDate);
-
+    // hàm trả về các slot bị conflic
+    private List<SlotExercise> checkAndRetrieveConflicts(List<SlotExercise> slotOrdered, List<SlotExercise> slotOrder, Gymer gymer) {
         List<SlotExercise> slotConflic = new ArrayList<>();
-        Hashtable<Integer, List<Integer>> yearConflicts = new Hashtable<>(); // Rename the Hashtable
-
+        Hashtable<Integer, List<Integer>> yearConflicts = new Hashtable<>();
         for (SlotExercise slotExerciseGoing : slotOrdered) {
             for (SlotExercise slotExerciseWaiting : slotOrder) {
-                if (slotExerciseWaiting.getYear() == slotExerciseGoing.getYear()  // Swap week with year
-                        && slotExerciseWaiting.getWeek() == slotExerciseGoing.getWeek() // Swap week with year
-                        && slotExerciseWaiting.getDay().equalsIgnoreCase(slotExerciseGoing.getDay())
-                        && slotExerciseWaiting.getStart_hour().equalsIgnoreCase(slotExerciseGoing.getStart_hour())
-                        && slotExerciseWaiting.getEnd_hour().equalsIgnoreCase(slotExerciseGoing.getEnd_hour())) {
+                if (slotExerciseWaiting.getYear() == slotExerciseGoing.getYear() &&
+                        slotExerciseWaiting.getWeek() == slotExerciseGoing.getWeek() &&
+                        slotExerciseWaiting.getDay().equalsIgnoreCase(slotExerciseGoing.getDay()) &&
+                        slotExerciseWaiting.getStart_hour().equalsIgnoreCase(slotExerciseGoing.getStart_hour()) &&
+                        slotExerciseWaiting.getEnd_hour().equalsIgnoreCase(slotExerciseGoing.getEnd_hour())) {
                     SlotExercise slotExerciseConflic = new SlotExercise();
                     slotExerciseConflic.setWeek(slotExerciseWaiting.getWeek());
                     slotExerciseConflic.setYear(slotExerciseWaiting.getYear());
@@ -101,48 +122,44 @@ public class OrderRequestController {
                     System.out.println("StartHour conflic: " + slotExerciseWaiting.getStart_hour());
                     System.out.println("EndHour conflic: " + slotExerciseWaiting.getEnd_hour());
                     System.out.println("--------------");
-                    // Check if the year is already in the Hashtable
-                    if (yearConflicts.containsKey(slotExerciseWaiting.getYear())) { // Swap week with year
-                        // If yes, add the week to the existing list
-                        yearConflicts.get(slotExerciseWaiting.getYear()).add(slotExerciseWaiting.getWeek()); // Swap week with year
+                    if (yearConflicts.containsKey(slotExerciseWaiting.getYear())) {
+                        yearConflicts.get(slotExerciseWaiting.getYear()).add(slotExerciseWaiting.getWeek());
                     } else {
-                        // If no, create a new list with the week and put it in the Hashtable
-                        List<Integer> weeks = new ArrayList<>(); // Swap week with year
-                        weeks.add(slotExerciseWaiting.getWeek()); // Swap week with year
-                        yearConflicts.put(slotExerciseWaiting.getYear(), weeks); // Swap week with year
+                        List<Integer> weeks = new ArrayList<>();
+                        weeks.add(slotExerciseWaiting.getWeek());
+                        yearConflicts.put(slotExerciseWaiting.getYear(), weeks);
                     }
                 }
             }
         }
-
-        StringBuilder msgBuilder = new StringBuilder(""); // Rename the message
-
-        for (Map.Entry<Integer, List<Integer>> entry : yearConflicts.entrySet()) { // Rename the Hashtable
-            int year = entry.getKey(); // Rename the key
-            List<Integer> weeks = entry.getValue(); // Rename the value
-
-            msgBuilder.append("Conflic Year ").append(year).append(" (Weeks ").append(weeks).append("), "); // Adjust the message
+        return slotConflic;
+    }
+    // hàm trả về các giá trị tuần bị conflic
+    private String buildConflictMessage(List<SlotExercise> slotConflic) {
+        StringBuilder msgBuilder = new StringBuilder("");
+        Hashtable<Integer, List<Integer>> yearConflicts = new Hashtable<>();
+        for (SlotExercise slot : slotConflic) {
+            if (yearConflicts.containsKey(slot.getYear())) {
+                yearConflicts.get(slot.getYear()).add(slot.getWeek());
+            } else {
+                List<Integer> weeks = new ArrayList<>();
+                weeks.add(slot.getWeek());
+                yearConflicts.put(slot.getYear(), weeks);
+            }
         }
 
-// Remove the trailing comma and space
+        for (Map.Entry<Integer, List<Integer>> entry : yearConflicts.entrySet()) {
+            int year = entry.getKey();
+            List<Integer> weeks = entry.getValue();
+            msgBuilder.append("Conflic Year ").append(year).append(" (Weeks ").append(weeks).append("), ");
+        }
+
+        // Remove the trailing comma and space
         if (msgBuilder.length() > 0) {
             msgBuilder.setLength(msgBuilder.length() - 2);
         }
 
-        model.addAttribute("MSG", msgBuilder.toString());
-        model.addAttribute( "allSlots", slotOrder);
-        model.addAttribute("conflicSlot",slotConflic);
-        model.addAttribute("orderedSlot",slotOrdered);
-        model.addAttribute("orderRequest",orderRequest);
-
-        System.out.println("conflic slot:"+slotConflic.size());
-        System.out.println("slot Ordered:" + slotOrdered.size());
-        System.out.println("slot ordering: " + slotOrder.size());
-        //BAO: notification
-//        redirectAttributes.addAttribute("accountId", accountId);
-//        redirectAttributes.addAttribute("week", week);
-//        redirectAttributes.addAttribute("year", year);
-        return "order-detail";
+        return msgBuilder.toString();
     }
 
     @RequestMapping(value = "accept-order", method = RequestMethod.POST)
@@ -159,6 +176,8 @@ public class OrderRequestController {
         PersonalTrainer personalTrainer = orderRequest.getPersonalTrainer();
         System.out.println();
         if(MSG == null || MSG.trim().isEmpty()){
+            orderRequest.setStatus(OrderStatus.Accepted);
+            orderRequestService.saveOrUpdateOrderRequest(orderRequest);
             systemNotificationService.createNotification_AcceptedHiringAndPayment(orderRequest); //BAO: notification
             redirectAttributes.addAttribute("amountPay",orderRequest.getTotal_of_money());
             redirectAttributes.addAttribute("orderID",orderID);
@@ -244,4 +263,18 @@ public class OrderRequestController {
         return weekOfYear;
     } // hàm trả về vị trí của tuần có ngày là sqlDate
 
+
+    public void updateTracking(OrderRequest orderRequest){
+        List<SlotExercise> orderSize = slotExcerciseEntityService.GetSlotOfOrder(orderRequest);
+        Integer trackingUpdate = orderRequest.getTranking();
+        double updateValue = 1.0 / orderSize.size() * 100;
+        trackingUpdate += (int) Math.ceil(updateValue);
+        orderRequest.setTranking(trackingUpdate);
+        orderRequestService.saveOrUpdateOrderRequest(orderRequest);
+    }//hàm update lại các giá trị tracking cho order request.
+    public void updateAttendantPresent(SlotExercise slotExercise,Attendant attendant){
+        slotExercise.setAttendantStatus(attendant);
+        slotExcerciseEntityService.SaveSlotExcercise(slotExercise);
+        if(attendant ==Attendant.PRESENT) updateTracking(slotExercise.getOrderRequest());
+    } // update giá trị update lại các gia trị attendant
 }

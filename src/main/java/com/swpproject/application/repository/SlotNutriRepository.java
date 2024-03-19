@@ -55,4 +55,9 @@ public class SlotNutriRepository {
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(SlotNutrition.class));
     }
 
+    public void deleteById(int id) {
+        String sql = "DELETE FROM slot_nutrition WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
+
 }

@@ -59,7 +59,6 @@ public class PersonalTrainerRestController {
                 personalTrainerDTOList = filterAndSortByDistance(origin, filterObject.getDistanceMax(), personalTrainerDTOList);
             }
         }
-
         return ResponseEntity.ok().body(personalTrainerDTOList);
     }
 

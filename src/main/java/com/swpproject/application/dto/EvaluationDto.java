@@ -18,5 +18,6 @@ public class EvaluationDto {
     private String commentFeedback;
     private LocalDateTime evaluationDateTime;
     private Gymer gymer;
+    private GymerDto gymerDto;
     private PersonalTrainer personalTrainer;
 }

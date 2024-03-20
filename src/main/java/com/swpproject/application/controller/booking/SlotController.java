@@ -98,8 +98,11 @@ public class SlotController {
             }
         }
         List<ConflictInfo> conflictsList = (List<ConflictInfo>) session.getAttribute("conflictsList");
+        String errorMessage = (String) session.getAttribute("ErrorMessage");
+        model.addAttribute("ErrorMessage",errorMessage);
         model.addAttribute("conflictsList",conflictsList);
         session.removeAttribute("conflictsList");
+        session.removeAttribute("ErrorMessage");
         return "forward:/bookPT";
     }
 
@@ -180,6 +183,7 @@ public class SlotController {
                     cloudYear++;
                 }
             }
+
             System.out.println("order slot: " +slotInWeekAndYearOrdered.size());
             boolean flag = false;
             for (SlotExercise slotExerciseOrdered : slotInWeekAndYearOrdered) {
@@ -225,7 +229,7 @@ public class SlotController {
                     orderRequest.setDescription(desc);
                     orderRequest.setTotal_of_money(totalAmount);
                     orderRequest.setStatus(OrderStatus.Pending);
-                    orderRequest.setTranking(0);
+                    orderRequest.setTracking(0);
                     System.out.println("goal" + title);
                     System.out.println("desc" + desc);
                     System.out.println("training time" + trainingTime);
@@ -275,9 +279,19 @@ public class SlotController {
                         }
                     }
                 }
+                systemNotificationService.createNotification_NewRequestHiring(orderRequest);
             }
+        }else {
+            System.out.println("Slot request size: "+slotRequest.size());
+                session.setAttribute("ErrorMessage","you need input atleast 1 slot to send request");
+                redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
+                redirectAttributes.addAttribute("week", week);
+                redirectAttributes.addAttribute("year", year);
+                return "redirect:/bookPT1";
+
         }
-        systemNotificationService.createNotification_NewRequestHiring(orderRequest);
+
+
         return "redirect:/personal-trainer";
     }
     public boolean checkBookSecond(Account account){

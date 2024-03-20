@@ -20,5 +20,6 @@ public class GymerDto {
     private String email;
     private Float weight;
     private Float height;
+    private String isBan;
     private String goal;
 }

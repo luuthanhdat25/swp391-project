@@ -293,19 +293,7 @@
         var repeatPassword = document.getElementById("repeatPassword");
         var isValid = true;
 
-        $(document).ready(function () {
-            $("#changePasswordLink").click(function (e) {
-                e.preventDefault();
-                resetError(currentPassword);
-                resetError(newPassword);
-                resetError(repeatPassword);
-                $("#changePasswordModal").modal("show");
-            });
 
-            $("#changePasswordForm").submit(function (e) {
-                $("#changePasswordModal").modal("hide");
-            });
-        });
 
         // Reset error messages, borders, and success message
         resetError(currentPassword);
@@ -743,6 +731,14 @@
     }
 
     $(document).ready(function () {
+        $("#changePasswordLink").click(function (e) {
+            e.preventDefault();
+            $("#changePasswordModal").modal("show");
+        });
+
+        $("#changePasswordForm").submit(function (e) {
+            $("#changePasswordModal").modal("hide");
+        });
         fetchAndPopulateBankNames();
         setDefaultBankValues();
     });

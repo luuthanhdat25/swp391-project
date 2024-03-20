@@ -58,7 +58,6 @@ public class OtherUserNotificationController {
         Account account = (Account) session.getAttribute("account");
         List<Notification> notifications = notificationRepository.getNotificationByToAccount(account);
         List<NotificationDTO> notificationDTOS = new ArrayList<>();
-
         for (Notification notification : notifications) {
             NotificationDTO newDTO = new NotificationDTO();
             newDTO.setAvatarSender(notification.getFromAccount().getAvatarImage());
@@ -68,7 +67,6 @@ public class OtherUserNotificationController {
             newDTO.setContentSender(notification.getContent());
             notificationDTOS.add(newDTO);
         }
-
         Collections.sort(notificationDTOS, Comparator.comparing(NotificationDTO::getTimeStamp).reversed());
         return ResponseEntity.ok().body(notificationDTOS);
     }

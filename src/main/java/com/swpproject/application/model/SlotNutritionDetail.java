@@ -22,7 +22,7 @@ public class SlotNutritionDetail {
     @JoinColumn(name = "nutrition_id", nullable = true)
     private Nutrition nutrition;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "slot_nutrition_id", nullable = true)
     private SlotNutrition slotNutrition;
 

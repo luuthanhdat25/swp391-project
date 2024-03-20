@@ -311,19 +311,19 @@
 				id: content
 			},
 			success: function(response) {
-				var formContent = '<form class="exercise-form">';
+				var formContent = '<form class="exercise-form" method="POST" action="/update-personal-schedule">';
 				formContent += '<div class="row my-2"></div>'; // Hàng trắng phía trên
 				if (response[0].check === "Exe") {
 					response.forEach(function (slotExerciseDetailDTO, index) {
+						formContent += '<input type="hidden" name="slotExerciseDetailId" value="' + slotExerciseDetailDTO.id + '">';
 						formContent += '<div class="row exercise-item mb-2">'; // Khoảng trống dưới mỗi hàng
 						formContent += '<div class="col-1"></div>'; // Khoảng trống bên trái
 						formContent += '<div class="col-sm-4 exercise-fields">'; // Thêm class để điều khiển hiển thị
 						formContent += '<div class="form-group">';
 						formContent += '<label>Exercise'; // Bắt đầu của thẻ label
 						formContent += '</label>'; // Kết thúc của thẻ label
-						formContent += '<select class="form-control exercise-select" name="exerciseName_' + index + '">';
+						formContent += '<select class="form-control exercise-select" name="exerciseSelect">';
 						formContent += '<option disabled selected>Choose exercise</option>';
-
 						// Duyệt qua từng phần tử của exerciseList
 						slotExerciseDetailDTO.exercises.forEach(function (exercise) {
 							// Kiểm tra nếu id của exercise trùng khớp với exerciseId
@@ -331,7 +331,6 @@
 							// Thêm một tùy chọn vào select với value là id của exercise và hiển thị là tên của exercise
 							formContent += '<option value="' + exercise.id + '" ' + selected + '>' + exercise.name + '</option>';
 						});
-
 						formContent += '</select>';
 						formContent += '</div>';
 						formContent += '</div>';
@@ -339,14 +338,14 @@
 						formContent += '<div class="col-sm-2 exercise-fields">';
 						formContent += '<div class="form-group">';
 						formContent += '<label>Set</label>';
-						formContent += '<input type="text" class="form-control exercise-set" placeholder="Enter set" name="setExe_' + index + '" value="' + slotExerciseDetailDTO.setExe + '">';
+						formContent += '<input type="text" class="form-control exercise-set" placeholder="Enter set" name="exerciseSet" value="' + slotExerciseDetailDTO.setExe + '">';
 						formContent += '</div>';
 						formContent += '</div>';
 
 						formContent += '<div class="col-sm-2 exercise-fields">';
 						formContent += '<div class="form-group">';
 						formContent += '<label>Rep</label>';
-						formContent += '<input type="text" class="form-control exercise-rep" placeholder="Enter rep" name="rep_' + index + '" value="' + slotExerciseDetailDTO.rep + '">';
+						formContent += '<input type="text" class="form-control exercise-rep" placeholder="Enter rep" name="exerciseRep" value="' + slotExerciseDetailDTO.rep + '">';
 						formContent += '</div>';
 						formContent += '</div>';
 
@@ -355,13 +354,14 @@
 					});
 				} else {
 					response.forEach(function (slotNutritionDetailDTO, index) {
+						formContent += '<input type="hidden" name="slotNutritionDetailId" value="' + slotNutritionDetailDTO.id + '">';
 						formContent += '<div class="row exercise-item mb-2">'; // Mở một hàng mới
 						formContent += '<div class="col-1"></div>'; // Khoảng trống bên trái
 						formContent += '<div class="col-sm-4 nutrition-fields">'; // Thêm class để điều khiển hiển thị
 						formContent += '<div class="form-group">';
 						formContent += '<label>Nutrition'; // Bắt đầu của thẻ label
 						formContent += '</label>'; // Kết thúc của thẻ label
-						formContent += '<select class="form-control nutrition-select" name="nutritionName_' + index + '">'; // Đặt Name cho select
+						formContent += '<select class="form-control nutrition-select" name="nutritionSelect">'; // Đặt Name cho select
 						formContent += '<option disabled selected>Choose nutrition</option>';
 
 						// Duyệt qua từng phần tử của nutritions
@@ -376,15 +376,14 @@
 
 						formContent += '<div class="col-sm-4 nutrition-fields">';
 						formContent += '<div class="form-group">';
-						formContent += '<label>Amount</label>';
-						formContent += '<input type="text" class="form-control nutrition-amount" placeholder="Enter amount" name="amount_' + index + '" value="' + slotNutritionDetailDTO.amount + '">';
+						formContent += '<label>Amount(g)</label>';
+						formContent += '<input type="text" class="form-control nutrition-amount" placeholder="Enter amount" name="nutritionAmount" value="' + slotNutritionDetailDTO.amount + '">';
 						formContent += '</div>';
 						formContent += '</div>';
 
 						formContent += '</div>'; // Đóng tag div của hàng
 					});
 				}
-
 				formContent += '<div class="row mb-2">';
 				formContent += '<div class="col-1"></div>';
 				formContent += '<div class="col-sm-8">';
@@ -393,15 +392,27 @@
 				formContent += '</div>';
 				formContent += '</div>';
 
-				formContent += '<div class="bank-details-btn row justify-content-center mt-4">';
-				formContent += '  <div class="offset-7">'; // Offset by one column to the right
-				formContent += '    <button class="btn bank-save-btn" type="submit">Save</button>';
-				formContent += '  </div>';
-				formContent += '</div>';
+				formContent += '<div class="container">';
 
+				formContent += '<div class="bank-details-btn row justify-content-center mt-4">';
+				formContent += '  <div class="col-3 text-center ml-3">'; // Center the button
+				formContent += '    <button class="btn bank-save-btn" type="submit">Update</button>';
+				formContent += '  </div>';
 
 				formContent += '</form>';
 
+				formContent += '  <div class="col-3 text-center ml-3">'; // Move button to next row on smaller screens
+				formContent += '    <form action="/delete-personal-slot" method="post">';
+				formContent += '      <button class="btn bank-save-btn" style="background-color: #dc3545 !important;" type="submit">Delete</button>';
+				if (response[0].check === "Exe") {
+					formContent += '<input type="hidden" name="slotExerciseId" value="' + response[0].slotId + '">';
+				} else {
+					formContent += '<input type="hidden" name="slotNutritionId" value="' + response[0].slotId + '">';
+				}
+				formContent += '    </form>';
+				formContent += '  </div>';
+				formContent += '</div>';
+				formContent += '</div>';
 
 				// Hiển thị biểu mẫu nội dung của sự kiện
 				self.modal.getElementsByClassName('cd-schedule-modal__event-info')[0].innerHTML = formContent;
@@ -470,7 +481,6 @@
 				}
 			}
 		});
-
 		function checkResize(){
 			for(var i = 0; i < scheduleTemplateArray.length; i++) {
 				scheduleTemplateArray[i].scheduleReset();

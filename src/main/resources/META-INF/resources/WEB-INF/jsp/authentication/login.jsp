@@ -39,6 +39,7 @@
                         </form:form>
 
                         <div class="text-danger font-weight-bold"><c:if test="${param.failed != null}">Email or password is not correct. Try again!</c:if></div>
+                        <div class="text-danger font-weight-bold"><c:if test="${param.ban != null}">This account is BAN! Please try another account!</c:if></div>
                         <div class="text-success font-weight-bold"><c:if test="${param.successfully != null}">Everything is done! You can login now.</c:if></div>
                         <div class="text-success font-weight-bold"><c:if test="${param.inactive != null}">Your account already created! You can login now
                                                                                         but you might wait for admin accept to use our services.</c:if></div>

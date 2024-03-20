@@ -96,13 +96,11 @@ public class NutritionController {
     public String getNutritionDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         if(!canCreateUpdate(roleDTO)) {
-            System.out.println("RoleDTO invalid ");
             return ERROR_URL;
         }
 
         Optional<Nutrition> nutritionOptional = nutritionService.findNutritionById(id, roleDTO);
         if(nutritionOptional.isEmpty()) {
-            System.out.println("Can't find Nutrition");
             return ERROR_URL;
         }
 

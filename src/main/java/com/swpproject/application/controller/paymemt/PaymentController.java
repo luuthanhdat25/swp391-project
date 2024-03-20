@@ -4,17 +4,22 @@ import com.swpproject.application.enums.OrderStatus;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.OrderRequest;
 import com.swpproject.application.model.PersonalTrainer;
+import com.swpproject.application.model.SlotExercise;
 import com.swpproject.application.service.OrderRequestService;
+import com.swpproject.application.service.SlotExcerciseEntityService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class PaymentController {
     private IPaymentStrategy paymentStrategy;
     @Autowired private OrderRequestService orderRequestService;
+    @Autowired private SlotExcerciseEntityService slotExcerciseEntityService;
 
     public void setPaymentStrategy(IPaymentStrategy paymentStrategy) {
         this.paymentStrategy = paymentStrategy;
@@ -46,6 +51,11 @@ public class PaymentController {
             Account account = personalTrainer.getAccount();
             orderRequest.setStatus(OrderStatus.OnDoing);
             orderRequestService.saveOrUpdateOrderRequest(orderRequest);
+//            orderRequest.getPersonalTrainer().getAccount().getFullName();
+            System.out.println(account.getFullName());
+            List<SlotExercise> slotOrderList = slotExcerciseEntityService.getSlotByOrder(orderRequest.getOrderId());
+            model.addAttribute("personalTrainerName", orderRequest.getPersonalTrainer().getAccount().getFullName());
+            model.addAttribute("numberSlot",slotOrderList.size());
             model.addAttribute("accountOrder",personalTrainer);
             model.addAttribute("accountPTOrder",account);
             System.out.println("order request session:"+orderRequest.getOrderId());

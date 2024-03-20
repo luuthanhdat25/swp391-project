@@ -10,23 +10,20 @@ import java.util.Optional;
 
 @Service
 public interface AccountService {
-    @Transactional
     List<Account> getAccounts();
 
-    @Transactional
     Optional<Account> getAccountByEmail(String email);
 
-    @Transactional
     List<Account> findAccountByRole(Role role);
 
-    @Transactional
-    Account loginByEmail(String email, String password);
-
-    @Transactional
     void save(Account account);
 
-    @Transactional
-    Boolean existsByEmail(String email);
-
     List<Account> findAllAcount();
+
+    Optional<Account> getAccountById(Integer id);
+
+
+    Optional<Account> getAccountByPersonalTrainerId(Integer id);
+
+    Optional<Account> getAccountByGymerId(Integer id);
 }

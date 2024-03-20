@@ -21,15 +21,13 @@ public class Evaluation {
     private Integer id;
 
     @Column(name = "star", nullable = false)
-    private int star;
+    private Integer star;
 
     @Column(name = "content", columnDefinition = "nvarchar(max)")
     private String content;
 
     @Column(name = "evaluation_date", nullable = false)
     private LocalDateTime evaluationDate;
-
-    // TODO: Maybe need Order (Gymer - PT)
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "gymer_id", nullable = false)

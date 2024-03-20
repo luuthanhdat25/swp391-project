@@ -14,7 +14,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class PersonalTrainerExerciseController {
@@ -32,8 +34,9 @@ public class PersonalTrainerExerciseController {
         if(roleDTO.getRole() != Role.PT) return "error";
 
         List<ExerciseDTOOut> exerciseDTOOutList = exerciseService.getExerciseDTOOutList(roleDTO);
-        String exerciseDTOoutJson = JsonUtils.jsonConvert(exerciseDTOOutList);
-        model.addAttribute("exerciseList", exerciseDTOoutJson);
+        List<ExerciseDTOOut> myExerciseDTOOutList = getMyExercise(roleDTO.getId(), exerciseDTOOutList);
+        String myExerciseDTOOut = JsonUtils.jsonConvert(myExerciseDTOOutList);
+        model.addAttribute("exerciseList", myExerciseDTOOut);
 
         boolean canCreate = canCreateUpdate(roleDTO);
         model.addAttribute("canCreate", canCreate);
@@ -47,5 +50,11 @@ public class PersonalTrainerExerciseController {
         if(roleDTO.getRole() != Role.PT) return false;
         PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByID(roleDTO.getId()).get();
         return  personalTrainer.getIsActive();
+    }
+
+    private List<ExerciseDTOOut> getMyExercise(int id, List<ExerciseDTOOut> exerciseDTOOutList){
+        return exerciseDTOOutList.stream()
+                .filter(exerciseDTOOut -> exerciseDTOOut.getPersonalTrainer_id() == id)
+                .collect(Collectors.toList());
     }
 }

@@ -96,7 +96,7 @@ public class ExerciseController {
         if(!canCreateUpdate(roleDTO)) return ERROR_URL;
 
         exerciseService.create(exerciseDTOIn, roleDTO);
-        return "redirect:/exercise";
+        return "redirect:/my-exercise";
     }
 
 

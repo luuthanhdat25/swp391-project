@@ -81,4 +81,8 @@ public class SlotExcerciseEntityService {
         return  slotExcerciseEntityRepository.findAllByOrderRequest(orderRequest);
     }
 
+    public void deleteById(Integer id){
+        slotExcerciseEntityRepository.deleteById(id);
+    }
+
 }

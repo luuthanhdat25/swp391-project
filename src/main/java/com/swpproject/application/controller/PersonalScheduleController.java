@@ -27,6 +27,8 @@ import java.util.Optional;
 @Controller
 public class PersonalScheduleController {
     @Autowired
+    private SlotNutritionService slotNutritionService;
+    @Autowired
     private SlotExcerciseEntityService slotExcerciseEntityService;
 
     @Autowired
@@ -282,12 +284,14 @@ public class PersonalScheduleController {
             SlotExercise slotExercise = slotExeRepository.findById(Integer.parseInt(slotExerciseId));
             week = slotExercise.getWeek();
             year = slotExercise.getYear();
-            slotExeRepository.deleteById(slotExercise.getId());
+            slotExeDetailService.deleteAllBySlotExercise_Id(slotExercise.getId());
+            slotExcerciseEntityService.deleteById(slotExercise.getId());
         } else {
             SlotNutrition slotNutrition = slotNutriRepository.findSlotNutritionById(Integer.parseInt(slotNutritionId));
             week = slotNutrition.getWeek();
             year = slotNutrition.getYear();
-            slotNutriRepository.deleteById(slotNutrition.getId());
+            slotNutriDetailService.deleteAllBySlotNutrition_Id(slotNutrition.getId());
+            slotNutritionService.deleteById(slotNutrition.getId());
         }
         return "redirect:/selectWeek?week=" + week + "&year=" + year;
     }

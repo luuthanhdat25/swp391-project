@@ -13,5 +13,5 @@ public interface SlotExeDetailRepository extends JpaRepository<SlotExerciseDetai
 
     public Optional<SlotExerciseDetail> findSlotExerciseDetailById(Integer id);
 
-    public void deleteAllBySlotExercise_Id(Integer id);
+    public int deleteAllBySlotExercise_Id(Integer id);
 }

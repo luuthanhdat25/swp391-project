@@ -67,7 +67,7 @@ public class ProfileController {
             PersonalTrainerDto personalTrainerDto = dtoUtils.convertPersonalTrainerToPersonalTrainerDto(personalTrainer);
             List<EvaluationDto> evaluationDtoList = evaluationService.findAllEvaluationsByPersonalTrainerId(personalTrainerDto.getId())
                                                                      .stream()
-                                                                     .map(DtoUtils::convertEvaluationToEvaluationDto)
+                                                                     .map(evaluation -> dtoUtils.convertEvaluationToEvaluationDto(evaluation))
                                                                      .toList();
             model.addAttribute("evaluations", evaluationDtoList);
             model.addAttribute("personalDtoJson", JsonUtils.jsonConvert(dtoUtils.convertPersonalTrainerToPersonalTrainerDto((PersonalTrainer) session.getAttribute("personalTrainer"))));

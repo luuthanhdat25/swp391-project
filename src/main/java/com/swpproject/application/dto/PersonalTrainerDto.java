@@ -26,5 +26,6 @@ public class PersonalTrainerDto {
     private String bankName;
     private String bankNumber;
     private String email;
+    private String isBan;
     List<byte[]> certificateList;
 }

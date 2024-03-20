@@ -164,22 +164,22 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 d-flex align-items-center">
-                                        <div class="follow-btn-group">
-                                            <a class="btn btn-info message-btnsz"
-                                               href="/bookPT1?PersonalTrainerID=${param.id}">Book</a>
+                                    <c:if test="${account.getRole().getLabel() == 'Gymer'}">
+                                        <div class="col-lg-6 col-md-6 d-flex align-items-center">
+                                            <div class="follow-btn-group">
+                                                <a class="btn btn-info message-btnsz"
+                                                   href="/bookPT1?PersonalTrainerID=${param.id}">Book</a>
 
-                                            <c:if test="${personalTrainer ne null}">
                                                 <button type="submit" class="btn btn-info message-btns">Inbox</button>
-                                            </c:if>
-                                            <%--                                            <button type="submit" class="btn btn-info message-btns">Inbox</button>--%>
-                                            <c:if test="${personalTrainer ne null}">
-                                                <button type="submit" class="btn btn-info message-btns"
-                                                        data-bs-toggle="modal" data-bs-target="#exampleModal">Report
-                                                </button>
-                                            </c:if>
+                                                    <%--                                            <button type="submit" class="btn btn-info message-btns">Inbox</button>--%>
+                                                <c:if test="${canReport}">
+                                                    <button type="submit" class="btn btn-info message-btns"
+                                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Report
+                                                    </button>
+                                                </c:if>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
@@ -307,37 +307,86 @@
                                     <h4 class="card-title"
                                         style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">
                                         Feedback
-                                        <button type="submit" class="btn btn-info" id="feedbackModalBtn">Evaluate
-                                        </button>
+                                        <c:if test="${canEvaluate != null}">
+                                            <button type="submit" class="btn btn-info" id="feedbackModalBtn">Evaluate
+                                            </button>
+                                        </c:if>
                                     </h4>
                                 </div>
+                                <div class="success-message"></div>
                                 <div class="card-body pb-0">
                                     <ul class="comments-list">
-                                        <li>
-                                            <c:forEach items="${evaluations}" var="evaluation">
-                                            <div class="comment">
-                                                <div class="comment-author">
-                                                    <img class="avatar" alt=""
-                                                         src="data:image/png;base64,${evaluation.getGymer().getAccount().getAvatarImageAsString()}">
-                                                </div>
-                                                <div class="comment-block">
-                                                    <div class="comment-by">
-                                                        <h5 class="blog-author-name">${evaluation.getGymer().getAccount().getFullName()}<span
-                                                                class="blog-date"> <i
-                                                                class="feather-clock me-1"></i>${evaluation.getEvaluationDateTime()}</span>
-                                                        </h5>
-                                                        <div class="rate">
-                                                            <c:forEach begin="1" end="5" var="i">
-                                                                <span class="star" style="color: ${i <= evaluation.getStarRating() ? 'gold' : 'gray'}">&#9733;</span>
-                                                            </c:forEach>
-                                                        </div>
+                                        <c:forEach items="${evaluations}" var="evaluation">
+                                            <li>
+                                                <div class="comment" style="border-bottom: 1px solid #000000">
+                                                    <div class="comment-author">
+                                                        <img class="avatar" alt=""
+                                                             src="data:image/png;base64,${evaluation.getGymer().getAccount().getAvatarImageAsString()}">
                                                     </div>
-                                                    <p class="caption" style="font-size: 14px">${evaluation.getCommentFeedback()}</p>
+                                                    <div class="comment-block">
+                                                        <div class="comment-by">
+                                                            <h5 class="blog-author-name">${evaluation.getGymer().getAccount().getFullName()}
+                                                                <span class="blog-date">
+                                                                    <i class="feather-clock me-1"></i>
+                                                                    <script>
+                                                                        // Get the timestamp of the evaluation
+                                                                        var evaluationTimestamp = new Date("${evaluation.getEvaluationDateTime()}").getTime();
+
+                                                                        // Get the current time
+                                                                        var currentTime = new Date().getTime();
+
+                                                                        // Calculate the time difference in milliseconds
+                                                                        var timeDifference = currentTime - evaluationTimestamp;
+
+                                                                        // Convert milliseconds to years, months, days, hours, minutes, and seconds
+                                                                        var years = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365));
+                                                                        var months = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 30.44)) % 12;
+                                                                        var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24)) % 30.44;
+                                                                        var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                                        var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                                                                        var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                                                                        // Output the time elapsed
+                                                                        var timeElapsed = "";
+                                                                        if (years > 0) {
+                                                                            timeElapsed += years + " years ";
+                                                                        }
+                                                                        if (months > 0) {
+                                                                            timeElapsed += months + " months ";
+                                                                        }
+                                                                        if (days > 0) {
+                                                                            timeElapsed += days + " days ";
+                                                                        }
+                                                                        if (hours > 0) {
+                                                                            timeElapsed += hours + " hours ";
+                                                                        }
+                                                                        if (minutes > 0) {
+                                                                            timeElapsed += minutes + " minutes ";
+                                                                        }
+                                                                        if (seconds > 0) {
+                                                                            timeElapsed += seconds + " seconds ";
+                                                                        }
+                                                                        if (timeElapsed === "") {
+                                                                            timeElapsed = "Just now";
+                                                                        } else {
+                                                                            timeElapsed += "ago";
+                                                                        }
+                                                                        document.write(timeElapsed);
+                                                                    </script>
+                                                                </span>
+                                                            </h5>
+                                                            <div class="rate">
+                                                                <c:forEach begin="1" end="5" var="i">
+                                                                    <span class="star" style="color: ${i <= evaluation.getStarRating() ? 'gold' : 'gray'}">&#9733;</span>
+                                                                </c:forEach>
+                                                            </div>
+                                                        </div>
+                                                        <p class="caption" style="font-size: 14px">${evaluation.getCommentFeedback()}</p>
+                                                    </div>
+                                                    <br>
                                                 </div>
-                                                <br>
-                                                </c:forEach>
-                                            </div>
-                                        </li>
+                                            </li>
+                                        </c:forEach>
                                     </ul>
                                 </div>
                             </div>
@@ -353,24 +402,24 @@
             with your valuable feedback.
         </div>
         <div class="rate-box">
-            <input type="radio" name="star" id="star0"/>
-            <label class="star" for="star0"></label>
-            <input type="radio" name="star" id="star1"/>
-            <label class="star" for="star1"></label>
-            <input type="radio" name="star" id="star2"/>
-            <label class="star" for="star2"></label>
-            <input type="radio" name="star" id="star3"/>
-            <label class="star" for="star3"></label>
+            <input type="radio" name="star" id="star5"/>
+            <label class="star" for="star5"></label>
             <input type="radio" name="star" id="star4"/>
             <label class="star" for="star4"></label>
+            <input type="radio" name="star" id="star3"/>
+            <label class="star" for="star3"></label>
+            <input type="radio" name="star" id="star2"/>
+            <label class="star" for="star2"></label>
+            <input type="radio" name="star" id="star1"/>
+            <label class="star" for="star1"></label>
         </div>
         <textarea id="feedbackComment" cols="30" rows="6" placeholder="Tell us about your experience!"></textarea>
+        <div class="error-message" style="display: none; color: red; font-size: 0.9rem;">Please provide your feedback before submitting.</div>
         <div>
             <button type="button" class="submit-btn-feedback close-feedback-modal">Close</button>
             <button type="button" class="submit-btn-feedback send-feedback-modal">Send</button>
         </div>
     </div>
-
     <div class="overlay"></div>
 
     <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -384,6 +433,7 @@
 
 
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script src="../../assets/js/jquery-3.6.0.min.js"></script>
 <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -397,9 +447,7 @@
 <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
 
 <script>
-
     $(document).ready(function () {
-        // Show modal and overlay when Evaluate button is clicked
         $('#feedbackModalBtn').click(function () {
             $('.feedback-modal').css({
                 "display": "flex",
@@ -422,25 +470,46 @@
         });
     });
 
-    $('.send-feedback-modal').click(function () {
-        // Get the selected star rating
-        var starRating = $('input[name="star"]:checked').val();
-        // Get the feedback comment
-        var feedbackComment = $('#feedbackComment').val();
+    $('.send-feedback-modal').click(function() {
+        var rating = $('.rate-box input:checked').attr('id').replace('star', '');;
+        var comment = $('#feedbackComment').val();
 
-        // AJAX POST request to send feedback to Spring Controller
+        if (!comment || comment.trim() === '') {
+            $('.error-message').show();
+            $('#feedbackComment').css('border', '1px solid red')
+            return;
+        } else {
+            $('.error-message').hide();
+            $('#feedbackComment').css('border-color', '');
+            $('#feedbackComment').css('border', 'none')
+        }
+
+        var evaluationData = {
+            commentFeedback: comment,
+            starRating: parseInt(rating),
+            gymerDto: ${gymerAsView},
+            personalTrainer: ${personaltrainer}
+        };
+
         $.ajax({
+            url: 'feedback',
             type: 'POST',
-            url: '',
-            data: {
-                starRating: starRating,
-                feedbackComment: feedbackComment
+            contentType: 'application/json', // Specify content type as JSON
+            data: JSON.stringify(evaluationData), // Convert data to JSON string
+            success: function(response) {
+                $('.feedback-modal').animate({
+                    "top": "40%",
+                }, 300, function () {
+                    $('.feedback-modal').css("display", "none");
+                });
+                $('.overlay').fadeOut();
+                $('.feedback-modal').fadeOut();
+                $('.success-message').html('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                    '<strong>Success!</strong> Your feedback has been submitted successfully.' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                    '</div>');
             },
-            success: function (response) {
-                // Handle success response
-                console.log(response);
-            },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 // Handle error
                 console.error(error);
             }

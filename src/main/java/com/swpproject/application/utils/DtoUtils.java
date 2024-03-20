@@ -49,6 +49,7 @@ public class DtoUtils {
                                             .avatarImage(gymer.getAccount().getAvatarImage())
                                             .phone(gymer.getAccount().getPhone())
                                             .birthday(gymer.getAccount().getBirthday().toString())
+                                            .isBan(gymer.getAccount().getIsBan().toString())
                                             .email(gymer.getAccount().getEmail())
                                             .build();
     }
@@ -76,6 +77,7 @@ public class DtoUtils {
                                             .bankName(personalTrainer.getBankName())
                                             .bankNumber(personalTrainer.getBankNumber())
                                             .email(personalTrainer.getAccount().getEmail())
+                                            .isBan(personalTrainer.getAccount().getIsBan().toString())
                                             .certificateList(certificatList)
                                             .build();
     }
@@ -93,7 +95,21 @@ public class DtoUtils {
                                         .commentFeedback(evaluation.getContent())
                                         .starRating(evaluation.getStar())
                                         .gymer(evaluation.getGymer())
+                                        .gymerDto(convertGymerToGymerDto(evaluation.getGymer()))
                                         .personalTrainer(evaluation.getPersonalTrainer())
                                         .build();
     }
+
+    public static Evaluation revertEvaluationDtoToEvaluation(EvaluationDto evaluationDto) {
+        return Evaluation.builder() .id(evaluationDto.getId())
+                                    .evaluationDate(evaluationDto.getEvaluationDateTime())
+                                    .content(evaluationDto.getCommentFeedback())
+                                    .star(evaluationDto.getStarRating())
+                                    .gymer(evaluationDto.getGymer())
+                                    .personalTrainer(evaluationDto.getPersonalTrainer())
+                                    .build();
+    }
+
+
+
 }

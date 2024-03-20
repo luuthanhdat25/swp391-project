@@ -35,31 +35,27 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account loginByEmail(String email, String password) {
-        Optional<Account> optAccount = accountRepository.findAccountByEmail(email);
-        if (optAccount.isPresent()) {
-            Account account = optAccount.get();
-            if (account.getPassword().equalsIgnoreCase(password)) {
-                return account;
-            } else {
-                throw new IllegalArgumentException("Incorrect password");
-            }
-        } else {
-            throw new IllegalArgumentException("Account not found for email: " + email);
-        }
-    }
-
-    @Override
     public void save(Account account) {
         accountRepository.save(account);
     }
 
     @Override
-    public Boolean existsByEmail(String email) {
-        return accountRepository.existsByEmail(email);
-    }
-    @Override
     public List<Account> findAllAcount() {
         return accountRepository.findAll();
+    }
+
+    @Override
+    public Optional<Account> getAccountById(Integer id) {
+        return accountRepository.findById(id);
+    }
+
+    @Override
+    public Optional<Account> getAccountByPersonalTrainerId(Integer id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Account> getAccountByGymerId(Integer id) {
+        return Optional.empty();
     }
 }

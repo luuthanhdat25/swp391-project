@@ -30,7 +30,6 @@ public class PersonalTrainerRequestService {
 
         String TITLE = "Approve personal trainer's certifications";
         for (Certificate certificate: certificates) {
-            System.out.println(certificate.getImage().toString());
             requestContent.append("<img class=\"w-100 mb-2\" src=\"").append("data:image/jpeg;base64,")
                           .append(certificate.getImage().toString()).append("\">");
         }

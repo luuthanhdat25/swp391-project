@@ -229,7 +229,7 @@ public class SlotController {
                     orderRequest.setDescription(desc);
                     orderRequest.setTotal_of_money(totalAmount);
                     orderRequest.setStatus(OrderStatus.Pending);
-                    orderRequest.setTranking(0);
+                    orderRequest.setTracking(0);
                     System.out.println("goal" + title);
                     System.out.println("desc" + desc);
                     System.out.println("training time" + trainingTime);

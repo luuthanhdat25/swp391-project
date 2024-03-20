@@ -20,4 +20,13 @@ public enum Goal {
     public String getLabel() {
         return goal;
     }
+
+    public static String fromLabel(String label) {
+        for (Goal goal : Goal.values()) {
+            if (goal.getLabel().equalsIgnoreCase(label)) {
+                return goal.toString();
+            }
+        }
+        throw new IllegalArgumentException("No constant with label " + label + " found");
+    }
 }

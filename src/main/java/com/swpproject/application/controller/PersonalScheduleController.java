@@ -18,10 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 
 @Controller
@@ -51,18 +48,35 @@ public class PersonalScheduleController {
     private GymerService gymerService;
     @Autowired
     private ScheduleServiceImplement scheduleServiceImplement;
+    @Autowired ExerciseService exerciseService;
 
     // view pt schedule
     @GetMapping(value = "/view-pt-schedule")
     public String showPTSchedule(@RequestParam(value = "week", required = false) Integer week,
                                  @RequestParam(value = "year", required = false) Integer year,
-                                 Model model) {
+                                 Model model,HttpSession session) {
+        Account account = (Account) session.getAttribute("account");
         if (week==null && year==null){
             LocalDate currentDate = LocalDate.now();
             // Lấy vị trí của tuần trong năm
             week = currentDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
             year = currentDate.getYear();
             return "redirect:/selectTime?week="+week+"&year="+year;
+
+
+        }
+        if (account.getRole().equals(Role.PT)) {
+            PersonalTrainer personalTrainer = personalTrainerService.findPersonalTrainerByAccountID(account.getId());
+            List<SlotExercise> slotExercises = slotExcerciseEntityService.findAllByWeekAndYearAndPersonalTrainerAndIsPending(week, year, personalTrainer, false);
+            List<SlotExerciseDetail> slotExerciseDetails = new ArrayList<>();
+            for (SlotExercise slotEx : slotExercises) {
+                slotExerciseDetails.addAll(slotExeDetailService.getAllSlotOfSlotExercise(slotEx));
+            }
+            List<Exercise> exercises = exerciseService.getAllExercise();
+            System.out.println(exercises.size());
+            session.setAttribute("currentURL","/selectTime");
+            model.addAttribute("exerciseList", exercises);
+            model.addAttribute("SlotDetail",slotExerciseDetails);
         }
         return "pt-schedule";
     }
@@ -95,8 +109,12 @@ public class PersonalScheduleController {
             // Lấy vị trí của tuần trong năm
             week = currentDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
             year = currentDate.getYear();
+            session.setAttribute("currentURL","/select-week");
             return "redirect:/select-week?week="+week+"&year="+year;
         }
+        List<Exercise> exercises = exerciseService.getAllExercise();
+        System.out.println(exercises.size());
+        model.addAttribute("exerciseList", exercises);
         return "gymer-schedule";
     }
 
@@ -110,9 +128,16 @@ public class PersonalScheduleController {
         if (gymer == null) {
             gymer = (Gymer) session.getAttribute("GymerCustomer");
         }
-        if (gymer != null) {
+    if (gymer != null) {
+
             List<SlotExercise> slotExes = slotExcerciseEntityService.findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(week, year, gymer, false);
+            List<SlotExerciseDetail> slotExerciseDetails = new ArrayList<>();
+            for (SlotExercise slotEx : slotExes) {
+                slotExerciseDetails.addAll(slotExeDetailService.getAllSlotOfSlotExercise(slotEx));
+            }
+
             model.addAttribute("slotExes", slotExes);
+            model.addAttribute("SlotDetail",slotExerciseDetails);
         }
         return "forward:/view-schedule-withpt?year=" + year + "&week=" + week;
     }
@@ -121,14 +146,22 @@ public class PersonalScheduleController {
     @GetMapping(value = "/view-personal-schedule")
     public String showPersonalSchedule(@RequestParam(value = "week", required = false) Integer week,
                                        @RequestParam(value = "year", required = false) Integer year,
-                                       Model model) {
+                                       Model model,HttpSession session) {
+
         if (week==null && year==null){
             LocalDate currentDate = LocalDate.now();
             // Lấy vị trí của tuần trong năm
             week = currentDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
             year = currentDate.getYear();
+            List<Exercise> exercisesList = exerciseService.getAllExercise();
+            System.out.println(exercisesList.size());
+            model.addAttribute("exerciseList", exercisesList);
+            session.setAttribute("currentURL","/selectWeek");
             return "redirect:/selectWeek?week="+week+"&year="+year;
         }
+        List<Exercise> exercises = exerciseService.getAllExercise();
+        System.out.println(exercises.size());
+        model.addAttribute("exerciseList", exercises);
         return "view-schedule";
     }
 
@@ -153,9 +186,13 @@ public class PersonalScheduleController {
         List<Nutrition> nutritions = nutritionRepository.findAll();
         session.setAttribute("nutritions", nutritions);
 
+        List<Exercise> exercisesList = exerciseService.getAllExercise();
+        System.out.println(exercisesList.size());
+        model.addAttribute("exerciseList", exercisesList);
+
         model.addAttribute("week", week);
         model.addAttribute("year", year);
-        return "forward:/view-personal-schedule?week=" + week + "&year=" + year;
+        return "redirect:/view-personal-schedule?week=" + week + "&year=" + year;
     }
 
     @PostMapping(value = "/view-personal-schedule")

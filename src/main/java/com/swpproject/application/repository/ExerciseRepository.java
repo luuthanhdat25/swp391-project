@@ -40,5 +40,8 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {
     @Query("SELECT e FROM Exercise e " +
             "WHERE (e.isPrivate = 0 OR e.personalTrainer.id = :personalTrainerId) AND e.id = :exerciseId")
     Optional<Exercise> findNonPrivateOrByPersonalTrainerId(Integer personalTrainerId, Integer exerciseId);
+
+    Optional<Exercise> findById(Integer id);
+
 }
 

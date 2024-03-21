@@ -69,7 +69,9 @@ public class SlotExcerciseEntityService {
     public List<SlotExercise> findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(int week, int year, Gymer gymer, boolean isPending){
         return slotExcerciseEntityRepository.findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(week,year,gymer,isPending);
     }
-
+    public List<SlotExercise> findALlSlotOfAPersonalTrainer(int week, int year, PersonalTrainer personalTrainer){
+        return slotExcerciseEntityRepository.findAllByWeekAndYearAndPersonalTrainer(week,year,personalTrainer);
+    }
     public SlotExercise getTop1SlotExerciseByOrderID(Integer orderId){
         return slotExcerciseEntityRepository.findTopByOrderRequest_OrderId(orderId);
     }
@@ -79,6 +81,10 @@ public class SlotExcerciseEntityService {
 
     public List<SlotExercise> GetSlotOfOrder(OrderRequest orderRequest){
         return  slotExcerciseEntityRepository.findAllByOrderRequest(orderRequest);
+    }
+
+    public SlotExercise getSlotByID(Integer id){
+        return slotExcerciseEntityRepository.findTopById(id);
     }
 
 }

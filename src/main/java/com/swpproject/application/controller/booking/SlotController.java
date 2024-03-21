@@ -149,7 +149,7 @@ public class SlotController {
         List<SlotExercise>  getAllSlotIntime = new ArrayList<>();
         if (checkedSlots != null && !checkedSlots.isEmpty()) {
             for (int i = 1; i <= trainingTime; i++) {
-                List<SlotExercise> SlotInWeekAndYear = slotExcerciseEntityService.getAllSlotByWeek(cloudWeek, cloudYear);
+                List<SlotExercise> SlotInWeekAndYear = slotExcerciseEntityService.findALlSlotOfAPersonalTrainer(cloudWeek,cloudYear,personalTrainer);
                 slotInWeekAndYearOrdered.addAll(SlotInWeekAndYear);
                 for (String checkedSlot : checkedSlots) {
                     System.out.println(year);

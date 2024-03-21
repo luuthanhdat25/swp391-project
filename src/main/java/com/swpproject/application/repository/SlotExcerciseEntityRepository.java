@@ -67,4 +67,7 @@ public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercis
     public List<SlotExercise> findAllByWeekAndYearAndPersonalTrainerAndIsPending(int week, int year, PersonalTrainer personalTrainer, boolean isPending);
 
     public List<SlotExercise> findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(int week, int year, Gymer gymer, boolean isPending);
+    public List<SlotExercise> findAllByWeekAndYearAndPersonalTrainer(int week,int year, PersonalTrainer personalTrainer);
+
+    public SlotExercise findTopById(Integer id);
 }

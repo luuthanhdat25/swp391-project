@@ -4,6 +4,7 @@ import com.swpproject.application.model.SlotExercise;
 import com.swpproject.application.model.SlotExerciseDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.relational.core.sql.In;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,4 +15,9 @@ public interface SlotExeDetailRepository extends JpaRepository<SlotExerciseDetai
     public Optional<SlotExerciseDetail> findSlotExerciseDetailById(Integer id);
 
     public void deleteAllBySlotExercise_Id(Integer id);
+    public List<SlotExerciseDetail> findAllBySlotExercise(SlotExercise slotExercise);
+
+
+    @Transactional
+    public void deleteSlotExerciseDetailById(Integer slotExerciseDetailID);
 }

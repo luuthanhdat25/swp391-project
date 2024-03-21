@@ -45,11 +45,16 @@ public class NutritionController {
     public String getNutritionListPage(ModelMap model, HttpServletRequest request) {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         List<NutritionDTOOut> nutritionDTOOutList = nutritionService.getNutritionDTOOutList(roleDTO);
+
         String nutritionDTOOutListJson = JsonUtils.jsonConvert(nutritionDTOOutList);
         model.addAttribute("nutritionList", nutritionDTOOutListJson);
 
         boolean canCreate = canCreateUpdate(roleDTO);
         model.addAttribute("canCreate", canCreate);
+        if(canCreate && roleDTO.getRole() == Role.PT){
+            model.addAttribute("personalTrainerId", roleDTO.getId());
+        }
+
         return NUTRITION_LIST_URL;
     }
 

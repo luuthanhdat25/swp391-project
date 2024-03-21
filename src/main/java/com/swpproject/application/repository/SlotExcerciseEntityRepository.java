@@ -3,7 +3,6 @@ package com.swpproject.application.repository;
 import com.swpproject.application.model.Gymer;
 import com.swpproject.application.model.OrderRequest;
 import com.swpproject.application.model.PersonalTrainer;
-import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.model.SlotExercise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +12,7 @@ import org.springframework.data.jpa.repository.Modifying;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercise, Integer> {

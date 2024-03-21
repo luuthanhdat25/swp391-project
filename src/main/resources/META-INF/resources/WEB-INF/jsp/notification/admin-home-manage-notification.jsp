@@ -106,7 +106,8 @@
                                 </div>
                             </div>
 
-                            <button type="submit" style="height: 50px; width: 164px; background-color: #3c763d;"
+                            <button type="submit"
+                                    style="height: 50px; width: 162px; background-color: #3c763d; margin-top: 5px;"
                                     class="btn btn-success" data-bs-toggle="modal"
                                     data-bs-target="#createNotificationModal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -257,37 +258,46 @@
 
                 <div class="modal-body" style="background-color: #e6e6e6;">
                     <div class="d-flex flex-column" style="width: 100%; margin-top: 3px;">
-                        <div class="d-flex justify-content-between shadow mb-3 bg-body rounded" style="padding: 15px;">
-                            <div class="d-flex align-content-center" style="width: 80%;">
-                                <img id="avatarSender" class="rounded-circle"
-                                     style="width: 110px; height: 110px; margin-right: 10px;
+                        <div class="d-flex flex-column shadow mb-1 bg-body rounded" style="padding: 15px;">
+
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex align-content-center" style="width: 80%;">
+                                    <img id="avatarSender" class="rounded-circle"
+                                         style="width: 110px; height: 110px; margin-right: 10px;
                                   border: 3px solid #ffe5e6; padding: 5px;" alt="Avatar"/>
-                                <div class="d-flex flex-column bd-highlight mb-3 justify-content-center">
-                                    <h3 id="nameSender" style="display: inline-block;"></h3>
-                                    <div id="titleNotification"></div>
-                                    <div id="sendAt" class="text-muted"
-                                         style="font-size: 14px; margin-top: 5px;">
+                                    <div class="d-flex flex-column bd-highlight mb-3 justify-content-center">
+                                        <h3 id="nameSender" style="display: inline-block;"></h3>
+                                        <div id="titleNotification"></div>
+                                        <div id="sendAt" class="text-muted"
+                                             style="font-size: 14px; margin-top: 5px;">
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div class="d-flex flex-column">
+                                    <form action="http://localhost:8080/admin-home/delete-report" method="get">
+                                        <input type="hidden" name="deleteReportDetail" id="id">
+                                        <button type="submit" class="btn btn-danger"
+                                                style="margin-bottom: 5px; width: 131px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
+                                                 fill="currentColor" class="bi bi-trash3-fill"
+                                                 viewBox="0 0 16 16">
+                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                            </svg>
+                                            Remove
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="badge bg-dark d-flex align-items-center" style="height: 40px; margin-right: 10px;">Recipients: </div>
+                                <div id="imageContainer" class="d-flex justify-content-start flex-wrap align-items-center"></div>
                             </div>
 
-                            <div class="d-flex flex-column">
-                                <form action="http://localhost:8080/admin-home/delete-report" method="get">
-                                    <input type="hidden" name="deleteReportDetail" id="id">
-                                    <button type="submit" class="btn btn-danger"
-                                            style="margin-bottom: 5px; width: 131px;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
-                                             fill="currentColor" class="bi bi-trash3-fill"
-                                             viewBox="0 0 16 16">
-                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                                        </svg>
-                                        Remove
-                                    </button>
-                                </form>
+                            <div style="padding: 10px; margin-top: 10px; border: 2px solid #e4e4df; border-radius: 5px;
+                                        font-size: 13px;" id="content">
                             </div>
-                        </div>
-                        <div class="shadow mb-5 bg-body rounded d-flex flex-column align-items-center"
-                             style="padding: 25px; margin-top: 10px;" id="content">
+
                         </div>
                     </div>
                 </div>
@@ -432,11 +442,11 @@
     });
 
     $('.view-detail-btn').click(function () {
-        var notificationID = $(this).data('id');
+        var groupNumber = $(this).data('id');
         $.ajax({
             type: "GET",
             url: "/get-notification-detail",
-            data: {notificationID: notificationID},
+            data: {groupNumber: groupNumber},
             success: function (detail) {
                 showModal(detail);
             },
@@ -448,13 +458,29 @@
 
     function showModal(detail) {
         var formattedTime = moment(detail.timeStamp).format('HH:mm, DD/MM/YYYY');
-        $('#exampleModalLabel').text("'s Notification Detail");
-        $('#avatarSender').attr('src', 'data:image/jpeg;base64,' + detail.avatarSender);
+        $('#exampleModalLabel').text("Notification Detail");
+        $('#avatarSender').attr('src', '../../assets/img/sm-logo.png');
         $('#id').attr('value', detail.id);
         $('#nameSender').text(detail.nameSender);
         $('#titleNotification').text(detail.title);
         $('#sendAt').text('Send at ' + formattedTime);
         $('#content').text(detail.content);
+        $('#exampleModal').modal('show');
+
+        $('#imageContainer').empty();
+        detail.imageDatas.forEach(function (imageSrc) {
+            var img = $('<img>').attr('src', 'data:image/jpeg;base64,' + imageSrc)
+                .addClass('rounded-circle')
+                .css({
+                    'width': '50px',
+                    'height': '50px',
+                    'margin-right': '5px',
+                    'border': '3px solid #e4e4df',
+                    'padding': '5px'
+                });
+            $('#imageContainer').append(img);
+        });
+
         $('#exampleModal').modal('show');
     }
 </script>

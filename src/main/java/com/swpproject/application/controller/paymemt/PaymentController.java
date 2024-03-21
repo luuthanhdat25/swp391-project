@@ -1,5 +1,6 @@
 package com.swpproject.application.controller.paymemt;
 
+import com.swpproject.application.enums.OrderStatus;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.OrderRequest;
 import com.swpproject.application.model.PersonalTrainer;
@@ -43,6 +44,8 @@ public class PaymentController {
             OrderRequest orderRequest = (OrderRequest) session.getAttribute("orderPayment");
             PersonalTrainer personalTrainer = orderRequest.getPersonalTrainer();
             Account account = personalTrainer.getAccount();
+            orderRequest.setStatus(OrderStatus.OnDoing);
+            orderRequestService.saveOrUpdateOrderRequest(orderRequest);
             model.addAttribute("accountOrder",personalTrainer);
             model.addAttribute("accountPTOrder",account);
             System.out.println("order request session:"+orderRequest.getOrderId());

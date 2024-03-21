@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -150,6 +153,12 @@ public class AdminNotificationController {
         notificationRepository.deleteById(deleteNotificationID);
         return "forward:manage-notification";
     }
+    @RequestMapping("admin-home/manage-account")
+    public String viewAllAccount(ModelMap model){
+        List<Account> accountList = accountService.getAccounts();
+        model.addAttribute("accountList",accountList);
+        return "view-accounts";
+    }
 
     @RequestMapping(value = "admin-home/view-creating-notification-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String viewCreatingNotificationDetail() {
@@ -158,16 +167,18 @@ public class AdminNotificationController {
 
     @ResponseBody
     @GetMapping(value = "/get-notification-detail")
-    public ResponseEntity<AdminNotificationDTO> getNotificationDetail(@RequestParam int notificationID) {
-        Notification notification = notificationRepository.findById(notificationID).get();
-        AdminNotificationDTO AdminNotificationDTO = new AdminNotificationDTO();
+    public ResponseEntity<GroupNotificationList> getNotificationDetail(@RequestParam Integer groupNumber) {
+        List<Notification> adminNotifications = notificationRepository.findAll().stream()
+                .filter(notification -> notification.getGroupNumber() == groupNumber).collect(Collectors.toList());
 
-        AdminNotificationDTO.setAvatarSender(notification.getFromAccount().getAvatarImage());
-        AdminNotificationDTO.setTitle(notification.getTitle());
-        AdminNotificationDTO.setTimeStamp(notification.getTimeStamp());
-        AdminNotificationDTO.setNameSender(notification.getFromAccount().getFullName());
-        AdminNotificationDTO.setContentSender(notification.getContent());
-        return ResponseEntity.ok().body(AdminNotificationDTO);
+        GroupNotificationList groupNotificationList = new GroupNotificationList();
+        groupNotificationList.setGroupNumber(groupNumber);
+        groupNotificationList.setTitle(adminNotifications.get(0).getTitle());
+        groupNotificationList.setContent(adminNotifications.get(0).getContent());
+        groupNotificationList.setTimeStamp(adminNotifications.get(0).getTimeStamp());
+        for (Notification notification: adminNotifications)
+            groupNotificationList.addImageData(notification.getToAccount().getAvatarImageAsString());
+        return ResponseEntity.ok().body(groupNotificationList);
     }
 
     private void createNotificationFollowRole(String title, String url, String role, HttpSession session) {

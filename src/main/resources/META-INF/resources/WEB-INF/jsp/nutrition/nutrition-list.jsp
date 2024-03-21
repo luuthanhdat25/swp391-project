@@ -22,22 +22,24 @@
             <div class="content container-fluid">
                 <p id="warningPT" class="fs-6 text-danger fst-italic" style="display: none">You can only create nutritions only if your personal trainer account has been approved</p>
                 <div class="page-header">
-                    <div class="row">
-                        <div class="col-sm-12">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
                             <div class="page-sub-header">
                                 <h3 class="page-title">Nutrition Wiki</h3>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <div id="createNutrition" style="display: none">
+                                <div class="invoices-settings-btn invoices-settings-btn-one">
+                                    <a href="/nutrition/create" class="btn"><i class="feather feather-plus-circle"></i>New Nutrition</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card invoices-tabs-card border-0 mt-3" id="createNutrition" style="display: none">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="invoices-settings-btn invoices-settings-btn-one">
-                            <a href="/nutrition/create" class="btn"><i class="feather feather-plus-circle"></i>New Nutrition</a>
-                        </div>
-                    </div>
-                </div>
+
+
 
                 <div class="card mt-3">
                     <div class="card-body">
@@ -206,9 +208,9 @@
                                 <div class="student-personals-grp">
                                     <div class="card mb-0">
                                         <div class="card-body">
-                                            <div class="table-responsive">
+                                            <div class="table-responsive" style="height: 500px; overflow-y: auto">
 
-                                                <table class="table star-student table-center mb-0 table-striped">
+                                                <table class="table star-student table-center mb-0 table-striped" >
                                                     <thead class="student-thread">
                                                         <tr>
                                                             <th></th>
@@ -220,9 +222,14 @@
                                                             <th>Author</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody id="nutritionTableBody"></tbody>
+                                                    <tbody id="nutritionTableBody" ></tbody>
                                                 </table>
+                                            </div>
 
+                                            <div class="mt-3 w-100 d-flex justify-content-center">
+                                                <nav aria-label="Page navigation example">
+                                                    <ul class="pagination" id="pagination"></ul>
+                                                </nav>
                                             </div>
                                         </div>
                                     </div>
@@ -243,8 +250,14 @@
                         </div>
                         <div class="modal-body row">
                             <div class="col-md-8"> <!-- Use col-md-* for responsiveness -->
-                                <img class="w-100 mb-2" style="object-fit: cover;" id="modal-image" src="" alt="Nutrition Image">
+                                <div style="position: relative;">
+                                    <a id="ptid" href="#" style="position: absolute; top: 0; left: 0; margin: 1rem;">
+                                        <img class="rounded-circle" style=" box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);object-fit: cover; width: 5rem; height: 5rem;" id="modal-image-pt" src="" alt="Personal Trainer Image">
+                                    </a>
+                                    <img class="w-100 mb-2" style="object-fit: cover;" id="modal-image" src="" alt="Nutrition Image">
+                                </div>
                             </div>
+
                             <div class="col-md-4"> <!-- Use col-md-* for responsiveness -->
                                 <p id="modal-calo"></p>
                                 <p id="modal-protein"></p>
@@ -287,6 +300,10 @@
                 $('#warningPT').show();
             }
         }
+
+        var nutritionList = ${nutritionList}
+        console.log(nutritionList)
+        var personalTrainerId = "${personalTrainerId}";
     </script>
 
     <script src="../../../assets/js/nutrition/view_list/nutrition-view-list-generate.js"></script>

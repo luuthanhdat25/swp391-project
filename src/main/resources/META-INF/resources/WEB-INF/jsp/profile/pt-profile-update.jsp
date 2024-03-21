@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@page import="com.swpproject.application.utils.PasswordUtils" %>
 <%@include file="../common/header.jspf" %>
 <%@include file="../common/head.jspf" %>
 <%@include file="../common/sidebar.jspf" %>
@@ -17,7 +18,7 @@
         <div class="page-header invoices-page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <ul class="breadcrumb invoices-breadcrumb">
+                    <ul>
                         <li class="breadcrumb-item invoices-breadcrumb-item">
                             <a href="javascript:history.go(-1)">
                                 <i class="fe fe-chevrons-left"></i> Back to profile
@@ -64,15 +65,20 @@
                                         <div class="col-lg-8 col-md-8"
                                              style="display: flex; flex-direction: column; justify-content: center;">
                                             <div class="form-group row">
-                                                <label class="col-lg-3 col-form-label" style="width: 64px;">Bank Name</label>
+                                                <label class="col-lg-3 col-form-label" style="width: 64px;">Bank
+                                                    Name</label>
                                                 <div class="form-group local-forms" style="width: 50%">
-                                                    <select class="form-control select" id="bankName" name="bankName" required>
+                                                    <select class="form-control select" id="bankName" name="bankName"
+                                                            required>
                                                     </select>
                                                 </div>
 
-                                                <label class="col-lg-3 col-form-label" style="width: 78px;">Bank Number</label>
+                                                <label class="col-lg-3 col-form-label" style="width: 78px;">Bank
+                                                    Number</label>
                                                 <div class="col-lg-3" style="width: 30%">
-                                                    <input name="bankNumber" type="text" class="form-control" id="bankNumber" value="${personalTrainer.getBankNumber()}" required>
+                                                    <input name="bankNumber" type="text" class="form-control"
+                                                           id="bankNumber" value="${personalTrainer.getBankNumber()}"
+                                                           required>
                                                     <div id="error-message-bank-number" style="color: red;"></div>
                                                 </div>
                                             </div>
@@ -106,7 +112,8 @@
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="phone" type="text" class="form-control"
                                                        value="${personalTrainer.getAccount().getPhone() == null ? '' : personalTrainer.getAccount().getPhone()}"
-                                                       placeholder="${personalTrainer.getAccount().getPhone() == null ? 'Empty' : ''}" required>
+                                                       placeholder="${personalTrainer.getAccount().getPhone() == null ? 'Empty' : ''}"
+                                                       required>
                                                 <div id="error-message-phone" style="color: red;"></div>
                                             </div>
                                         </div>
@@ -121,27 +128,30 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Gender</label>
                                             <div class="col-lg-9" style="width: 100%">
-                                                <div class="form-check form-check-inline">
+                                                <div class="form-check form-check-inline" style="cursor: pointer">
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            id="gender_male"
                                                            value="M" ${personalTrainer.getAccount().getGender() == 'M' ? 'checked' : ''}>
-                                                    <label class="form-check-label" for="gender_male">
+                                                    <label class="form-check-label" for="gender_male"
+                                                           style="cursor: pointer">
                                                         Male
                                                     </label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
+                                                <div class="form-check form-check-inline" style="cursor: pointer">
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            id="gender_female"
                                                            value="F" ${personalTrainer.getAccount().getGender() == 'F' ? 'checked' : ''}>
-                                                    <label class="form-check-label" for="gender_female">
+                                                    <label class="form-check-label" for="gender_female"
+                                                           style="cursor: pointer">
                                                         Female
                                                     </label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
+                                                <div class="form-check form-check-inline" style="cursor: pointer">
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            id="gender_other"
                                                            value="O" ${personalTrainer.getAccount().getGender() == 'O' ? 'checked' : ''}>
-                                                    <label class="form-check-label" for="gender_other">
+                                                    <label class="form-check-label" for="gender_other"
+                                                           style="cursor: pointer">
                                                         Other
                                                     </label>
                                                 </div>
@@ -150,18 +160,12 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Email</label>
+                                            <label class="col-lg-12 col-form-label"
+                                                   style="display: flex; justify-content: space-between;">Email
+                                                <a href="#" id="changePasswordLink">Change Password?</a></label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input type="text" name="email" class="form-control"
                                                        value="${personalTrainer.getAccount().getEmail()}" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-12 col-form-label" style="display: flex; justify-content: space-between;">Password
-                                                <a href="#" id="changePasswordLink">Change Password?</a></label>
-                                            <div class="col-lg-9" style="width: 100%">
-                                                <input name="password" type="password" class="form-control"
-                                                       value="${personalTrainer.getAccount().getPassword()}" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -169,23 +173,25 @@
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="address" type="text" class="form-control"
                                                        value="${personalTrainer.getAccount().getAddress() == null ? '' : personalTrainer.getAccount().getAddress()}"
-                                                       placeholder="${personalTrainer.getAccount().getAddress() == null ? 'Empty' : ''}" required>
+                                                       placeholder="${personalTrainer.getAccount().getAddress() == null ? 'Empty' : ''}"
+                                                       required>
                                                 <div id="error-message-address" style="color: red;"></div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-lg-9 col-form-label">Price (Amount of money per slot (VND))</label>
+                                            <label class="col-lg-9 col-form-label">Price (Amount of money per slot
+                                                (VND))</label>
                                             <div class="col-lg-9" style="width: 100%">
                                                 <input name="price" type="number" class="form-control"
                                                        value="${personalTrainer.getPrice() == 0 ? "" : personalTrainer.getPrice()}"
-                                                       placeholder="Amount of money per slot (VND) | min: 10000 VND"  min="10000" required>
+                                                       placeholder="Amount of money per slot (VND) | min: 10000 VND"
+                                                       min="10000" required>
                                                 <div id="error-message-price" style="color: red;"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-end">
-                                    <button href="javascript:history.go(-1)" class="btn btn-primary">Back</button>
                                     <button id="submitButton" type="submit" class="btn btn-primary" disabled>Submit
                                     </button>
                                 </div>
@@ -232,43 +238,182 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form:form id="changePasswordForm">
-                                <div class="form-group local-forms">
-                                    <label for="currentPassword">Current Password <span class="login-danger">*</span></label>
-                                    <input class="mb-3 mt-3 form-control pass-input" type="password" placeholder="Enter Current Password" id="currentPassword" minlength="8" maxlength="20" required>
-                                    <span class="profile-views feather-eye toggle-password"></span>
-                                </div>
-                                <div class="form-group local-forms">
-                                    <label for="newPassword">New Password <span class="login-danger">*</span></label>
-                                    <input class="mb-3 form-control pass-new" type="password" placeholder="Enter New Password" id="newPassword" minlength="8" maxlength="20" required>
-                                    <span class="profile-views feather-eye new-toggle-password"></span>
-                                </div>
-                                <div class="form-group local-forms">
-                                    <label for="repeatPassword">Repeat New Password <span class="login-danger">*</span></label>
-                                    <input class="form-control pass-confirm" type="password" placeholder="Repeat Password" id="repeatPassword" minlength="8" maxlength="20" required>
-                                    <span class="profile-views feather-eye reg-toggle-password"></span>
-                                </div>
-                                <div id="changePasswordErrorMessage" style="color: red;"></div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" onclick="" id="changePasswordButton">Save changes</button>
-                                </div>
-                            </form:form>
-                        </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <div class="form-group local-forms">
+                        <label for="currentPassword">Current Password <span class="login-danger">*</span></label>
+                        <input class="mb-1 mt-3 form-control pass-input" type="password"
+                               placeholder="Enter Current Password" autocomplete="no" id="currentPassword" minlength="8"
+                               maxlength="20" required>
+                        <span class="profile-views feather-eye-off toggle-password" id="currentPasswordEye"></span>
                     </div>
-                </div>
+                    <div class="error-message" id="currentPasswordError" style="color: red"></div>
+                    <div class="form-group local-forms">
+                        <label for="newPassword">New Password <span class="login-danger">*</span></label>
+                        <input class="mb-1 form-control pass-new" type="password" placeholder="Enter New Password"
+                               id="newPassword" autocomplete="no" minlength="8" maxlength="20" required>
+                        <span class="profile-views feather-eye-off new-toggle-password" id="newPasswordEye"></span>
+                    </div>
+                    <div class="error-message" id="newPasswordError" style="color: red"></div>
+                    <div class="form-group local-forms">
+                        <label for="repeatPassword">Repeat New Password <span class="login-danger">*</span></label>
+                        <input class="mb-1 form-control pass-confirm" type="password" placeholder="Repeat Password"
+                               id="repeatPassword" autocomplete="no" minlength="8" maxlength="20" required>
+                        <span class="profile-views feather-eye-off reg-toggle-password" id="repeatPasswordEye"></span>
+                    </div>
+                    <div class="error-message" id="repeatPasswordError" style="color: red"></div>
+                    <div class="error-message" id="successChange" style="color: green"></div>
+                    <div id="changePasswordErrorMessage" style="color: red;"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="changePasswordButton">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // Function to validate the form
+    function validateForm() {
+        var currentPassword = document.getElementById("currentPassword");
+        var newPassword = document.getElementById("newPassword");
+        var repeatPassword = document.getElementById("repeatPassword");
+        var isValid = true;
+
+        $(document).ready(function () {
+            $("#changePasswordLink").click(function (e) {
+                e.preventDefault();
+                resetError(currentPassword);
+                resetError(newPassword);
+                resetError(repeatPassword);
+                $("#changePasswordModal").modal("show");
+            });
+
+            $("#changePasswordForm").submit(function (e) {
+                $("#changePasswordModal").modal("hide");
+            });
+        });
+
+        // Reset error messages, borders, and success message
+        resetError(currentPassword);
+        resetError(newPassword);
+        resetError(repeatPassword);
+        document.getElementById("successChange").innerHTML = "";
+
+        console.log("currentPassword --> " + currentPassword.value)
+        console.log("newPassword --> " + newPassword.value)
+        console.log("repeatPassword --> " + newPassword.value)
+
+        // Validate current password
+        isValid = validateField(currentPassword, "Current Password", 8, 20) && isValid;
+
+        // Validate new password
+        isValid = validateField(newPassword, "New Password", 8, 20) && isValid;
+
+        // Validate repeat password
+        isValid = validateField(repeatPassword, "Repeat Password", 8, 20) && isValid;
+
+        // Check if new password and repeat password match
+        if (newPassword.value !== repeatPassword.value) {
+            setErrorMessage(newPassword, "New Password and Repeat Password do not match.");
+            setErrorMessage(repeatPassword, "New Password and Repeat Password do not match.");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    function resetError(element) {
+        element.style.border = "1px solid #000000";
+        var errorMessageId = element.id + "Error";
+
+        document.getElementById(errorMessageId).innerHTML = "";
+    }
+
+    function validateField(field, fieldName, minLength, maxLength) {
+        if (field.value === "") {
+            setErrorMessage(field, fieldName + " is required.");
+            return false;
+        } else if (field.value.length < minLength || field.value.length > maxLength) {
+            setErrorMessage(field, fieldName + " must have length between " + minLength + " and " + maxLength + " characters.");
+            return false;
+        }
+        return true;
+    }
+
+    function setErrorMessage(field, message) {
+        var errorMessageId = field.id + "Error";
+        document.getElementById(errorMessageId).innerHTML = message;
+        console.log("errorMessageId --> " + errorMessageId)
+        field.style.border = "1px solid red";
+        field.parentElement.style.marginTop = "20px";
+        field.parentElement.style.marginBottom = "0px";
+    }
+
+
+    document.getElementById("changePasswordButton").addEventListener("click", function () {
+        var currentPassword = document.getElementById("currentPassword");
+        var newPassword = document.getElementById("newPassword");
+        var repeatPassword = document.getElementById("repeatPassword");
+
+        if (validateForm()) {
+            $.ajax({
+                type: "POST",
+                url: "/auth/changepass",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    currentPassword: currentPassword.value,
+                    newPassword: newPassword.value,
+                    repeatPassword: repeatPassword.value
+                }),
+                success: function () {
+                    showSuccessMessage("Change password successfully!");
+                },
+                error: function (xhr) {
+                    var errorMessage = xhr.responseText;
+                    var parts = errorMessage.split("|");
+                    if (parts.length === 2) {
+                        var errorCode = parts[0];
+                        var errorDetail = parts[1];
+                        if (errorCode === "new") {
+                            setErrorMessage(newPassword,errorDetail)
+                            repeatPassword.style.marginTop = "30px"
+                        } else if (errorCode === "cur") {
+                            setErrorMessage(currentPassword,errorDetail)
+                            newPassword.style.marginTop = "30px"
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    function showSuccessMessage(message) {
+        var successChange = document.getElementById("successChange");
+        successChange.innerHTML = message;
+        successChange.style.color = "green";
+    }
+
+    function showErrorMessages(field, message) {
+        document.getElementById(field).style.border = "1px solid red";
+        document.getElementById("repeatPasswordError").innerHTML = message;
+        document.getElementById("repeatPasswordError").style.color = "red";
+    }
+</script>
+
 <script src="../../assets/js/jquery-3.6.0.min.js"></script>
 <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/feather.min.js"></script>
@@ -279,8 +424,10 @@
 <script src="../../assets/js/script.js"></script>
 <script src="../../assets/plugins/moment/moment.min.js"></script>
 <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
+
+
 <script>
-    
+
     document.addEventListener('DOMContentLoaded', function () {
         const fileInput = document.querySelector('input[name="avatar"]');
         const avatarImage = document.getElementById('avatar-image');
@@ -316,7 +463,6 @@
             } else {
                 avatarImage.src = 'data:image/jpeg;base64, ${personalTrainer.getAccount().getAvatarImageAsString()}';
             }
-            console.log(file);
         });
 
         fullNameInput.addEventListener('input', function () {
@@ -484,6 +630,7 @@
 
             submitButton.disabled = !isFormValid;
         }
+
         fileInput.addEventListener('change', checkFormValidity);
         bankNumberInput.addEventListener('input', checkFormValidity);
         fullNameInput.addEventListener('input', checkFormValidity);
@@ -492,11 +639,10 @@
         addressInput.addEventListener('input', checkFormValidity);
         birthdayInput.addEventListener('input', checkFormValidity);
     });
-
-
 </script>
 
 
+<%-- Bank List Options--%>
 <script>
     const bankNames = [
         "Ngân hàng TMCP Ngoại Thương Việt Nam (Vietcombank)",
@@ -571,10 +717,9 @@
     ];
 
 
-
     function fetchAndPopulateBankNames() {
         const bankSelect = document.getElementById('bankName');
-        bankNames.forEach(function(bankName) {
+        bankNames.forEach(function (bankName) {
             const option = document.createElement('option');
             option.text = bankName;
             bankSelect.add(option);
@@ -598,14 +743,6 @@
     }
 
     $(document).ready(function () {
-        $("#changePasswordLink").click(function (e) {
-            e.preventDefault();
-            $("#changePasswordModal").modal("show");
-        });
-
-        $("#changePasswordForm").submit(function (e) {
-            $("#changePasswordModal").modal("hide");
-        });
         fetchAndPopulateBankNames();
         setDefaultBankValues();
     });
@@ -618,49 +755,7 @@
         $('#slider1').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[0]);
         $('#slider2').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[1]);
         $('#slider3').attr("src", "data:image/jpeg;base64, " + ptDto.certificateList[2]);
-        console.log(ptDto)
     })
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const form = document.getElementById("changePasswordForm");
-        const currentPasswordInput = document.getElementById("currentPassword");
-        const newPasswordInput = document.getElementById("newPassword");
-        const repeatPasswordInput = document.getElementById("repeatPassword");
-        const errorMessage = document.getElementById("changePasswordErrorMessage");
-
-        form.addEventListener("submit", function(event) {
-            errorMessage.textContent = "";
-
-            if (!validateCurrentPassword()) {
-                errorMessage.textContent = "Please enter a valid current password.";
-                event.preventDefault();
-            } else if (!validateNewPassword()) {
-                errorMessage.textContent = "Please enter a valid new password (8-20 characters).";
-                event.preventDefault();
-            } else if (!validateRepeatPassword()) {
-                errorMessage.textContent = "Passwords do not match.";
-                event.preventDefault();
-            }
-        });
-
-        function validateCurrentPassword() {
-            // Add your validation logic for the current password input here
-            return currentPasswordInput.value.length >= 8 && currentPasswordInput.value.length <= 20;
-        }
-
-        function validateNewPassword() {
-            // Add your validation logic for the new password input here
-            return newPasswordInput.value.length >= 8 && newPasswordInput.value.length <= 20;
-        }
-
-        function validateRepeatPassword() {
-            // Add your validation logic for the repeat password input here
-            return repeatPasswordInput.value === newPasswordInput.value;
-        }
-    });
-
-
-
 </script>
 </body>
 </html>

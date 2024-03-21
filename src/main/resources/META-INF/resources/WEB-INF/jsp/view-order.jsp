@@ -31,7 +31,7 @@
                         <h3 class="page-title">Order Request</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active">Booking</li>
+                            <li class="breadcrumb-item active">Request list</li>
                         </ul>
                     </div>
                 </div>
@@ -64,8 +64,11 @@
                                             </td>
                                             <td>${order.datetime_start}</td>
                                             <td>
-                                                <div class="badge ${order.getStatusString() == 'Pending' ? 'badge-danger' : (order.getStatusString() == 'OnDoing' ? 'badge-success' : 'badge-warning')}">${order.getStatusString()}</div>
+                                                <div class="badge ${order.getStatusString() == 'Pending' ? 'badge-danger' : (order.getStatusString() == 'OnDoing' ? 'badge-success' : (order.getStatusString() == 'Accepted' ? 'badge-info' : 'badge-warning'))}">
+                                                        ${order.getStatusString()}
+                                                </div>
                                             </td>
+
                                             <td>${order.total_of_money} VND</td>
                                             <td><a href="/Order-Request?order_id=${order.orderId}" class="view"
                                                    title="View Details" data-toggle="tooltip"><i class="fas fa-address-book" style='font-size:24px'></i></a></td>

@@ -21,5 +21,5 @@ public interface OrderRequestRepository extends JpaRepository<OrderRequest,Integ
     List<OrderRequest> findAllByPersonalTrainerAndStatus(PersonalTrainer personalTrainer,OrderStatus orderStatus);
 
     public OrderRequest findByGymer(Gymer gymer);
-
+    List<OrderRequest> getOrderRequestByGymer(Gymer gymer);
 }

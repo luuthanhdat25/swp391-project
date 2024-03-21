@@ -17,7 +17,7 @@ public class NutritionDTOOut {
     private Float fat;
     private Float carb;
     private byte[] imageDescription;
-    private String isPrivate;
+    private int isPrivate;
     private int personalTrainerId;
     private byte[] personalTrainerImage;
 }

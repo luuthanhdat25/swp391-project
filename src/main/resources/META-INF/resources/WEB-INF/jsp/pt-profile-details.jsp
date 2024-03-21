@@ -166,12 +166,18 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 d-flex align-items-center">
                                         <div class="follow-btn-group">
-                                            <a class="btn btn-info message-btnsz" href="/bookPT1?PersonalTrainerID=${param.id}">Book</a>
+                                            <a class="btn btn-info message-btnsz"
+                                               href="/bookPT1?PersonalTrainerID=${param.id}">Book</a>
 
+                                            <c:if test="${personalTrainer ne null}">
+                                            </c:if>
+                                         <%--   <button type="submit" class="btn btn-info message-btns">Inbox</button>--%>
                                             <button type="submit" class="btn btn-info message-btns">Inbox</button>
                                             <button type="submit" class="btn btn-info message-btns"
                                                     data-bs-toggle="modal" data-bs-target="#exampleModal">Report
                                             </button>
+                                            <c:if test="${personalTrainer ne null}">
+                                            </c:if>
                                         </div>
                                     </div>
                                 </div>
@@ -294,59 +300,59 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card blog-comments">
-                                <div class="card-header">
-                                    <h4 class="card-title"
-                                        style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">
-                                        Feedback
-                                        <button type="submit" class="btn btn-info" id="feedbackModalBtn">Evaluate
-                                        </button>
-                                    </h4>
-                                </div>
-                                <div class="card-body pb-0">
-                                    <ul class="comments-list">
-                                        <li>
-                                            <div class="comment">
-                                                <div class="comment-author">
-                                                    <img class="avatar" alt=""
-                                                         src="../../assets/img/profiles/avatar-13.jpg">
-                                                </div>
-                                                <%--                                                <div class="comment-block">--%>
-                                                <%--                                                    <div class="comment-by">--%>
-                                                <%--                                                        <h5 class="blog-author-name">example@gmail.com<span--%>
-                                                <%--                                                                class="blog-date"> <i--%>
-                                                <%--                                                                class="feather-clock me-1"></i>Feb--%>
-                                                <%--                                                                    6, 2024</span></h5>--%>
-                                                <%--&lt;%&ndash;                                                        <div class="rate">&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;                                                            <input type="radio" id="star5" name="rate" value="5"/>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;                                                            <label for="star5" title="text">5 stars</label>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;                                                            <input type="radio" id="star4" name="rate" value="4"/>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;                                                            <label for="star4" title="text">4 stars</label>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;                                                            <input type="radio" id="star3" name="rate" value="3"/>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;                                                            <label for="star3" title="text">3 stars</label>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;                                                            <input type="radio" id="star2" name="rate" value="2"/>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;                                                            <label for="star2" title="text">2 stars</label>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;                                                            <input type="radio" id="star1" name="rate" value="1"/>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;                                                            <label for="star1" title="text">1 star</label>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;                                                        </div>&ndash;%&gt;--%>
-                                                <%--                                                    </div>--%>
-                                                <%--                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.--%>
-                                                <%--                                                        Nam--%>
-                                                <%--                                                        viverra euismod odio, gravida pellentesque urna varius--%>
-                                                <%--                                                        vitae,--%>
-                                                <%--                                                        gravida pellentesque urna varius vitae. Lorem ipsum--%>
-                                                <%--                                                        dolor sit--%>
-                                                <%--                                                        amet, consectetur adipiscing elit.</p>--%>
-                                                <%--                                                </div>--%>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <%--                    <div class="row">--%>
+                    <%--                        <div class="col-lg-12">--%>
+                    <%--                            <div class="card blog-comments">--%>
+                    <%--                                <div class="card-header">--%>
+                    <%--                                    <h4 class="card-title"--%>
+                    <%--                                        style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">--%>
+                    <%--                                        Feedback--%>
+                    <%--                                        <button type="submit" class="btn btn-info" id="feedbackModalBtn">Evaluate--%>
+                    <%--                                        </button>--%>
+                    <%--                                    </h4>--%>
+                    <%--                                </div>--%>
+                    <%--                                <div class="card-body pb-0">--%>
+                    <%--                                    <ul class="comments-list">--%>
+                    <%--                                        <li>--%>
+                    <%--                                            <div class="comment">--%>
+                    <%--                                                <div class="comment-author">--%>
+                    <%--                                                    <img class="avatar" alt=""--%>
+                    <%--                                                         src="../../assets/img/profiles/avatar-13.jpg">--%>
+                    <%--                                                </div>--%>
+                    <%--                                                &lt;%&ndash;                                                <div class="comment-block">&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                    <div class="comment-by">&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                        <h5 class="blog-author-name">example@gmail.com<span&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                                class="blog-date"> <i&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                                class="feather-clock me-1"></i>Feb&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                                    6, 2024</span></h5>&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;&lt;%&ndash;                                                        <div class="rate">&ndash;%&gt;&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;&lt;%&ndash;                                                            <input type="radio" id="star5" name="rate" value="5"/>&ndash;%&gt;&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;&lt;%&ndash;                                                            <label for="star5" title="text">5 stars</label>&ndash;%&gt;&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;&lt;%&ndash;                                                            <input type="radio" id="star4" name="rate" value="4"/>&ndash;%&gt;&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;&lt;%&ndash;                                                            <label for="star4" title="text">4 stars</label>&ndash;%&gt;&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;&lt;%&ndash;                                                            <input type="radio" id="star3" name="rate" value="3"/>&ndash;%&gt;&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;&lt;%&ndash;                                                            <label for="star3" title="text">3 stars</label>&ndash;%&gt;&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;&lt;%&ndash;                                                            <input type="radio" id="star2" name="rate" value="2"/>&ndash;%&gt;&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;&lt;%&ndash;                                                            <label for="star2" title="text">2 stars</label>&ndash;%&gt;&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;&lt;%&ndash;                                                            <input type="radio" id="star1" name="rate" value="1"/>&ndash;%&gt;&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;&lt;%&ndash;                                                            <label for="star1" title="text">1 star</label>&ndash;%&gt;&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;&lt;%&ndash;                                                        </div>&ndash;%&gt;&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                    </div>&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                        Nam&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                        viverra euismod odio, gravida pellentesque urna varius&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                        vitae,&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                        gravida pellentesque urna varius vitae. Lorem ipsum&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                        dolor sit&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                        amet, consectetur adipiscing elit.</p>&ndash;%&gt;--%>
+                    <%--                                                &lt;%&ndash;                                                </div>&ndash;%&gt;--%>
+                    <%--                                            </div>--%>
+                    <%--                                        </li>--%>
+                    <%--                                    </ul>--%>
+                    <%--                                </div>--%>
+                    <%--                            </div>--%>
+                    <%--                        </div>--%>
+                    <%--                    </div>--%>
                 </div>
             </div>
         </div>

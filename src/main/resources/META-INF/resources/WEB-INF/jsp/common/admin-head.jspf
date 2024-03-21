@@ -3,16 +3,10 @@
 <div class="header">
     <div class="header-left">
         <a href="/" class="logo">
-            <img src="../../assets/img/logo.png" alt="Logo">
+            <img src="../../assets/img/gymon.png" alt="Logo">
         </a>
         <a href="/" class="logo logo-small">
-            <img src="../../assets/img/logo-small.png" alt="Logo" width="30" height="30">
-        </a>
-    </div>
-
-    <div class="menu-toggle">
-        <a href="javascript:void(0);" id="toggle_btn">
-            <i class="fas fa-bars"></i>
+            <img src="../../assets/img/sm-logo.png" alt="Logo" width="30" height="30">
         </a>
     </div>
 
@@ -25,7 +19,7 @@
             <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
                                     <img class="rounded-circle"
-                                         src="https://www.366icons.com/media/01/profile-avatar-account-icon-16699.png"
+                                         src="../../assets/img/sm-logo.png"
                                        <%--  src="data:image/jpeg;base64,${account.getAvatarImageAsString()}"--%>
                                          width="31"
                                          alt="#">

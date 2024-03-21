@@ -96,6 +96,11 @@ public class NutritionServiceIml implements NutritionService {
         nutritionRepository.save(nutrition);
     }
 
+    @Override
+    public List<Nutrition> getAllNutrition() {
+        return nutritionRepository.findAll();
+    }
+
     private boolean isImageLengthEqualZero(MultipartFile image) throws IOException {
         return image.getBytes().length == 0;
     }

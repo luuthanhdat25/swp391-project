@@ -24,6 +24,17 @@
                                 <div class="student-personals-grp">
                                     <div class="card mb-0">
                                         <div class="card-body">
+
+                                            <div class="toast-container position-fixed end-0 p-3" style="top: 3rem">
+                                                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                                    <div class="toast-header" id="statusBg">
+                                                        <strong class="me-auto text-white" id="toastTitle"></strong>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="toast-body"></div>
+                                                </div>
+                                            </div>
+
                                             <div class="d-flex justify-content-between align-items-center heading-detail">
                                                 <h2 id="exerciseName"></h2>
                                                 <a  style="display: none" href="personal-trainer/details" id="personalTrainerImageAtag">
@@ -67,6 +78,25 @@
     <script src="../../../assets/js/feather.min.js"></script>
     <script src="../../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="../../../assets/js/script.js"></script>
+
+    <script>
+        var toastDTO = ${toastDTO};
+
+        if(toastDTO){
+            if(toastDTO.status === 1){
+                var toastElement = $('.toast');
+                var statusBg = $('#statusBg');
+                var toastTitle = $('#toastTitle')
+                var contentMessage = $('.toast-body');
+                statusBg.addClass('bg-success');
+                toastTitle.html(toastDTO.title);
+                contentMessage.html(toastDTO.message);
+                var toast = new bootstrap.Toast(toastElement);
+                toast.show();
+            }
+        }
+
+    </script>
 
     <script>
         var exercise = ${exercise};

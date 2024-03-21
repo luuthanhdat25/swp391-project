@@ -27,7 +27,7 @@
             <ul class="nav user-menu">
                 <li class="nav-item dropdown noti-dropdown">
                     <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                        <img src="assets/img/icons/header-icon-05.svg" alt="">
+                        <img src="../../assets/img/icons/header-icon-05.svg" alt="">
                     </a>
                     <div class="dropdown-menu notifications" style="width: 400px;">
                         <div class="topnav-dropdown-header" style="background-color: #a2afbe;">

@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +37,32 @@ public class ExerciseRestController {
         return ResponseEntity.ok().body(exerciseDTOOutList);
     }
 
-//    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+    @GetMapping("/personal-trainer")
+    public ResponseEntity<List<ExerciseDTOOut>> searchExerciseDTOOutPT(
+            @RequestParam String search, @RequestParam int option, HttpServletRequest request)
+    {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        List<ExerciseDTOOut> exerciseDTOOutList = exerciseService.getExerciseDTOOutList(roleDTO);
+        List<ExerciseDTOOut> myExerciseDTOOutList = getMyExercise(roleDTO.getId(), exerciseDTOOutList);
+        myExerciseDTOOutList = findByNameContaining(search, myExerciseDTOOutList);
+        myExerciseDTOOutList = getListExerciseIsActive(option, myExerciseDTOOutList);
+        return ResponseEntity.ok().body(myExerciseDTOOutList);
+    }
+
+    private List<ExerciseDTOOut> getListExerciseIsActive(int option, List<ExerciseDTOOut> exerciseDTOOutList){
+        if(option == 2) return exerciseDTOOutList;
+        return exerciseDTOOutList.stream()
+                .filter(exerciseDTOOut -> exerciseDTOOut.getIsPrivate() == option)
+                .collect(Collectors.toList());
+    }
+
+    private List<ExerciseDTOOut> getMyExercise(int id, List<ExerciseDTOOut> exerciseDTOOutList){
+        return exerciseDTOOutList.stream()
+                .filter(exerciseDTOOut -> exerciseDTOOut.getPersonalTrainer_id() == id)
+                .collect(Collectors.toList());
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<ExerciseDTOOut> getExerciseDetails(@PathVariable int id, HttpServletRequest request) {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);

@@ -41,7 +41,7 @@
                     <div class="d-flex justify-content-between align-items-center" style="width: 100%; padding: 0 15px 0 15px; margin-top: 2px;">
                         <div class="input-group" style="width: 100%;">
                             <input type="text" class="form-control" style="border: 1px solid #4c4c4c;"
-                                   placeholder="Enter the name of exercise" name="title">
+                                   placeholder="Search here" name="title">
                             <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                         </div>
                         <div class="d-flex justify-content-center align-items-center h-auto" style="width: 10rem">
@@ -52,7 +52,6 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
                     <div class="invoices-settings-btn invoices-settings-btn- mt-3 d-flex justify-content-start">
                         <a href="/admin-home/manage-exercise/create" class="btn" style="margin-left: 15px"><i class="feather feather-plus-circle"></i>New Exercise</a>

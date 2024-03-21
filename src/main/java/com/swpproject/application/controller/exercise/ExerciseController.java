@@ -3,6 +3,7 @@ package com.swpproject.application.controller.exercise;
 import com.swpproject.application.dto.ExerciseDTOIn;
 import com.swpproject.application.dto.ExerciseDTOOut;
 import com.swpproject.application.dto.RoleDTO;
+import com.swpproject.application.dto.ToastResponseDTO;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.*;
 import com.swpproject.application.service.ExerciseService;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.*;
@@ -28,6 +30,9 @@ public class ExerciseController {
 
     @Autowired
     private PersonalTrainerService personalTrainerService;
+
+    @Autowired
+    private PersonalTrainerExerciseController personalTrainerExerciseController;
 
     private static final String EXERCISE_LIST_URL = "exercise/exercise-list";
     private static final String EXERCISE_DETAILS_URL = "exercise/exercise-details";
@@ -46,13 +51,22 @@ public class ExerciseController {
 
         boolean canCreate = canCreateUpdate(roleDTO);
         model.addAttribute("canCreate", canCreate);
+
+        int personalTrainerId = -1;
+        if(roleDTO != null && roleDTO.getRole() == Role.PT) personalTrainerId = roleDTO.getId();
+        model.addAttribute("personalTrainerId", personalTrainerId);
         return EXERCISE_LIST_URL;
     }
 
 
     //Get view exercise details
     @RequestMapping(value = "/details", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getExerciseDetailsPage(@RequestParam int id, ModelMap model, HttpServletRequest request) {
+    public String getExerciseDetailsPage(
+            @RequestParam int id,
+            ModelMap model,
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes
+    ) {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         Optional<Exercise> exerciseOptional = exerciseService.findExerciseById(id, roleDTO);
         if(exerciseOptional.isEmpty()) return ERROR_URL;
@@ -64,6 +78,11 @@ public class ExerciseController {
             model.addAttribute("personalTrainerId", personalTrainerId);
         }
         model.addAttribute("exercise", json);
+
+        String toastDTOObject = (String) redirectAttributes.getFlashAttributes().get("toastDTO");
+        if (toastDTOObject != null && !toastDTOObject.isEmpty()) {
+            model.addAttribute("toastDTO", toastDTOObject);
+        }
         return EXERCISE_DETAILS_URL;
     }
 
@@ -89,14 +108,21 @@ public class ExerciseController {
 
     //Post create exercise data
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String createExercise(@ModelAttribute ExerciseDTOIn exerciseDTOIn, HttpServletRequest request)
+    public String createExercise(
+            @ModelAttribute ExerciseDTOIn exerciseDTOIn,
+            HttpServletRequest request,
+            ModelMap model
+    )
             throws IOException
     {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         if(!canCreateUpdate(roleDTO)) return ERROR_URL;
 
         exerciseService.create(exerciseDTOIn, roleDTO);
-        return "redirect:/my-exercise";
+        ToastResponseDTO toastResponseDTO = new  ToastResponseDTO(1, "Success", "Create Exercise successfully!");
+        String toastDTOJson = JsonUtils.jsonConvert(toastResponseDTO);
+        model.addAttribute("toastDTO", toastDTOJson);
+        return personalTrainerExerciseController.getManageExerciseView(model, request);
     }
 
 
@@ -121,7 +147,11 @@ public class ExerciseController {
 
     //Post update exercise data
     @RequestMapping(value = "/details/edit", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String editExercise(@ModelAttribute ExerciseDTOIn exerciseDTOIn, HttpServletRequest request)
+    public String editExercise(
+            @ModelAttribute ExerciseDTOIn exerciseDTOIn,
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes
+    )
             throws IOException
     {
         HttpSession session = request.getSession();
@@ -133,7 +163,12 @@ public class ExerciseController {
 
         session.removeAttribute("exerciseId");
         exerciseService.update(exerciseDTOIn, exerciseId);
-        return "redirect:/exercise/details?id=" + exerciseId;
+
+        ToastResponseDTO toastResponseDTO = new  ToastResponseDTO(1, "Success", "Update Message successfully!");
+        String toastDTOJson = JsonUtils.jsonConvert(toastResponseDTO);
+        redirectAttributes.addAttribute("id", exerciseId);
+        redirectAttributes.addFlashAttribute("toastDTO", toastDTOJson);
+        return "redirect:/exercise/details";
     }
 }
 

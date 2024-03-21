@@ -41,7 +41,7 @@
                     <div class="d-flex justify-content-between align-items-center" style="width: 100%; padding: 0 15px 0 15px; margin-top: 2px;">
                         <div class="input-group" style="width: 100%;">
                             <input type="text" class="form-control" style="border: 1px solid #4c4c4c;"
-                                   placeholder="Enter the name of exercise" name="title">
+                                   placeholder="Search here" name="title">
                             <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                         </div>
                         <div class="d-flex justify-content-center align-items-center h-auto" style="width: 10rem">
@@ -52,7 +52,6 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
                     <div class="invoices-settings-btn invoices-settings-btn- mt-3 d-flex justify-content-start">
                         <a href="/admin-home/manage-exercise/create" class="btn" style="margin-left: 15px"><i class="feather feather-plus-circle"></i>New Exercise</a>
@@ -90,21 +89,50 @@
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg"> <!-- Use modal-lg for larger modal -->
+    <div class="modal-dialog modal-xl"> <!-- Use modal-lg for larger modal -->
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body row">
-                <div class="col-md-8"> <!-- Use col-md-* for responsiveness -->
-                    <img class="w-100 mb-2" style="object-fit: cover;" id="modal-image" src="" alt="exercise Image">
-                </div>
-                <div class="col-md-4"> <!-- Use col-md-* for responsiveness -->
-                    <p id="modal-calo"></p>
-                    <p id="modal-protein"></p>
-                    <p id="modal-fat"></p>
-                    <p id="modal-carb"></p>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="student-personals-grp">
+                                <div class="card mb-0">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-center">
+                                            <div id="playerContainer" style="display: none;" class="mt-2">
+                                                <div id="player"></div>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="hello-park  mt-md-4">
+                                            <h2>Description</h2>
+                                            <p class="mt-2 display-6" id="exerciseDescription"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="student-personals-grp">
+                                <div class="card">
+                                    <div class="card-body position-relative">
+                                        <select class="form-select form-select-lg " aria-label="Select visibility">
+                                            <option value="public">Public</option>
+                                            <option value="private">Private</option>
+                                        </select>
+                                        <div id="exerciseImage" class="mt-3"> </div>
+                                        <div class="mt-md-2" id="exerciseDetails"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -152,7 +180,7 @@
                 '<td class="align-middle">' + index + '</td>' +
                 '<td class="text-start align-middle"> ' +
                 '<h2 class="table-avatar">' +
-                '<a href="#" class="me-2 exercise-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + exercise.name + '" data-calo="' + exercise.caloIn + '" data-protein="' + exercise.protein + '" data-fat="' + exercise.fat + '" data-carb="' + exercise.carb + '" data-image="' + (exercise.imageDescription || defaultIconUrl) + '" data-id="' + exercise.exerciseId + '" data-ptid="' + exercise.personalTrainerId + '" data-ptimage="' + (exercise.personalTrainerImage || defaultIconUrl) + '">' +
+                '<a href="#" class="me-2 exercise-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="' + exercise.id + '">' +
                 '<img class=" rounded-image" src="data:image/jpeg;base64,' + (exercise.imageDescription || defaultIconUrl) + '" alt="User Image">' +
                 '<p class="m-0 ms-2" style="padding-left: 10px">' + displayName + '</p>' +
                 '</a>' +
@@ -215,35 +243,103 @@
         $(document).on('click', '.exercise-detail', function (event) {
             event.preventDefault();
             var modal = $('#exampleModal');
-            var name = $(this).data('name');
-            var calo = $(this).data('calo');
-            var protein = $(this).data('protein');
-            var fat = $(this).data('fat');
-            var carb = $(this).data('carb');
-            var image = $(this).data('image');
-            var id = $(this).data('id');
-            var ptId = $(this).data('ptid');
+            var exerciseId = $(this).data('id');
+            console.log(exerciseId)
 
-            var gam = 'g/100g';
-            modal.find('.modal-title').text(name);
-            modal.find('#modal-image').attr('src', 'data:image/jpeg;base64,' + image);
-            modal.find('#modal-calo').text('Calories: ' + calo + gam);
-            modal.find('#modal-protein').text('Protein: ' + protein + gam);
-            modal.find('#modal-fat').text('Fat: ' + fat + gam);
-            modal.find('#modal-carb').text('Carbohydrates: ' + carb + gam);
-            var editButton = modal.find('#editButton');
+            $.ajax({
+                type: 'GET',
+                url: '/api/exercises/' + exerciseId,
+                success: function (exercise) {
+                    // console.log("Exercise details:", exercise);
+                    modal.find('.modal-title').text(exercise.name);
+                    $('#exerciseImage').html('<img class="w-100 mb-2" src="data:image/jpeg;base64,' + exercise.imageDescription + '" style="border-radius: .25rem;" alt="Exercise Image">');
+                    var level = '';
+                    if (exercise.level === 'Beginner') {
+                        level = 'bg-success';
+                    } else if (exercise.level === 'Intermediate') {
+                        level = 'bg-warning';
+                    } else if (exercise.level === 'Advanced') {
+                        level = 'bg-danger';
+                    }
 
-            console.log('ptId ' + ptId)
-            console.log('personalTrainerId ' + personalTrainerId)
-            if (ptId === personalTrainerId) {
-                editButton.show();
-            } else {
-                editButton.hide();
-            }
-            editButton.attr('href', '/exercise/details/edit?id=' + id);
-            modal.modal('show');
+                    $('#exerciseDetails').html('<h2 class="m-100 p-1 text-white rounded ' + level + '" id="level" style="font-size: 1rem">Level: ' + exercise.level + '</h2>' +
+                        '<h2 class="m-100 p-1 bg-info text-white rounded" id="affectedMuscle" style="font-size: 1rem">Affected Muscle: ' + exercise.type + '</h2>' +
+                        '<h2 class="m-100 p-1 bg-secondary text-white rounded" id="equipment" style="font-size: 1rem">Equipment: ' + exercise.equipment + '</h2>');
+
+                    $('#exerciseDescription').html(exercise.description);
+
+                    var videoId = extractVideoId(exercise.videoDescription);
+
+                    // Nếu có video ID, tạo người chơi YouTube
+                    if (videoId) {
+                        createYouTubePlayer(videoId);
+                    } else {
+                        // Hiển thị thông báo nếu không có link YouTube hợp lệ
+                        $('#playerContainer').hide();
+                        console.error("Invalid YouTube link. Please enter a valid link.");
+                    }
+
+                    function extractVideoId(url) {
+                        var regex = /^(?:(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11}))/;
+                        var match = url.match(regex);
+                        return match ? match[1] : null;
+                    }
+
+                    // Hàm để tạo người chơi YouTube
+                    function createYouTubePlayer(videoId) {
+                        var tag = $('<script>', {
+                            src: 'https://www.youtube.com/iframe_api'
+                        });
+                        $('script:first').before(tag);
+
+                        window.onYouTubeIframeAPIReady = function() {
+                            player = new YT.Player('player', {
+                                height: '270',
+                                width: '480',
+                                playerVars: {
+                                    'playsinline': 1,
+                                },
+                                videoId: videoId,
+                                events: {
+                                    'onReady': onPlayerReady,
+                                    'onStateChange': onPlayerStateChange
+                                }
+                            });
+                        };
+
+                        function onPlayerReady(event) {
+                            event.target.playVideo();
+                        }
+
+                        function onPlayerStateChange(event) {
+                            if (event.data == YT.PlayerState.PLAYING && !done) {
+                                setTimeout(stopVideo, 6000);
+                                done = true;
+                            }
+                        }
+
+                        // Hiển thị người chơi YouTube
+                        $('#playerContainer').show();
+                        player.loadVideoById(videoId);
+                    }
+                },
+                error: function (error) {
+                    console.error("Error fetching exercise details:", error);
+                }
+            });
         });
+
+        // Xử lý sự kiện khi modal được đóng
+        $('#exampleModal').on('hidden.bs.modal', function (e) {
+            stopVideo(); // Dừng video khi modal được đóng
+        });
+
+        // Hàm để dừng video
+        function stopVideo() {
+            player.stopVideo(); // Dừng video
+        }
     });
+
 
 </script>
 

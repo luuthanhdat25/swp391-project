@@ -8,6 +8,7 @@ import com.swpproject.application.repository.AccountRepository;
 import com.swpproject.application.repository.ChatBoxRepository;
 import com.swpproject.application.repository.MessageRepository;
 import com.swpproject.application.service.AccountService;
+import com.swpproject.application.service.GymerService;
 import com.swpproject.application.service.PersonalTrainerService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class ChatBoxController {
     private MessageRepository messageRepository;
     @Autowired
     private PersonalTrainerService personalTrainerService;
+    @Autowired
+    private GymerService gymerService;
 
     @RequestMapping(value = "/chatting", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String chatting() {
@@ -42,25 +45,41 @@ public class ChatBoxController {
 
     @ResponseBody
     @RequestMapping(value = "/create-new-chat-box", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public ResponseEntity<Void> createNewChatBoxWithPT(@RequestParam Integer receiverID, @RequestParam String firstMessageContent, HttpSession session) {
+    public ResponseEntity<Void> createNewChatBoxWithPT(@RequestParam(name = "receiverID", required = false) Integer receiverID,
+                                                       @RequestParam(name = "receiverPtID", required = false) Integer receiverPtID,
+                                                       @RequestParam String firstMessageContent, HttpSession session) {
         Account userAccount = (Account) session.getAttribute("account");
-        Account ptAccount = personalTrainerService.findPersonalTrainerByID(receiverID).get().getAccount();
+
+        Account recipientAccount;
+        if (receiverPtID == null) recipientAccount = gymerService.getGymerById(receiverID).get().getAccount();
+        else recipientAccount = personalTrainerService.findPersonalTrainerByID(receiverPtID).get().getAccount();
 
         Integer userAccountID = userAccount.getId();
         List<ChatBox> chatBoxes = chatBoxRepository.findAll().stream()
-                .filter(box -> box.getAccount_2().getId().equals(userAccountID) && box.getAccount_1().getId().equals(ptAccount.getId())
-                        || box.getAccount_1().getId().equals(userAccountID) && box.getAccount_2().getId().equals(ptAccount.getId()))
+                .filter(box -> box.getAccount_2().getId().equals(userAccountID) && box.getAccount_1().getId().equals(recipientAccount.getId())
+                        || box.getAccount_1().getId().equals(userAccountID) && box.getAccount_2().getId().equals(recipientAccount.getId()))
                 .collect(Collectors.toList());
 
         if (chatBoxes.isEmpty()) {
             ChatBox chatBox = new ChatBox();
             chatBox.setAccount_1(userAccount);
-            chatBox.setAccount_2(accountRepository.findById(ptAccount.getId()).get());
+            chatBox.setAccount_2(accountRepository.findById(recipientAccount.getId()).get());
             chatBox.setLastMessage(null);
             chatBoxRepository.save(chatBox);
 
             Message firstMessage = new Message();
             chatBox = chatBoxRepository.findAll().getLast();
+            firstMessage.setSenderAccount(userAccount);
+            firstMessage.setChatBox(chatBox);
+            firstMessage.setContent(firstMessageContent);
+            firstMessage.setTimeStamp(LocalDateTime.now());
+            messageRepository.save(firstMessage);
+            chatBox.setLastMessage(messageRepository.findAll().getLast());
+            chatBoxRepository.save(chatBox);
+        }
+        else {
+            ChatBox chatBox = chatBoxes.getFirst();
+            Message firstMessage = new Message();
             firstMessage.setSenderAccount(userAccount);
             firstMessage.setChatBox(chatBox);
             firstMessage.setContent(firstMessageContent);

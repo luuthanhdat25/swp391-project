@@ -46,7 +46,7 @@
 </body>
 
 <script>
-    var personalTrainer = ${personaltrainer};
+    var account = ${account};
     $(document).ready(function () {
         $('.goal-btn').click(function () {
             var buttonContent = $(this).text();
@@ -56,7 +56,7 @@
         $('#send-button').click(function (event) {
             event.preventDefault();
             var firstMessageContent = $('#chat-input').val();
-            var receiverID = personalTrainer.id;
+            var receiverID = account.id;
             $.ajax({
                 type: 'GET',
                 url: '/create-new-chat-box',

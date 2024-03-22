@@ -31,7 +31,6 @@ public class MessageController {
     @ResponseBody
     @RequestMapping(value = "/create-new-message", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public ResponseEntity<Void> createNewMessage(@RequestParam Integer chatBoxId, @RequestParam String content, HttpSession session) {
-        System.out.println(chatBoxId + " " + content);
         Account senderAccount = (Account) session.getAttribute("account");
         ChatBox chatBox = chatBoxRepository.findById(chatBoxId).get();
         Message newMessage = new Message();
@@ -41,6 +40,8 @@ public class MessageController {
         newMessage.setSenderAccount(senderAccount);
         newMessage.setTimeStamp(LocalDateTime.now());
         messageRepository.save(newMessage);
+        chatBox.setLastMessage(messageRepository.findAll().getLast());
+        chatBoxRepository.save(chatBox);
         return ResponseEntity.ok().build();
     }
 

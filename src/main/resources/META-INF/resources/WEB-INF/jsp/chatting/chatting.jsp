@@ -56,8 +56,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="simplebar-placeholder"
-                                         style="width: auto; height: 200px;"></div>
                                 </div>
                             </div>
 
@@ -90,6 +88,7 @@
     var chatBoxSelected;
     var nameSender;
     var avatarSender;
+    var firstChatBox = -1;
 
     $(document).ready(function () {
         retrieveChatBoxList();
@@ -123,7 +122,7 @@
                         var messageBody = $('<div>').addClass('d-flex flex-column');
                         var messageBubble = $('<div>').addClass('mt-2 rounded-top-md-left-0')
                             .html('<div class="p-3" style="background-color: #fff9ed;">' +
-                                '<p class="mb-0">' + message.content + '</p>' +
+                                '<p class="mb-0" style="max-width: 500px;">' + message.content + '</p>' +
                                 '</div>');
 
                         messageItem.append(avatarImg);
@@ -140,7 +139,7 @@
                         var messageBody = $('<div>').addClass('d-flex flex-column align-items-end');
                         var messageBubble = $('<div>').addClass('mt-2 rounded-top-md-end-0')
                             .html('<div class="p-3" style="background-color: #d2efff;">' +
-                                '<p class="mb-0">' + message.content + '</p>' +
+                                '<p class="mb-0" style="max-width: 500px;">' + message.content + '</p>' +
                                 '</div>');
 
                         messageItem.append(messageContent.append(messageBody));
@@ -167,6 +166,13 @@
                 var chatBoxList = $('#chatBoxList');
                 chatBoxList.empty();
                 $.each(data, function (index, chatBox) {
+                    if (firstChatBox === -1) {
+                        firstChatBox = chatBox.id;
+                        nameSender = chatBox.nameSender;
+                        avatarSender = chatBox.avatarSender;
+                        retrieveMessageList(firstChatBox);
+                    }
+
                     var formattedTime = moment(chatBox.lastTimeStamp).format('HH:mm, DD/MM/YYYY');
                     var listItem = $('<li>').addClass('py-1 px-1 chat-item contacts-link');
                     var itemContent = $('<div>').addClass('d-flex justify-content-between align-items-center');
@@ -225,7 +231,7 @@
         $('#send-button').click(function (event) {
             event.preventDefault();
             var content = $('#chat-input').val();
-
+            if (content.trim() === '') return;
             $.ajax({
                 type: 'GET',
                 url: '/create-new-message',
@@ -234,6 +240,7 @@
                     content: content,
                 },
                 success: function (response) {
+                    retrieveChatBoxList();
                     retrieveMessageList(chatBoxSelected);
                 },
                 error: function (xhr, status, error) {

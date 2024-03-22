@@ -199,7 +199,7 @@
 
                                                 <form action="delete-notification-detail" method="get"
                                                       style="margin-bottom: 0;">
-                                                    <input type="hidden" name="deleteNotificationID"
+                                                    <input type="hidden" name="groupNumber"
                                                            value=${GroupNotificationList.groupNumber}>
                                                     <button type="submit" class="btn btn-danger"
                                                             style="height: 40px; width: 110px;">
@@ -275,8 +275,8 @@
                                 </div>
 
                                 <div class="d-flex flex-column">
-                                    <form action="http://localhost:8080/admin-home/delete-report" method="get">
-                                        <input type="hidden" name="deleteReportDetail" id="id">
+                                    <form action="http://localhost:8080/admin-home/delete-notification-detail" method="get">
+                                        <input type="hidden" name="groupNumber" id="groupNumber">
                                         <button type="submit" class="btn btn-danger"
                                                 style="margin-bottom: 5px; width: 131px;">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
@@ -460,7 +460,7 @@
         var formattedTime = moment(detail.timeStamp).format('HH:mm, DD/MM/YYYY');
         $('#exampleModalLabel').text("Notification Detail");
         $('#avatarSender').attr('src', '../../assets/img/sm-logo.png');
-        $('#id').attr('value', detail.id);
+        $('#groupNumber').attr('value', detail.groupNumber);
         $('#nameSender').text(detail.nameSender);
         $('#titleNotification').text(detail.title);
         $('#sendAt').text('Send at ' + formattedTime);

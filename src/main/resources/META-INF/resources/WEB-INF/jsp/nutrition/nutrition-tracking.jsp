@@ -92,6 +92,7 @@
                                 <th>Carb</th>
                                 <th>Fat</th>
                                 <th>Protein</th>
+                                <th>Amount(g)</th>
                                 <th class="text-end">Action</th>
                             </tr>
                             </thead>
@@ -99,13 +100,14 @@
                             <tr>
                                 <td>
                                     <h2>
-                                        <a>Computer Science Engg</a>
+                                        <a>Banana</a>
                                     </h2>
                                 </td>
-                                <td>Aaliyah</td>
-                                <td>1995</td>
-                                <td>180</td>
-                                <td>180</td>
+                                <td>178</td>
+                                <td>45.7</td>
+                                <td>0.7</td>
+                                <td>2.2</td>
+                                <td>200</td>
                                 <td class="text-end">
                                     <div class="actions">
                                         <a href="javascript:;" class="btn btn-sm bg-success-light me-2">
@@ -119,7 +121,9 @@
                             </tr>
                             </tbody>
                         </table>
-                        <button class="btn btn-primary" id="btnAddFood" type="button" data-bs-toggle="modal" data-bs-target="#foodModal">Add New Food</button>
+                        <button class="btn btn-primary" id="btnAddFood" type="button" data-bs-toggle="modal"
+                                data-bs-target="#foodModal">Add New Food
+                        </button>
                     </div>
 
                     <!-- Modal for selecting food and quantity -->
@@ -128,35 +132,86 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Select Food and Quantity</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                 </div>
+
                                 <div class="modal-body">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="foodSelect" class="form-label">Food:</label>
-                                            <select class="form-select" id="foodSelect">
-                                                <c:forEach var="nutrition" items="${nutritionList}">
-                                                    <option value="${nutrition.nutritionId}">${nutrition.getName()}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="quantityInput" class="form-label">Quantity:</label>
-                                            <input type="number" class="form-control" id="quantityInput" placeholder="Enter quantity">
-                                        </div>
-                                    </form>
+                                    <label for="foodInput" class="form-label">Nutrition Name:</label>
+                                    <input type="text" id="foodInput" placeholder="Type to search" class="form-control mb-3">
+                                    <div id="foodDropdown" class="dropdown-menu" style="margin-top: -18px; width: 467px;" aria-labelledby="foodInput">
+                                        <c:forEach items="${nutritionList}" var="nutrition">
+                                            <button class="dropdown-item select2-container" type="button" value="${nutrition.nutritionId}">${nutrition.getName()}</button>
+                                        </c:forEach>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="quantityInput" class="form-label">Quantity (g):</label>
+                                        <input type="number" class="form-control" id="quantityInput" placeholder="Enter quantity">
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" onclick="addFood()">Add Food</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                    <button type="button" class="btn btn-primary" id="addFoodButton">Add Food</button>
                                 </div>
+                                <script>
+                                    document.getElementById('foodInput').addEventListener('input', function() {
+                                        const inputText = this.value.trim().toLowerCase();
+                                        const foodDropdown = document.getElementById('foodDropdown');
+                                        const options = foodDropdown.getElementsByTagName('button');
+                                        for (let i = 0; i < options.length; i++) {
+                                            const foodName = options[i].textContent.toLowerCase();
+                                            if (foodName.includes(inputText)) {
+                                                options[i].style.display = '';
+                                            } else {
+                                                options[i].style.display = 'none';
+                                            }
+                                        }
+                                        foodDropdown.classList.add('show');
+                                    });
+
+                                    // Close the dropdown when clicking outside
+                                    document.addEventListener('click', function(event) {
+                                        const foodDropdown = document.getElementById('foodDropdown');
+                                        if (!event.target.matches('#foodInput')) {
+                                            foodDropdown.classList.remove('show');
+                                        }
+                                    });
+
+                                    // Select food when clicked
+                                    document.getElementById('foodDropdown').addEventListener('click', function(event) {
+                                        const target = event.target;
+                                        if (target.tagName === 'BUTTON') {
+                                            document.getElementById('foodInput').value = target.textContent.trim();
+                                            document.getElementById('foodDropdown').classList.remove('show');
+                                        }
+                                    });
+
+                                    document.getElementById('addFoodButton').addEventListener('click', function() {
+                                        const foodId = document.getElementById('foodInput').dataset.nutritionId;
+                                        const quantity = document.getElementById('quantityInput').value.trim();
+
+                                        if (foodId === '' || quantity === '') {
+                                            alert('Please select a food and enter a quantity.');
+                                            return; // Exit the function early
+                                        }
+
+                                        // You can perform further actions with the foodId and quantity here
+                                        console.log('Selected Food ID:', foodId);
+                                        console.log('Quantity:', quantity);
+                                    });
+
+
+
+                                </script>
                             </div>
                         </div>
                     </div>
 
                     <script>
                         var foodList = ${nutritionList}
-                        console.log(foodList)
+                            console.log(foodList)
+
                         function addFood() {
                             // Get selected food and quantity
                             var foodSelect = document.getElementById("foodSelect");
@@ -183,7 +238,6 @@
                             // Calculate total calories based on quantity (assuming calorie info is stored in data attributes)
                             // var foodCalories = parseInt(foodSelect.value);
                             // var totalCalories = foodCalories * parseInt(quantity);
-
 
 
                             // Create table row for the food log
@@ -238,7 +292,8 @@
                                 </td>
                             </tr>
                         </table>
-                        <button class="btn btn-primary" id="btnAddMore" type="button" onclick="addMoreFood()">Add More Food
+                        <button class="btn btn-primary" id="btnAddMore" type="button" onclick="addMoreFood()">Add More
+                            Food
                         </button>
                     </div>
                 </div>
@@ -315,66 +370,57 @@
     //Daily required macro and micronutrients, depending on age, sex, if pregnant or lactating
     const USERS_NUTRIENT_REQUIRMENTS = {
         "maleReq18": {
-            "reqTotalCarbohydrate": 130,
-            "reqLinoleicAcid": 17,
-            "reqAlphaLinoleicAcid": 1.6,
-            "reqProtein": 56
+            "Carbohydrate": 130,
+            "Fat": 0,
+            "Protein": 56
         },
         "maleReq31": {
-            "reqTotalCarbohydrate": 130,
-            "reqLinoleicAcid": 17,
-            "reqAlphaLinoleicAcid": 1.6,
-            "reqProtein": 56
+            "Carbohydrate": 130,
+            "Fat": 0,
+            "Protein": 56
         },
         "maleReq51": {
-            "reqTotalCarbohydrate": 130,
-            "reqLinoleicAcid": 14,
-            "reqAlphaLinoleicAcid": 1.6,
-            "reqProtein": 56
+            "Carbohydrate": 130,
+            "Fat": 0,
+            "Protein": 56
         },
         "maleReq71": {
-            "reqTotalCarbohydrate": 130,
-            "reqLinoleicAcid": 14,
-            "reqAlphaLinoleicAcid": 1.6,
-            "reqProtein": 56
+            "Carbohydrate": 130,
+            "Fat": 0,
+            "Protein": 56
         },
         "femaleReq18": {
-            "reqTotalCarbohydrate": 130,
-            "reqLinoleicAcid": 12,
-            "reqAlphaLinoleicAcid": 1.1,
-            "reqProtein": 46
+            "Carbohydrate": 130,
+            "Fat": 0,
+            "Protein": 46
         },
         "femaleReq31": {
-            "reqTotalCarbohydrate": 130,
-            "reqLinoleicAcid": 12,
-            "reqAlphaLinoleicAcid": 1.1,
-            "reqProtein": 46
+            "Carbohydrate": 130,
+            "Fat": 0,
+            "Protein": 46
         },
         "femaleReq51": {
-            "reqTotalCarbohydrate": 130,
-            "reqLinoleicAcid": 11,
-            "reqAlphaLinoleicAcid": 1.1,
-            "reqProtein": 46
+            "Carbohydrate": 130,
+            "Fat": 0,
+            "Protein": 46
         },
         "femaleReq71": {
-            "reqTotalCarbohydrate": 130,
-            "reqLinoleicAcid": 11,
-            "reqAlphaLinoleicAcid": 1.1,
-            "reqProtein": 46
+            "Carbohydrate": 130,
+            "Fat": 0,
+            "Protein": 46
         },
         "femalePregnant": {
-            "reqTotalCarbohydrate": 175,
-            "reqLinoleicAcid": 13,
-            "reqAlphaLinoleicAcid": 1.4,
-            "reqProtein": 71
+            "Carbohydrate": 175,
+            "Fat": 0,
+            "Protein": 71
         },
         "femaleLactating": {
-            "reqTotalCarbohydrate": 210,
-            "reqLinoleicAcid": 13,
-            "reqAlphaLinoleicAcid": 1.3,
-            "reqProtein": 71
+            "Carbohydrate": 210,
+            "Fat": 0,
+            "Protein": 71
         }
     };
+
 
     //Creating empty object for user's personal nutrient requirements
     let userNutReq = {};
@@ -539,9 +585,8 @@
         let totalNutrients = {
             "Calories": 0,
             "TotalCarbohydrate": 0,
-            "LinoleicAcid": 0,
-            "AlphaLinoleicAcid": 0,
             "Protein": 0,
+            "Fat": 0
         };
         let tableList = document.getElementById("tableMyPlate");
         let foodValue = "";
@@ -572,32 +617,8 @@
 
                 totalNutrients["Calories"] += foodCtg[foodValue]["Calories"] * foodQuantity / 100;
                 totalNutrients["TotalCarbohydrate"] += foodCtg[foodValue]["TotalCarbohydrate"] * foodQuantity / 100;
-                totalNutrients["LinoleicAcid"] += foodCtg[foodValue]["LinoleicAcid"] * foodQuantity / 100;
-                totalNutrients["AlphaLinoleicAcid"] += foodCtg[foodValue]["AlphaLinoleicAcid"] * foodQuantity / 100;
                 totalNutrients["Protein"] += foodCtg[foodValue]["Protein"] * foodQuantity / 100;
-                totalNutrients["DietaryFiber"] += foodCtg[foodValue]["DietaryFiber"] * foodQuantity / 100;
-                totalNutrients["VitA"] += foodCtg[foodValue]["VitA"] * foodQuantity / 100;
-                totalNutrients["VitD"] += foodCtg[foodValue]["VitD"] * foodQuantity / 100;
-                totalNutrients["VitE"] += foodCtg[foodValue]["VitE"] * foodQuantity / 100;
-                totalNutrients["VitK"] += foodCtg[foodValue]["VitK"] * foodQuantity / 100;
-                totalNutrients["VitC"] += foodCtg[foodValue]["VitC"] * foodQuantity / 100;
-                totalNutrients["VitB1"] += foodCtg[foodValue]["VitB1"] * foodQuantity / 100;
-                totalNutrients["VitB2"] += foodCtg[foodValue]["VitB2"] * foodQuantity / 100;
-                totalNutrients["VitB3"] += foodCtg[foodValue]["VitB3"] * foodQuantity / 100;
-                totalNutrients["VitB5"] += foodCtg[foodValue]["VitB5"] * foodQuantity / 100;
-                totalNutrients["VitB6"] += foodCtg[foodValue]["VitB6"] * foodQuantity / 100;
-                totalNutrients["VitB9"] += foodCtg[foodValue]["VitB9"] * foodQuantity / 100;
-                totalNutrients["VitB12"] += foodCtg[foodValue]["VitB12"] * foodQuantity / 100;
-                totalNutrients["Ca"] += foodCtg[foodValue]["Ca"] * foodQuantity / 100;
-                totalNutrients["Cu"] += foodCtg[foodValue]["Cu"] * foodQuantity / 100;
-                totalNutrients["Fe"] += foodCtg[foodValue]["Fe"] * foodQuantity / 100;
-                totalNutrients["Mg"] += foodCtg[foodValue]["Mg"] * foodQuantity / 100;
-                totalNutrients["Mn"] += foodCtg[foodValue]["Mn"] * foodQuantity / 100;
-                totalNutrients["P"] += foodCtg[foodValue]["P"] * foodQuantity / 100;
-                totalNutrients["Se"] += foodCtg[foodValue]["Se"] * foodQuantity / 100;
-                totalNutrients["Zn"] += foodCtg[foodValue]["Zn"] * foodQuantity / 100;
-                totalNutrients["K"] += foodCtg[foodValue]["K"] * foodQuantity / 100;
-                totalNutrients["Na"] += foodCtg[foodValue]["Na"] * foodQuantity / 100;
+                totalNutrients["Fat"] += foodCtg[foodValue]["Fat"] * foodQuantity / 100
             }
 
             //calculating percenting of daily nutrients fullfilment and filling the tables cells

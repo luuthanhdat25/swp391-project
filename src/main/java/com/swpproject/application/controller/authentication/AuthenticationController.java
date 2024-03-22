@@ -244,7 +244,7 @@ public class AuthenticationController {
                 session.setAttribute("password", password);
                 return "redirect:/auth/login?ban";
             }
-            session.setAttribute("account",account);
+            session.setAttribute("account",account.get());
             if (account.get().getRole().equals(Role.GYMER)) {
                 Gymer gymer = gymerService.getGymerByAccount(account.get()).get();
                 session.setAttribute("gymer", gymer);
@@ -257,7 +257,7 @@ public class AuthenticationController {
             }
             if (account.get().getRole().equals(Role.ADMIN)) {
                 removeAttributes(session, "email", "password");
-                session.setAttribute("account", account.get());
+                session.setAttribute("admin", account.get());
                 return "redirect:/admin-home/manage-notification";
             }
             removeAttributes(session, "email", "password");

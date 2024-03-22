@@ -54,15 +54,23 @@ public class ProfileController {
     }
 
     @GetMapping("/details")
-    public String viewProfile(HttpSession session, ModelMap model) {
+    public String viewProfile(@RequestParam(value = "id", required = false) Integer id,
+                                HttpSession session, ModelMap model) {
         Account account = (Account) session.getAttribute("account");
-        if(account.getRole().equals(Role.GYMER)) {
+        if(account.getRole().equals(Role.GYMER) && id == null) {
             Gymer gymer = (Gymer) session.getAttribute("gymer");
             GymerDto gymerDto = dtoUtils.convertGymerToGymerDto(gymer);
             String gymerDtoJson = JsonUtils.jsonConvert(gymerDto);
             model.addAttribute("gymerDtoJson", gymerDtoJson);
             return "profile/profile-details";
         } else {
+            if(id != null) {
+                Gymer gymer = gymerService.getGymerById(id).get();
+                GymerDto gymerDto = dtoUtils.convertGymerToGymerDto(gymer);
+                String gymerDtoJson = JsonUtils.jsonConvert(gymerDto);
+                model.addAttribute("gymerDtoJson", gymerDtoJson);
+                return "profile/profile-details";
+            }
             PersonalTrainer personalTrainer = (PersonalTrainer) session.getAttribute("personalTrainer");
             PersonalTrainerDto personalTrainerDto = dtoUtils.convertPersonalTrainerToPersonalTrainerDto(personalTrainer);
             List<EvaluationDto> evaluationDtoList = evaluationService.findAllEvaluationsByPersonalTrainerId(personalTrainerDto.getId())

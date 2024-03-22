@@ -4,6 +4,7 @@ import com.swpproject.application.model.Exercise;
 import com.swpproject.application.model.SlotExerciseDetail;
 import com.swpproject.application.repository.ExerciseRepository;
 import com.swpproject.application.repository.SlotExeDetailRepository;
+import com.swpproject.application.service.ExerciseService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,9 @@ public class SloExeRestController {
     @Autowired
     private SlotExeDetailRepository slotExeDetailRepository;
 
+    @Autowired
+    private ExerciseService exerciseService;
+
     @GetMapping("")
     public ResponseEntity<List<SlotExerciseDetailDTO>> searchExercises(@RequestParam String id
             , HttpServletRequest request) {
@@ -34,7 +38,8 @@ public class SloExeRestController {
 
         List<SlotExerciseDetail> slotExerciseDetails =
                 slotExeDetailRepository.findAllBySlotExercise_Id(Integer.parseInt(modifiedId));
-        List<Exercise> exercises = exerciseRepository.findAll();
+        List<Exercise> exercises = exerciseService.findExerciseByIsPrivate(0);
+//        System.out.println("check: "+exercises.size());
         List<ExerciseDTO> exerciseDTOS = new ArrayList<>();
         List<SlotExerciseDetailDTO> slotExerciseDetailDTOs = new ArrayList<>();
         for (Exercise exercise : exercises){

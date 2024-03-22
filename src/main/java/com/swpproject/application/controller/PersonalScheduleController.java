@@ -27,6 +27,10 @@ import java.util.Optional;
 @Controller
 public class PersonalScheduleController {
     @Autowired
+    private NutritionService nutritionService;
+    @Autowired
+    private ExerciseService exerciseService;
+    @Autowired
     private SlotNutritionService slotNutritionService;
     @Autowired
     private SlotExcerciseEntityService slotExcerciseEntityService;
@@ -149,10 +153,10 @@ public class PersonalScheduleController {
             List<SlotNutrition> slotNutritions = slotNutriRepository.findSlotNutriByWeekAndYearAndScheduleId(week, year, scheduleId);
             model.addAttribute("slotNutritions", slotNutritions);
         }
-        List<Exercise> exercises = exerciseRepository.findAll();
+        List<Exercise> exercises = exerciseService.findExerciseByIsPrivate(0);
         session.setAttribute("exercises", exercises);
 
-        List<Nutrition> nutritions = nutritionRepository.findAll();
+        List<Nutrition> nutritions = nutritionService.findAllByIsPrivate(0);
         session.setAttribute("nutritions", nutritions);
 
         model.addAttribute("week", week);

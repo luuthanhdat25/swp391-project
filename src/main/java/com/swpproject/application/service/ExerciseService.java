@@ -23,4 +23,6 @@ public interface ExerciseService {
     void update(ExerciseDTOIn exerciseDTOIn, int exerciseId) throws IOException;
 
     void updateExerciseStatus(int exerciseId, int status);
+
+    List<Exercise> findExerciseByIsPrivate(int isPrivate);
 }

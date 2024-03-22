@@ -102,6 +102,12 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
+    public List<Exercise> findExerciseByIsPrivate(int isPrivate) {
+        return exerciseRepository.findAllByIsPrivate(isPrivate);
+    }
+
+
+    @Override
     public void updateExerciseStatus(int exerciseId, int status) {
         Exercise exercise = exerciseRepository.findById(exerciseId).get();
         exercise.setIsPrivate(status);

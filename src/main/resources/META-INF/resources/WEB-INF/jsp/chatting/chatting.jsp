@@ -5,9 +5,8 @@
 
 <div class="main-wrapper">
     <div class="page-wrapper">
-        <div class="card">
+        <div class="card" style="z-index: 1">
             <div class="row">
-
                 <div class="col-xxl-4 col-xl-5 border-end">
                     <div class="chat-window">
                         <div class="px-4 pt-3 pb-4">

@@ -20,6 +20,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
+    @Override
+    public Optional<Exercise> getExercisebyID(Integer id) {
+        return exerciseRepository.findById(id);
+    }
+
+    @Override
+    public List<Exercise> getAllExercise() {
+        return exerciseRepository.findAll();
+    }
+
     @Autowired
     private ExerciseRepository exerciseRepository;
 

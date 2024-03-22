@@ -273,8 +273,12 @@ public class OrderRequestController {
         orderRequestService.saveOrUpdateOrderRequest(orderRequest);
     }//hàm update lại các giá trị tracking cho order request.
     public void updateAttendantPresent(SlotExercise slotExercise,Attendant attendant){
-        slotExercise.setAttendantStatus(attendant);
-        slotExcerciseEntityService.SaveSlotExcercise(slotExercise);
-        if(attendant ==Attendant.PRESENT) updateTracking(slotExercise.getOrderRequest());
+
+        if(slotExercise.getAttendantStatus() != attendant){
+            slotExercise.setAttendantStatus(attendant);
+            slotExcerciseEntityService.SaveSlotExcercise(slotExercise);
+            if(attendant ==Attendant.PRESENT) updateTracking(slotExercise.getOrderRequest());
+        }
+
     } // update giá trị update lại các gia trị attendant
 }

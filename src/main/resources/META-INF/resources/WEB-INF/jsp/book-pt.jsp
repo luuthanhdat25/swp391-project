@@ -165,16 +165,28 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-6">
+
+                                            </div>
+                                            <div class="col-md-6">
                                                 <div class="row">
 
-                                                        <div id="calendar-events" class="col-md-6">
-                                                            <div class="ui-color-key">
+                                                    <div class="col-md-6">
+                                                        <div class="ui-color-key">
+                                                            <div>
                                                                 <div class="calendar-events" data-class="bg-info">
                                                                     <li style="background-color: #6464ED">Selected</li>
                                                                 </div>
                                                                 <div class="calendar-events" data-class="bg-success">
                                                                     <li style="background-color: #93D199;">Slot pending</li>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="ui-color-key">
+                                                            <div>
                                                                 <div class="calendar-events" data-class="bg-danger">
                                                                     <li style="background-color: rgb(194, 192, 192);">Ordered</li>
                                                                 </div>
@@ -183,6 +195,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -195,11 +208,12 @@
                                             </div>
 
                                             <div id="conflictAlert" class="alert alert-danger" style="display:none;">
-                                                <strong>Conflicting slot!</strong> There is a schedule conflict. please choose againe!
+                                                <strong>Conflicting slot!</strong> There is a schedule conflict in <strong>${trainingTime} week</strong>
+                                                <p>There are all Slot on the next ${trainingTime} week</p>
                                             </div>
                                             <c:if test="${ErrorMessage ne null}">
                                                 <div  class="alert alert-danger" >
-                                                    <strong>${ErrorMessage}</strong>
+                                                    <strong>${ErrorMessage} + ${trainingTime}</strong>
                                                 </div>
                                             </c:if>
 
@@ -207,7 +221,6 @@
                                                 <thead>
                                                 <tr>
                                                     <th rowspan="2">
-
                                                     </th>
                                                     <th align="center">Mon</th>
                                                     <th align="center">Tue</th>
@@ -346,7 +359,7 @@
         document.getElementById("conflictAlert").style.display = "block";
         setTimeout(function() {
             document.getElementById("conflictAlert").style.display = "none";
-        },10000);
+        },100000000);
     }
 </script>
 <script>

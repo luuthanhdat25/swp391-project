@@ -24,5 +24,9 @@ public interface ExerciseService {
 
     void updateExerciseStatus(int exerciseId, int status);
 
+    List<Exercise> getAllExercise();
+
+    Optional<Exercise> getExercisebyID(Integer id);
+
     List<Exercise> findExerciseByIsPrivate(int isPrivate);
 }

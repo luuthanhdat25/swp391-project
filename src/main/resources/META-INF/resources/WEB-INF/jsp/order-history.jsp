@@ -70,11 +70,25 @@
                                             <td><a href="/gymer-orderdetail?order_id=${order.orderId}" class="view"
                                                    title="View Details" data-toggle="tooltip"><i class="fas fa-address-book" style='font-size:24px'></i></a></td>
                                             <td>
-                                                <c:if test="${order.status == 'Accepted'}">
+                                                <c:if test="">
                                                     <a href="/pay?amountPay=${order.total_of_money}&orderID=${order.orderId}" class="pay" title="Pay Now" data-toggle="tooltip">
                                                         <i class="fas fa-money-bill" style="font-size:24px"></i>
                                                     </a>
                                                 </c:if>
+                                                <c:choose>
+                                                    <c:when test="${order.status == 'Accepted'}">
+                                                        <a href="/pay?amountPay=${order.total_of_money}&orderID=${order.orderId}" class="pay" title="Pay Now" data-toggle="tooltip">
+                                                            <i class="fas fa-money-bill" style="font-size:24px"></i>
+                                                        </a>
+                                                    </c:when>
+                                                    <c:when test="${order.status == 'Pending'}">
+                                                        <span class="fas fa-times"></span>
+
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="fas fa-check"></span>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </td>
 
                                         </tr>

@@ -13,7 +13,7 @@
                     <div class="col">
                         <h3 class="page-title">Order Detail</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item active">Order</li>
                         </ul>
                     </div>
@@ -24,19 +24,57 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title">Request form</h5>
+                            <h5 class="card-title">Order information</h5>
                         </div>
                         <div class="card-body">
                             <%--                            <form:form action="${pageContext.request.contextPath}/save-checked" method="post">--%>
-
+                            <form:form action="${pageContext.request.contextPath}/accept-order" method="post">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <form:form action="${pageContext.request.contextPath}/accept-order" method="post">
-                                    <h5 class="card-title">Purpose details</h5>
+                                    <h5 class="card-title">Gymer purpose</h5>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Goal:</label>
+                                                <input type="text" placeholder="${orderRequest.title}" readonly
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Goal details:</label>
+                                                <textarea rows="5" cols="5" class="form-control"
+                                                          placeholder="${orderRequest.description}"
+                                                          name="description" readonly ></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Start Date:</label>
+                                                <input type="text" placeholder="${orderRequest.datetime_start}" readonly
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>End Date:</label>
+                                                <input type="text" placeholder="${orderRequest.datetime_end}" readonly
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Total amount(VND):</label>
+                                            <input type="text" placeholder="${orderRequest.total_of_money}" readonly
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="card-title">Personal Trainer information</h5>
                                     <c:choose>
                                         <c:when test="${gymer ne null}">
                                             <div class="form-group">
-                                                <label>Personal Trainer Name:</label>
+                                                <label>Full name:</label>
                                                 <input type="text" class="form-control" disabled
                                                        value="${orderRequest.personalTrainer.account.fullName}">
                                             </div>
@@ -65,46 +103,10 @@
                                         <input type="text" class="form-control" disabled
                                                value="${orderRequest.personalTrainer.account.address}">
                                     </div>
-
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Height:</label>
-                                                <input type="text" placeholder="${orderRequest.gymer.height}" readonly
-                                                       class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Weight:</label>
-                                                <input type="text" placeholder="${orderRequest.gymer.weight}" readonly
-                                                       class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Start Date:</label>
-                                                <input type="text" placeholder="${DateStart}" readonly
-                                                       class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>End Date:</label>
-                                                <input type="text" placeholder="${DateEnd}" readonly
-                                                       class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Total money:</label>
-                                            <input type="text" placeholder="${orderRequest.total_of_money}" readonly
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-
                                     <c:choose>
                                         <c:when test="${gymer ne null}">
 
@@ -112,32 +114,34 @@
                                         <c:otherwise>
                                             <div class="row">
 
-                                                <div id="calendar-events" class="col-md-6">
+                                                <div class="calendar-events-container col-md-6">
                                                     <div class="ui-color-key">
                                                         <div class="calendar-events" data-class="bg-info">
                                                             <li style="background-color: #F5556F">Conflic slot</li>
                                                         </div>
                                                         <div class="calendar-events" data-class="bg-success">
-                                                            <li style="background-color: #93D199;">Slot Pending</li>
-                                                        </div>
-                                                        <div class="calendar-events" data-class="bg-danger">
-                                                            <li style="background-color: rgb(194, 192, 192);">Ordered
-                                                            </li>
-                                                        </div>
-                                                        <div class="calendar-events" data-class="bg-danger">
-                                                            <li style="background-color: #0BCBE3;">Slot ordering</li>
+                                                            <li style="background-color: #93D199;">Pending slot</li>
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                <div class="calendar-events-container col-md-6">
+                                                    <div class="ui-color-key">
+                                                        <div class="calendar-events" data-class="bg-danger">
+                                                            <li style="background-color: rgb(194, 192, 192);">Ordered</li>
+                                                        </div>
+                                                        <div class="calendar-events" data-class="bg-danger">
+                                                            <li style="background-color: #0BCBE3;">Ordering slot</li>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </c:otherwise>
                                     </c:choose>
-
                                 </div>
                             </div>
+
                             <div class="row">
-                                <h5 class="card-title">Choose your training schedule</h5>
+                                <h5 class="card-title">Training schedule</h5>
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
@@ -171,7 +175,7 @@
                                                         <c:set var="ordering" value="true"/>
                                                         <c:choose>
                                                             <c:when test="${gymer ne null}"><c:set var="slotContent"
-                                                                                                   value="${scheduleSlot.getPersonalTrainer().getAccount().getFullName()}"/></c:when>
+                                                                                                   value="Training with ${scheduleSlot.getPersonalTrainer().getAccount().getFullName()}"/></c:when>
                                                             <c:otherwise><c:set var="slotContent"
                                                                                 value="${scheduleSlot.getGymer().getAccount().getFullName()}"/></c:otherwise>
                                                         </c:choose>

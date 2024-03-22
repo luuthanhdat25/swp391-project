@@ -96,6 +96,11 @@ public class NutritionServiceIml implements NutritionService {
     }
 
     @Override
+    public List<Nutrition> findAllByIsPrivate(int isPrivate) {
+        return nutritionRepository.findAllByIsPrivate(isPrivate);
+    }
+
+    @Override
     public void updateNutritionStatus(int nutritionId, int status) {
         Nutrition nutrition = nutritionRepository.findById(nutritionId).get();
         nutrition.setIsPrivate(status);

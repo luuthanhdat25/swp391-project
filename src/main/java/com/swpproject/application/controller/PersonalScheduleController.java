@@ -24,6 +24,10 @@ import java.util.*;
 @Controller
 public class PersonalScheduleController {
     @Autowired
+    private NutritionService nutritionService;
+    @Autowired
+    private ExerciseService exerciseService;
+    @Autowired
     private SlotExcerciseEntityService slotExcerciseEntityService;
 
     @Autowired
@@ -48,7 +52,6 @@ public class PersonalScheduleController {
     private GymerService gymerService;
     @Autowired
     private ScheduleServiceImplement scheduleServiceImplement;
-    @Autowired ExerciseService exerciseService;
 
     // view pt schedule
     @GetMapping(value = "/view-pt-schedule")
@@ -180,10 +183,10 @@ public class PersonalScheduleController {
             List<SlotNutrition> slotNutritions = slotNutriRepository.findSlotNutriByWeekAndYearAndScheduleId(week, year, scheduleId);
             model.addAttribute("slotNutritions", slotNutritions);
         }
-        List<Exercise> exercises = exerciseRepository.findAll();
+        List<Exercise> exercises = exerciseService.findExerciseByIsPrivate(0);
         session.setAttribute("exercises", exercises);
 
-        List<Nutrition> nutritions = nutritionRepository.findAll();
+        List<Nutrition> nutritions = nutritionService.findAllByIsPrivate(0);
         session.setAttribute("nutritions", nutritions);
 
         List<Exercise> exercisesList = exerciseService.getAllExercise();

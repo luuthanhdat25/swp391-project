@@ -27,4 +27,6 @@ public interface ExerciseService {
     List<Exercise> getAllExercise();
 
     Optional<Exercise> getExercisebyID(Integer id);
+
+    List<Exercise> findExerciseByIsPrivate(int isPrivate);
 }

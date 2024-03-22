@@ -30,7 +30,7 @@
                         <h3 class="page-title">Order Request</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active">Booking</li>
+                            <li class="breadcrumb-item active">Order</li>
                         </ul>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title">Request form</h5>
+                            <h5 class="card-title">Request list</h5>
                         </div>
                         <div class="card-body">
                             <c:if test="${not empty OrderHistory}">
@@ -52,7 +52,7 @@
                                         <th style="text-align: center;">Status</th>
                                         <th style="text-align: center;">Net Amount</th>
                                         <th style="text-align: center;">Order Detail</th>
-                                        <th style="text-align: center;">payment</th>
+                                        <th style="text-align: center;">Payment</th>
                                     </tr>
                                     </thead>
                                     <tbody>

@@ -140,7 +140,7 @@
                                                     <button type="submit" class="btn btn-primary me-2">
                                                         Update
                                                     </button>
-                                                    <a id="cancelButton" href="edit-invoice.html" class="btn btn-danger">
+                                                    <a id="cancel" href="edit-invoice.html" class="btn btn-danger">
                                                         Cancel
                                                     </a>
                                                 </div>
@@ -172,6 +172,14 @@
 
     <script src="../../../assets/js/script.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            $("#cancel").click(function(event) {
+                event.preventDefault();
+                window.history.back();
+            });
+        });
+    </script>
 
     <script>
         var exercise = ${exercise};

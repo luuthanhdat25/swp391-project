@@ -53,7 +53,7 @@ function displayItems(page) {
     var index = startIndex + 1; // Initialize index outside the loop
 
     $.each(paginatedItems, function (i, nutrition) {
-        var displayName = nutrition.name.length > 12 ? nutrition.name.substring(0, 12) + '...' : nutrition.name;
+        var displayName = nutrition.name.length > 20 ? nutrition.name.substring(0, 20) + '...' : nutrition.name;
         var ptImage;
         if (nutrition.personalTrainerImage) {
             ptImage = "data:image/jpeg;base64," + nutrition.personalTrainerImage;

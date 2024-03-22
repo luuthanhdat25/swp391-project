@@ -7,21 +7,21 @@
         <div class="content container-fluid">
             <div class="card">
                 <div class="row" style="justify-content: space-evenly;">
-                    <div class="col-6 col-lg-6" id="divPersonalInfo">
-                        <h2 id="personalGreeting">HI!</h2>
-                        <p>What are your daily nutritional requirements?</p>
+                    <div class="col-12 col-lg-12" style="width: 94%" id="divPersonalInfo">
+                        <h2 id="personalGreeting" style="font-size: 50px;">HI!</h2>
+                        <p style="font-size: 22px;font-family: cursive;font-style: oblique;">What are your daily nutritional requirements?</p>
                         <h3>Let's find out!</h3>
                         <form id="formPersonalInfo">
                             <table id="tablePersonalInfo">
                                 <tr>
-                                    <td class="cellPI">Age:</td>
-                                    <td><input class="inputs" id="inputAge" type="number" name="age" min="18"
+                                    <td class="cellPI" style="font-size: 20px;">Age:</td>
+                                    <td style="display: inline-block;"><input style="width: 322%;" class="inputs" id="inputAge" type="number" name="age" min="18"
                                                max="150"></td>
                                 </tr>
                                 <tr>
-                                    <td class="cellPI">Sex:</td>
-                                    <td>
-                                        <select class="inputs" id="selectSex" onchange="showSelect()">
+                                    <td class="cellPI" style="font-size: 20px;">Sex:</td>
+                                    <td style="display: inline-block;">
+                                        <select style="width: 344%;" class="inputs" id="selectSex" onchange="showSelect()">
                                             <option value=""></option>
                                             <option value="female">female</option>
                                             <option value="male">male</option>
@@ -29,9 +29,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="cellPI"><span id="pregnantLactating">PG/LAC:</span></td>
-                                    <td>
-                                        <select class="inputs" id="selectPregnantLactating">
+                                    <td class="cellPI" style="font-size: 20px;"><span id="pregnantLactating">PG/LAC:</span></td>
+                                    <td style="display: inline-block;">
+                                        <select style="width: 98%;" class="inputs" id="selectPregnantLactating">
                                             <option value=""></option>
                                             <option value="pregnant1">Pregnant (1st trimester)</option>
                                             <option value="pregnant2">Pregnant (2nd trimester)</option>
@@ -42,21 +42,21 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="cellPI">Height:</td>
-                                    <td><input class="inputs" id="inputHeight" type="number" name="height" min="100"
-                                               max="250">cm
+                                    <td class="cellPI" style="font-size: 20px;width: 33%;">Height:</td>
+                                    <td style="display: inline-block;"><input style="width: 322%;"  class="inputs" id="inputHeight" type="number" name="height" min="100"
+                                               max="250" placeholder="cm">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="cellPI">Weight:</td>
-                                    <td><input class="inputs" id="inputWeight" type="number" name="weight" min="20"
-                                               max="300"> kg
+                                    <td class="cellPI" style="font-size: 20px;">Weight:</td>
+                                    <td style="display: inline-block;"><input style="width: 322%;" class="inputs" id="inputWeight" type="number" name="weight" min="20"
+                                               max="300" placeholder="kg">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="cellPI">Lifestyle:</td>
-                                    <td>
-                                        <select class="inputs" id="selectLifestyle">
+                                    <td class="cellPI" style="font-size: 20px;">Lifestyle:</td>
+                                    <td style="display: inline-block;">
+                                        <select style="width: 184%" class="inputs" id="selectLifestyle">
                                             <option value=""></option>
                                             <option value="sedentary">sedentary</option>
                                             <option value="littleActive">somewhat active</option>
@@ -66,23 +66,30 @@
                                     </td>
                                 </tr>
                             </table>
-                            <button class="btn btn-primary" id="btnCalculate" type="button" onclick="calculate()">
+                            <button style="margin-top: 10px;padding: 10px 72px;" class="btn btn-primary" id="btnCalculate" type="button" onclick="calculate()">
                                 Calculate
                             </button>
-                            <p id="messageFillIn2"></p>
+                            <p style="font-size: 20px" id="messageFillIn2"></p>
                         </form>
-                    </div>
-                    <div class="col-5 col-lg-5" id="divDailyRequirement">
-                        <h2>YOUR DAILY NUTRITIONAL REQUIREMENTS</h2>
-                        <table id="tableDailyRequirement">
-                            <tr>
-                                <td style="text-align: left; font-size: large">Calories (kcal)</td>
-                                <td style="font-size: large" id="reqCalories"></td>
-                            </tr>
-                        </table>
+                        <div class="col-5 col-lg-5" id="divDailyRequirement" style="width: 100%;margin-top: 10px;margin-bottom: 20px">
+                            <table id="tableDailyRequirement">
+                                <tr>
+                                    <td style="text-align: left; font-size: large">Your Daily Calories (kcal)</td>
+                                    <td style="font-size: large" id="reqCalories"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="div-message-success" style="display: none;font-size: 18px;font-weight: 700;" class="col-12 alert alert-success alert-dismissible fade show" role="alert">
+                            <h4 id="indiet-message"></h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <div id="div-message-failed" style="display: none;font-size: 18px;font-weight: 700;" class="col-12 alert alert-danger alert-dismissible fade show" role="alert">
+                            <h4 id="diet-message"></h4>
+
+                        </div>
                     </div>
 
-                    <div class="col-5 col-lg-4" id="divFoodSelection">
+                    <div class="col-5 col-lg-4" style="margin-bottom: 40px" id="divFoodSelection">
                         <h2>FOOD LOG TRACKING TODAY</h2>
                         <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
                             <thead class="student-thread">
@@ -93,209 +100,64 @@
                                 <th>Fat</th>
                                 <th>Protein</th>
                                 <th>Amount(g)</th>
-                                <th class="text-end">Action</th>
                             </tr>
                             </thead>
                             <tbody id="foodLogBody">
-                            <tr>
-                                <td>
-                                    <h2>
-                                        <a>Banana</a>
-                                    </h2>
-                                </td>
-                                <td>178</td>
-                                <td>45.7</td>
-                                <td>0.7</td>
-                                <td>2.2</td>
-                                <td>200</td>
-                                <td class="text-end">
-                                    <div class="actions">
-                                        <a href="javascript:;" class="btn btn-sm bg-success-light me-2">
-                                            <i class="feather-eye"></i>
-                                        </a>
-                                        <a href="edit-department.html" class="btn btn-sm bg-danger-light">
-                                            <i class="feather-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
+                            <c:forEach var="nutrition" items="${slotTrackingDtos}">
+                                <tr>
+                                    <td>
+                                        <h2>
+                                            <a>${nutrition.nutritionName}</a>
+                                        </h2>
+                                    </td>
+                                    <td>${nutrition.calories}</td>
+                                    <td>${nutrition.carb}</td>
+                                    <td>${nutrition.fat}</td>
+                                    <td>${nutrition.protein}</td>
+                                    <td>${nutrition.amount}</td>
+<%--                                    <td class="text-end">--%>
+<%--                                        <div class="actions">--%>
+<%--                                            <a href="javascript:;" class="btn btn-sm bg-success-light me-2">--%>
+<%--                                                <i class="feather-delete"></i>--%>
+<%--                                            </a>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
-                        <button class="btn btn-primary" id="btnAddFood" type="button" data-bs-toggle="modal"
-                                data-bs-target="#foodModal">Add New Food
-                        </button>
-                    </div>
-
-                    <!-- Modal for selecting food and quantity -->
-                    <div class="modal" id="foodModal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Select Food and Quantity</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-
-                                <div class="modal-body">
-                                    <label for="foodInput" class="form-label">Nutrition Name:</label>
-                                    <input type="text" id="foodInput" placeholder="Type to search" class="form-control mb-3">
-                                    <div id="foodDropdown" class="dropdown-menu" style="margin-top: -18px; width: 467px;" aria-labelledby="foodInput">
-                                        <c:forEach items="${nutritionList}" var="nutrition">
-                                            <button class="dropdown-item select2-container" type="button" value="${nutrition.nutritionId}">${nutrition.getName()}</button>
-                                        </c:forEach>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="quantityInput" class="form-label">Quantity (g):</label>
-                                        <input type="number" class="form-control" id="quantityInput" placeholder="Enter quantity">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                    </button>
-                                    <button type="button" class="btn btn-primary" id="addFoodButton">Add Food</button>
-                                </div>
-                                <script>
-                                    document.getElementById('foodInput').addEventListener('input', function() {
-                                        const inputText = this.value.trim().toLowerCase();
-                                        const foodDropdown = document.getElementById('foodDropdown');
-                                        const options = foodDropdown.getElementsByTagName('button');
-                                        for (let i = 0; i < options.length; i++) {
-                                            const foodName = options[i].textContent.toLowerCase();
-                                            if (foodName.includes(inputText)) {
-                                                options[i].style.display = '';
-                                            } else {
-                                                options[i].style.display = 'none';
-                                            }
-                                        }
-                                        foodDropdown.classList.add('show');
-                                    });
-
-                                    // Close the dropdown when clicking outside
-                                    document.addEventListener('click', function(event) {
-                                        const foodDropdown = document.getElementById('foodDropdown');
-                                        if (!event.target.matches('#foodInput')) {
-                                            foodDropdown.classList.remove('show');
-                                        }
-                                    });
-
-                                    // Select food when clicked
-                                    document.getElementById('foodDropdown').addEventListener('click', function(event) {
-                                        const target = event.target;
-                                        if (target.tagName === 'BUTTON') {
-                                            document.getElementById('foodInput').value = target.textContent.trim();
-                                            document.getElementById('foodDropdown').classList.remove('show');
-                                        }
-                                    });
-
-                                    document.getElementById('addFoodButton').addEventListener('click', function() {
-                                        const foodId = document.getElementById('foodInput').dataset.nutritionId;
-                                        const quantity = document.getElementById('quantityInput').value.trim();
-
-                                        if (foodId === '' || quantity === '') {
-                                            alert('Please select a food and enter a quantity.');
-                                            return; // Exit the function early
-                                        }
-
-                                        // You can perform further actions with the foodId and quantity here
-                                        console.log('Selected Food ID:', foodId);
-                                        console.log('Quantity:', quantity);
-                                    });
-
-
-
-                                </script>
-                            </div>
-                        </div>
+                        <div style="margin-top: 15px;" id="totalCalories"></div>
                     </div>
 
                     <script>
-                        var foodList = ${nutritionList}
-                            console.log(foodList)
+                        // Wait for the document to be fully loaded
+                        document.addEventListener('DOMContentLoaded', function () {
+                            // Get the tbody element where the nutrition items are listed
+                            const foodLogBody = document.getElementById('foodLogBody');
 
-                        function addFood() {
-                            // Get selected food and quantity
-                            var foodSelect = document.getElementById("foodSelect");
-                            var foodName = foodSelect.options[foodSelect.selectedIndex].text;
-                            var foodId = foodSelect.options[foodSelect.selectedIndex].value;
-                            var quantity = document.getElementById("quantityInput").value;
+                            // Initialize total calories variable
+                            let totalCalories = 0;
 
-                            // Validate quantity
-                            if (quantity === "" || isNaN(quantity) || quantity <= 0) {
-                                alert("Please enter a valid quantity.");
-                                return;
+                            // Loop through each row in the table body
+                            foodLogBody.querySelectorAll('tr').forEach(function (row) {
+                                // Get the calories value from the current row
+                                const calories = parseFloat(row.querySelector('td:nth-child(2)').textContent.trim());
+
+                                // Add the calories to the total
+                                totalCalories += calories;
+                            });
+
+                            // Display the total calories
+                            const totalCaloriesElement = document.createElement('h4');
+                            // Check if the total calories is a whole number
+                            if (totalCalories % 1 === 0) {
+                                totalCaloriesElement.textContent = 'Total Calories: ' + totalCalories + ' (kcalo)';
+                            } else {
+                                totalCaloriesElement.textContent = 'Total Calories: ' + totalCalories.toFixed(2) + ' (kcalo)';
                             }
-
-                            var selectedFood = foodList.find(food => food.nutritionId === selectedFoodId);
-                            console.log(selectedFood)
-                            // Calculate total calories, fat, carb, and protein based on quantity
-                            // var totalCalories = selectedFood.caloIn * parseInt(quantity);
-                            // var totalFat = selectedFood.fat * parseInt(quantity) / 100;
-                            // var totalCarb = selectedFood.carb * parseInt(quantity) / 100;
-                            // var totalProtein = selectedFood.protein * parseInt(quantity) / 100;
-
-                            // console.log(totalFat)
-
-                            // Calculate total calories based on quantity (assuming calorie info is stored in data attributes)
-                            // var foodCalories = parseInt(foodSelect.value);
-                            // var totalCalories = foodCalories * parseInt(quantity);
-
-
-                            // Create table row for the food log
-                            var newRow = "<tr>" +
-                                "<td><h2><a>" + foodName + "</a></h2></td>" +
-                                "<td>" + "</td>" +
-                                "<td>Carb Value</td>" +
-                                "<td>Fat Value</td>" +
-                                "<td>Protein Value</td>" +
-                                "<td class='text-end'>" +
-                                "<div class='actions'>" +
-                                "<a href='javascript:;' class='btn btn-sm bg-success-light me-2'><i class='feather-eye'></i></a>" +
-                                "<a href='edit-department.html' class='btn btn-sm bg-danger-light'><i class='feather-edit'></i></a>" +
-                                "</div>" +
-                                "</td>" +
-                                "</tr>";
-
-                            // Append the new row to the food log table
-                            document.getElementById("foodLogBody").innerHTML += newRow;
-
-                            // Close the modal
-                            var modal = new bootstrap.Modal(document.getElementById("foodModal"));
-                            modal.hide();
-                        }
+                            document.getElementById('totalCalories').appendChild(totalCaloriesElement);
+                        });
                     </script>
-
-                    <div class="col-5 col-lg-4" id="divNutritionTracker">
-                        <h2>DAILY NUTRITIONAL PROFILE</h2>
-                        <table id="tableNutritionTracker">
-                            <tr>
-                                <td class="cellWidth">Calories</td>
-                                <td id="Calories" class="cellsProgressBar">
-                                    <div class="divProgressBar"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="cellWidth">Linoleic Acid</td>
-                                <td id="LinoleicAcid" class="cellsProgressBar">
-                                    <div class="divProgressBar"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="cellWidth">Alpha-Linoleic Acid</td>
-                                <td id="AlphaLinoleicAcid" class="cellsProgressBar">
-                                    <div class="divProgressBar"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="cellWidth">Protein</td>
-                                <td id="Protein" class="cellsProgressBar">
-                                    <div class="divProgressBar"></div>
-                                </td>
-                            </tr>
-                        </table>
-                        <button class="btn btn-primary" id="btnAddMore" type="button" onclick="addMoreFood()">Add More
-                            Food
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -304,122 +166,40 @@
 
 
 <script>
-    const GRAINS = {
-        "Oats, raw": {
-            "Calories": 389,
-            "TotalCarbohydrate": 66.27,
-            "LinoleicAcid": 2.424,
-            "AlphaLinoleicAcid": 0.111
-        },
-        "Rice, raw": {
-            "Calories": 362,
-            "TotalCarbohydrate": 76.17,
-            "LinoleicAcid": 0.918,
-            "AlphaLinoleicAcid": 0.041
-        },
-        "Quinoa, raw": {
-            "Calories": 368,
-            "TotalCarbohydrate": 64.16,
-            "LinoleicAcid": 2.977,
-            "AlphaLinoleicAcid": 0.260
-        }
-    };
 
-    const VEGETABLES = {
-        "Broccoli, raw": {
-            "Calories": 34,
-            "TotalCarbohydrate": 6.64,
-            "LinoleicAcid": 0.049,
-            "AlphaLinoleicAcid": 0.063
-        },
-        "Carrots, raw": {
-            "Calories": 41,
-            "TotalCarbohydrate": 9.58,
-            "LinoleicAcid": 0.100,
-            "AlphaLinoleicAcid": 0.002
-        },
-        "Potatos, raw, skin": {
-            "Calories": 58,
-            "TotalCarbohydrate": 12.44,
-            "LinoleicAcid": 0.032,
-            "AlphaLinoleicAcid": 0.010
-        }
-    };
-
-    const FRUITS = {
-        "Apples, raw, with skin": {
-            "Calories": 52,
-            "TotalCarbohydrate": 13.81,
-            "LinoleicAcid": 0.043,
-            "AlphaLinoleicAcid": 0.009
-        },
-        "Bananas, raw": {
-            "Calories": 89,
-            "TotalCarbohydrate": 22.84,
-            "LinoleicAcid": 0.046,
-            "AlphaLinoleicAcid": 0.027
-        },
-        "Oranges, raw, with peel": {
-            "Calories": 63,
-            "TotalCarbohydrate": 15.50,
-            "LinoleicAcid": 0.044,
-            "AlphaLinoleicAcid": 0.016
-        }
-    };
-
-    //Daily required macro and micronutrients, depending on age, sex, if pregnant or lactating
     const USERS_NUTRIENT_REQUIRMENTS = {
         "maleReq18": {
-            "Carbohydrate": 130,
-            "Fat": 0,
-            "Protein": 56
+            "Calories": 662
         },
         "maleReq31": {
-            "Carbohydrate": 130,
-            "Fat": 0,
-            "Protein": 56
+            "Calories": 100
         },
         "maleReq51": {
-            "Carbohydrate": 130,
-            "Fat": 0,
-            "Protein": 56
+            "Calories": 662
         },
         "maleReq71": {
-            "Carbohydrate": 130,
-            "Fat": 0,
-            "Protein": 56
+            "Calories": 662
         },
         "femaleReq18": {
-            "Carbohydrate": 130,
-            "Fat": 0,
-            "Protein": 46
+            "Calories": 354
         },
         "femaleReq31": {
-            "Carbohydrate": 130,
-            "Fat": 0,
-            "Protein": 46
+            "Calories": 354
         },
         "femaleReq51": {
-            "Carbohydrate": 130,
-            "Fat": 0,
-            "Protein": 46
+            "Calories": 354
         },
         "femaleReq71": {
-            "Carbohydrate": 130,
-            "Fat": 0,
-            "Protein": 46
+            "Calories": 354
         },
         "femalePregnant": {
-            "Carbohydrate": 175,
-            "Fat": 0,
-            "Protein": 71
+            "Calories": 340 // Update with the appropriate value
         },
         "femaleLactating": {
-            "Carbohydrate": 210,
-            "Fat": 0,
-            "Protein": 71
+            "Calories": 330 // Update with the appropriate value
         }
     };
+
 
 
     //Creating empty object for user's personal nutrient requirements
@@ -460,9 +240,9 @@
         } else if (age < 18) {
             document.getElementById("messageFillIn2").innerHTML = "This app is not for users under 18 years";
         }
-
         //If the form is filled, calculate
         else {
+            document.getElementById("messageFillIn2").innerHTML = "";
             //Calculating calories and daily nutrient requirements
             if (sex === "male") {
                 //Calculating activity coeficient and required daily calories
@@ -568,98 +348,30 @@
                     tableReq.rows.item(rowIndex).cells[1].innerHTML = userNutReq[cellReqId];
                 }
             }
-        }
 
-    }
+            const totalCaloriesFromLog = parseFloat(document.getElementById('totalCalories').textContent.match(/\d+(\.\d+)?/)[0]);
+
+            // Calculate the difference in total calories
+            const calorieDifference = Math.abs(totalCaloriesFromLog - reqCalories);
 
 
-    //Moving to divFoodSelection
-    function checkMyDay() {
-        scrollTo(0, 0);
-        document.getElementById("divFoodSelection").style.display = "block";
-    }
-
-    //Calculating the sum of nutrients of all food and calling other function for calculating percents of fullfiled daily requirements
-    function tracking() {
-        //Initiazilizing daily consumed nutrients
-        let totalNutrients = {
-            "Calories": 0,
-            "TotalCarbohydrate": 0,
-            "Protein": 0,
-            "Fat": 0
-        };
-        let tableList = document.getElementById("tableMyPlate");
-        let foodValue = "";
-        let foodQuantityCell = "";
-        let foodQuantity = 0;
-        let foodCtg = {};
-
-        if (tableList.rows.length === 1) {
-            document.getElementById("messageFillIn3").innerHTML = "Please choose your food.";
-        } else {
-            scrollTo(0, 0);
-            document.getElementById("divFoodSelection").style.display = "none";
-            document.getElementById("divNutritionTracker").style.display = "block";
-
-            //Checking the food category
-            for (let indexRows = 1; indexRows < tableList.rows.length; indexRows++) {
-                foodValue = tableList.rows.item(indexRows).cells[0].innerHTML;
-                foodQuantityCell = tableList.rows.item(indexRows).cells[1];
-                foodQuantity = foodQuantityCell.children[0].value;
-
-                if (GRAINS.hasOwnProperty(foodValue)) {
-                    foodCtg = GRAINS;
-                } else if (VEGETABLES.hasOwnProperty(foodValue)) {
-                    foodCtg = VEGETABLES;
-                } else if (FRUITS.hasOwnProperty(foodValue)) {
-                    foodCtg = FRUITS;
-                }
-
-                totalNutrients["Calories"] += foodCtg[foodValue]["Calories"] * foodQuantity / 100;
-                totalNutrients["TotalCarbohydrate"] += foodCtg[foodValue]["TotalCarbohydrate"] * foodQuantity / 100;
-                totalNutrients["Protein"] += foodCtg[foodValue]["Protein"] * foodQuantity / 100;
-                totalNutrients["Fat"] += foodCtg[foodValue]["Fat"] * foodQuantity / 100
+            let message = "";
+            if (calorieDifference <= 200) {
+                message = "Your total calories are within the expected range.";
+                document.getElementById("div-message-failed").style.display = "none";
+                document.getElementById("div-message-success").style.display = "block";
+                document.getElementById("div-message-success").style.height = "49px";
+                document.getElementById("div-message-success").textContent = message;
+            } else {
+                message = "Your total calories differ significantly from the expected range. <a style='text-decoration: underline; margin-left: 20px' href='/view-personal-schedule'>View Schedule!</a>";
+                document.getElementById("div-message-success").style.display = "none";
+                document.getElementById("div-message-failed").style.display = "block";
+                document.getElementById("div-message-failed").style.height = "49px";
+                document.getElementById("div-message-failed").innerHTML  = message;
             }
 
-            //calculating percenting of daily nutrients fullfilment and filling the tables cells
-            //Filling the table "Daily Requirement"
-            let tableResult = document.getElementById("tableNutritionTracker");
-            let cellResultId = "";
-            let percents = 0;
-            let str = "req";
-            let prop = "";
-
-            for (let rowIndex = 0; rowIndex < tableResult.rows.length; rowIndex++) {
-                if (rowIndex == 6 || rowIndex == 19) {
-                } else {
-                    cellResultId = tableResult.rows.item(rowIndex).cells[1].id;
-                    prop = str.concat(cellResultId);
-                    percents = totalNutrients[cellResultId] / userNutReq[prop] * 100;
-                    tableResult.rows.item(rowIndex).cells[1].children[0].innerHTML = percents.toFixed(0) + "%";
-
-                    if (percents >= 100) {
-                        tableResult.rows.item(rowIndex).cells[1].children[0].style.width = "100%";
-                        tableResult.rows.item(rowIndex).cells[1].children[0].style.backgroundColor = "#8aff75";
-                    } else {
-                        tableResult.rows.item(rowIndex).cells[1].children[0].style.width = percents.toFixed(0) + "%";
-                        tableResult.rows.item(rowIndex).cells[1].children[0].style.backgroundColor = "#ff758a";
-                    }
-                }
-            }
         }
-    }
 
-    //Returning to add more foods on daily food list
-    function addMoreFood() {
-        scrollTo(0, 0);
-        document.getElementById("divFoodSelection").style.display = "block";
-        document.getElementById("divNutritionTracker").style.display = "none";
-    }
-
-    //Delete the row with the artical that the user doesn't need
-    function deleteRow() {
-        this.closest("tr").remove();
-        rowIndexMyPlate--;
     }
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

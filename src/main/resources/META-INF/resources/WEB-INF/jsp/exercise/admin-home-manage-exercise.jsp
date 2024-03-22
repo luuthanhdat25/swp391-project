@@ -47,7 +47,7 @@
                         <div class="d-flex justify-content-center align-items-center h-auto" style="width: 10rem">
                             <div>
                                 <select class="form-select" id="selectOption">
-                                    <option value="1">All exercise</option>
+                                    <option value="1">All Exercise</option>
                                     <option value="0">Only Admin</option>
                                 </select>
                             </div>

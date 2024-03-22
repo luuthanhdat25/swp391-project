@@ -19,8 +19,8 @@
                                     <h3 class="card-title">Payment Successful</h3>
 
                                     <p class="card-text">
-                                        You have been connected with Personal Trainer. <br>
-                                        There are __ slots in total. <br>
+                                        You have been connected with Personal Trainer ${personalTrainerName} <br>
+                                        There are ${numberSlot} slots in total. <br>
                                         Starting from ${orderPayment.datetime_start} to ${orderPayment.datetime_end}.
                                     </p>
                                     <a href="/accept" class="btn btn-primary">Continue</a>

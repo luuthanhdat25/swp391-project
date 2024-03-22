@@ -1,6 +1,7 @@
 package com.swpproject.application.controller.notification;
 
 import com.swpproject.application.dto.AdminNotificationDTO;
+import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Account;
 import com.swpproject.application.model.Notification;
 import com.swpproject.application.repository.AccountRepository;
@@ -152,12 +153,6 @@ public class AdminNotificationController {
     public String deleteNotificationDetail(@RequestParam("deleteNotificationID") int deleteNotificationID) {
         notificationRepository.deleteById(deleteNotificationID);
         return "forward:manage-notification";
-    }
-    @RequestMapping("admin-home/manage-account")
-    public String viewAllAccount(ModelMap model){
-        List<Account> accountList = accountService.getAccounts();
-        model.addAttribute("accountList",accountList);
-        return "view-accounts";
     }
 
     @RequestMapping(value = "admin-home/view-creating-notification-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")

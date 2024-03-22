@@ -4,9 +4,6 @@ import lombok.*;
 import org.springframework.data.relational.core.mapping.Table;
 import jakarta.persistence.*;
 
-import jakarta.persistence.*;
-import org.springframework.data.relational.core.mapping.Table;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -27,7 +24,7 @@ public class Gymer {
     @Column(name = "height")
     private Float height;
 
-    @Column(name = "goal", columnDefinition = "VARCHAR(20)")
+    @Column(name = "goal", columnDefinition = "NVARCHAR(20)")
     private Goal goal;
 
     @Column(name = "[desc]", columnDefinition = "NVARCHAR(MAX)")

@@ -21,4 +21,6 @@ public interface NutritionService {
     void create(NutritionDTOIn nutritionDTOIn, RoleDTO roleDTO) throws IOException;
 
     void update(NutritionDTOIn nutritionDTOIn, int nutritinoId) throws IOException;
+
+    List<Nutrition> getAllNutrition();
 }

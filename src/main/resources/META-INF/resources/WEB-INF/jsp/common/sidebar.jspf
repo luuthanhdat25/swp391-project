@@ -70,7 +70,7 @@
                                 <a href="#"><i class="feather-grid"></i> <span>Tracking & Statistics</span> <span
                                         class="menu-arrow"></span></a>
                                 <ul>
-                                    <li><a href="index.html">Nutrition Tracking</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/nutrition/tracking">Nutrition Tracking</a></li>
                                     <li><a href="teacher-dashboard.html">Calories Statistic</a></li>
                                 </ul>
                             </li>

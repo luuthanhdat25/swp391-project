@@ -31,26 +31,39 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-
-
                                     <form:form action="${pageContext.request.contextPath}/accept-order" method="post">
                                     <h5 class="card-title">Purpose details</h5>
-                                    <div class="form-group">
-                                        <label>Gymer Name:</label>
-                                        <input type="text" class="form-control" disabled value="${accountOrder.fullName}">
-                                    </div>
+                                    <c:choose>
+                                        <c:when test="${gymer ne null}">
+                                            <div class="form-group">
+                                                <label>Personal Trainer Name:</label>
+                                                <input type="text" class="form-control" disabled
+                                                       value="${orderRequest.personalTrainer.account.fullName}">
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="form-group">
+                                                <label>Gymer Name:</label>
+                                                <input type="text" class="form-control" disabled
+                                                       value="${orderRequest.gymer.account.fullName}">
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+
                                     <div class="form-group">
                                         <label>Email:</label>
-                                        <input type="text" class="form-control" disabled value="${accountOrder.email}">
+                                        <input type="text" class="form-control" disabled
+                                               value="${orderRequest.personalTrainer.account.email}">
                                     </div>
                                     <div class="form-group">
                                         <label>BirthDay:</label>
                                         <input type="text" class="form-control" disabled
-                                               value="${accountOrder.birthday.toString()}">
+                                               value="${orderRequest.personalTrainer.account.birthday.toString()}">
                                     </div>
                                     <div class="form-group">
                                         <label>Address:</label>
-                                        <input type="text" class="form-control" disabled value="${accountOrder.address}">
+                                        <input type="text" class="form-control" disabled
+                                               value="${orderRequest.personalTrainer.account.address}">
                                     </div>
 
                                 </div>
@@ -59,14 +72,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Height:</label>
-                                                <input type="text" placeholder="${gymer.height}" readonly
+                                                <input type="text" placeholder="${orderRequest.gymer.height}" readonly
                                                        class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Weight:</label>
-                                                <input type="text" placeholder="${gymer.weight}" readonly
+                                                <input type="text" placeholder="${orderRequest.gymer.weight}" readonly
                                                        class="form-control">
                                             </div>
                                         </div>
@@ -108,7 +121,8 @@
                                                             <li style="background-color: #93D199;">Slot Pending</li>
                                                         </div>
                                                         <div class="calendar-events" data-class="bg-danger">
-                                                            <li style="background-color: rgb(194, 192, 192);">Ordered</li>
+                                                            <li style="background-color: rgb(194, 192, 192);">Ordered
+                                                            </li>
                                                         </div>
                                                         <div class="calendar-events" data-class="bg-danger">
                                                             <li style="background-color: #0BCBE3;">Slot ordering</li>
@@ -156,8 +170,10 @@
                                                         <c:set var="disabled" value="true"/>
                                                         <c:set var="ordering" value="true"/>
                                                         <c:choose>
-                                                            <c:when test="${gymer ne null}"><c:set var="slotContent" value="${scheduleSlot.getPersonalTrainer().getAccount().getFullName()}"/></c:when>
-                                                            <c:otherwise><c:set var="slotContent" value="${scheduleSlot.getGymer().getAccount().getFullName()}"/></c:otherwise>
+                                                            <c:when test="${gymer ne null}"><c:set var="slotContent"
+                                                                                                   value="${scheduleSlot.getPersonalTrainer().getAccount().getFullName()}"/></c:when>
+                                                            <c:otherwise><c:set var="slotContent"
+                                                                                value="${scheduleSlot.getGymer().getAccount().getFullName()}"/></c:otherwise>
                                                         </c:choose>
 
                                                     </c:if>
@@ -176,7 +192,8 @@
                                                             <c:set var="pending" value="true"/>
                                                         </c:if>
                                                         <c:set var="disabled" value="true"/>
-                                                        <c:set var="slotContent" value="${scheduleSlot.getGymer().getAccount().getFullName()}"/>
+                                                        <c:set var="slotContent"
+                                                               value="${scheduleSlot.getGymer().getAccount().getFullName()}"/>
                                                     </c:if>
                                                 </c:forEach>
                                                 <c:choose>
@@ -224,7 +241,7 @@
                                                             </c:choose>
 
 
-                                                                    </label>
+                                                            </label>
 
                                                         </td>
                                                     </c:when>
@@ -257,15 +274,18 @@
                                                 <c:choose>
                                                     <c:when test="${empty MSG}">
                                                         <!-- Display the "Accept" button only if MSG is empty -->
-                                                        <button type="submit" class="btn btn-primary" name="action" value="accept">
+                                                        <button type="submit" class="btn btn-primary" name="action"
+                                                                value="accept">
                                                             Accept
                                                         </button>
-                                                        <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
+                                                        <a href="/decline-order?orderId=${param.order_id}"
+                                                           class="btn btn-primary"
                                                            name="action" value="decline">Decline</a>
                                                     </c:when>
                                                     <c:otherwise>
                                                         <!-- If MSG is not empty, display the "Decline" button -->
-                                                        <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
+                                                        <a href="/decline-order?orderId=${param.order_id}"
+                                                           class="btn btn-primary"
                                                            name="action" value="decline">Decline</a>
                                                     </c:otherwise>
                                                 </c:choose>
@@ -276,20 +296,16 @@
                                 </c:choose>
 
 
+                                <!-- Display the "Accept" button only if MSG is empty -->
+                                <button type="submit" class="btn btn-primary" name="action" value="accept">
+                                    Accept
+                                </button>
+                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
+                                   name="action" value="decline">Decline</a>
 
-
-                                                <!-- Display the "Accept" button only if MSG is empty -->
-<%--                                                <button type="submit" class="btn btn-primary" name="action" value="accept">--%>
-<%--                                                    Accept--%>
-<%--                                                </button>--%>
-<%--                                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"--%>
-<%--                                                   name="action" value="decline">Decline</a>--%>
-
-<%--                                                <!-- If MSG is not empty, display the "Decline" button -->--%>
-<%--                                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"--%>
-<%--                                                   name="action" value="decline">Decline</a>--%>
-
-
+                                <!-- If MSG is not empty, display the "Decline" button -->
+                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
+                                   name="action" value="decline">Decline</a>
 
 
                             </div>

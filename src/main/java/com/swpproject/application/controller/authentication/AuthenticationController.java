@@ -88,8 +88,6 @@ public class AuthenticationController {
                                   RedirectAttributes redirectAttributes,
                                   HttpSession session) {
 
-
-        System.out.println("goal --> " + selectedGoal);
         session.setAttribute("account", account);
         session.setAttribute("rptPassword", rptPassword);
         // Check if fullName contains any number or special character
@@ -160,7 +158,6 @@ public class AuthenticationController {
                 return "redirect:/auth/certificate";
             } else {
                 String desc = new StringBuilder(BASE_DESC_1).append(account.getFullName()).append(BASE_DESC_2).toString();
-                System.out.println(desc);
                 account.setPassword(PasswordUtils.hashPassword(account.getPassword()));
                 account.setAvatarImage(Base64.getDecoder().decode(BASE_IMG.getBytes()));
                 accountService.save(account);
@@ -242,7 +239,12 @@ public class AuthenticationController {
         Optional<Account> account = accountService.getAccountByEmail(email);
         String hashing = PasswordUtils.hashPassword(password);
         if (account.isPresent() && hashing.equals(account.get().getPassword())) {
-            session.setAttribute("account",account);
+            if(account.get().getIsBan()) {
+                session.setAttribute("email", email);
+                session.setAttribute("password", password);
+                return "redirect:/auth/login?ban";
+            }
+            session.setAttribute("account",account.get());
             if (account.get().getRole().equals(Role.GYMER)) {
                 Gymer gymer = gymerService.getGymerByAccount(account.get()).get();
                 session.setAttribute("gymer", gymer);

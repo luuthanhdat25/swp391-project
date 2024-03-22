@@ -40,8 +40,10 @@ public class OrderGymer {
     @RequestMapping("gymer-orderdetail")
     public String OrderHistoryDetail(@RequestParam(value = "order_id",required = false) Integer orderID,
                                      Model model){
+        OrderRequest orderRequest = orderRequestService.getOrderRequestById(orderID);
         List<SlotExercise> orderDetail = slotExcerciseEntityService.getSlotByOrder(orderID);
         model.addAttribute("allSlots",orderDetail);
+        model.addAttribute("orderRequest",orderRequest);
         return "order-detail";
     }
 

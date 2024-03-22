@@ -1,10 +1,13 @@
 package com.swpproject.application.utils;
 
+import com.swpproject.application.dto.EvaluationDto;
 import com.swpproject.application.dto.GymerDto;
 import com.swpproject.application.dto.PersonalTrainerDto;
+import com.swpproject.application.model.Evaluation;
 import com.swpproject.application.model.Gymer;
 import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.service.CertificateService;
+import com.swpproject.application.service.EvaluationService;
 import com.swpproject.application.service.GymerService;
 import com.swpproject.application.service.PersonalTrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +21,17 @@ public class DtoUtils {
     private final CertificateService certificateService;
     private final PersonalTrainerService personalTrainerService;
     private final GymerService gymerService;
+    private final EvaluationService evaluationService;
 
     @Autowired
     public DtoUtils(
             CertificateService certificateService,
             PersonalTrainerService personalTrainerService,
-            GymerService gymerService
+            GymerService gymerService,
+            EvaluationService evaluationService
+
     ) {
+        this.evaluationService = evaluationService;
         this.certificateService = certificateService;
         this.personalTrainerService = personalTrainerService;
         this.gymerService = gymerService;
@@ -42,6 +49,7 @@ public class DtoUtils {
                                             .avatarImage(gymer.getAccount().getAvatarImage())
                                             .phone(gymer.getAccount().getPhone())
                                             .birthday(gymer.getAccount().getBirthday().toString())
+                                            .isBan(gymer.getAccount().getIsBan().toString())
                                             .email(gymer.getAccount().getEmail())
                                             .build();
     }
@@ -69,6 +77,7 @@ public class DtoUtils {
                                             .bankName(personalTrainer.getBankName())
                                             .bankNumber(personalTrainer.getBankNumber())
                                             .email(personalTrainer.getAccount().getEmail())
+                                            .isBan(personalTrainer.getAccount().getIsBan().toString())
                                             .certificateList(certificatList)
                                             .build();
     }
@@ -79,6 +88,28 @@ public class DtoUtils {
                                 .map(personalTrainer -> convertPersonalTrainerToPersonalTrainerDto(personalTrainer))
                                 .toList();
     }
+
+    public static EvaluationDto convertEvaluationToEvaluationDto(Evaluation evaluation) {
+        return EvaluationDto.builder()  .id(evaluation.getId())
+                                        .evaluationDateTime(evaluation.getEvaluationDate())
+                                        .commentFeedback(evaluation.getContent())
+                                        .starRating(evaluation.getStar())
+                                        .gymer(evaluation.getGymer())
+                                        .gymerDto(convertGymerToGymerDto(evaluation.getGymer()))
+                                        .personalTrainer(evaluation.getPersonalTrainer())
+                                        .build();
+    }
+
+    public static Evaluation revertEvaluationDtoToEvaluation(EvaluationDto evaluationDto) {
+        return Evaluation.builder() .id(evaluationDto.getId())
+                                    .evaluationDate(evaluationDto.getEvaluationDateTime())
+                                    .content(evaluationDto.getCommentFeedback())
+                                    .star(evaluationDto.getStarRating())
+                                    .gymer(evaluationDto.getGymer())
+                                    .personalTrainer(evaluationDto.getPersonalTrainer())
+                                    .build();
+    }
+
 
 
 }

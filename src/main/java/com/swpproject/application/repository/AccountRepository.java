@@ -21,4 +21,9 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     Boolean existsByEmail(String email);
 
+
+//    @Query("SELECT * FROM ")
+//    Optional<Account> getAccountByPersonalTrainerId(int id);
+
+
 }

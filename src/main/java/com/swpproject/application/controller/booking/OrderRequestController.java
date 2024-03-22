@@ -266,10 +266,10 @@ public class OrderRequestController {
 
     public void updateTracking(OrderRequest orderRequest){
         List<SlotExercise> orderSize = slotExcerciseEntityService.GetSlotOfOrder(orderRequest);
-        Integer trackingUpdate = orderRequest.getTranking();
+        Integer trackingUpdate = orderRequest.getTracking();
         double updateValue = 1.0 / orderSize.size() * 100;
         trackingUpdate += (int) Math.ceil(updateValue);
-        orderRequest.setTranking(trackingUpdate);
+        orderRequest.setTracking(trackingUpdate);
         orderRequestService.saveOrUpdateOrderRequest(orderRequest);
     }//hàm update lại các giá trị tracking cho order request.
     public void updateAttendantPresent(SlotExercise slotExercise,Attendant attendant){

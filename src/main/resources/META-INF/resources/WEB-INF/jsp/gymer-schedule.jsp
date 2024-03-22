@@ -30,7 +30,7 @@
             border: 1px solid #ccc;
             border-radius: 10px; /* Bo tròn các góc của khung */
             z-index: 1000;
-            width: 70%; /* Thay đổi giá trị width để điều chỉnh kích thước của khung */
+            width: 100%; /* Thay đổi giá trị width để điều chỉnh kích thước của khung */
             max-width: 500px; /* Giới hạn kích thước tối đa của khung */
         }
 
@@ -41,33 +41,45 @@
 
 
         .cd-schedule__popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
+            /*position: fixed;*/
+            /*top: 0;*/
+            /*left: 0;*/
+            /*width: 100%;*/
+            /*height: 100%;*/
+            /*!*background-color: rgba(0, 0, 0, 0.5);*!*/
+            /*z-index: 999;*/
         }
 
         .cd-schedule__popup-overlay.active {
             display: block;
         }
+
         .attendant-PRESENT {
             background-color: #389444; /* Change this to the desired color for 'PRESENT' status */
             border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .attendant-WAITING {
             background-color: #947957; /* Change this to the desired color for 'WAITING' status */
             border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .attendant-ABSENT {
             background-color: #991720; /* Change this to the desired color for 'ABSENT' status */
             border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
+        .hidden-column {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -161,15 +173,15 @@
                                                                    data-content="event-abs-circuit"
                                                                    data-event="event-1"
                                                                    data-slot-id="${slotE.id}"
-                                                                   href="#0">
+                                                                   href="#0" style="background: #26294f;">
                                                                     <c:choose>
                                                                         <c:when test="${account.role ne 'GYMER'}">
                                                                             <em class="cd-schedule__name">
                                                                                     ${slotE.gymer.account.fullName}</em>
                                                                         </c:when>
                                                                         <c:otherwise>
-                                                                            <em class="cd-schedule__name">Training with
-                                                                                PT ${slotE.personalTrainer.account.fullName}</em>
+                                                                            <em class="cd-schedule__name" style="font-size: 16px;">Training with:
+                                                                                ${slotE.personalTrainer.account.fullName}</em>
                                                                         </c:otherwise>
                                                                     </c:choose>
                                                                     <em class="cd-schedule__name attendant-${slotE.attendantStatus}">
@@ -184,7 +196,6 @@
                                         </c:forEach>
                                     </ul>
                                 </div>
-
                                 <div class="cd-schedule-modal">
                                     <header class="cd-schedule-modal__header">
                                         <div class="cd-schedule-modal__content">
@@ -196,37 +207,42 @@
                                     <c:choose>
                                         <c:when test="${account.role ne 'GYMER'}">
                                             <div id="popup-form" class="cd-schedule__popup">
-                                                <table class="table">
-                                                    <thead class="thead-dark">
-                                                    <tr>
-                                                        <th>Exercise Name</th>
-                                                        <th>Set</th>
-                                                        <th>Rep</th>
-                                                        <th>Delete</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <c:forEach var="slotDetail" items="${SlotDetail}">
-                                                        <tr data-slot-id="${slotDetail.slotExercise.id}">
-                                                            <td>${slotDetail.exercise.name}</td>
-                                                            <td>${slotDetail.setExe}</td>
-                                                            <td>${slotDetail.rep}</td>
-                                                            <td>
-                                                                <a href="/delete-detail?slotDetailID=${slotDetail.id}&year=${param.year}&week=${param.week}">
+                                                <form id="myForm" method="post" action="/insert-exercise-detail">
+                                                    <table class="table">
+                                                        <thead class="thead-dark">
+                                                        <tr>
+                                                            <th class="hidden-column">id</th>
+                                                            <th>Exercise Name</th>
+                                                            <th>Set</th>
+                                                            <th>Rep</th>
+                                                            <th>Delete</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <c:forEach var="slotDetail" items="${SlotDetail}">
+                                                            <tr data-slot-id="${slotDetail.slotExercise.id}">
+                                                                <td class="hidden-column"
+                                                                    style="display: none">${slotDetail.id}</td>
+                                                                <td>${slotDetail.exercise.name}</td>
+                                                                <td>${slotDetail.setExe}</td>
+                                                                <td>${slotDetail.rep}</td>
+                                                                <td>
                                                                     <button type="button"
-                                                                            class="btn btn-default btn-sm">
+                                                                            class="btn btn-default btn-sm"
+                                                                            onclick="deleteRow(this)">
                                                                         <span class="glyphicon glyphicon-minus"></span>
                                                                         <strong>-</strong>
                                                                     </button>
-                                                                </a></td>
-                                                        </tr>
-                                                    </c:forEach>
-                                                    </tbody>
-                                                </table>
-                                                <form id="myForm" method="post" action="/insert-exercise-detail">
+
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                        </tbody>
+                                                    </table>
                                                     <div class="form-group">
                                                         <label for="attendantSelect">Select Attendant:</label>
-                                                        <select class="form-control" id="attendantSelect" name="attendant">
+                                                        <select class="form-control" id="attendantSelect"
+                                                                name="attendant">
                                                             <option value="PRESENT">Present</option>
                                                             <option value="ABSENT">Absent</option>
                                                         </select>
@@ -261,7 +277,10 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <input type="hidden" value="${param.week}" name="week">
+                                                    <input type="hidden" value="" name="detailDeleteID"
+                                                           id="detailDeleteID">
+
+                                                    <input type="hidden" value="${param.week}" name="week" >
                                                     <input type="hidden" value="${param.year}" name="year">
                                                     <input type="hidden" id="currentURL" name="currentURL">
                                                 </form>
@@ -284,6 +303,7 @@
                                                             <td>${slotDetail.exercise.name}</td>
                                                             <td>${slotDetail.setExe}</td>
                                                             <td>${slotDetail.rep}</td>
+
                                                         </tr>
                                                     </c:forEach>
                                                     </tbody>
@@ -329,19 +349,34 @@
 <script src="assets/js/moment.min.js"></script>
 <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
 <script src="assets/js/jquery-ui.min.js"></script>
+<script>
+    var deletedSlotDetailIDs = []; // Mảng để lưu trữ các slotDetail.id bị xóa
 
+    function deleteRow(button) {
+        var row = button.closest('tr'); // Truy cập đến hàng chứa nút "minus"
+        var slotDetailId = row.querySelector('td:first-child').innerText.trim(); // Lấy giá trị slotDetail.id từ cột đầu tiên
+
+        deletedSlotDetailIDs.push(slotDetailId); // Thêm giá trị slotDetail.id vào mảng
+
+        row.remove(); // Xóa hàng
+        updateDeletedIDsInput(); // Cập nhật giá trị của input ẩn
+    }
+
+    function updateDeletedIDsInput() {
+        // Cập nhật giá trị của input ẩn với các slotDetail.id bị xóa
+        document.getElementById('detailDeleteID').value = deletedSlotDetailIDs.join(',');
+    }
+</script>
 <script>
     function generateWeeks() {
         var year = $("#year").val();
         var weeks = [];
-
         for (var i = 1; i <= 52; i++) {
             var startOfWeek = moment().year(year).isoWeek(i).startOf('isoWeek');
             var endOfWeek = moment().year(year).isoWeek(i).endOf('isoWeek');
             var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');
             weeks.push("<option value='" + i + "'>" + weekText + "</option>");
         }
-
         $("#week").html(weeks.join(""));
     }
 
@@ -418,6 +453,22 @@
     }
 </script>
 <script>
+    var deletedRowsData = [];
+    function deleteRow(button) {
+        var row = button.closest('tr');
+        var rowData = {
+            html: row.outerHTML, // Lưu trữ HTML của hàng
+            index: Array.from(row.parentNode.children).indexOf(row) // Lưu trữ chỉ số của hàng trong danh sách
+        };
+        row.remove();
+        deletedRowsData.push(rowData); // Thêm thông tin của hàng đã xóa vào danh sách
+    }
+    // Hiển thị lại các hàng đã bị xóa
+    deletedRowsData.forEach(function(rowData) {
+        var tbody = document.querySelector('.table tbody');
+        tbody.insertAdjacentHTML('beforeend', rowData.html); // Chèn HTML của hàng vào cuối tbody
+    });
+
     document.addEventListener("DOMContentLoaded", function () {
         var popupForm = document.getElementById("popup-form");
         var popupOverlay = document.getElementById("popup-overlay");
@@ -458,8 +509,6 @@
             popupOverlay.classList.remove("active");
         }
     });
-
-
 </script>
 <%--<c:forEach var="exercise" items="${exerciseList}">--%>
 <%--    <option value="${exercise.id}">${exercise.name}</option>--%>
@@ -488,13 +537,13 @@
             <div class="col-lg-3 col-md-6">
                 <div class="form-group">
                     <label>Set</label>
-                    <input type="text" class="form-control exerciseSet" placeholder="Enter set" name="exerciseSet${numberOfExerciseFields}">
+                    <input type="text" class="form-control exerciseSet" placeholder="Enter set" name="exerciseSet${numberOfExerciseFields}" required >
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="form-group">
                     <label>Rep</label>
-                    <input type="text" class="form-control exerciseRep" placeholder="Enter rep" name="exerciseRep${numberOfExerciseFields}">
+                    <input type="text" class="form-control exerciseRep" placeholder="Enter rep" reqirename="exerciseRep${numberOfExerciseFields}" required >
                 </div>
             </div>
         </div>`;
@@ -507,22 +556,18 @@
 
     function collectExerciseData() {
         var exerciseData = [];
-
         $('.exerciseFields').each(function () {
             var exerciseSelect = $(this).find('[name^="exerciseSelect"]').val();
             var exerciseSet = $(this).find('[name^="exerciseSet"]').val();
             var exerciseRep = $(this).find('[name^="exerciseRep"]').val();
-
             exerciseData.push({
                 exerciseId: exerciseSelect,
                 set: exerciseSet,
                 rep: exerciseRep
             });
         });
-
         return exerciseData;
     }
-
     function setCurrentURL() {
         // Lấy URL hiện tại
         var currentURL = window.location.href;
@@ -539,7 +584,6 @@
             document.getElementById("currentURL").value = extractedPart;
         }
     }
-
     function submitForm() {
         var description = $('#description').val();
         var slotId = $('#slotId').val();

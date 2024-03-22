@@ -23,7 +23,7 @@ public class SlotExeDetailService {
     }
 
     public void deleteAllBySlotExercise_Id(Integer id){
-        slotExeDetailRepository.deleteAllBySlotExercise_Id(id);
+       slotExeDetailRepository.deleteAllBySlotExercise_Id(id);
     }
 
     public List<SlotExerciseDetail> getAllSlotOfSlotExercise(SlotExercise slotExercise){

@@ -27,7 +27,7 @@
             transform: translate(-50%, -50%);
             background-color: #fff;
             padding: 40px; /* Thay đổi giá trị padding để làm cho khung to ra hơn */
-            border: 1px solid #ccc;
+            /*border: 1px solid #ccc;*/
             border-radius: 10px; /* Bo tròn các góc của khung */
             z-index: 1000;
             width: 70%; /* Thay đổi giá trị width để điều chỉnh kích thước của khung */
@@ -41,13 +41,13 @@
 
 
         .cd-schedule__popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
+            /*position: fixed;*/
+            /*top: 0;*/
+            /*left: 0;*/
+            /*width: 100%;*/
+            /*height: 100%;*/
+            /*background-color: rgba(0, 0, 0, 0.5);*/
+            /*z-index: 999;*/
         }
 
         .cd-schedule__popup-overlay.active {
@@ -57,16 +57,29 @@
         .attendant-PRESENT {
             background-color: #389444; /* Change this to the desired color for 'PRESENT' status */
             border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .attendant-WAITING {
             background-color: #947957; /* Change this to the desired color for 'WAITING' status */
             border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .attendant-ABSENT {
             background-color: #991720; /* Change this to the desired color for 'ABSENT' status */
             border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hidden-column {
+            display: none;
         }
     </style>
 </head>
@@ -160,11 +173,11 @@
                                                                    data-content="event-abs-circuit"
                                                                    data-event="event-1"
                                                                    data-slot-id="${slotE.id}"
-                                                                   href="#0">
+                                                                   href="#0" style="background: #26294f;">
                                                                     <c:choose>
                                                                         <c:when test="${account.role ne 'GYMER'}">
                                                                             <em class="cd-schedule__name">
-                                                                                 ${slotE.gymer.account.fullName}</em>
+                                                                                    ${slotE.gymer.account.fullName}</em>
                                                                         </c:when>
                                                                         <c:otherwise>
                                                                             <em class="cd-schedule__name">Training with
@@ -200,6 +213,7 @@
                                                     <table class="table">
                                                         <thead class="thead-dark">
                                                         <tr>
+                                                            <th class="hidden-column">id</th>
                                                             <th>Exercise Name</th>
                                                             <th>Set</th>
                                                             <th>Rep</th>
@@ -209,24 +223,28 @@
                                                         <tbody>
                                                         <c:forEach var="slotDetail" items="${SlotDetail}">
                                                             <tr data-slot-id="${slotDetail.slotExercise.id}">
+                                                                <td class="hidden-column"
+                                                                    style="display: none">${slotDetail.id}</td>
                                                                 <td>${slotDetail.exercise.name}</td>
                                                                 <td>${slotDetail.setExe}</td>
                                                                 <td>${slotDetail.rep}</td>
                                                                 <td>
-                                                                    <a href="/delete-detail?slotDetailID=${slotDetail.id}&year=${param.year}&week=${param.week}">
-                                                                        <button type="button"
-                                                                                class="btn btn-default btn-sm">
-                                                                            <span class="glyphicon glyphicon-minus"></span>
-                                                                            <strong>-</strong>
-                                                                        </button>
-                                                                    </a></td>
+                                                                    <button type="button"
+                                                                            class="btn btn-default btn-sm"
+                                                                            onclick="deleteRow(this)">
+                                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                                        <strong>-</strong>
+                                                                    </button>
+
+                                                                </td>
                                                             </tr>
                                                         </c:forEach>
                                                         </tbody>
                                                     </table>
                                                     <div class="form-group">
                                                         <label for="attendantSelect">Select Attendant:</label>
-                                                        <select class="form-control" id="attendantSelect" name="attendant">
+                                                        <select class="form-control" id="attendantSelect"
+                                                                name="attendant">
                                                             <option value="PRESENT">Present</option>
                                                             <option value="ABSENT">Absent</option>
                                                         </select>
@@ -261,6 +279,9 @@
                                                             </button>
                                                         </div>
                                                     </div>
+                                                    <input type="hidden" value="" name="detailDeleteID"
+                                                           id="detailDeleteID">
+
                                                     <input type="hidden" value="${param.week}" name="week">
                                                     <input type="hidden" value="${param.year}" name="year">
                                                     <input type="hidden" id="currentURL" name="currentURL">
@@ -273,6 +294,7 @@
                                                 <table class="table">
                                                     <thead class="thead-dark">
                                                     <tr>
+                                                        <th style="display: none">id</th>
                                                         <th>Exercise Name</th>
                                                         <th>Set</th>
                                                         <th>Rep</th>
@@ -281,6 +303,7 @@
                                                     <tbody>
                                                     <c:forEach var="slotDetail" items="${SlotDetail}">
                                                         <tr data-slot-id="${slotDetail.slotExercise.id}">
+                                                            <td style="display: none">${slotDetail.id}</td>
                                                             <td>${slotDetail.exercise.name}</td>
                                                             <td>${slotDetail.setExe}</td>
                                                             <td>${slotDetail.rep}</td>
@@ -292,10 +315,7 @@
 
                                         </c:otherwise>
                                     </c:choose>
-
                                     <div id="popup-overlay" class="cd-schedule__popup-overlay"></div>
-
-
                                     <div class="cd-schedule-modal__body">
                                         <div class=" cd-schedule-modal__event-info">
                                         </div>
@@ -329,6 +349,25 @@
 <script src="assets/js/moment.min.js"></script>
 <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
 <script src="assets/js/jquery-ui.min.js"></script>
+<script>
+    var deletedSlotDetailIDs = []; // Mảng để lưu trữ các slotDetail.id bị xóa
+
+    function deleteRow(button) {
+        var row = button.closest('tr'); // Truy cập đến hàng chứa nút "minus"
+        var slotDetailId = row.querySelector('td:first-child').innerText.trim(); // Lấy giá trị slotDetail.id từ cột đầu tiên
+
+        deletedSlotDetailIDs.push(slotDetailId); // Thêm giá trị slotDetail.id vào mảng
+
+        row.remove(); // Xóa hàng
+        updateDeletedIDsInput(); // Cập nhật giá trị của input ẩn
+    }
+
+    function updateDeletedIDsInput() {
+        // Cập nhật giá trị của input ẩn với các slotDetail.id bị xóa
+        document.getElementById('detailDeleteID').value = deletedSlotDetailIDs.join(',');
+    }
+</script>
+
 
 <script>
     function generateWeeks() {
@@ -483,17 +522,17 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <div class="form-group">
-                    <label>Set</label>
-                    <input type="text" class="form-control exerciseSet" placeholder="Enter set" name="exerciseSet${numberOfExerciseFields}">
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="form-group">
-                    <label>Rep</label>
-                    <input type="text" class="form-control exerciseRep" placeholder="Enter rep" name="exerciseRep${numberOfExerciseFields}">
-                </div>
-            </div>
+        <div class="form-group">
+            <label>Set</label>
+            <input type="text" class="form-control" placeholder="Enter set" name="exerciseSet${numberOfExerciseFields}" required>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="form-group">
+            <label>Rep</label>
+            <input type="text" class="form-control" placeholder="Enter rep" name="exerciseRep${numberOfExerciseFields}" required>
+        </div>
+    </div>
         </div>`;
         exerciseFieldsContainer.append(newExerciseField);
         // Add click event listener to the newly created "Remove" button
@@ -519,6 +558,7 @@
 
         return exerciseData;
     }
+
     function setCurrentURL() {
         // Lấy URL hiện tại
         var currentURL = window.location.href;

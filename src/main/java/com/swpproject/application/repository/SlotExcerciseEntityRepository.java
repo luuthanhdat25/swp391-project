@@ -6,6 +6,7 @@ import com.swpproject.application.model.PersonalTrainer;
 import com.swpproject.application.model.SlotExercise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
@@ -65,9 +66,11 @@ public interface SlotExcerciseEntityRepository extends JpaRepository<SlotExercis
     public List<SlotExercise> findAllByOrderRequest(OrderRequest orderRequest);
 
     public List<SlotExercise> findAllByWeekAndYearAndPersonalTrainerAndIsPending(int week, int year, PersonalTrainer personalTrainer, boolean isPending);
-
     public List<SlotExercise> findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(int week, int year, Gymer gymer, boolean isPending);
+
+    public void deleteById(Integer id);
     public List<SlotExercise> findAllByWeekAndYearAndPersonalTrainer(int week,int year, PersonalTrainer personalTrainer);
 
+    public List<SlotExercise> findAllByPersonalTrainer(PersonalTrainer personalTrainer);
     public SlotExercise findTopById(Integer id);
 }

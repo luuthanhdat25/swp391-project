@@ -73,12 +73,12 @@ public class SlotController {
             model.addAttribute("accountId", personalTrainerID);
             model.addAttribute("personalTrainer", personalTrainer);
             System.out.println("price: " + personalTrainer.getPrice());
-            List<SlotExercise> getSlotOnGoing = slotExcerciseEntityService.getSlotNotPending(personalTrainer.getId(),false);
+            List<SlotExercise> getSlotOnGoing = slotExcerciseEntityService.getSlotOfPersonalTrainer(personalTrainer);
             if (week != null && year != null) {
                 List<SlotExercise> getSlotOnWeekAndYear = slotExcerciseEntityService.getAllSlotByWeek(week,year);
                 model.addAttribute("week", week);
                 model.addAttribute("year", year);
-                model.addAttribute("allSlot",getSlotOnWeekAndYear);
+                model.addAttribute("allSlot",getSlotOnGoing);
                 redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
                 redirectAttributes.addAttribute("week", week);
                 redirectAttributes.addAttribute("year", year);
@@ -99,10 +99,16 @@ public class SlotController {
         }
         List<ConflictInfo> conflictsList = (List<ConflictInfo>) session.getAttribute("conflictsList");
         String errorMessage = (String) session.getAttribute("ErrorMessage");
+        if(session.getAttribute("trainingTime") != null){
+            int trainingTime = (int) session.getAttribute("trainingTime");
+            model.addAttribute("trainingTime",trainingTime);
+        }
+
         model.addAttribute("ErrorMessage",errorMessage);
         model.addAttribute("conflictsList",conflictsList);
         session.removeAttribute("conflictsList");
         session.removeAttribute("ErrorMessage");
+        session.removeAttribute("trainingTime");
         return "forward:/bookPT";
     }
 
@@ -110,7 +116,6 @@ public class SlotController {
     public String viewPTList(Model model) {
         List<Account> personalTrainers = accountService.findAccountByRole(Role.PT);
         model.addAttribute("personalTrainers", personalTrainers);
-
         return "viewAllPersonalTrainer";
     }
 
@@ -221,6 +226,8 @@ public class SlotController {
                 redirectAttributes.addAttribute("PersonalTrainerID", personalTrainerID);
                 redirectAttributes.addAttribute("week", week);
                 redirectAttributes.addAttribute("year", year);
+                model.addAttribute("trainingTime", trainingTime);
+                session.setAttribute("trainingTime",trainingTime);
                 return "redirect:/bookPT1";
             }else{
                     orderRequest.setPersonalTrainer(personalTrainer); //set personal Trainer for order request
@@ -229,7 +236,7 @@ public class SlotController {
                     orderRequest.setDescription(desc);
                     orderRequest.setTotal_of_money(totalAmount);
                     orderRequest.setStatus(OrderStatus.Pending);
-                    orderRequest.setTranking(0);
+                    orderRequest.setTracking(0);
                     System.out.println("goal" + title);
                     System.out.println("desc" + desc);
                     System.out.println("training time" + trainingTime);
@@ -292,7 +299,7 @@ public class SlotController {
         }
 
 
-        return "redirect:/personal-trainer";
+        return "redirect:/order-history";
     }
     public boolean checkBookSecond(Account account){
         Gymer gymer = gymerService.getGymerByAccount(account).get();

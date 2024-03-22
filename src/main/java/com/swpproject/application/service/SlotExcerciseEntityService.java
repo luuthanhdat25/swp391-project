@@ -83,8 +83,15 @@ public class SlotExcerciseEntityService {
         return  slotExcerciseEntityRepository.findAllByOrderRequest(orderRequest);
     }
 
+    public void deleteById(Integer id){
+        slotExcerciseEntityRepository.deleteById(id);
+    }
+
     public SlotExercise getSlotByID(Integer id){
         return slotExcerciseEntityRepository.findTopById(id);
+    }
+    public List<SlotExercise> getSlotOfPersonalTrainer(PersonalTrainer personalTrainer){
+        return slotExcerciseEntityRepository.findAllByPersonalTrainer(personalTrainer);
     }
 
 }

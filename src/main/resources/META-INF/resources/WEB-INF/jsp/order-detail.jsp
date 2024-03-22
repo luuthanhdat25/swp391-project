@@ -31,8 +31,6 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-
-
                                     <form:form action="${pageContext.request.contextPath}/accept-order" method="post">
                                     <h5 class="card-title">Purpose details</h5>
                                     <c:choose>
@@ -296,21 +294,21 @@
                                         </c:choose>
                                     </c:otherwise>
                                 </c:choose>
-
-
-                                <!-- Display the "Accept" button only if MSG is empty -->
-                                <button type="submit" class="btn btn-primary" name="action" value="accept">
-                                    Accept
-                                </button>
-                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
-                                   name="action" value="decline">Decline</a>
-
-                                <!-- If MSG is not empty, display the "Decline" button -->
-                                <a href="/decline-order?orderId=${param.order_id}" class="btn btn-primary"
-                                   name="action" value="decline">Decline</a>
-
-
                             </div>
+
+
+                            <button type="submit" class="btn btn-primary" name="action"
+                                    value="accept">
+                                Accept
+                            </button>
+
+                            <a href="/decline-order?orderId=${param.order_id}"
+                               class="btn btn-primary"
+                               name="action" value="decline">Decline</a>
+
+                            <a href="/decline-order?orderId=${param.order_id}"
+                               class="btn btn-primary"
+                               name="action" value="decline">Decline</a>
                             <input type="hidden" name="MSG" value="${MSG}">
 
 
@@ -376,20 +374,20 @@
     }
 
 </script>
-<%--<script src="assets/js/jquery-3.6.0.min.js"></script>--%>
+<script src="assets/js/jquery-3.6.0.min.js"></script>
 
-<%--<script src="assets/js/popper.min.js"></script>--%>
-<%--<script src="assets/js/bootstrap.min.js"></script>--%>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 
-<%--<script src="assets/js/feather.min.js"></script>--%>
+<script src="assets/js/feather.min.js"></script>
 
-<%--<script src="assets/js/jquery.slimscroll.min.js"></script>--%>
+<script src="assets/js/jquery.slimscroll.min.js"></script>
 
-<%--<script src="assets/js/moment.min.js"></script>--%>
-<%--<script src="assets/js/bootstrap-datetimepicker.min.js"></script>--%>
+<script src="assets/js/moment.min.js"></script>
+<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
 
-<%--<script src="assets/js/jquery-ui.min.js"></script>--%>
-<%--<script src="assets/js/scriptBook.js"></script>--%>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/scriptBook.js"></script>
 <%@ include file="common/script.jspf" %>
 </body>
 

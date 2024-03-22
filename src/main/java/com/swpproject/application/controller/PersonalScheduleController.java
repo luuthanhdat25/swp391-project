@@ -128,7 +128,7 @@ public class PersonalScheduleController {
         if (gymer == null) {
             gymer = (Gymer) session.getAttribute("GymerCustomer");
         }
-    if (gymer != null) {
+        if (gymer != null) {
 
             List<SlotExercise> slotExes = slotExcerciseEntityService.findAllByWeekAndYearAndGymerAndPersonalTrainerNotNullAndIsPending(week, year, gymer, false);
             List<SlotExerciseDetail> slotExerciseDetails = new ArrayList<>();
@@ -192,7 +192,7 @@ public class PersonalScheduleController {
 
         model.addAttribute("week", week);
         model.addAttribute("year", year);
-        return "redirect:/view-personal-schedule?week=" + week + "&year=" + year;
+        return "forward:/view-personal-schedule?week=" + week + "&year=" + year;
     }
 
     @PostMapping(value = "/view-personal-schedule")
@@ -330,4 +330,3 @@ public class PersonalScheduleController {
     }
 
 }
-

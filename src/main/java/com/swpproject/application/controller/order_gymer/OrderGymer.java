@@ -56,6 +56,7 @@ public class OrderGymer {
                                   @RequestParam(value = "year", required = false) int year,
                                   @RequestParam(value = "attendant",required = false) String attendant,
                                   @RequestParam(value = "currentURL", required = false) String currentURL,
+                                  @RequestParam(value = "detailDeleteID",required = false) String detailDeleteID,
                                   RedirectAttributes redirectAttributes,
                                   HttpSession session, HttpServletRequest request) {
 
@@ -63,7 +64,16 @@ public class OrderGymer {
         System.out.println("Slot ID: " + slotId);
         System.out.println("Exercise Data JSON: " + exerciseDataJson);
         System.out.println("current url" + currentURL);
+        System.out.println("String delete: " + detailDeleteID);
         // Loại bỏ dấu '[' và ']'
+
+
+        if(!detailDeleteID.isEmpty()){
+            String[] deleteArray = detailDeleteID.split(",");
+            for (String s : deleteArray) {
+                slotExeDetailService.deleteExerciseDetail(Integer.parseInt(s));
+            }
+        }
 
         if(!exerciseDataJson.equalsIgnoreCase("[]")){
             String cleanJson = exerciseDataJson.substring(1, exerciseDataJson.length() - 1);
@@ -96,10 +106,19 @@ public class OrderGymer {
                         if ("exerciseId".equals(key)) {
                             exerciseId = Integer.parseInt(value);
                         } else if ("set".equals(key)) {
-                            set = Integer.parseInt(value);
+                            if (!value.isEmpty()) {
+                                set = Integer.parseInt(value);
+                            } else {
+                                set = 0;
+                            }
                         } else if ("rep".equals(key)) {
-                            rep = Integer.parseInt(value);
+                            if (!value.isEmpty()) {
+                                rep = Integer.parseInt(value);
+                            } else {
+                                rep = 0;
+                            }
                         }
+
                     }
                     // In ra giá trị đã trích xuất
                     System.out.println("Exercise ID: " + exerciseId + ", Set: " + set + ", Rep: " + rep);
@@ -147,18 +166,18 @@ public class OrderGymer {
 
     public void updateTrackingPresent(OrderRequest orderRequest){
         List<SlotExercise> orderSize = slotExcerciseEntityService.GetSlotOfOrder(orderRequest);
-        Integer trackingUpdate = orderRequest.getTranking();
+        Integer trackingUpdate = orderRequest.getTracking();
         double updateValue = 1.0 / orderSize.size() * 100;
         trackingUpdate += (int) Math.ceil(updateValue);
-        orderRequest.setTranking(trackingUpdate);
+        orderRequest.setTracking(trackingUpdate);
         orderRequestService.saveOrUpdateOrderRequest(orderRequest);
     }//hàm update lại các giá trị tracking cho order request.
     public void updateTrackingAbsent(OrderRequest orderRequest){
         List<SlotExercise> orderSize = slotExcerciseEntityService.GetSlotOfOrder(orderRequest);
-        Integer trackingUpdate = orderRequest.getTranking();
+        Integer trackingUpdate = orderRequest.getTracking();
         double updateValue = 1.0 / orderSize.size() * 100;
         trackingUpdate -= (int) Math.ceil(updateValue);
-        orderRequest.setTranking(trackingUpdate);
+        orderRequest.setTracking(trackingUpdate);
         orderRequestService.saveOrUpdateOrderRequest(orderRequest);
     }
     public void updateAttendantPresent(SlotExercise slotExercise, Attendant attendant){

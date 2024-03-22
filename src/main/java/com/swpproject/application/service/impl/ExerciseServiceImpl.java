@@ -101,6 +101,12 @@ public class ExerciseServiceImpl implements ExerciseService {
         exerciseRepository.save(exercise);
     }
 
+    @Override
+    public List<Exercise> findExerciseByIsPrivate(int isPrivate) {
+        return exerciseRepository.findAllByIsPrivate(isPrivate);
+    }
+
+
     private boolean isImageLengthEqualZero(MultipartFile image) throws IOException {
         return image.getBytes().length == 0;
     }

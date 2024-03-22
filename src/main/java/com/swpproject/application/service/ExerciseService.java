@@ -22,4 +22,6 @@ public interface ExerciseService {
     void create(ExerciseDTOIn exerciseDTOIn, RoleDTO roleDTO) throws IOException;
 
     void update(ExerciseDTOIn exerciseDTOIn, int exerciseId) throws IOException;
+
+    List<Exercise> findExerciseByIsPrivate(int isPrivate);
 }

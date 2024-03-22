@@ -79,7 +79,7 @@
 
                                                 <div class="d-flex mt-3">
                                                     <button type="submit" class="btn btn-primary me-2">Create</button>
-                                                    <a href="/nutrition/" class="btn btn-danger">Cancel</a>
+                                                    <a id="cancel" class="btn btn-danger">Cancel</a>
                                                 </div>
                                             </form>
 
@@ -108,6 +108,15 @@
     <script src="../../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <script src="../../../assets/js/script.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#cancel").click(function(event) {
+                event.preventDefault();
+                window.history.back();
+            });
+        });
+    </script>
 
     <script src="../../../assets/js/exercise/create/exercise-create-image-import.js"></script>
     <script src="../../../assets/js/nutrition/create/nutrition-create-submit-handler.js"></script>

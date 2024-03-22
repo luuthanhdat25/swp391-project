@@ -52,7 +52,7 @@
                         <div>
                             <select class="form-select" id="selectOption">
                                 <option value="2">All exercise</option>
-                                <option value="0">Publish</option>
+                                <option value="0">Public</option>
                                 <option value="1">Private</option>
                             </select>
                         </div>
@@ -69,7 +69,7 @@
                             <th scope="col">Level</th>
                             <th scope="col">Affected Muscle</th>
                             <th scope="col">Equipment</th>
-                            <th scope="col">Publish</th>
+                            <th scope="col">Public</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
@@ -426,8 +426,7 @@
 
         $(document).ready(function(){
             var searchInput = $('#searchInput');
-            
-            
+
             searchInput.keypress(function(event){
                 var keycode = (event.keyCode ? event.keyCode : event.which);
                 if(keycode == '13'){

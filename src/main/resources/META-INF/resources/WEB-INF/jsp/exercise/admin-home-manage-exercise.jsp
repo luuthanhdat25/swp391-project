@@ -40,15 +40,15 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center" style="width: 100%; padding: 0 15px 0 15px; margin-top: 2px;">
                         <div class="input-group" style="width: 100%;">
-                            <input type="text" class="form-control" style="border: 1px solid #4c4c4c;"
+                            <input id="searchInput" type="text" class="form-control" style="border: 1px solid #4c4c4c;"
                                    placeholder="Search here" name="title">
-                            <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                            <button id="search-exercise-button" class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                         </div>
                         <div class="d-flex justify-content-center align-items-center h-auto" style="width: 10rem">
                             <div>
                                 <select class="form-select" id="selectOption">
-                                    <option value="all">All exercise</option>
-                                    <option value="admin">Only Admin</option>
+                                    <option value="1">All Exercise</option>
+                                    <option value="0">Only Admin</option>
                                 </select>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                 <th scope="col">Affected Muscle</th>
                                 <th scope="col">Equipment</th>
                                 <th scope="col">Author</th>
-                                <th scope="col">Public</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody id="tbody">
@@ -85,6 +85,16 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed end-0 p-3" style="top: 3rem">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header" id="statusBg">
+            <strong class="me-auto text-white" id="toastTitle"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body"></div>
     </div>
 </div>
 
@@ -122,10 +132,6 @@
                             <div class="student-personals-grp">
                                 <div class="card">
                                     <div class="card-body position-relative">
-                                        <select class="form-select form-select-lg " aria-label="Select visibility">
-                                            <option value="public">Public</option>
-                                            <option value="private">Private</option>
-                                        </select>
                                         <div id="exerciseImage" class="mt-3"> </div>
                                         <div class="mt-md-2" id="exerciseDetails"></div>
                                     </div>
@@ -152,6 +158,29 @@
 
 <script src="../../../assets/js/script.js"></script>
 
+
+<script>
+    var toastDTO = ${toastDTO};
+
+    var toastElement = $('.toast');
+    var statusBg = $('#statusBg');
+    var toastTitle = $('#toastTitle')
+    var contentMessage = $('.toast-body');
+    statusBg.addClass('bg-success');
+
+    function showToast(title, message) {
+        toastTitle.html(title);
+        contentMessage.html(message);
+        var toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }
+
+    if (toastDTO && toastDTO.status === 1) {
+        showToast(toastDTO.title, toastDTO.message);
+    }
+</script>
+
+
 <script>
     var exerciseList = ${exerciseList}
     console.log(exerciseList)
@@ -171,11 +200,25 @@
         $.each(paginatedItems, function (i, exercise) {
             var displayName = exercise.name.length > 20 ? exercise.name.substring(0, 20) + '...' : exercise.name;
             var ptImage;
+            var ptHref;
+            var action = '';
             if (exercise.personalTrainer_image) {
                 ptImage = "data:image/jpeg;base64," + exercise.personalTrainer_image;
+                ptHref = "/admin-home/personal-trainer-account?id=" + exercise.personalTrainer_id;
+                var isPublic = !exercise.isPrivate;
+                var selectedPublic = isPublic ? 'selected' : '';
+
+                action += '<select class="form-select form-select-sm" aria-label="Select visibility" data-exercise-id="' + exercise.id + '">' +
+                    '<option value="0" ' + selectedPublic + '>Public</option>' +
+                    '<option value="1" ' + (selectedPublic ? '' : 'selected') + '>Private</option>' +
+                    '</select>';
             } else {
                 ptImage = "../../assets/img/sm-logo.png";
+                ptHref = "#"
+                action += '<a href="/admin-home/manage-exercise/edit?id=' + exercise.id + '" class="btn btn-sm btn-primary fw-bold">Update</a>';
             }
+
+
             var row = '<tr class="align-middle">' +
                 '<td class="align-middle">' + index + '</td>' +
                 '<td class="text-start align-middle"> ' +
@@ -190,27 +233,50 @@
                 '<td class="align-middle">' + exercise.type + '</td>' +
                 '<td class="align-middle">' + exercise.equipment + '</td>' +
                 '<td class="align-middle">' +
-                '<a href="/personal-trainer/details?id=' + exercise.personalTrainerId + '" class="avatar avatar-sm me-2">' +
-                '<img class="avatar-img rounded-circle" src="' + ptImage + '" alt="User Image">' +
+                '<a href="' + ptHref + '" class="avatar avatar-sm me-2">' +
+                '<img class="avatar-img rounded-circle " src="' + ptImage + '" alt="User Image">' +
                 '</a>' +
                 '</td>' +
-                '<td class="align-middle">' +
-                '<select class="form-select form-select-sm" aria-label="Select visibility">' +
-                '<option value="public">Public</option>' +
-                '<option value="private">Private</option>' +
-                '</select>' +
-                '</td>' +
+                '<td class="align-middle">' + action + '</td>' +
                 '</tr>';
             html += row;
-            index++; // Increment the index for each row
+            index++;
         });
 
         tbody.html(html);
+
+        // Add change event listener to selects
+        $('select').change(function() {
+            var exerciseId = $(this).data('exercise-id');
+            var visibility = $(this).val();
+            changeStatus(exerciseId, visibility);
+        });
     }
 
+    var statusBg = $('#statusBg');
+    statusBg.addClass('bg-success');
 
-
-
+    function changeStatus(id, status) {
+        $.ajax({
+            type: "GET",
+            url: "/admin-home/exercise-change-status",
+            data: {
+                id: id,
+                status: status
+            },
+            success: function(response) {
+                console.log(response);
+                $('#toastTitle').html('Success');
+                $('.toast-body').html(response);
+                var toastElement = $('.toast');
+                var toast = new bootstrap.Toast(toastElement);
+                toast.show();
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
 
 
     function renderPagination() {
@@ -236,8 +302,17 @@
         }
     });
 
-    displayItems(currentPage);
-    renderPagination();
+    if(exerciseList){
+        if(exerciseList.length <= 0){
+            exerciseList = [];
+            renderPagination();
+            $('.page-item').addClass('disabled');
+            tbody.html("<p class='fs-3 text text-secondary mt-3'>Not found any Exercise!</p>");
+        }else {
+            displayItems(currentPage);
+            renderPagination();
+        }
+    }
 
     $(document).ready(function () {
         $(document).on('click', '.exercise-detail', function (event) {
@@ -267,7 +342,10 @@
                         '<h2 class="m-100 p-1 bg-secondary text-white rounded" id="equipment" style="font-size: 1rem">Equipment: ' + exercise.equipment + '</h2>');
 
                     $('#exerciseDescription').html(exercise.description);
-
+                    if(!exercise.personalTrainer_image){
+                        $('#editButton').attr('href', "/admin-home/manage-exercise/edit?id=" + exercise.id)
+                        $('#editButton').show()
+                    }
                     var videoId = extractVideoId(exercise.videoDescription);
 
                     // Nếu có video ID, tạo người chơi YouTube
@@ -355,7 +433,55 @@
         console.log("Selected option:", selectedOption);
     }
 
+    function sendFilter() {
+        var searchValue = $('#searchInput').val();
+        var selectedOption = $('#selectOption').val();
+
+        $.ajax({
+            url: '/api/exercises/admin?search=' + encodeURIComponent(searchValue) + '&option=' + encodeURIComponent(selectedOption),
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            success: function(response) {
+                console.log(response);
+                if (response && response.length > 0) {
+                    exerciseList = response;
+                    currentPage = 1;
+                    displayItems(currentPage);
+                    renderPagination();
+                } else {
+                    exerciseList = [];
+                    renderPagination();
+                    $('.page-item').addClass('disabled');
+                    tbody.html("<p class='fs-3 text text-secondary mt-3'>Not found any Exercise!</p>");
+                }
+            },
+            error: function(status, error) {
+                console.error("Error:", status, error);
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        var searchInput = $('#searchInput');
+
+        searchInput.keypress(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
+                event.preventDefault();
+                sendFilter()
+            }
+        });
+
+        $('#search-exercise-button').click(function() {
+            sendFilter()
+        });
+
+        $('#selectOption').change(function() {
+            sendFilter()
+        });
+    });
 </script>
+
 
 <script src="../../../assets/js/jquery-3.6.0.min.js"></script>
 <%@ include file="../common/script.jspf" %>

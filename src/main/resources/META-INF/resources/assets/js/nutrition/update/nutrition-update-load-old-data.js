@@ -8,6 +8,10 @@ $(document).ready(function(){
 
     $('#previewImage').attr('src',"data:image/jpeg;base64," + nutrition.imageDescription);
     $('#previewImage').show();
-    $('#nutritionPrivate').prop('checked', nutrition.isPrivate === '1');
-    $('#cancelButton').attr("href", "/nutrition/");
+    $('#nutritionPrivate').prop('checked', nutrition.isPrivate === 1);
+
+    $("#cancelButton").click(function(event) {
+        event.preventDefault();
+        history.go(-1);
+    });
 })

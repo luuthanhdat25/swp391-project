@@ -194,7 +194,7 @@
                                     </button>
                                 </form>
 
-                                <form action="http://localhost:8080/personal-trainer/details" method="get">
+                                <form action="http://localhost:8080/admin-home/manage-account/details" method="get">
                                     <input type="hidden" name="id" id="personalTrainerID">
                                     <button type="submit" class="btn btn-success">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"

@@ -22,7 +22,7 @@ public interface SlotNutriDetailRepository extends JpaRepository<SlotNutritionDe
             "    ON sc.id = sn.schedule_id\n" +
             "  JOIN gymer gy\n" +
             "    ON gy.id = sc.gymer_id\n" +
-            " WHERE gy.id = 1 AND sc.personal_trainer_id IS NULL AND SN.week = DATEPART(WEEK, GETDATE()) AND SN.day = DATENAME(WEEKDAY, GETDATE()) AND SN.year = DATENAME(YEAR, GETDATE());", nativeQuery = true)
+            " WHERE gy.id = :id AND sc.personal_trainer_id IS NULL AND SN.week = DATEPART(WEEK, GETDATE()) AND SN.day = DATENAME(WEEKDAY, GETDATE()) AND SN.year = DATENAME(YEAR, GETDATE());", nativeQuery = true)
     public List<SlotNutritionDetail> getSlotNutritionDetailsByGymerId(Integer id);
 
 }

@@ -165,24 +165,24 @@
                                         </div>
                                     </div>
                                     <c:if test="${account.getRole().getLabel() == 'Gymer'}">
-                                    <div class="col-lg-6 col-md-6 d-flex align-items-center">
-                                        <div class="follow-btn-group">
-                                            <a class="btn btn-info message-btnsz"
-                                               href="/bookPT1?PersonalTrainerID=${param.id}">Book</a>
+                                        <div class="col-lg-6 col-md-6 d-flex align-items-center">
+                                            <div class="follow-btn-group">
+                                                <a class="btn btn-info message-btnsz"
+                                                   href="/bookPT1?PersonalTrainerID=${param.id}">Book</a>
 
-                                            <c:if test="${personalTrainer ne null}">
-                                                <button type="submit" class="btn btn-info message-btns"
-                                                        data-bs-toggle="modal" data-bs-target="#chattingModal">Inbox
-                                                </button>
-                                            </c:if>
-                                            <c:if test="${personalTrainer ne null}">
-                                                <button type="submit" class="btn btn-info message-btns"
-                                                        data-bs-toggle="modal" data-bs-target="#exampleModal">Report
-                                                </button>
-                                            </c:if>
+                                                <c:if test="${personalTrainer eq null}">
+                                                    <button type="submit" class="btn btn-info message-btns"
+                                                            data-bs-toggle="modal" data-bs-target="#chattingModal">Inbox
+                                                    </button>
+                                                </c:if>
+                                                <c:if test="${canReport}">
+                                                    <button type="submit" class="btn btn-info message-btns"
+                                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Report
+                                                    </button>
+                                                </c:if>
+                                            </div>
                                         </div>
-                                        </c:if>
-                                    </div>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>

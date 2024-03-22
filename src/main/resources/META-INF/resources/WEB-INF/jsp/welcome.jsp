@@ -370,7 +370,7 @@
             </div>
         </div>
         <footer>
-            <p>Copyright © 2022 Dreamguys.</p>
+            <p>Copyright © 2022 GymOn.</p>
         </footer>
     </div>
 </div>

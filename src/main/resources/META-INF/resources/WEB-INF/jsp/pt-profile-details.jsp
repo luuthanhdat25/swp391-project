@@ -165,168 +165,171 @@
                                         </div>
                                     </div>
                                     <c:if test="${account.getRole().getLabel() == 'Gymer'}">
-                                        <div class="col-lg-6 col-md-6 d-flex align-items-center">
-                                            <div class="follow-btn-group">
-                                                <a class="btn btn-info message-btnsz"
-                                                   href="/bookPT1?PersonalTrainerID=${param.id}">Book</a>
+                                    <div class="col-lg-6 col-md-6 d-flex align-items-center">
+                                        <div class="follow-btn-group">
+                                            <a class="btn btn-info message-btnsz"
+                                               href="/bookPT1?PersonalTrainerID=${param.id}">Book</a>
 
-                                                <button type="submit" class="btn btn-info message-btns">Inbox</button>
-                                                    <%--                                            <button type="submit" class="btn btn-info message-btns">Inbox</button>--%>
-                                                <c:if test="${canReport}">
-                                                    <button type="submit" class="btn btn-info message-btns"
-                                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Report
-                                                    </button>
-                                                </c:if>
-                                            </div>
+                                            <c:if test="${personalTrainer ne null}">
+                                                <button type="submit" class="btn btn-info message-btns"
+                                                        data-bs-toggle="modal" data-bs-target="#chattingModal">Inbox
+                                                </button>
+                                            </c:if>
+                                            <c:if test="${personalTrainer ne null}">
+                                                <button type="submit" class="btn btn-info message-btns"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal">Report
+                                                </button>
+                                            </c:if>
                                         </div>
-                                    </c:if>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="student-personals-grp">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div style="display: flex;align-items: center;justify-content: space-between;"
-                                             class="heading-detail">
-                                            <h4>Personal Details</h4>
-                                        </div>
-                                        <div class="personal-activity">
-                                            <div class="personal-icons">
-                                                <i class="feather-user"></i>
-                                            </div>
-                                            <div class="views-personal">
-                                                <h4>Name</h4>
-                                                <h5 class="personalTrainerName"></h5>
-                                            </div>
-                                        </div>
-                                        <div class="personal-activity">
-                                            <div class="personal-icons">
-                                                <i class="feather-phone-call"></i>
-                                            </div>
-                                            <div class="views-personal">
-                                                <h4>Mobile</h4>
-                                                <h5 id="personalTrainerPhone"></h5>
-                                            </div>
-                                        </div>
-                                        <div class="personal-activity">
-                                            <div class="personal-icons">
-                                                <i class="feather-calendar"></i>
-                                            </div>
-                                            <div class="views-personal">
-                                                <h4>Date of Birth</h4>
-                                                <h5 id="personalTrainerBirth"></h5>
-                                            </div>
-                                        </div>
-                                        <div class="personal-activity">
-                                            <div class="personal-icons">
-                                                <i class="feather-mail"></i>
-                                            </div>
-                                            <div class="views-personal">
-                                                <h4>Email</h4>
-                                                <h5 id="personalTrainerEmail"></h5>
-                                            </div>
-                                        </div>
-                                        <div class="personal-activity">
-                                            <div class="personal-icons">
-                                                <i class="feather-user"></i>
-                                            </div>
-                                            <div class="views-personal">
-                                                <h4>Gender</h4>
-                                                <h5 id="personalTrainerGender"></h5>
-                                            </div>
-                                        </div>
-                                        <div class="personal-activity mb-0">
-                                            <div class="personal-icons">
-                                                <i class="feather-map-pin"></i>
-                                            </div>
-                                            <div class="views-personal">
-                                                <h4>Address</h4>
-                                                <h5 id="personalTrainerAddress"></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="student-personals-grp">
-                                <div class="card mb-0">
-                                    <div class="card-body">
-                                        <div class="heading-detail">
-                                            <h4>Certificates</h4>
-                                        </div>
-                                        <div class="hello-park">
-                                        </div>
-                                        <div id="carouselExampleIndicators" class="carousel slide"
-                                             data-bs-ride="carousel">
-                                            <ol class="carousel-indicators">
-                                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                                                    class="active"></li>
-                                                <li data-bs-target="#carouselExampleIndicators"
-                                                    data-bs-slide-to="1"></li>
-                                                <li data-bs-target="#carouselExampleIndicators"
-                                                    data-bs-slide-to="2"></li>
-                                            </ol>
-                                            <div class="carousel-inner" role="listbox">
-                                                <div class="carousel-item active">
-                                                    <img id="slider1" class="d-block img-fluid" src="#"
-                                                         alt="First slide">
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img id="slider2" class="d-block img-fluid" src="#"
-                                                         alt="Second slide">
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img id="slider3" class="d-block img-fluid" src="#"
-                                                         alt="Third slide">
-                                                </div>
-                                            </div>
-                                            <a class="carousel-control-prev" href="#carouselExampleIndicators"
-                                               role="button" data-bs-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Previous</span>
-                                            </a>
-                                            <a class="carousel-control-next" href="#carouselExampleIndicators"
-                                               role="button" data-bs-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Next</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card blog-comments">
-                                <div class="card-header">
-                                    <h4 class="card-title"
-                                        style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">
-                                        Feedback
-                                        <c:if test="${canEvaluate != null}">
-                                            <button type="submit" class="btn btn-info" id="feedbackModalBtn">Evaluate
-                                            </button>
                                         </c:if>
-                                    </h4>
+                                    </div>
                                 </div>
-                                <div class="success-message"></div>
-                                <div class="card-body pb-0">
-                                    <ul class="comments-list">
-                                        <c:forEach items="${evaluations}" var="evaluation">
-                                            <li>
-                                                <div class="comment" style="border-bottom: 1px solid #000000">
-                                                    <div class="comment-author">
-                                                        <img class="avatar" alt=""
-                                                             src="data:image/png;base64,${evaluation.getGymer().getAccount().getAvatarImageAsString()}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="student-personals-grp">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div style="display: flex;align-items: center;justify-content: space-between;"
+                                                 class="heading-detail">
+                                                <h4>Personal Details</h4>
+                                            </div>
+                                            <div class="personal-activity">
+                                                <div class="personal-icons">
+                                                    <i class="feather-user"></i>
+                                                </div>
+                                                <div class="views-personal">
+                                                    <h4>Name</h4>
+                                                    <h5 class="personalTrainerName"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="personal-activity">
+                                                <div class="personal-icons">
+                                                    <i class="feather-phone-call"></i>
+                                                </div>
+                                                <div class="views-personal">
+                                                    <h4>Mobile</h4>
+                                                    <h5 id="personalTrainerPhone"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="personal-activity">
+                                                <div class="personal-icons">
+                                                    <i class="feather-calendar"></i>
+                                                </div>
+                                                <div class="views-personal">
+                                                    <h4>Date of Birth</h4>
+                                                    <h5 id="personalTrainerBirth"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="personal-activity">
+                                                <div class="personal-icons">
+                                                    <i class="feather-mail"></i>
+                                                </div>
+                                                <div class="views-personal">
+                                                    <h4>Email</h4>
+                                                    <h5 id="personalTrainerEmail"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="personal-activity">
+                                                <div class="personal-icons">
+                                                    <i class="feather-user"></i>
+                                                </div>
+                                                <div class="views-personal">
+                                                    <h4>Gender</h4>
+                                                    <h5 id="personalTrainerGender"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="personal-activity mb-0">
+                                                <div class="personal-icons">
+                                                    <i class="feather-map-pin"></i>
+                                                </div>
+                                                <div class="views-personal">
+                                                    <h4>Address</h4>
+                                                    <h5 id="personalTrainerAddress"></h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="student-personals-grp">
+                                    <div class="card mb-0">
+                                        <div class="card-body">
+                                            <div class="heading-detail">
+                                                <h4>Certificates</h4>
+                                            </div>
+                                            <div class="hello-park">
+                                            </div>
+                                            <div id="carouselExampleIndicators" class="carousel slide"
+                                                 data-bs-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                                        class="active"></li>
+                                                    <li data-bs-target="#carouselExampleIndicators"
+                                                        data-bs-slide-to="1"></li>
+                                                    <li data-bs-target="#carouselExampleIndicators"
+                                                        data-bs-slide-to="2"></li>
+                                                </ol>
+                                                <div class="carousel-inner" role="listbox">
+                                                    <div class="carousel-item active">
+                                                        <img id="slider1" class="d-block img-fluid" src="#"
+                                                             alt="First slide">
                                                     </div>
-                                                    <div class="comment-block">
-                                                        <div class="comment-by">
-                                                            <h5 class="blog-author-name">${evaluation.getGymer().getAccount().getFullName()}
-                                                                <span class="blog-date">
+                                                    <div class="carousel-item">
+                                                        <img id="slider2" class="d-block img-fluid" src="#"
+                                                             alt="Second slide">
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <img id="slider3" class="d-block img-fluid" src="#"
+                                                             alt="Third slide">
+                                                    </div>
+                                                </div>
+                                                <a class="carousel-control-prev" href="#carouselExampleIndicators"
+                                                   role="button" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </a>
+                                                <a class="carousel-control-next" href="#carouselExampleIndicators"
+                                                   role="button" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card blog-comments">
+                                    <div class="card-header">
+                                        <h4 class="card-title"
+                                            style="display: flex ;height: 100%; font-size: 20px ; justify-content: space-between; align-items: center;">
+                                            Feedback
+                                            <c:if test="${canEvaluate != null}">
+                                                <button type="submit" class="btn btn-info" id="feedbackModalBtn">
+                                                    Evaluate
+                                                </button>
+                                            </c:if>
+                                        </h4>
+                                    </div>
+                                    <div class="success-message"></div>
+                                    <div class="card-body pb-0">
+                                        <ul class="comments-list">
+                                            <c:forEach items="${evaluations}" var="evaluation">
+                                                <li>
+                                                    <div class="comment" style="border-bottom: 1px solid #000000">
+                                                        <div class="comment-author">
+                                                            <img class="avatar" alt=""
+                                                                 src="data:image/png;base64,${evaluation.getGymer().getAccount().getAvatarImageAsString()}">
+                                                        </div>
+                                                        <div class="comment-block">
+                                                            <div class="comment-by">
+                                                                <h5 class="blog-author-name">${evaluation.getGymer().getAccount().getFullName()}
+                                                                    <span class="blog-date">
                                                                     <i class="feather-clock me-1"></i>
                                                                     <script>
                                                                         // Get the timestamp of the evaluation
@@ -374,20 +377,23 @@
                                                                         document.write(timeElapsed);
                                                                     </script>
                                                                 </span>
-                                                            </h5>
-                                                            <div class="rate">
-                                                                <c:forEach begin="1" end="5" var="i">
-                                                                    <span class="star" style="color: ${i <= evaluation.getStarRating() ? 'gold' : 'gray'}">&#9733;</span>
-                                                                </c:forEach>
+                                                                </h5>
+                                                                <div class="rate">
+                                                                    <c:forEach begin="1" end="5" var="i">
+                                                                        <span class="star"
+                                                                              style="color: ${i <= evaluation.getStarRating() ? 'gold' : 'gray'}">&#9733;</span>
+                                                                    </c:forEach>
+                                                                </div>
                                                             </div>
+                                                            <p class="caption"
+                                                               style="font-size: 14px">${evaluation.getCommentFeedback()}</p>
                                                         </div>
-                                                        <p class="caption" style="font-size: 14px">${evaluation.getCommentFeedback()}</p>
+                                                        <br>
                                                     </div>
-                                                    <br>
-                                                </div>
-                                            </li>
-                                        </c:forEach>
-                                    </ul>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -395,108 +401,153 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="feedback-modal">
-        <div class="title">Rate your experience</div>
-        <div class="content">We highly value your feedback! Kindly take a moment to rate your experience and provide us
-            with your valuable feedback.
-        </div>
-        <div class="rate-box">
-            <input type="radio" name="star" id="star5"/>
-            <label class="star" for="star5"></label>
-            <input type="radio" name="star" id="star4"/>
-            <label class="star" for="star4"></label>
-            <input type="radio" name="star" id="star3"/>
-            <label class="star" for="star3"></label>
-            <input type="radio" name="star" id="star2"/>
-            <label class="star" for="star2"></label>
-            <input type="radio" name="star" id="star1"/>
-            <label class="star" for="star1"></label>
-        </div>
-        <textarea id="feedbackComment" cols="30" rows="6" placeholder="Tell us about your experience!"></textarea>
-        <div class="error-message" style="display: none; color: red; font-size: 0.9rem;">Please provide your feedback before submitting.</div>
-        <div>
-            <button type="button" class="submit-btn-feedback close-feedback-modal">Close</button>
-            <button type="button" class="submit-btn-feedback send-feedback-modal">Send</button>
-        </div>
-    </div>
-    <div class="overlay"></div>
-
-    <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" style="width: 630px;">
-            <div class="modal-content">
-                <%@include file="../../WEB-INF/jsp/report/AddReport.jsp" %>
+        <div class="feedback-modal">
+            <div class="title">Rate your experience</div>
+            <div class="content">We highly value your feedback! Kindly take a moment to rate your experience and provide
+                us
+                with your valuable feedback.
+            </div>
+            <div class="rate-box">
+                <input type="radio" name="star" id="star5"/>
+                <label class="star" for="star5"></label>
+                <input type="radio" name="star" id="star4"/>
+                <label class="star" for="star4"></label>
+                <input type="radio" name="star" id="star3"/>
+                <label class="star" for="star3"></label>
+                <input type="radio" name="star" id="star2"/>
+                <label class="star" for="star2"></label>
+                <input type="radio" name="star" id="star1"/>
+                <label class="star" for="star1"></label>
+            </div>
+            <textarea id="feedbackComment" cols="30" rows="6" placeholder="Tell us about your experience!"></textarea>
+            <div class="error-message" style="display: none; color: red; font-size: 0.9rem;">Please provide your
+                feedback before submitting.
+            </div>
+            <div>
+                <button type="button" class="submit-btn-feedback close-feedback-modal">Close</button>
+                <button type="button" class="submit-btn-feedback send-feedback-modal">Send</button>
             </div>
         </div>
+        <div class="overlay"></div>
+
+        <%-- REPORT MODAL ----------------------------------------------------------------------------------------------------%>
+        <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" style="width: 630px;">
+                <div class="modal-content">
+                    <%@include file="../../WEB-INF/jsp/report/AddReport.jsp" %>
+                </div>
+            </div>
+        </div>
+        <%-- CHATTING MODAL --------------------------------------------------------------------------------------------------%>
+        <div class="modal fade" id="chattingModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" style="width: 630px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #555B73;">
+                        <h5 class="modal-title" id="exampleModalLabel" style="color: #FFFFFF;"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <button type="button" name="goal" class="btn btn-outline-primary goal-btn"
+                                style="margin-bottom: 4px;">Hello
+                        </button>
+                        <button type="button" name="goal" class="btn btn-outline-primary goal-btn"
+                                style="margin-bottom: 4px;">Good morning
+                        </button>
+                        <button type="button" name="goal" class="btn btn-outline-primary goal-btn"
+                                style="margin-bottom: 4px;">What times are open for booking?
+                        </button>
+                        <button type="button" name="goal" class="btn btn-outline-primary goal-btn"
+                                style="margin-bottom: 4px;">Can you share your schedule for booking sessions?
+                        </button>
+                        <button type="button" name="goal" class="btn btn-outline-primary goal-btn"
+                                style="margin-bottom: 4px;">How far in advance should I schedule?
+                        </button>
+                        <button type="button" name="goal" class="btn btn-outline-primary goal-btn"
+                                style="margin-bottom: 4px;">Can we discuss scheduling options?
+                        </button>
+                        <button type="button" name="goal" class="btn btn-outline-primary goal-btn"
+                                style="margin-bottom: 4px;">"Hey, good to see you!
+                        </button>
+                        <button type="button" name="goal" class="btn btn-outline-primary goal-btn"
+                                style="margin-bottom: 4px;">Hi, hope you're having a great day!
+                        </button>
+                    </div>
+                    <div class="modal-footer" style="height: fit-content; padding: 5px;">
+                        <div class="position-relative d-flex justify-content-between" style="width: 100%;">
+                            <input class="form-control" placeholder="Type a New Message"
+                                   id="chat-input" style="width: 98%;">
+                            <button style="background-color: #FFFFFF; border-radius: 0; border: #FFFFFF; padding: 0 5px 0 10px;"
+                                    id="send-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                                     fill="#00000" class="bi bi-send-fill" viewBox="0 0 16 16">
+                                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="../../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/feather.min.js"></script>
+    <script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../../assets/plugins/apexchart/apexcharts.min.js"></script>
+    <script src="../../assets/plugins/apexchart/chart-data.js"></script>
+    <script src="../../assets/plugins/select2/js/select2.min.js"></script>
+    <script src="../../assets/js/script.js"></script>
+    <script src="../../assets/plugins/moment/moment.min.js"></script>
+    <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
 
-
-</div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script src="../../assets/js/jquery-3.6.0.min.js"></script>
-<script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../assets/js/feather.min.js"></script>
-<script src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="../../assets/plugins/apexchart/apexcharts.min.js"></script>
-<script src="../../assets/plugins/apexchart/chart-data.js"></script>
-<script src="../../assets/plugins/select2/js/select2.min.js"></script>
-<script src="../../assets/js/script.js"></script>
-<script src="../../assets/plugins/moment/moment.min.js"></script>
-<script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $('#feedbackModalBtn').click(function () {
-            $('.feedback-modal').css({
-                "display": "flex",
-                "top": "40%"
-            }).animate({
-                "top": "50%",
-            }, 300);
-            $('.overlay').fadeIn();
-            $('.feedback-modal').fadeIn();
-        });
-
-        $('.close-feedback-modal').click(function () {
-            $('.feedback-modal').animate({
-                "top": "40%",
-            }, 300, function () {
-                $('.feedback-modal').css("display", "none");
+    <script>
+        var personalTrainer = ${personaltrainer};
+        $(document).ready(function () {
+            $('.goal-btn').click(function () {
+                var buttonContent = $(this).text();
+                $('#chat-input').val(buttonContent);
             });
-            $('.overlay').fadeOut();
-            $('.feedback-modal').fadeOut();
+
+            $('#send-button').click(function (event) {
+                event.preventDefault();
+                var firstMessageContent = $('#chat-input').val();
+                var receiverID = personalTrainer.id;
+                $.ajax({
+                    type: 'GET',
+                    url: '/create-new-chat-box',
+                    data: {
+                        receiverPtID: receiverID,
+                        firstMessageContent: firstMessageContent
+                    },
+                    success: function (response) {
+                        window.location = '/chatting';
+                     /*   $('#chattingModal').modal('hide');*/
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
         });
-    });
 
-    $('.send-feedback-modal').click(function() {
-        var rating = $('.rate-box input:checked').attr('id').replace('star', '');;
-        var comment = $('#feedbackComment').val();
+        $(document).ready(function () {
+            $('#feedbackModalBtn').click(function () {
+                $('.feedback-modal').css({
+                    "display": "flex",
+                    "top": "40%"
+                }).animate({
+                    "top": "50%",
+                }, 300);
+                $('.overlay').fadeIn();
+                $('.feedback-modal').fadeIn();
+            });
 
-        if (!comment || comment.trim() === '') {
-            $('.error-message').show();
-            $('#feedbackComment').css('border', '1px solid red')
-            return;
-        } else {
-            $('.error-message').hide();
-            $('#feedbackComment').css('border-color', '');
-            $('#feedbackComment').css('border', 'none')
-        }
-
-        var evaluationData = {
-            commentFeedback: comment,
-            starRating: parseInt(rating),
-            gymerDto: ${gymerAsView},
-            personalTrainer: ${personaltrainer}
-        };
-
-        $.ajax({
-            url: 'feedback',
-            type: 'POST',
-            contentType: 'application/json', // Specify content type as JSON
-            data: JSON.stringify(evaluationData), // Convert data to JSON string
-            success: function(response) {
+            $('.close-feedback-modal').click(function () {
                 $('.feedback-modal').animate({
                     "top": "40%",
                 }, 300, function () {
@@ -504,50 +555,86 @@
                 });
                 $('.overlay').fadeOut();
                 $('.feedback-modal').fadeOut();
-                $('.success-message').html('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                    '<strong>Success!</strong> Your feedback has been submitted successfully.' +
-                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                    '</div>');
-            },
-            error: function(xhr, status, error) {
-                // Handle error
-                console.error(error);
-            }
+            });
         });
-    });
+
+        $('.send-feedback-modal').click(function () {
+            var rating = $('.rate-box input:checked').attr('id').replace('star', '');
+            ;
+            var comment = $('#feedbackComment').val();
+
+            if (!comment || comment.trim() === '') {
+                $('.error-message').show();
+                $('#feedbackComment').css('border', '1px solid red')
+                return;
+            } else {
+                $('.error-message').hide();
+                $('#feedbackComment').css('border-color', '');
+                $('#feedbackComment').css('border', 'none')
+            }
+
+            var evaluationData = {
+                commentFeedback: comment,
+                starRating: parseInt(rating),
+                gymerDto: ${gymerAsView},
+                personalTrainer: ${personaltrainer}
+            };
+
+            $.ajax({
+                url: 'feedback',
+                type: 'POST',
+                contentType: 'application/json', // Specify content type as JSON
+                data: JSON.stringify(evaluationData), // Convert data to JSON string
+                success: function (response) {
+                    $('.feedback-modal').animate({
+                        "top": "40%",
+                    }, 300, function () {
+                        $('.feedback-modal').css("display", "none");
+                    });
+                    $('.overlay').fadeOut();
+                    $('.feedback-modal').fadeOut();
+                    $('.success-message').html('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                        '<strong>Success!</strong> Your feedback has been submitted successfully.' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                        '</div>');
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    console.error(error);
+                }
+            });
+        });
+
+        console.log(personalTrainer)
+        $(document).ready(function () {
+            $('#personalTrainerBook').attr('href', '/personal-trainer/book?id=' + personalTrainer.id);
+            $('#personalTrainerPrice').html(personalTrainer.price + 'VND / SLOT')
+            $('.personalTrainerName').html(personalTrainer.fullName ? personalTrainer.fullName : '<span class="empty-text">[Empty]</span>');
+            $('#personalTrainerPhone').html(personalTrainer.phone ? personalTrainer.phone : '<span class="empty-text">[Empty]</span>');
+            $('#avatar').attr("src", personalTrainer.avatarImage == null ? "../../assets/img/user.jpg" : "data:image/jpeg;base64, " + personalTrainer.avatarImage)
+            var birthday = personalTrainer.birthday;
+
+            if (birthday) {
+                var [year, month, day] = birthday.split('-');
+
+                var monthNames = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                var monthName = monthNames[parseInt(month, 10) - 1];
+
+                var formattedBirthday = monthName + " " + day + ", " + year;
+
+                $('#personalTrainerBirth').html(formattedBirthday);
+            } else {
+                $('#personalTrainerBirth').html('<span class="empty-text">Empty</span>');
+            }
+            $('#personalTrainerEmail').html(personalTrainer.email ? personalTrainer.email : '<span class="empty-text">[Empty]</span>');
+            $('#personalTrainerGender').html(personalTrainer.gender ? personalTrainer.gender : '<span class="empty-text">[Empty]</span>');
+            $('#personalTrainerAddress').html(personalTrainer.address ? personalTrainer.address : '<span class="empty-text">[Empty]</span>');
 
 
-    var personalTrainer = ${personaltrainer};
-    console.log(personalTrainer)
-    $(document).ready(function () {
-        $('#personalTrainerBook').attr('href', '/personal-trainer/book?id=' + personalTrainer.id);
-        $('#personalTrainerPrice').html(personalTrainer.price + 'VND / SLOT')
-        $('.personalTrainerName').html(personalTrainer.fullName ? personalTrainer.fullName : '<span class="empty-text">[Empty]</span>');
-        $('#personalTrainerPhone').html(personalTrainer.phone ? personalTrainer.phone : '<span class="empty-text">[Empty]</span>');
-        $('#avatar').attr("src", personalTrainer.avatarImage == null ? "../../assets/img/user.jpg" : "data:image/jpeg;base64, " + personalTrainer.avatarImage)
-        var birthday = personalTrainer.birthday;
-
-        if (birthday) {
-            var [year, month, day] = birthday.split('-');
-
-            var monthNames = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            var monthName = monthNames[parseInt(month, 10) - 1];
-
-            var formattedBirthday = monthName + " " + day + ", " + year;
-
-            $('#personalTrainerBirth').html(formattedBirthday);
-        } else {
-            $('#personalTrainerBirth').html('<span class="empty-text">Empty</span>');
-        }
-        $('#personalTrainerEmail').html(personalTrainer.email ? personalTrainer.email : '<span class="empty-text">[Empty]</span>');
-        $('#personalTrainerGender').html(personalTrainer.gender ? personalTrainer.gender : '<span class="empty-text">[Empty]</span>');
-        $('#personalTrainerAddress').html(personalTrainer.address ? personalTrainer.address : '<span class="empty-text">[Empty]</span>');
-
-
-        $('#slider1').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[0]);
-        $('#slider2').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[1]);
-        $('#slider3').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[2]);
-    })
-</script>
+            $('#slider1').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[0]);
+            $('#slider2').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[1]);
+            $('#slider3').attr("src", "data:image/jpeg;base64, " + personalTrainer.certificateList[2]);
+        })
+    </script>
 </body>
 </html>

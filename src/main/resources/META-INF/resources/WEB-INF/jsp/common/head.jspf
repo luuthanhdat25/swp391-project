@@ -25,7 +25,7 @@
     <c:choose>
         <c:when test="${account ne null}">
             <ul class="nav user-menu">
-                 <li class="nav-item" style="margin-right: 7px;">
+                <li class="nav-item" style="margin-right: 7px;">
                     <a href="http://localhost:8080/chatting" class="nav-link header-nav-list">
                         <img src="assets/img/icons/chat.svg" alt="">
                     </a>
@@ -101,9 +101,11 @@
                 $.each(data, function (index, notification) {
                     var listItem = $("<li class='notification-message'></li>");
 
+                    var avatarSrc = notification.avatarSender ? "data:image/jpeg;base64, " + notification.avatarSender : "../../assets/img/sm-logo.png";
                     var avatar = $("<span class='avatar avatar-sm flex-shrink-0'>" +
-                        "<img class='avatar-img rounded-circle' alt='User Image' src='" + "data:image/jpeg;base64, " + notification.avatarSender + "'>" +
+                        "<img class='avatar-img rounded-circle' alt='User Image' src='" + avatarSrc + "'>" +
                         "</span>");
+
 
                     var formattedTime = moment(notification.timeStamp).format('HH:mm, DD/MM/YYYY');
                     var mediaBody = $("<div class='media-body flex-grow-1'>" +

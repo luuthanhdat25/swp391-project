@@ -28,10 +28,10 @@ public class MessageController {
     @Autowired
     private MessageRepository messageRepository;
 
+    @ResponseBody
     @RequestMapping(value = "/create-new-message", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String createNewMessage(@RequestParam Integer chatBoxId, @RequestParam String content, @RequestParam Integer senderID) {
-        Account senderAccount = accountService.getAccounts().stream()
-                .filter(account -> account.getId().equals(senderID)).collect(Collectors.toList()).get(0);
+    public ResponseEntity<Void> createNewMessage(@RequestParam Integer chatBoxId, @RequestParam String content, HttpSession session) {
+        Account senderAccount = (Account) session.getAttribute("account");
         ChatBox chatBox = chatBoxRepository.findById(chatBoxId).get();
         Message newMessage = new Message();
 
@@ -40,7 +40,9 @@ public class MessageController {
         newMessage.setSenderAccount(senderAccount);
         newMessage.setTimeStamp(LocalDateTime.now());
         messageRepository.save(newMessage);
-        return "redirect: chatting";
+        chatBox.setLastMessage(messageRepository.findAll().getLast());
+        chatBoxRepository.save(chatBox);
+        return ResponseEntity.ok().build();
     }
 
     @ResponseBody

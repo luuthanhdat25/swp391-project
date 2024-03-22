@@ -1,5 +1,6 @@
 package com.swpproject.application.controller.personal_trainer_request;
 
+import com.swpproject.application.controller.notification.SystemNotificationService;
 import com.swpproject.application.dto.PersonalTrainerRequestDTO;
 import com.swpproject.application.enums.RequestStatus;
 import com.swpproject.application.model.Account;
@@ -40,6 +41,8 @@ public class PersonalTrainerRequestController {
     private CertificateService certificateService;
     @Autowired
     private PersonalTrainerService personalTrainerService;
+    @Autowired
+    private SystemNotificationService systemNotificationService;
 
     @RequestMapping(value = "/admin-home/manage-personal-trainer-request", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
     public String viewManagePersonalTrainerRequest(ModelMap modelMap,
@@ -96,6 +99,7 @@ public class PersonalTrainerRequestController {
         personalTrainer.setIsActive(true);
         personalTrainerService.save(personalTrainer);
         personalTrainerRequestRepository.save(request);
+        systemNotificationService.approvePersonalTrainerRequest(personalTrainer);
         return "forward:manage-personal-trainer-request";
     }
 
@@ -104,6 +108,7 @@ public class PersonalTrainerRequestController {
         PersonalTrainerRequest request = personalTrainerRequestRepository.findById(requestID).get();
         request.setStatus(RequestStatus.REJECTED);
         personalTrainerRequestRepository.save(request);
+        systemNotificationService.declinePersonalTrainerRequest(request.getPersonalTrainerAccount().getAccount());
         return "forward:manage-personal-trainer-request";
     }
 

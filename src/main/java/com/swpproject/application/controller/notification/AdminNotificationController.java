@@ -150,8 +150,8 @@ public class AdminNotificationController {
     }
 
     @RequestMapping(value = "admin-home/delete-notification-detail", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String deleteNotificationDetail(@RequestParam("deleteNotificationID") int deleteNotificationID) {
-        notificationRepository.deleteById(deleteNotificationID);
+    public String deleteNotificationDetail(@RequestParam("groupNumber") Integer groupNumber) {
+        notificationRepository.deleteByGroupNumber(groupNumber);
         return "forward:manage-notification";
     }
 

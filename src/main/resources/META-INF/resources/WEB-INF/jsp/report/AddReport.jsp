@@ -5,6 +5,12 @@
     <link href="../../assets/css/report/AddReportRadio.css" rel="stylesheet"/>
 </head>
 <body>
+
+<div class="modal-header" style="background-color: #555B73;">
+    <h5 class="modal-title" id="exampleModalLabel" style="color: #FFFFFF;"></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
 <div class="d-flex justify-content-center formBody">
     <div>
         <form action="add-report" method="GET">

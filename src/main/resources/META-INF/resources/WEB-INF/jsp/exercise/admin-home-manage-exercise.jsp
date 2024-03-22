@@ -279,10 +279,6 @@
     }
 
 
-
-
-
-
     function renderPagination() {
         var totalPages = Math.ceil(exerciseList.length / itemsPerPage);
         var paginationHtml = '';

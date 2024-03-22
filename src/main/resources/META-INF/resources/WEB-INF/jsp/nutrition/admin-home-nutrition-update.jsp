@@ -42,11 +42,11 @@
                                 <div class="card mb-0">
                                     <div class="card-body">
 
-                                        <form id="nutritionForm" action="/admin-home/manage-nutrition/create" name="nutritionForm" method="post" enctype="multipart/form-data">
+                                        <form id="nutritionForm" action="/admin-home/manage-nutrition/edit" name="nutritionForm" method="post" enctype="multipart/form-data">
                                             <div class="row mt-3">
                                                 <div class="w-50 col-md-6">
                                                     <div>Nutrition Name</div>
-                                                    <input required type="text" name="nutritionName" id="nutritionName" class="form-control mt-2" placeholder="Nutrition Name" />
+                                                    <input type="text" name="nutritionName" id="nutritionName" class="form-control mt-2" placeholder="Nutrition Name" />
                                                     <p id="nutritionNameError" class="text-danger mt-3"></p>
                                                 </div>
                                             </div>
@@ -54,19 +54,19 @@
                                             <div class="row mt-3">
                                                 <div class="col">
                                                     <div>Calories/100g</div>
-                                                    <input required name="calories" id="caloryInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number calories" />
+                                                    <input name="calories" id="caloryInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number calories" />
                                                 </div>
                                                 <div class="col">
                                                     <div>Protein/100g</div>
-                                                    <input required name="protein" id="proteinInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number protein" />
+                                                    <input name="protein" id="proteinInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number protein" />
                                                 </div>
                                                 <div class="col">
                                                     <div>Fat/100g</div>
-                                                    <input required name="fat" id="fatInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number fat" />
+                                                    <input name="fat" id="fatInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number fat" />
                                                 </div>
                                                 <div class="col">
                                                     <div>Carb/100g</div>
-                                                    <input required name="carb" id="carbInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number carb" />
+                                                    <input name="carb" id="carbInput" min="0" max="1000" type="number"  class="form-control mt-2" placeholder="Number carb" />
                                                 </div>
                                             </div>
 
@@ -83,11 +83,10 @@
 
 
                                             <div class="mt-3">
-                                                <p class="text-primary" style="font-size: 1.5rem">This Nutrition will public on System</p>
                                                 <div class="form-check" style="display: none">
-                                                    <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" name="isPrivate">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Private
+                                                    <input class="form-check-input" type="checkbox" value="true" id="nutritionPrivate" name="isPrivate" disabled>
+                                                    <label class="form-check-label" for="nutritionPrivate">
+                                                        Private (Only you and the gymer working with you can see)
                                                     </label>
                                                 </div>
                                             </div>
@@ -97,8 +96,12 @@
 
 
                                             <div class="d-flex mt-3">
-                                                <button type="submit" class="btn btn-primary me-2">Create</button>
-                                                <a id="cancel" class="btn btn-danger">Cancel</a>
+                                                <button type="submit" class="btn btn-primary me-2">
+                                                    Update
+                                                </button>
+                                                <a id="cancelButton" href="" class="btn btn-danger">
+                                                    Cancel
+                                                </a>
                                             </div>
                                         </form>
 
@@ -133,7 +136,13 @@
     });
 </script>
 
+<script>
+    var nutrition = ${nutrition}
+</script>
+
 <script src="../../../assets/js/exercise/create/exercise-create-image-import.js"></script>
-<script src="../../../assets/js/nutrition/create/nutrition-create-submit-handler.js"></script>
+<script src="../../../assets/js/nutrition/update/nutrition-update-load-old-data.js"></script>
+<script src="../../../assets/js/nutrition/update/nutrition-update-submit-handler.js"></script>
+
 <%@ include file="../common/script.jspf" %>
 

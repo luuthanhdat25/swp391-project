@@ -120,8 +120,6 @@ public class AdminExerciseController {
         HttpSession session = request.getSession();
         Integer exerciseId = (Integer) session.getAttribute("exerciseId");
 
-        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
-
         session.removeAttribute("exerciseId");
         exerciseService.update(exerciseDTOIn, exerciseId);
 

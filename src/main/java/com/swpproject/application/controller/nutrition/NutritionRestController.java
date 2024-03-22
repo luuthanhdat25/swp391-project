@@ -56,6 +56,22 @@ public class NutritionRestController {
         return ResponseEntity.ok().body(myNutritionLit);
     }
 
+    @GetMapping("/admin")
+    public ResponseEntity<List<NutritionDTOOut>> searchNutritionDTOOutAdmin(
+            @RequestParam String search, @RequestParam int option, HttpServletRequest request)
+    {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        List<NutritionDTOOut> nutritionDTOOutList = nutritionService.getNutritionDTOOutList(roleDTO);
+        nutritionDTOOutList = findByNameContaining(search, nutritionDTOOutList);
+        if(option == 0){
+            nutritionDTOOutList = nutritionDTOOutList.stream()
+                    .filter(exerciseDTOOut -> exerciseDTOOut.getPersonalTrainerImage() == null)
+                    .collect(Collectors.toList());
+        }
+
+        return ResponseEntity.ok().body(nutritionDTOOutList);
+    }
+
     private List<NutritionDTOOut> getMyNutrition(int id, List<NutritionDTOOut> nutritionDTOOutList){
         return nutritionDTOOutList.stream()
                 .filter(nutrition -> nutrition.getPersonalTrainerId() == id)

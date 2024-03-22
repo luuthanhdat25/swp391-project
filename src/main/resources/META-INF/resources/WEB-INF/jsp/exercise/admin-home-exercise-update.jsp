@@ -146,7 +146,6 @@
                                             </div>
 
                                             <div class="mt-3">
-                                                <p class="text-primary" style="font-size: 1.5rem">This Exercise will public on System</p>
                                                 <div class="form-check" style="display: none">
                                                     <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" name="isPrivate">
                                                     <label class="form-check-label" for="flexCheckDefault">

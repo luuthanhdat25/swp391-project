@@ -1,0 +1,174 @@
+table {
+    width: 100%;
+}
+
+th,
+td {
+    text-align: center;
+    padding: 0;
+    position: relative;
+}
+
+th.time-column {
+    width: 15%;
+}
+
+td input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+td label {
+    display: block;
+    cursor: pointer;
+    padding: 15px;
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+td input[type="checkbox"]:checked+label {
+    background-color: rgb(100, 100, 237);
+    color: #fff;
+}
+body {
+    --ButtonBorder: color-mix(in oklab, Canvas 80%, CanvasText 20%);
+    --ColorError: color-mix(in oklab, hsl(360, 60%, 46%), Canvas 10%);
+    --ColorSuccess: color-mix(in oklab, hsl(136, 41%, 41%), Canvas 10%);
+    --GrayCanvas: color-mix(in oklab, Canvas 95%, CanvasText 10%);
+
+    background-color: Canvas;
+    color: CanvasText;
+    /*color-scheme: light dark;*/
+
+    font-weight: normal;
+}
+
+legend {
+    font-weight: 500;
+}
+
+:where([type="checkbox"]) {
+    --_icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="white" d="M14 2.5l-8.5 8.5-3.5-3.5-1.5 1.5 5 5 10-10z"/></svg>');
+    appearance: none;
+    height: 2em;
+    margin: 0;
+    width: 2em;
+    &:checked {
+        background: var(--AccentColor) var(--_icon) no-repeat 50% / 55%;
+    }
+}
+
+:where(.ui-cinema) {
+    all: unset;
+    direction: ltr;
+    & input {
+        --_bdc: color-mix(
+                in srgb,
+                var(--ui-cinema-seat-bg, var(--GrayCanvas)),
+                #000 30%
+        );
+        aspect-ratio: 1 / 0.9;
+        background-color: var(--ui-cinema-seat-bg, var(--GrayCanvas));
+        border-color: var(--_bdc);
+        border-radius: 0.5em 0.5em 0.15em 0.15em;
+        border-style: solid;
+        border-width: 0 0 0.25em 0;
+
+        &:checked {
+            --ui-cinema-seat-bg: var(--ColorSuccess);
+            --AccentColor: var(--ui-cinema-seat-bg);
+            border-color: var(--_bdc);
+        }
+        &:disabled {
+            --ui-cinema-seat-bg: var(--ColorError);
+        }
+        &:is([value=""], :not([value])) {
+            opacity: 0;
+            pointer-events: none;
+        }
+        &:focus-visible:not(:checked),
+        &:hover:not(:checked):not(:disabled) {
+            background: color-mix(in srgb, var(--ColorSuccess), Canvas 80%);
+        }
+        &:focus-visible:checked {
+            outline: 2px solid color-mix(in srgb, var(--ColorSuccess), Canvas 40%);
+        }
+        &[inert] {
+            --ui-cinema-seat-bg: var(--ButtonBorder);
+        }
+    }
+    & label {
+        display: contents;
+    }
+    & li {
+        align-items: center;
+        counter-increment: row;
+        display: grid;
+        gap: 1ch;
+        grid-auto-flow: column;
+        &::before,
+        &::after {
+            content: counter(row);
+            font-size: small;
+            padding-inline: 1ch;
+        }
+    }
+    & ol {
+        counter-reset: row;
+        display: grid;
+        gap: 1ch;
+        padding: 0;
+    }
+}
+
+:where(.ui-color-key) {
+    all: unset;
+    background-color: var(--GrayCanvas);
+    border-radius: var(--ui-color-key-bdrs, 5ch);
+    color: CanvasText;
+
+    gap: 2ch;
+    grid-auto-flow: column;
+
+    width: fit-content;
+    & li {
+        display: grid;
+        font-size: smaller;
+        gap: 1ch;
+        grid-auto-flow: column;
+        align-items: center;
+        &::before {
+            aspect-ratio: 1 / 1;
+            background-color: var(--ui-color-key, var(--ButtonBorder));
+            border: 1px solid color-mix(in srgb, var(--ui-color-key), #000 15%);
+            border-radius: 50%;
+            content: "";
+            display: block;
+            width: 1em;
+        }
+    }
+}
+.ui-color-key li {
+    font-size: 16px; /* Kích thước chữ */
+    padding: 10px; /* Khoảng cách giữa nội dung và đường viền */
+    border: 1px solid var(--ButtonBorder); /* Viền cho mỗi mục */
+    border-radius: 10px; /* Bo tròn góc của mỗi mục */
+    display: flex;
+    align-items: center;
+}
+
+.ui-color-key li::before {
+    content: "";
+    border-radius: 50%;
+    width: 16px; /* Đường kính của hình tròn */
+    height: 16px; /* Đường kính của hình tròn */
+    background-color: var(--ui-color-key);
+    border: 1px solid var(--ButtonBorder);
+    margin-right: 10px; /* Khoảng cách giữa hình tròn và nội dung */
+}

@@ -1,0 +1,38 @@
+.input-container {
+    background-color: #ffffff;
+	width: 100%;
+	border: 1px solid #3c763d;
+	border-radius: 6px;
+	height: fit-content;
+}
+
+.sidebar-menu li a {
+    color: #6f6f6f;
+    display: block;
+    font-size: 16px;
+    height: fit-content;
+    padding: 10px;
+}
+
+.sidebar-menu li a:hover {
+    background-color: #d9d9d9;
+	color: #845353;
+}
+
+.notification-header {
+    background-color: #ffffff;
+	width: 100%;
+	border: 2px solid #ddd;
+	border-radius: 6px;
+	height: fit-content;
+    padding: 10px;
+}
+
+.notification-detail {
+    background-color: #e6e6e6;
+	width: 98%;
+	border: 2px solid #ddd;
+	border-radius: 6px;
+	height: fit-content;
+    padding: 10px;
+}

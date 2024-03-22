@@ -1,0 +1,35 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
+<div class="header">
+    <div class="header-left">
+        <a href="#" class="logo">
+            <img src="../../assets/img/gymon.png" alt="Logo">
+        </a>
+        <a href="#" class="logo logo-small">
+            <img src="../../assets/img/sm-logo.png" alt="Logo" width="30" height="30">
+        </a>
+    </div>
+
+    <a class="mobile_btn" id="mobile_btn">
+        <i class="fas fa-bars"></i>
+    </a>
+
+    <ul class="nav user-menu">
+        <li class="nav-item dropdown has-arrow new-user-menus">
+            <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                        <span class="user-img">
+                                    <img class="rounded-circle"
+                                         src="../../assets/img/sm-logo.png"
+                                         width="31"
+                                         alt="#">
+                            <div class="user-text">
+                                <h6>Admin</h6>
+                            </div>
+                        </span>
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="/auth/logout">Logout</a>
+            </div>
+        </li>
+    </ul>
+</div>

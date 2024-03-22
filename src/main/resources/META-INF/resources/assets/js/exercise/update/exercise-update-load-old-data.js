@@ -19,5 +19,4 @@ $(document).ready(function(){
     exerciseDescription = exerciseDescription.replace(/<br\s*\/?>/mg,"\n");
     $('#exerciseDescription').val(exerciseDescription);
     $('#exercisePrivate').prop('checked', exercise.isPrivate === 1);
-    $('#cancelButton').attr("href", "/exercise/details?id=" + exercise.id);
 })

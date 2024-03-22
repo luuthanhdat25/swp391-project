@@ -20,6 +20,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
+    @Override
+    public Optional<Exercise> getExercisebyID(Integer id) {
+        return exerciseRepository.findById(id);
+    }
+
+    @Override
+    public List<Exercise> getAllExercise() {
+        return exerciseRepository.findAll();
+    }
+
     @Autowired
     private ExerciseRepository exerciseRepository;
 
@@ -98,6 +108,19 @@ public class ExerciseServiceImpl implements ExerciseService {
         exercise.setVideoDescription(exerciseDTOIn.getYoutubeLink());
         if(!isImageLengthEqualZero(exerciseDTOIn.getImage()))
             exercise.setImageDescription(exerciseDTOIn.getImage().getBytes());
+        exerciseRepository.save(exercise);
+    }
+
+    @Override
+    public List<Exercise> findExerciseByIsPrivate(int isPrivate) {
+        return exerciseRepository.findAllByIsPrivate(isPrivate);
+    }
+
+
+    @Override
+    public void updateExerciseStatus(int exerciseId, int status) {
+        Exercise exercise = exerciseRepository.findById(exerciseId).get();
+        exercise.setIsPrivate(status);
         exerciseRepository.save(exercise);
     }
 

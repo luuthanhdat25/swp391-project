@@ -56,8 +56,6 @@ public class PersonalTrainer {
                 .address(getAccount().getAddress())
                 .gender(getAccount().getGender().getDesc())
                 .avatarImage(getAccount().getAvatarImage())
-                .numberOfVotes(5)
-                .averageVotes(5f)
                 .build();
     }
 }

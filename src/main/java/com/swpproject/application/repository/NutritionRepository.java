@@ -39,4 +39,6 @@ public interface NutritionRepository extends JpaRepository<Nutrition, Integer> {
     @Query("SELECT n FROM Nutrition n " +
             "WHERE (n.isPrivate = 0 OR n.personalTrainer.id = :personalTrainerId) AND n.nutritionId = :nutritionId")
     Optional<Nutrition> findNonPrivateOrByPersonalTrainerId(Integer personalTrainerId, Integer nutritionId);
+
+    public List<Nutrition> findAllByIsPrivate(int isPrivate);
 }

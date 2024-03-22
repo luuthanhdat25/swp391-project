@@ -21,10 +21,10 @@
                         </c:when>
                         <c:otherwise>
                             <li>
-                                <a href="/my-exercise"><i class="fas fa-history"></i> <span>My Exercise</span></a>
+                                <a href="/my-exercise"><i class="fas fa-chalkboard-teacher"></i> <span>My Exercise</span></a>
                             </li>
                             <li>
-                                <a href="/my-nutrition"><i class="fas fa-history"></i> <span>My Nutrition</span></a>
+                                <a href="/my-nutrition"><i class="fas fa-chalkboard-teacher"></i> <span>My Nutrition</span></a>
                             </li>
                         </c:otherwise>
                     </c:choose>
@@ -71,7 +71,7 @@
                                         class="menu-arrow"></span></a>
                                 <ul>
                                     <li><a href="${pageContext.request.contextPath}/nutrition/tracking">Nutrition Tracking</a></li>
-                                    <li><a href="teacher-dashboard.html">Calories Statistic</a></li>
+<%--                                    <li><a href="teacher-dashboard.html">Calories Statistic</a></li>--%>
                                 </ul>
                             </li>
                     </c:if>

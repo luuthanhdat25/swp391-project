@@ -171,15 +171,14 @@
                                                href="/bookPT1?PersonalTrainerID=${param.id}">Book</a>
 
                                             <c:if test="${personalTrainer ne null}">
+                                                <button type="submit" class="btn btn-info message-btns"
+                                                        data-bs-toggle="modal" data-bs-target="#chattingModal">Inbox
+                                                </button>
                                             </c:if>
-                                                <%--   <button type="submit" class="btn btn-info message-btns">Inbox</button>--%>
-                                            <button type="submit" class="btn btn-info message-btns"
-                                                    data-bs-toggle="modal" data-bs-target="#chattingModal">Inbox
-                                            </button>
-                                            <button type="submit" class="btn btn-info message-btns"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal">Report
-                                            </button>
                                             <c:if test="${personalTrainer ne null}">
+                                                <button type="submit" class="btn btn-info message-btns"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal">Report
+                                                </button>
                                             </c:if>
                                         </div>
                                         </c:if>

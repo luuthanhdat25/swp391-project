@@ -247,8 +247,11 @@
     }
 
     .cellPI {
+
+        font-style: unset;
         text-align: right;
         width: 15%;
+        font-family: serif;
     }
 
     .cellWidth {

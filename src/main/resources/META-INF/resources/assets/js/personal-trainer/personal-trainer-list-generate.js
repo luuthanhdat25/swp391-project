@@ -25,16 +25,44 @@ function displayItems(page) {
 
         // Left column (Image)
         const leftColumn = $('<div class="col"></div>');
-        const image = $('<img class="rounded-circle" style="height: 4rem; width: 4rem; object-fit: cover" alt="Profile">').attr('src', 'data:image/jpeg;base64,' + (personalTrainer.avatarImage || defaultIconUrl));
-        leftColumn.append(image);
+
+        const imageLink = $('<a></a>').attr('href', '/personal-trainer/details?id=' + personalTrainer.id);
+        const image = $('<img class="rounded-circle" style="height: 7rem; width: 7rem; object-fit:;box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);" alt="Profile">').attr('src', 'data:image/jpeg;base64,' + (personalTrainer.avatarImage || defaultIconUrl));
+        imageLink.append(image);
+
+        leftColumn.append(imageLink);
+
 
         // Middle column (Details)
         const middleColumn = $('<div class="col-lg-8"></div>');
         const headingDetail = $('<div class="heading-detail d-flex align-items-center"></div>');
         const trainerName = $('<h5 class="mb-0"></h5>').text(personalTrainer.fullName);
+
         const ratingContainer = $('<div></div>');
-        // const rating = $('<h6 class="text-muted mb-0 ms-2"></h6>').text(personalTrainer.averageVotes + ' (' + personalTrainer.numberOfVotes +  ' rating)');
-        const rating =  '';
+        const averageRating = personalTrainer.averageVotes;
+        const numberOfVotes = personalTrainer.numberOfVotes;
+
+        const wholeStars = Math.floor(averageRating); // Số ngôi sao làm tròn xuống
+        const partialStarOpacity = (averageRating - wholeStars); // Độ mờ của ngôi sao cuối cùng
+
+// Tạo các ngôi sao đầy
+        let stars = '';
+        for (let i = 0; i < wholeStars; i++) {
+            stars += '<span class="star" style="color: gold; font-size: 1.5rem">&#9733;</span>';
+        }
+
+// Tạo ngôi sao cuối cùng với hiệu ứng gradient
+        if (partialStarOpacity > 0) {
+            const partialStarGradient = `linear-gradient(90deg, gold ${partialStarOpacity * 100}%, gray ${partialStarOpacity * 100}%)`; // Gradient từ vàng sang xám
+            stars += `<span class="star" style="background: ${partialStarGradient}; -webkit-background-clip: text; color: transparent; font-size: 1.5rem">&#9733;</span>`;
+        }
+
+// Tạo các ngôi sao trống nếu cần
+        for (let i = wholeStars + 1; i < 5; i++) {
+            stars += '<span class="star" style="color: gray; font-size: 1.5rem">&#9733;</span>';
+        }
+
+        const rating = $('<h6 class="text-muted mb-0 ms-2"></h6>').html(`${stars} (${averageRating.toFixed(1)} from ${numberOfVotes} ratings)`);
         ratingContainer.append(rating);
         headingDetail.append(trainerName, ratingContainer);
         const personalActivity = $('<div class="personal-activity mt-2"></div>');

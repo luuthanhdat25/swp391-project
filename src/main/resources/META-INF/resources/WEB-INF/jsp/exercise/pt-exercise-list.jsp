@@ -31,213 +31,37 @@
                     </div>
                 </div>
 
-
-                <div class="mt-3">
-                    <form id="search-exercise" class="w-100 d-flex">
-                        <input id="searchInput" type="text" class="form-control" placeholder="Search here">
-                        <button id="search-exercise-button" class="btn btn-primary h-auto" type="submit"><i class="fas fa-search"></i></button>
-                    </form>
+<%--                Toast--%>
+                <div class="toast-container position-fixed end-0 p-3" style="top: 3rem">
+                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header" id="statusBg">
+                            <strong class="me-auto text-white" id="toastTitle"></strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body"></div>
+                    </div>
                 </div>
 
 
-                <div class="card report-card">
-                    <div class="card-body pb-0">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <ul class="app-listing justify-content-lg-start">
-                                    <li>
-                                        <div class="multipleSelection">
-                                            <div class="selectBox">
-                                                <p class="mb-0">Affected Muscle</p>
-                                                <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                                            </div>
-                                            <div id="checkBoxes">
-                                                    <div class="selectBox-cont">
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Chest" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Chest
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Back" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Back
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Shoulders" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Shoulders
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Arms" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Arms
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Abs" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Abs
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Legs" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Legs
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Glutes" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Glutes
-                                                        </label>
-                                                        <label class="custom_check w-100">
-                                                            <input type="checkbox" name="Calves" class="category">
-                                                            <span class="checkmark"></span>
-                                                            Calves
-                                                        </label>
-                                                    </div>
-                                                    <button type="submit" class="btn w-100 btn-primary submit-filter">Apply</button>
-                                                    <button id="reset-category" type="reset" class="btn w-100 btn-grey">Reset</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="multipleSelection">
-                                            <div class="selectBox">
-                                                <p class="mb-0">Difficulty</p>
-                                                <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                                            </div>
-                                            <div id="checkBoxes">
-                                                <div class="selectBox-cont">
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Beginner" class="difficulty">
-                                                        <span class="checkmark"></span>
-                                                        Beginner
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Intermediate" class="difficulty">
-                                                        <span class="checkmark"></span>
-                                                        Intermediate
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Advanced" class="difficulty">
-                                                        <span class="checkmark"></span>
-                                                        Advanced
-                                                    </label>
-                                                </div>
-                                                <button type="submit" class="btn w-100 btn-primary submit-filter">Apply</button>
-                                                <button id="reset-difficulty" type="reset" class="btn w-100 btn-grey">Reset</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="multipleSelection">
-                                            <div class="selectBox">
-                                                <p class="mb-0">Equipment</p>
-                                                <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                                            </div>
-                                            <div id="checkBoxes">
-                                                <div class="selectBox-cont">
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="None" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        None
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Stationary bike" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Stationary bike
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Elliptical machine" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Elliptical machine
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Rowing machine" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Rowing machine
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Free weights" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Free weights
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Resistance bands" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Resistance bands
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Kettlebells" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Kettlebells
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Bench press" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Bench press
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Leg press machine" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Leg press machine
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Pull-up bar" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Pull-up bar
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Dumbbells" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Dumbbells
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Barbells" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Barbells
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Exercise ball" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Exercise ball
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Yoga mat" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Yoga mat
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Jump rope" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Jump rope
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Medicine ball" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Medicine ball
-                                                    </label>
-                                                    <label class="custom_check w-100">
-                                                        <input type="checkbox" name="Foam roller" class="equipment">
-                                                        <span class="checkmark"></span>
-                                                        Foam roller
-                                                    </label>
-                                                </div>
-                                                <button type="submit" class="btn w-100 btn-primary submit-filter">Apply</button>
-                                                <button id="reset-equipment" type="reset" class="btn w-100 btn-grey">Reset</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                <div class="d-flex justify-content-between align-items-center mt-3" style="width: 100%;">
+                    <div class="input-group" style="width: 100%;">
+                        <input id="searchInput" type="text" class="form-control" style="border: 1px solid #4c4c4c;" placeholder="Search here" name="title">
+                        <button id="search-exercise-button" class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center h-auto" style="width: 10rem">
+                        <div>
+                            <select class="form-select" id="selectOption">
+                                <option value="2">All exercise</option>
+                                <option value="0">Public</option>
+                                <option value="1">Private</option>
+                            </select>
                         </div>
                     </div>
                 </div>
 
 
-
-                <div class="card-body" style="width: 100%; height: 550px; overflow-y: auto">
-                    <table id="datatablesSimple"
-                           class="table table-hover table-centered mdi-format-vertical-align-center">
+                <div style="width: 100%; height: 550px; overflow-y: auto" class="mt-3">
+                    <table id="datatablesSimple" class="table table-hover table-centered mdi-format-vertical-align-center">
                         <thead class="table-secondary">
                         <tr>
                             <th scope="col">#</th>
@@ -245,7 +69,8 @@
                             <th scope="col">Level</th>
                             <th scope="col">Affected Muscle</th>
                             <th scope="col">Equipment</th>
-                            <th scope="col">Publish</th>
+                            <th scope="col">Public</th>
+                            <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody id="tbody">
@@ -266,6 +91,58 @@
     </div>
 
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl"> <!-- Use modal-lg for larger modal -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body row">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="student-personals-grp">
+                                    <div class="card mb-0">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-center">
+                                                <div id="playerContainer" style="display: none;" class="mt-2">
+                                                    <div id="player"></div>
+                                                </div>
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="hello-park  mt-md-4">
+                                                <h2>Description</h2>
+                                                <p class="mt-2 display-6" id="exerciseDescription"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="student-personals-grp">
+                                    <div class="card">
+                                        <div class="card-body position-relative">
+                                            <div id="exerciseImage" class="mt-3"> </div>
+                                            <div class="mt-md-2" id="exerciseDetails"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a id="editButton" href="" class="btn btn-primary"> <i class="far fa-edit me-2"></i>Edit</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
     <script src="../../../assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="../../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -284,6 +161,24 @@
 
     <script src="../../../assets/js/script.js"></script>
 
+    <script>
+        var toastDTO = ${toastDTO};
+
+        if(toastDTO){
+            if(toastDTO.status === 1){
+                var toastElement = $('.toast');
+                var statusBg = $('#statusBg');
+                var toastTitle = $('#toastTitle')
+                var contentMessage = $('.toast-body');
+                statusBg.addClass('bg-success');
+                toastTitle.html(toastDTO.title);
+                contentMessage.html(toastDTO.message);
+                var toast = new bootstrap.Toast(toastElement);
+                toast.show();
+            }
+        }
+
+    </script>
 
     <script>
         var exerciseList = ${exerciseList};
@@ -311,6 +206,18 @@
         var currentPage = 1;
         var tbody = $('#tbody');
 
+        if(exerciseList){
+            if(exerciseList.length <= 0){
+                exerciseList = [];
+                renderPagination();
+                $('.page-item').addClass('disabled');
+                tbody.html("<p class='fs-3 text text-secondary mt-3'>Not found any Exercise!</p>");
+            }else {
+                displayItems(currentPage);
+                renderPagination();
+            }
+        }
+
         function displayItems(page) {
             var startIndex = (page - 1) * itemsPerPage;
             var endIndex = startIndex + itemsPerPage;
@@ -324,12 +231,12 @@
                 var isPublic = !exercise.isPrivate;
                 var statusText = isPublic ? 'Public' : 'Private';
                 var statusColor = isPublic ? 'bg-success' : 'bg-danger';
-
+                var editButton = '<a href="/exercise/details/edit?id=' + exercise.id + '" class="btn btn-sm btn-primary fw-bold">Update</a>';
                 var row = '<tr class="align-middle">' +
                     '<td class="align-middle">' + index + '</td>' +
                     '<td class="text-start align-middle"> ' +
                     '<h2 class="table-avatar">' +
-                    '<a href="#" class="me-2 exercise-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + exercise.name + '" data-calo="' + exercise.caloIn + '" data-protein="' + exercise.protein + '" data-fat="' + exercise.fat + '" data-carb="' + exercise.carb + '" data-image="' + (exercise.imageDescription || defaultIconUrl) + '" data-id="' + exercise.exerciseId + '" data-ptid="' + exercise.personalTrainerId + '" data-ptimage="' + (exercise.personalTrainerImage || defaultIconUrl) + '">' +
+                    '<a href="#" class="me-2 exercise-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="' + exercise.id + '">' +
                     '<img class=" rounded-image" src="data:image/jpeg;base64,' + (exercise.imageDescription || defaultIconUrl) + '" alt="User Image">' +
                     '<p class="m-0 ms-2" style="padding-left: 10px">' + displayName + '</p>' +
                     '</a>' +
@@ -343,9 +250,10 @@
                     '<span class="text-white fw-bold">' + statusText + '</span>' +
                     '</div>' +
                     '</td>' +
+                    '<td class="align-middle">' + editButton + '</td>' +
                     '</tr>';
                 html += row;
-                index++; // Increment the index for each row
+                index++;
             });
 
             tbody.html(html);
@@ -353,6 +261,107 @@
 
 
 
+        $(document).ready(function () {
+            $(document).on('click', '.exercise-detail', function (event) {
+                event.preventDefault();
+                var modal = $('#exampleModal');
+                var exerciseId = $(this).data('id');
+                console.log(exerciseId)
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/exercises/' + exerciseId,
+                    success: function (exercise) {
+                        // console.log("Exercise details:", exercise);
+                        modal.find('.modal-title').text(exercise.name);
+                        $('#exerciseImage').html('<img class="w-100 mb-2" src="data:image/jpeg;base64,' + exercise.imageDescription + '" style="border-radius: .25rem;" alt="Exercise Image">');
+                        var level = '';
+                        if (exercise.level === 'Beginner') {
+                            level = 'bg-success';
+                        } else if (exercise.level === 'Intermediate') {
+                            level = 'bg-warning';
+                        } else if (exercise.level === 'Advanced') {
+                            level = 'bg-danger';
+                        }
+
+                        $('#exerciseDetails').html('<h2 class="m-100 p-1 text-white rounded ' + level + '" id="level" style="font-size: 1rem">Level: ' + exercise.level + '</h2>' +
+                            '<h2 class="m-100 p-1 bg-info text-white rounded" id="affectedMuscle" style="font-size: 1rem">Affected Muscle: ' + exercise.type + '</h2>' +
+                            '<h2 class="m-100 p-1 bg-secondary text-white rounded" id="equipment" style="font-size: 1rem">Equipment: ' + exercise.equipment + '</h2>');
+
+                        $('#exerciseDescription').html(exercise.description);
+                        $('#editButton').attr('href', '/exercise/details/edit?id=' + exercise.id)
+
+                        var videoId = extractVideoId(exercise.videoDescription);
+
+                        // Nếu có video ID, tạo người chơi YouTube
+                        if (videoId) {
+                            createYouTubePlayer(videoId);
+                        } else {
+                            // Hiển thị thông báo nếu không có link YouTube hợp lệ
+                            $('#playerContainer').hide();
+                            console.error("Invalid YouTube link. Please enter a valid link.");
+                        }
+
+                        function extractVideoId(url) {
+                            var regex = /^(?:(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11}))/;
+                            var match = url.match(regex);
+                            return match ? match[1] : null;
+                        }
+
+                        // Hàm để tạo người chơi YouTube
+                        function createYouTubePlayer(videoId) {
+                            var tag = $('<script>', {
+                                src: 'https://www.youtube.com/iframe_api'
+                            });
+                            $('script:first').before(tag);
+
+                            window.onYouTubeIframeAPIReady = function() {
+                                player = new YT.Player('player', {
+                                    height: '270',
+                                    width: '480',
+                                    playerVars: {
+                                        'playsinline': 1,
+                                    },
+                                    videoId: videoId,
+                                    events: {
+                                        'onReady': onPlayerReady,
+                                        'onStateChange': onPlayerStateChange
+                                    }
+                                });
+                            };
+
+                            function onPlayerReady(event) {
+                                event.target.playVideo();
+                            }
+
+                            function onPlayerStateChange(event) {
+                                if (event.data == YT.PlayerState.PLAYING && !done) {
+                                    setTimeout(stopVideo, 6000);
+                                    done = true;
+                                }
+                            }
+
+                            // Hiển thị người chơi YouTube
+                            $('#playerContainer').show();
+                            player.loadVideoById(videoId);
+                        }
+                    },
+                    error: function (error) {
+                        console.error("Error fetching exercise details:", error);
+                    }
+                });
+            });
+
+            // Xử lý sự kiện khi modal được đóng
+            $('#exampleModal').on('hidden.bs.modal', function (e) {
+                stopVideo(); // Dừng video khi modal được đóng
+            });
+
+            // Hàm để dừng video
+            function stopVideo() {
+                player.stopVideo(); // Dừng video
+            }
+        });
 
 
 
@@ -380,45 +389,60 @@
             }
         });
 
-        displayItems(currentPage);
-        renderPagination();
-
-        $(document).ready(function () {
-            $(document).on('click', '.exercise-detail', function (event) {
-                event.preventDefault();
-                var modal = $('#exampleModal');
-                var name = $(this).data('name');
-                var calo = $(this).data('calo');
-                var protein = $(this).data('protein');
-                var fat = $(this).data('fat');
-                var carb = $(this).data('carb');
-                var image = $(this).data('image');
-                var id = $(this).data('id');
-                var ptId = $(this).data('ptid');
-
-                var gam = 'g/100g';
-                modal.find('.modal-title').text(name);
-                modal.find('#modal-image').attr('src', 'data:image/jpeg;base64,' + image);
-                modal.find('#modal-calo').text('Calories: ' + calo + gam);
-                modal.find('#modal-protein').text('Protein: ' + protein + gam);
-                modal.find('#modal-fat').text('Fat: ' + fat + gam);
-                modal.find('#modal-carb').text('Carbohydrates: ' + carb + gam);
-                var editButton = modal.find('#editButton');
-
-                console.log('ptId ' + ptId)
-                console.log('personalTrainerId ' + personalTrainerId)
-                if (ptId === personalTrainerId) {
-                    editButton.show();
-                } else {
-                    editButton.hide();
-                }
-                editButton.attr('href', '/exercise/details/edit?id=' + id);
-                modal.modal('show');
-            });
-        });
 
     </script>
 
-<%--    <script src="../../../assets/js/exercise/view-list/exercise-view-list-generate.js"></script>--%>
+
+
+    <script>
+        function sendFilter() {
+            var searchValue = $('#searchInput').val();
+            var selectedOption = $('#selectOption').val();
+
+            $.ajax({
+                url: '/api/exercises/personal-trainer?search=' + encodeURIComponent(searchValue) + '&option=' + encodeURIComponent(selectedOption),
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function(response) {
+                    console.log(response);
+                    if (response && response.length > 0) {
+                        exerciseList = response;
+                        currentPage = 1;
+                        displayItems(currentPage);
+                        renderPagination();
+                    } else {
+                        exerciseList = [];
+                        renderPagination();
+                        $('.page-item').addClass('disabled');
+                        tbody.html("<p class='fs-3 text text-secondary mt-3'>Not found any Exercise!</p>");
+                    }
+                },
+                error: function(status, error) {
+                    console.error("Error:", status, error);
+                }
+            });
+        }
+
+
+        $(document).ready(function(){
+            var searchInput = $('#searchInput');
+
+            searchInput.keypress(function(event){
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if(keycode == '13'){
+                    event.preventDefault();
+                    sendFilter()
+                }
+            });
+
+            $('#search-exercise-button').click(function() {
+                sendFilter()
+            });
+
+            $('#selectOption').change(function() {
+                sendFilter()
+            });
+        });
+    </script>
 </body>
 

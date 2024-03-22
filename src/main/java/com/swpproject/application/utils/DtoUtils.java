@@ -1,18 +1,12 @@
 package com.swpproject.application.utils;
 
-import com.swpproject.application.dto.EvaluationDto;
-import com.swpproject.application.dto.GymerDto;
-import com.swpproject.application.dto.PersonalTrainerDto;
-import com.swpproject.application.model.Evaluation;
-import com.swpproject.application.model.Gymer;
-import com.swpproject.application.model.PersonalTrainer;
-import com.swpproject.application.service.CertificateService;
-import com.swpproject.application.service.EvaluationService;
-import com.swpproject.application.service.GymerService;
-import com.swpproject.application.service.PersonalTrainerService;
+import com.swpproject.application.dto.*;
+import com.swpproject.application.model.*;
+import com.swpproject.application.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Component
@@ -108,6 +102,18 @@ public class DtoUtils {
                                     .gymer(evaluationDto.getGymer())
                                     .personalTrainer(evaluationDto.getPersonalTrainer())
                                     .build();
+    }
+
+
+    public static SlotTrackingDto convertSlotNutritionDetailToSlotTrackingDto(Nutrition nutrition, Float amount) {
+          return SlotTrackingDto.builder().id(nutrition.getNutritionId())
+                  .fat(nutrition.getFat() * amount / 100.0f)
+                  .carb(nutrition.getCarb() * amount / 100.0f)
+                  .protein(nutrition.getProtein() * amount / 100.0f)
+                  .calories(nutrition.getCaloIn() * amount / 100.0f)
+                  .nutritionName(nutrition.getName())
+                  .amount(amount)
+                  .build();
     }
 
 

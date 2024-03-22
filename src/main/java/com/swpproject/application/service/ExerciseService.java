@@ -4,7 +4,6 @@ import com.swpproject.application.model.Exercise;
 import com.swpproject.application.dto.ExerciseDTOIn;
 import com.swpproject.application.dto.ExerciseDTOOut;
 import com.swpproject.application.dto.RoleDTO;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,4 +21,12 @@ public interface ExerciseService {
     void create(ExerciseDTOIn exerciseDTOIn, RoleDTO roleDTO) throws IOException;
 
     void update(ExerciseDTOIn exerciseDTOIn, int exerciseId) throws IOException;
+
+    void updateExerciseStatus(int exerciseId, int status);
+
+    List<Exercise> getAllExercise();
+
+    Optional<Exercise> getExercisebyID(Integer id);
+
+    List<Exercise> findExerciseByIsPrivate(int isPrivate);
 }

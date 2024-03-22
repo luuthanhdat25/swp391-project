@@ -301,18 +301,18 @@
                             </div>
 
 
-                            <button type="submit" class="btn btn-primary" name="action"
-                                    value="accept">
-                                Accept
-                            </button>
+<%--                            <button type="submit" class="btn btn-primary" name="action"--%>
+<%--                                    value="accept">--%>
+<%--                                Accept--%>
+<%--                            </button>--%>
 
-                            <a href="/decline-order?orderId=${param.order_id}"
-                               class="btn btn-primary"
-                               name="action" value="decline">Decline</a>
+<%--                            <a href="/decline-order?orderId=${param.order_id}"--%>
+<%--                               class="btn btn-primary"--%>
+<%--                               name="action" value="decline">Decline</a>--%>
 
-                            <a href="/decline-order?orderId=${param.order_id}"
-                               class="btn btn-primary"
-                               name="action" value="decline">Decline</a>
+<%--                            <a href="/decline-order?orderId=${param.order_id}"--%>
+<%--                               class="btn btn-primary"--%>
+<%--                               name="action" value="decline">Decline</a>--%>
                             <input type="hidden" name="MSG" value="${MSG}">
 
 

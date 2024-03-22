@@ -90,9 +90,15 @@ public class NutritionServiceIml implements NutritionService {
         nutrition.setProtein(nutritionDTOIn.getProtein());
         nutrition.setFat(nutritionDTOIn.getFat());
         nutrition.setCarb(nutritionDTOIn.getCarb());
-        System.out.println(nutrition.getPersonalTrainer().getId());
         if(!isImageLengthEqualZero(nutritionDTOIn.getImage()))
             nutrition.setImageDescription(nutritionDTOIn.getImage().getBytes());
+        nutritionRepository.save(nutrition);
+    }
+
+    @Override
+    public void updateNutritionStatus(int nutritionId, int status) {
+        Nutrition nutrition = nutritionRepository.findById(nutritionId).get();
+        nutrition.setIsPrivate(status);
         nutritionRepository.save(nutrition);
     }
 

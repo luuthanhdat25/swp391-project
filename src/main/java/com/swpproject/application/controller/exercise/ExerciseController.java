@@ -164,7 +164,7 @@ public class ExerciseController {
         session.removeAttribute("exerciseId");
         exerciseService.update(exerciseDTOIn, exerciseId);
 
-        ToastResponseDTO toastResponseDTO = new  ToastResponseDTO(1, "Success", "Update Message successfully!");
+        ToastResponseDTO toastResponseDTO = new  ToastResponseDTO(1, "Success", "Update Exercise successfully!");
         String toastDTOJson = JsonUtils.jsonConvert(toastResponseDTO);
         redirectAttributes.addAttribute("id", exerciseId);
         redirectAttributes.addFlashAttribute("toastDTO", toastDTOJson);

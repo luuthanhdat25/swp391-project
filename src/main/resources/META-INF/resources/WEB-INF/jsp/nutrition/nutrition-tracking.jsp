@@ -1,6 +1,7 @@
 <%@ include file="../common/header.jspf" %>
 <%@ include file="../common/sidebar.jspf" %>
 <%@ include file="../common/head.jspf" %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <body>
 <div class="main-wrapper">
     <div class="page-wrapper">
@@ -374,6 +375,6 @@
 
     }
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <%@include file="../common/script.jspf" %>
 

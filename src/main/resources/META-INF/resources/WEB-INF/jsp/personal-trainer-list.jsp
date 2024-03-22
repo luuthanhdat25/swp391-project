@@ -108,7 +108,7 @@
                             </div>
 
                             <div class="col-lg-8" >
-                                <div  id="personalTrainerContainer" style="height: 700px;"></div>
+                                <div  id="personalTrainerContainer"></div>
                                 <div class="mt-3 w-100 d-flex justify-content-center">
                                     <nav aria-label="Page navigation example">
                                         <ul class="pagination" id="pagination"></ul>

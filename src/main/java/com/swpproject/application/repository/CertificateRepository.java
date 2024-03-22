@@ -9,4 +9,6 @@ import java.util.List;
 public interface CertificateRepository extends JpaRepository<Certificate, Integer> {
 
     List<Certificate> getCertificatesByPersonalTrainer(PersonalTrainer personalTrainer);
+
+    void deleteAllByPersonalTrainer_Id(Integer id);
 }

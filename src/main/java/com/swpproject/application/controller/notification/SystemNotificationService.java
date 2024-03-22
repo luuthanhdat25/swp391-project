@@ -86,7 +86,7 @@ public class SystemNotificationService {
     public void approvePersonalTrainerRequest(PersonalTrainer personalTrainerAccount) {
         Notification requestHiringNotification = new Notification();
         String TITLE_APPROVE_PERSONAL_TRAINER_REQUEST = "has approved your certifications.";
-        String content = "http://localhost:8080/personal-trainer/details?id=" + personalTrainerAccount.getId();
+        String content = "http://localhost:8080/profile/details";
         Account adminAccount = accountService.findAccountByRole(Role.ADMIN).get(0);
 
         requestHiringNotification.setContent(content);

@@ -59,8 +59,11 @@
                                     <c:forEach var="order" items="${OrderRequestList}">
                                         <tr>
                                             <td style="text-align: left;">
-                                                <img class="img-thumbnail" src="data:image/png;base64,${order.gymer.account.getAvatarImageAsString()}" alt="Customer image Image">
-                                                    ${order.gymer.getAccount().getFullName()}
+                                                <p>
+                                                    <img class="img-thumbnail"  src="data:image/png;base64,${order.gymer.account.getAvatarImageAsString()}" alt="Customer image Image">
+                                                        ${order.gymer.getAccount().getFullName()}
+                                                    <a style="margin-left: 35px; margin-right: -40px;" href="profile/details?id=${order.gymer.getGymerId()}">View</a>
+                                                </p>
                                             </td>
                                             <td>${order.datetime_start}</td>
                                             <td>

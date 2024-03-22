@@ -51,7 +51,7 @@
                         <div>
                             <select class="form-select" id="selectOption">
                                 <option value="2">All nutrition</option>
-                                <option value="0">Publish</option>
+                                <option value="0">Public</option>
                                 <option value="1">Private</option>
                             </select>
                         </div>
@@ -72,7 +72,7 @@
                                         <th>Protein/100g</th>
                                         <th>Fat/100g</th>
                                         <th>Carb/100g</th>
-                                        <th>Publish</th>
+                                        <th>Public</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>

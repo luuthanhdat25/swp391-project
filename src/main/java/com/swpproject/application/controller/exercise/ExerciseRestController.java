@@ -49,6 +49,22 @@ public class ExerciseRestController {
         return ResponseEntity.ok().body(myExerciseDTOOutList);
     }
 
+    @GetMapping("/admin")
+    public ResponseEntity<List<ExerciseDTOOut>> searchExerciseDTOOutAdmin(
+            @RequestParam String search, @RequestParam int option, HttpServletRequest request)
+    {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        List<ExerciseDTOOut> exerciseDTOOutList = exerciseService.getExerciseDTOOutList(roleDTO);
+        exerciseDTOOutList = findByNameContaining(search, exerciseDTOOutList);
+        if(option == 0){
+            exerciseDTOOutList = exerciseDTOOutList.stream()
+                                                    .filter(exerciseDTOOut -> exerciseDTOOut.getPersonalTrainer_image() == null)
+                                                    .collect(Collectors.toList());
+        }
+
+        return ResponseEntity.ok().body(exerciseDTOOutList);
+    }
+
     private List<ExerciseDTOOut> getListExerciseIsActive(int option, List<ExerciseDTOOut> exerciseDTOOutList){
         if(option == 2) return exerciseDTOOutList;
         return exerciseDTOOutList.stream()

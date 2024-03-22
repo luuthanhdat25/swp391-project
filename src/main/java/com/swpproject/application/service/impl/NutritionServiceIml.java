@@ -90,7 +90,6 @@ public class NutritionServiceIml implements NutritionService {
         nutrition.setProtein(nutritionDTOIn.getProtein());
         nutrition.setFat(nutritionDTOIn.getFat());
         nutrition.setCarb(nutritionDTOIn.getCarb());
-        System.out.println(nutrition.getPersonalTrainer().getId());
         if(!isImageLengthEqualZero(nutritionDTOIn.getImage()))
             nutrition.setImageDescription(nutritionDTOIn.getImage().getBytes());
         nutritionRepository.save(nutrition);
@@ -99,6 +98,13 @@ public class NutritionServiceIml implements NutritionService {
     @Override
     public List<Nutrition> findAllByIsPrivate(int isPrivate) {
         return nutritionRepository.findAllByIsPrivate(isPrivate);
+    }
+
+    @Override
+    public void updateNutritionStatus(int nutritionId, int status) {
+        Nutrition nutrition = nutritionRepository.findById(nutritionId).get();
+        nutrition.setIsPrivate(status);
+        nutritionRepository.save(nutrition);
     }
 
     private boolean isImageLengthEqualZero(MultipartFile image) throws IOException {

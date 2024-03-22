@@ -21,7 +21,6 @@ public class PersonalTrainerRequestDTO {
     private RequestStatus status;
     private byte[] personalTrainerImage;
     private String personalTrainerName;
-
     private byte[] cerificate_1;
     private byte[] cerificate_2;
     private byte[] cerificate_3;

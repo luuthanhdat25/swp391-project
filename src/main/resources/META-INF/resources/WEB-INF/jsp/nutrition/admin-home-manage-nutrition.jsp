@@ -40,15 +40,15 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center" style="width: 100%; padding: 0 15px 0 15px; margin-top: 2px;">
                         <div class="input-group" style="width: 100%;">
-                            <input type="text" class="form-control" style="border: 1px solid #4c4c4c;"
+                            <input id="searchInput" type="text" class="form-control" style="border: 1px solid #4c4c4c;"
                                    placeholder="Enter the name of nutrition" name="title">
-                            <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                            <button id="search-nutrition-button" class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                         </div>
                         <div class="d-flex justify-content-center align-items-center h-auto" style="width: 10rem">
                             <div>
                                 <select class="form-select" id="selectOption">
-                                    <option value="all">All Nutrition</option>
-                                    <option value="admin">Only Admin</option>
+                                    <option value="1">All Nutrition</option>
+                                    <option value="0">Only Admin</option>
                                 </select>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                 <th scope="col">Fat/100g</th>
                                 <th scope="col">Carb/100g</th>
                                 <th scope="col">Author</th>
-                                <th scope="col">Public</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody id="tbody">
@@ -87,6 +87,16 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed end-0 p-3" style="top: 3rem">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header" id="statusBg">
+            <strong class="me-auto text-white" id="toastTitle"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body"></div>
     </div>
 </div>
 
@@ -126,6 +136,28 @@
 <script src="../../../assets/js/script.js"></script>
 
 <script>
+    var toastDTO = ${toastDTO};
+
+    var toastElement = $('.toast');
+    var statusBg = $('#statusBg');
+    var toastTitle = $('#toastTitle')
+    var contentMessage = $('.toast-body');
+    statusBg.addClass('bg-success');
+
+    function showToast(title, message) {
+        toastTitle.html(title);
+        contentMessage.html(message);
+        var toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }
+
+    if (toastDTO && toastDTO.status === 1) {
+        showToast(toastDTO.title, toastDTO.message);
+    }
+</script>
+
+
+<script>
     var nutritionList = ${nutritionList}
     console.log(nutritionList)
 
@@ -144,10 +176,22 @@
         $.each(paginatedItems, function (i, nutrition) {
             var displayName = nutrition.name.length > 20 ? nutrition.name.substring(0, 20) + '...' : nutrition.name;
             var ptImage;
+            var ptHref;
+            var action = '';
             if (nutrition.personalTrainerImage) {
                 ptImage = "data:image/jpeg;base64," + nutrition.personalTrainerImage;
+                ptHref = "/admin-home/personal-trainer-account?id=" + nutrition.personalTrainerId;
+                var isPublic = !nutrition.isPrivate;
+                var selectedPublic = isPublic ? 'selected' : '';
+
+                action += '<select class="form-select form-select-sm" aria-label="Select visibility" data-nutrition-id="' + nutrition.nutritionId + '">' +
+                    '<option value="0" ' + selectedPublic + '>Public</option>' +
+                    '<option value="1" ' + (selectedPublic ? '' : 'selected') + '>Private</option>' +
+                    '</select>';
             } else {
                 ptImage = "../../assets/img/sm-logo.png";
+                ptHref = "#"
+                action += '<a href="/admin-home/manage-nutrition/edit?id=' + nutrition.nutritionId + '" class="btn btn-sm btn-primary fw-bold">Update</a>';
             }
             var row = '<tr class="align-middle">' +
                 '<td class="align-middle">' + index + '</td>' +
@@ -164,27 +208,49 @@
                 '<td class="align-middle">' + nutrition.fat + '</td>' +
                 '<td class="align-middle">' + nutrition.carb + '</td>' +
                 '<td class="align-middle">' +
-                '<a href="/personal-trainer/details?id=' + nutrition.personalTrainerId + '" class="avatar avatar-sm me-2">' +
+                '<a href="' + ptHref + '" class="avatar avatar-sm me-2">' +
                 '<img class="avatar-img rounded-circle" src="' + ptImage + '" alt="User Image">' +
                 '</a>' +
                 '</td>' +
-                '<td class="align-middle">' +
-                '<select class="form-select form-select-sm" aria-label="Select visibility">' +
-                '<option value="public">Public</option>' +
-                '<option value="private">Private</option>' +
-                '</select>' +
-                '</td>' +
+                '<td class="align-middle">' + action + '</td>' +
                 '</tr>';
             html += row;
             index++; // Increment the index for each row
         });
 
         tbody.html(html);
+
+        $('select').change(function() {
+            var nutritionId = $(this).data('nutrition-id');
+            var visibility = $(this).val();
+            changeStatus(nutritionId, visibility);
+        });
     }
 
+    var statusBg = $('#statusBg');
+    statusBg.addClass('bg-success');
 
-
-
+    function changeStatus(id, status) {
+        $.ajax({
+            type: "GET",
+            url: "/admin-home/nutrition-change-status",
+            data: {
+                id: id,
+                status: status
+            },
+            success: function(response) {
+                console.log(response);
+                $('#toastTitle').html('Success');
+                $('.toast-body').html(response);
+                var toastElement = $('.toast');
+                var toast = new bootstrap.Toast(toastElement);
+                toast.show();
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
 
 
     function renderPagination() {
@@ -210,8 +276,17 @@
         }
     });
 
-    displayItems(currentPage);
-    renderPagination();
+    if(nutritionList){
+        if(nutritionList.length <= 0){
+            nutritionList = [];
+            renderPagination();
+            $('.page-item').addClass('disabled');
+            tbody.html("<p class='fs-3 text text-secondary mt-3'>Not found any Nutrition!</p>");
+        }else {
+            displayItems(currentPage);
+            renderPagination();
+        }
+    }
 
     $(document).ready(function () {
         $(document).on('click', '.nutrition-detail', function (event) {
@@ -226,6 +301,8 @@
             var id = $(this).data('id');
             var ptId = $(this).data('ptid');
 
+            console.log(ptId)
+
             var gam = 'g/100g';
             modal.find('.modal-title').text(name);
             modal.find('#modal-image').attr('src', 'data:image/jpeg;base64,' + image);
@@ -235,14 +312,10 @@
             modal.find('#modal-carb').text('Carbohydrates: ' + carb + gam);
             var editButton = modal.find('#editButton');
 
-            console.log('ptId ' + ptId)
-            console.log('personalTrainerId ' + personalTrainerId)
-            if (ptId === personalTrainerId) {
+            if (!ptId) {
+                editButton.attr('href', "/admin-home/manage-nutrition/edit?id=" + id)
                 editButton.show();
-            } else {
-                editButton.hide();
             }
-            editButton.attr('href', '/nutrition/details/edit?id=' + id);
             modal.modal('show');
         });
     });
@@ -250,17 +323,54 @@
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('#selectOption').change(function() {
-            var selectedOption = $(this).val();
-            yourFunction(selectedOption);
-        });
-    });
 
-    function yourFunction(selectedOption) {
-        console.log("Selected option:", selectedOption);
+    function sendFilter() {
+        var searchValue = $('#searchInput').val();
+        var selectedOption = $('#selectOption').val();
+
+        $.ajax({
+            url: '/api/nutritions/admin?search=' + encodeURIComponent(searchValue) + '&option=' + encodeURIComponent(selectedOption),
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            success: function(response) {
+                console.log(response);
+                if (response && response.length > 0) {
+                    nutritionList = response;
+                    currentPage = 1;
+                    displayItems(currentPage);
+                    renderPagination();
+                } else {
+                    nutritionList = [];
+                    renderPagination();
+                    $('.page-item').addClass('disabled');
+                    tbody.html("<p class='fs-3 text text-secondary mt-3'>Not found any Nutrition!</p>");
+                }
+            },
+            error: function(status, error) {
+                console.error("Error:", status, error);
+            }
+        });
     }
 
+    $(document).ready(function(){
+        var searchInput = $('#searchInput');
+
+        searchInput.keypress(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
+                event.preventDefault();
+                sendFilter()
+            }
+        });
+
+        $('#search-nutrition-button').click(function() {
+            sendFilter()
+        });
+
+        $('#selectOption').change(function() {
+            sendFilter()
+        });
+    });
 </script>
 
 <script src="../../../assets/js/jquery-3.6.0.min.js"></script>

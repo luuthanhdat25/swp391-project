@@ -42,9 +42,11 @@ public class Exercise {
         exerciseDTOOut.setEquipment(getEquipment());
         exerciseDTOOut.setVideoDescription(getVideoDescription());
         exerciseDTOOut.setImageDescription(getImageDescription());
-        exerciseDTOOut.setPersonalTrainer_id(getPersonalTrainer().getId());
         exerciseDTOOut.setIsPrivate(getIsPrivate());
-        exerciseDTOOut.setPersonalTrainer_image(getPersonalTrainer().getAccount().getAvatarImage());
+        if(personalTrainer != null){
+            exerciseDTOOut.setPersonalTrainer_id(getPersonalTrainer().getId());
+            exerciseDTOOut.setPersonalTrainer_image(getPersonalTrainer().getAccount().getAvatarImage());
+        }
         return exerciseDTOOut;
     }
 
@@ -58,8 +60,10 @@ public class Exercise {
         exerciseDTOOut.setEquipment(getEquipment());
         exerciseDTOOut.setImageDescription(getImageDescription());
         exerciseDTOOut.setIsPrivate(getIsPrivate());
-        exerciseDTOOut.setPersonalTrainer_id(getPersonalTrainer().getId());
-        exerciseDTOOut.setPersonalTrainer_image(getPersonalTrainer().getAccount().getAvatarImage());
+        if(personalTrainer != null){
+            exerciseDTOOut.setPersonalTrainer_id(getPersonalTrainer().getId());
+            exerciseDTOOut.setPersonalTrainer_image(getPersonalTrainer().getAccount().getAvatarImage());
+        }
         return exerciseDTOOut;
     }
 }

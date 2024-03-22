@@ -1,6 +1,7 @@
 package com.swpproject.application.controller.nutrition;
 
 import com.swpproject.application.dto.RoleDTO;
+import com.swpproject.application.dto.ToastResponseDTO;
 import com.swpproject.application.enums.Role;
 import com.swpproject.application.model.Nutrition;
 import com.swpproject.application.dto.NutritionDTOIn;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,6 +36,9 @@ public class NutritionController {
     @Autowired
     private PersonalTrainerService personalTrainerService;
 
+    @Autowired
+    private PersonalTrainerNutritionController personalTrainerNutritionController;
+
     private static final String NUTRITION_LIST_URL = "nutrition/nutrition-list";
     private static final String NUTRITION_CREATE_URL = "nutrition/nutrition-create";
     private static final String NUTRITION_UPDATE_URL = "nutrition/nutrition-update";
@@ -42,7 +47,11 @@ public class NutritionController {
 
     //Get view nutrition list
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
-    public String getNutritionListPage(ModelMap model, HttpServletRequest request) {
+    public String getNutritionListPage(
+            ModelMap model,
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes
+    ) {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         List<NutritionDTOOut> nutritionDTOOutList = nutritionService.getNutritionDTOOutList(roleDTO);
 
@@ -80,14 +89,21 @@ public class NutritionController {
 
     //Post create nutrition data
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String createNutrition(@ModelAttribute NutritionDTOIn nutritionDTOIn, HttpServletRequest request)
+    public String createNutrition(
+            @ModelAttribute NutritionDTOIn nutritionDTOIn,
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes
+    )
             throws IOException
     {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         if(!canCreateUpdate(roleDTO)) return ERROR_URL;
 
         nutritionService.create(nutritionDTOIn, roleDTO);
-        return "redirect:/nutrition";
+        ToastResponseDTO toastResponseDTO = new  ToastResponseDTO(1, "Success", "Create Nutrition successfully!");
+        String toastDTOJson = JsonUtils.jsonConvert(toastResponseDTO);
+        redirectAttributes.addFlashAttribute("toastDTO", toastDTOJson);
+        return "redirect:/my-nutrition";
     }
 
 
@@ -96,13 +112,11 @@ public class NutritionController {
     public String getNutritionDetailsEditPage(@RequestParam int id, HttpServletRequest request, ModelMap model) {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         if(!canCreateUpdate(roleDTO)) {
-            System.out.println("RoleDTO invalid ");
             return ERROR_URL;
         }
 
         Optional<Nutrition> nutritionOptional = nutritionService.findNutritionById(id, roleDTO);
         if(nutritionOptional.isEmpty()) {
-            System.out.println("Can't find Nutrition");
             return ERROR_URL;
         }
 
@@ -118,7 +132,10 @@ public class NutritionController {
 
     //Post update nutrition data
     @RequestMapping(value = "/details/edit", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    public String editNutrition(@ModelAttribute NutritionDTOIn nutritionDTOIn, HttpServletRequest request, Model model)
+    public String editNutrition(
+            @ModelAttribute NutritionDTOIn nutritionDTOIn,
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes)
             throws IOException
     {
         HttpSession session = request.getSession();
@@ -130,7 +147,11 @@ public class NutritionController {
 
         session.removeAttribute("nutritionId");
         nutritionService.update(nutritionDTOIn, nutritionId);
-        return "redirect:/nutrition";
+
+        ToastResponseDTO toastResponseDTO = new  ToastResponseDTO(1, "Success", "Update Nutrition successfully!");
+        String toastDTOJson = JsonUtils.jsonConvert(toastResponseDTO);
+        redirectAttributes.addFlashAttribute("toastDTO", toastDTOJson);
+        return "redirect:/my-nutrition";
     }
 }
 

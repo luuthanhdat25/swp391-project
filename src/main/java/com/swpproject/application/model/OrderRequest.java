@@ -11,6 +11,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @Data
+@ToString
 @Entity
 @Table(name = "order_request")
 public class OrderRequest {
@@ -23,7 +24,7 @@ public class OrderRequest {
     private Date datetime_start;
     private Date datetime_end;
     private int total_of_money;
-    private Integer tranking;
+    private Integer tracking;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
@@ -34,20 +35,6 @@ public class OrderRequest {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PT_ID",referencedColumnName = "id", nullable = false)
     private PersonalTrainer personalTrainer;
-
-    @Override
-    public String toString() {
-        return "OrderRequest{" +
-                "order_id=" + orderId +
-                ", title='" + title + '\'' +
-                ", Description='" + Description + '\'' +
-                ", datetime_start=" + datetime_start +
-                ", datetime_end=" + datetime_end +
-                ", total_of_money=" + total_of_money +
-                ", gymer=" + gymer +
-                ", personalTrainer=" + personalTrainer +
-                '}';
-    }
     public String getGymerName(){
         return this.gymer.getAccount().getFullName();
     }

@@ -1,5 +1,6 @@
 package com.swpproject.application.controller.nutrition;
 
+import com.swpproject.application.dto.ExerciseDTOOut;
 import com.swpproject.application.dto.NutritionDTOOut;
 import com.swpproject.application.dto.RoleDTO;
 import com.swpproject.application.service.NutritionService;
@@ -10,16 +11,14 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @RequestMapping(value ="/api/nutritions")
 public class NutritionRestController {
 
@@ -43,6 +42,47 @@ public class NutritionRestController {
                                         : sortByCategory(sortEnum, nutritionDTOOutList);
 
         return ResponseEntity.ok().body(nutritionDTOOutList);
+    }
+
+    @GetMapping("/personal-trainer")
+    public ResponseEntity<List<NutritionDTOOut>> searchNutritionDTOOutPT(
+            @RequestParam String search, @RequestParam int option, HttpServletRequest request)
+    {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        List<NutritionDTOOut> nutritionDTOOutList = nutritionService.getNutritionDTOOutList(roleDTO);
+        List<NutritionDTOOut> myNutritionLit = getMyNutrition(roleDTO.getId(), nutritionDTOOutList);
+        myNutritionLit = findByNameContaining(search, myNutritionLit);
+        myNutritionLit = getListNutritionIsActive(option, myNutritionLit);
+        return ResponseEntity.ok().body(myNutritionLit);
+    }
+
+    @GetMapping("/admin")
+    public ResponseEntity<List<NutritionDTOOut>> searchNutritionDTOOutAdmin(
+            @RequestParam String search, @RequestParam int option, HttpServletRequest request)
+    {
+        RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
+        List<NutritionDTOOut> nutritionDTOOutList = nutritionService.getNutritionDTOOutList(roleDTO);
+        nutritionDTOOutList = findByNameContaining(search, nutritionDTOOutList);
+        if(option == 0){
+            nutritionDTOOutList = nutritionDTOOutList.stream()
+                    .filter(exerciseDTOOut -> exerciseDTOOut.getPersonalTrainerImage() == null)
+                    .collect(Collectors.toList());
+        }
+
+        return ResponseEntity.ok().body(nutritionDTOOutList);
+    }
+
+    private List<NutritionDTOOut> getMyNutrition(int id, List<NutritionDTOOut> nutritionDTOOutList){
+        return nutritionDTOOutList.stream()
+                .filter(nutrition -> nutrition.getPersonalTrainerId() == id)
+                .collect(Collectors.toList());
+    }
+
+    private List<NutritionDTOOut> getListNutritionIsActive(int option, List<NutritionDTOOut> nutritionDTOOutList){
+        if(option == 2) return nutritionDTOOutList;
+        return nutritionDTOOutList.stream()
+                .filter(nutrition -> nutrition.getIsPrivate() == option)
+                .collect(Collectors.toList());
     }
 
     private SortEnum getSortSearchEnum(FilterObject filterObject){

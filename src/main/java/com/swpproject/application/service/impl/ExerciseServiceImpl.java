@@ -107,6 +107,13 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
 
+    @Override
+    public void updateExerciseStatus(int exerciseId, int status) {
+        Exercise exercise = exerciseRepository.findById(exerciseId).get();
+        exercise.setIsPrivate(status);
+        exerciseRepository.save(exercise);
+    }
+
     private boolean isImageLengthEqualZero(MultipartFile image) throws IOException {
         return image.getBytes().length == 0;
     }

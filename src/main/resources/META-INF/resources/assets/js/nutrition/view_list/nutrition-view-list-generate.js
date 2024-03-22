@@ -18,9 +18,12 @@ $(document).ready(function () {
         var ptId = $(this).data('ptid');
         var ptimage = $(this).data('ptimage')
 
+        if(ptId){
+            modal.find('#ptid').attr('href', "/personal-trainer/details?id=" + ptId)
+        }
+
         var gam = 'g/100g';
         modal.find('.modal-title').text(name);
-        modal.find('#ptid').attr('href', ptId)
         modal.find('#modal-image').attr('src', 'data:image/jpeg;base64,' + image);
         modal.find('#modal-image-pt').attr('src', ptimage);
         modal.find('#modal-calo').text('Calories: ' + calo + gam);
@@ -53,19 +56,22 @@ function displayItems(page) {
     var index = startIndex + 1; // Initialize index outside the loop
 
     $.each(paginatedItems, function (i, nutrition) {
-        var displayName = nutrition.name.length > 12 ? nutrition.name.substring(0, 12) + '...' : nutrition.name;
+        var displayName = nutrition.name.length > 20 ? nutrition.name.substring(0, 20) + '...' : nutrition.name;
         var ptImage;
+        var ptHref;
         if (nutrition.personalTrainerImage) {
             ptImage = "data:image/jpeg;base64," + nutrition.personalTrainerImage;
+            ptHref = "/personal-trainer/details?id=" + nutrition.personalTrainerId;
         } else {
             ptImage = "../../assets/img/sm-logo.png";
+            ptHref = "#"
         }
         var row = '<tr>' +
             '<td>' + index + '</td>' +
             '<td class="text-start">' +
             '<h2 class="table-avatar">' +
             '<a href="#" class="me-2 nutrition-detail d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-name="' + nutrition.name + '" data-calo="' + nutrition.caloIn + '" data-protein="' + nutrition.protein + '" data-fat="' + nutrition.fat + '" data-carb="' + nutrition.carb + '" data-image="' + (nutrition.imageDescription || defaultIconUrl) + '" data-id="' + nutrition.nutritionId + '" data-ptid="' + nutrition.personalTrainerId + '" data-ptimage="' + ptImage + '">' +
-            '<img class=" rounded-image" src="data:image/jpeg;base64,' + (nutrition.imageDescription || defaultIconUrl) + '" alt="User Image">' +
+            '<img class=" rounded-image" style=" box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);" src="data:image/jpeg;base64,' + (nutrition.imageDescription || defaultIconUrl) + '" alt="User Image">' +
             '<p class="m-0 ms-2">' + displayName + '</p>' +
             '</a>' +
             '</h2>' +
@@ -75,8 +81,8 @@ function displayItems(page) {
             '<td>' + nutrition.fat + '</td>' +
             '<td>' + nutrition.carb + '</td>' +
             '<td>' +
-            '<a href="#" class="avatar avatar-sm me-2 nutrition-detail" data-bs-toggle="modal" data-bs-target="#exampleModal">' +
-            '<img class="avatar-img rounded-circle" src="' + ptImage + '" alt="User Image">' +
+            '<a href="'+ ptHref +'" class="avatar avatar-sm me-2">' +
+            '<img class="avatar-img rounded-circle" style=" box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);" src="' + ptImage + '" alt="User Image">' +
             '</a>' +
             '</td>' +
             '</tr>';

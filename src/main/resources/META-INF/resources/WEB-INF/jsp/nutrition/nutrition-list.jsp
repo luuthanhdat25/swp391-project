@@ -189,6 +189,7 @@
 
 
                                             <div id="normalSearch">
+                                                <h6>Sort by</h6>
                                                 <div id="buttonGroup" class="w-auto" role="group" aria-label="Basic radio toggle button group">
                                                     <button id="lowCalo" type="button" class="btn btn-outline-primary btn-md mt-2" onclick="toggleButton(this)">Low Calories</button>
                                                     <button id="lowFat" type="button" class="btn btn-outline-primary btn-md mt-2" onclick="toggleButton(this)">Low Fat</button>

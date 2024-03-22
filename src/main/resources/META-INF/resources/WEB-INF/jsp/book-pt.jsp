@@ -213,7 +213,7 @@
                                             </div>
                                             <c:if test="${ErrorMessage ne null}">
                                                 <div  class="alert alert-danger" >
-                                                    <strong>${ErrorMessage} + ${trainingTime}</strong>
+                                                    <strong>${ErrorMessage}  ${trainingTime}</strong>
                                                 </div>
                                             </c:if>
 

@@ -30,7 +30,7 @@ public class SystemNotificationService {
     public void createNotification_AcceptedHiringAndPayment(OrderRequest orderRequest) {
         Notification paymentNotification = new Notification();
         String TITLE_NOTIFICATION_ACCEPTED_AND_PAYMENT = "has accepted the rental request, click here to proceed with the payment";
-        String linkPayment = "http://localhost:8080/pay?amountPay=" + orderRequest.getTotal_of_money() + "&orderID=" + orderRequest.getOrderId();
+        String linkPayment = "";
 
         paymentNotification.setContent(linkPayment);
         paymentNotification.setTitle(TITLE_NOTIFICATION_ACCEPTED_AND_PAYMENT);
@@ -101,7 +101,7 @@ public class SystemNotificationService {
     public void createNotification_PaymentSuccess(OrderRequest orderRequest) {
         Notification paymentSuccessToGymer = new Notification();
         String TITLE_NOTIFICATION_PAYMENT_SUCCESS = "has successfully paid for the course, contact him/her to discuss the training program";
-        String content = "http://localhost:8080/view-schedule-withpt";
+        String content = "http://localhost:8080/view-schedule-withpt?GymerID="+orderRequest.getGymer().getGymerId();
         Account adminAccount = accountService.findAccountByRole(Role.ADMIN).get(0);
 
         paymentSuccessToGymer.setContent(content);

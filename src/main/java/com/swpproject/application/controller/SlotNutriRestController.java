@@ -3,6 +3,7 @@ package com.swpproject.application.controller;
 import com.swpproject.application.model.Nutrition;
 import com.swpproject.application.model.SlotNutritionDetail;
 import com.swpproject.application.repository.*;
+import com.swpproject.application.service.NutritionService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,9 @@ public class SlotNutriRestController {
     @Autowired
     private SlotNutriDetailRepository slotNutriDetailRepository;
 
+    @Autowired
+    private NutritionService nutritionService;
+
     @GetMapping("")
     public ResponseEntity<List<SlotNutritionDetailDTO>> searchNutritions(@RequestParam String id) {
         // Loại bỏ 3 kí tự đầu
@@ -31,7 +35,7 @@ public class SlotNutriRestController {
 
         List<SlotNutritionDetail> slotNutritionDetails =
                 slotNutriDetailRepository.findAllBySlotNutrition_Id(Integer.parseInt(modifiedId));
-        List<Nutrition> nutritionList = nutritionRepository.findAll();
+        List<Nutrition> nutritionList = nutritionService.findAllByIsPrivate(0);
         List<NutritionDTO> nutritionDTOS = new ArrayList<>();
         for (Nutrition nutrition : nutritionList){
             NutritionDTO nutritionDTO = new NutritionDTO(nutrition.getNutritionId(),nutrition.getName());

@@ -3,14 +3,23 @@ var currentPage = 1;
 
 function createExerciseCard(exercise) {
     var defaultIconUrl = 'https://static.strengthlevel.com/images/illustrations/dumbbell-bench-press-1000x1000.jpg';
+    var ptImage;
+    var ptHref;
+    if (exercise.personalTrainer_image) {
+        ptImage = "data:image/jpeg;base64," + exercise.personalTrainer_image;
+        ptHref = "/personal-trainer/details?id=" + exercise.personalTrainer_id;
+    } else {
+        ptImage = "../../assets/img/sm-logo.png";
+        ptHref = "#"
+    }
 
     var cardHtml = `
         <div class="col-lg-3 col mt-3 rounded-2" style="height: 350px;">
             <div class="card invoices-grid-card w-100 h-100">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <a href="/exercise/details?id=${exercise.id}" class="invoice-grid-link text-decoration-none w-75 fw-bold">${exercise.name}</a>
-                    <a href="view-invoice.html" class="avatar avatar-sm me-2 avatar-img rounded-circle" style="height: 3rem; width: 3rem">
-                        <img class="rounded-circle" src="data:image/jpeg;base64,${exercise.personalTrainer_image || defaultIconUrl}" alt="Edit Avatar">
+                    <a href="${ptHref}" class="avatar avatar-sm me-2 avatar-img rounded-circle" style="height: 3rem; width: 3rem;box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);">
+                        <img class="rounded-circle" src="${ptImage}" alt="Edit Avatar">
                     </a>
                 </div>
                 <div class="container position-relative h-100">

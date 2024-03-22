@@ -72,6 +72,21 @@ public class PersonalTrainerController {
     public String getPersonalTrainerListPage(ModelMap model, HttpServletRequest request) {
         RoleDTO roleDTO = RoleDTO.getRoleDTOFromHttpServletRequest(request);
         List<PersonalTrainerDto> personalTrainerDTOList = personalTrainerService.getPersonalTrainerDTOList(roleDTO);
+        for(PersonalTrainerDto personalTrainerDto : personalTrainerDTOList){
+            List<Evaluation> evaluationList = evaluationService.findAllEvaluationsByPersonalTrainerId(personalTrainerDto.getId());
+            int evaluationNumber = evaluationList.size();
+            float average = 0f;
+            if(evaluationNumber != 0){
+                int totalStar = 0;
+                for(Evaluation evaluation : evaluationList){
+                    totalStar += evaluation.getStar();
+                }
+                average = (float) totalStar / evaluationNumber;
+            }
+            personalTrainerDto.setNumberOfVotes(evaluationNumber);
+            personalTrainerDto.setAverageVotes(average);
+        }
+
         String json = JsonUtils.jsonConvert(personalTrainerDTOList);
 
         model.addAttribute("canSearchDistance", canSearchDistance(roleDTO, request));
@@ -90,6 +105,21 @@ public class PersonalTrainerController {
     @RequestMapping(value = "/details", method = RequestMethod.GET)
     public String view_profile_details(@RequestParam(name = "id", required = false) int id, ModelMap model,
                                        HttpSession session) {
+        if((Account) session.getAttribute("account") == null) {
+            Optional<PersonalTrainer> personalTrainer = personalTrainerRepository.findById(id);
+            List<Evaluation> evaluationList = evaluationService.findAllEvaluationsByPersonalTrainerId(id);
+            List<EvaluationDto> evaluationDtoList = evaluationService.findAllEvaluationsByPersonalTrainerId(personalTrainer.get().getId())
+                    .stream()
+                    .map(evaluation -> dtoUtils.convertEvaluationToEvaluationDto(evaluation))
+                    .sorted(Comparator.comparing(EvaluationDto::getEvaluationDateTime).reversed())
+                    .toList();
+            PersonalTrainerDto personalTrainerDTO = dtoUtils.convertPersonalTrainerToPersonalTrainerDto(personalTrainer.get());
+            String json = JsonUtils.jsonConvert(personalTrainerDTO);
+            model.addAttribute("gymerAsView", new Gymer());
+            model.addAttribute("personaltrainer", json);
+            model.addAttribute("evaluations", evaluationDtoList);
+            return "pt-profile-details";
+        }
         Optional<PersonalTrainer> personalTrainer = personalTrainerRepository.findById(id);
         List<Evaluation> evaluationList = evaluationService.findAllEvaluationsByPersonalTrainerId(id);
         List<EvaluationDto> evaluationDtoList = evaluationService.findAllEvaluationsByPersonalTrainerId(personalTrainer.get().getId())
@@ -109,12 +139,12 @@ public class PersonalTrainerController {
         if(Role.GYMER.equals(account.getRole())) {
             Gymer gymer = gymerService.getGymerByAccount(account).get();
             boolean canEvaluate = orderRequestService.getOrderHistoryGymer(gymer).stream()
-                                                    .filter(order -> order.getPersonalTrainer().getId() == personalTrainer.get().getId())
-                                                    .filter(order -> order.getTracking() >= 80).count() > 0;
+                    .filter(order -> order.getPersonalTrainer().getId() == personalTrainer.get().getId())
+                    .filter(order -> order.getTracking() >= 80).count() > 0;
 
             boolean canReport = orderRequestService.getOrderHistoryGymer(gymer).stream()
-                                                    .filter(order -> order.getPersonalTrainer().getId() == personalTrainer.get().getId())
-                                                    .filter(order -> order.getTracking() >= 5).count() > 0;
+                    .filter(order -> order.getPersonalTrainer().getId() == personalTrainer.get().getId())
+                    .filter(order -> order.getTracking() >= 5).count() > 0;
             if(canEvaluate) {
                 GymerDto gymerDto = DtoUtils.convertGymerToGymerDto(gymer);
                 gymerDto.setGoal(Goal.fromLabel(gymerDto.getGoal()));

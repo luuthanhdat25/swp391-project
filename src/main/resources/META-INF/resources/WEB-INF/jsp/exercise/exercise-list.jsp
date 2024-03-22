@@ -10,11 +10,24 @@
                 <p id="warningPT" class="fs-6 text-danger fst-italic" style="display: none">You can only create exercises only if your personal trainer account has been approved</p>
                 <div class="page-header">
                     <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="page-title">Exercise Wiki</h3>
+                        <div class="col-sm-6">
+                            <div class="page-sub-header">
+                                <h3 class="page-title">Exercise Wiki</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 text-right">
+                            <div id="createExercise" style="display: none">
+                                <div class="invoices-settings-btn invoices-settings-btn-one">
+                                    <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
 
                 <div class="mt-3">
                     <form id="search-exercise" class="w-100 d-flex">
@@ -217,13 +230,7 @@
                     </div>
                 </div>
 
-                <div class="card invoices-tabs-card border-0 mt-3" id="createExercise" style="display: none">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="invoices-settings-btn invoices-settings-btn-one">
-                            <a href="/exercise/create" class="btn"><i class="feather feather-plus-circle"></i>New Exercise</a>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div id="exerciseContainer" class="row" style="height: 760px; overflow-y: auto"></div>
 
@@ -258,8 +265,10 @@
     <script src="../../../assets/js/script.js"></script>
 
 
+
     <script>
         var exerciseList = ${exerciseList};
+        var personalTrainerId = ${personalTrainerId};
         console.log(exerciseList);
     </script>
 

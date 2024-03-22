@@ -19,6 +19,68 @@
     <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/style1.css">
+    <style>
+        .cd-schedule__popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 40px; /* Thay đổi giá trị padding để làm cho khung to ra hơn */
+            border: 1px solid #ccc;
+            border-radius: 10px; /* Bo tròn các góc của khung */
+            z-index: 1000;
+            width: 100%; /* Thay đổi giá trị width để điều chỉnh kích thước của khung */
+            max-width: 500px; /* Giới hạn kích thước tối đa của khung */
+        }
+
+
+        .cd-schedule__popup.active {
+            display: block;
+        }
+
+
+        .cd-schedule__popup-overlay {
+            /*position: fixed;*/
+            /*top: 0;*/
+            /*left: 0;*/
+            /*width: 100%;*/
+            /*height: 100%;*/
+            /*!*background-color: rgba(0, 0, 0, 0.5);*!*/
+            /*z-index: 999;*/
+        }
+
+        .cd-schedule__popup-overlay.active {
+            display: block;
+        }
+
+        .attendant-PRESENT {
+            background-color: #389444; /* Change this to the desired color for 'PRESENT' status */
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .attendant-WAITING {
+            background-color: #947957; /* Change this to the desired color for 'WAITING' status */
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .attendant-ABSENT {
+            background-color: #991720; /* Change this to the desired color for 'ABSENT' status */
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hidden-column {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -31,10 +93,10 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col">
-                        <h3 class="page-title">Schedule</h3>
+                        <h3 class="page-title">Training schedule with my Personal Trainer</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active">Schedule</li>
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active">Training schedule</li>
                         </ul>
                     </div>
                 </div>
@@ -110,8 +172,21 @@
                                                                    data-end="${slotE.end_hour}"
                                                                    data-content="event-abs-circuit"
                                                                    data-event="event-1"
-                                                                   href="#0">
-                                                                    <em class="cd-schedule__name">Training with PT ${slotE.personalTrainer.account.fullName}</em>
+                                                                   data-slot-id="${slotE.id}"
+                                                                   href="#0" style="background: #26294f;">
+                                                                    <c:choose>
+                                                                        <c:when test="${account.role ne 'GYMER'}">
+                                                                            <em class="cd-schedule__name">
+                                                                                    ${slotE.gymer.account.fullName}</em>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <em class="cd-schedule__name" style="font-size: 16px;">Training with:
+                                                                                ${slotE.personalTrainer.account.fullName}</em>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+                                                                    <em class="cd-schedule__name attendant-${slotE.attendantStatus}">
+                                                                            ${slotE.attendantStatus}
+                                                                    </em>
                                                                 </a>
                                                             </li>
                                                         </c:if>
@@ -121,7 +196,6 @@
                                         </c:forEach>
                                     </ul>
                                 </div>
-
                                 <div class="cd-schedule-modal">
                                     <header class="cd-schedule-modal__header">
                                         <div class="cd-schedule-modal__content">
@@ -130,9 +204,121 @@
                                         </div>
                                         <div class="cd-schedule-modal__header-bg"></div>
                                     </header>
+                                    <c:choose>
+                                        <c:when test="${account.role ne 'GYMER'}">
+                                            <div id="popup-form" class="cd-schedule__popup">
+                                                <form id="myForm" method="post" action="/insert-exercise-detail">
+                                                    <table class="table">
+                                                        <thead class="thead-dark">
+                                                        <tr>
+                                                            <th class="hidden-column">id</th>
+                                                            <th>Exercise Name</th>
+                                                            <th>Set</th>
+                                                            <th>Rep</th>
+                                                            <th>Delete</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <c:forEach var="slotDetail" items="${SlotDetail}">
+                                                            <tr data-slot-id="${slotDetail.slotExercise.id}">
+                                                                <td class="hidden-column"
+                                                                    style="display: none">${slotDetail.id}</td>
+                                                                <td>${slotDetail.exercise.name}</td>
+                                                                <td>${slotDetail.setExe}</td>
+                                                                <td>${slotDetail.rep}</td>
+                                                                <td>
+                                                                    <button type="button"
+                                                                            class="btn btn-default btn-sm"
+                                                                            onclick="deleteRow(this)">
+                                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                                        <strong>-</strong>
+                                                                    </button>
+
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="form-group">
+                                                        <label for="attendantSelect">Select Attendant:</label>
+                                                        <select class="form-control" id="attendantSelect"
+                                                                name="attendant">
+                                                            <option value="PRESENT">Present</option>
+                                                            <option value="ABSENT">Absent</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="bank-inner-details" id="scheduleDetails">
+                                                            <div class="row">
+                                                                <div class="col-lg-12 col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label>Note</label>
+                                                                        <textarea class="form-control" rows="4"
+                                                                                  id="description" name="description"
+                                                                                  placeholder="Enter description"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="exerciseFieldsContainer">
+                                                                <button type="button" class="btn btn-primary"
+                                                                        onclick="addExerciseField()">Add
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" id="slotId" name="slotId" value="">
+                                                    <!-- Hidden input to hold the JSON string of exercise data -->
+                                                    <input type="hidden" id="exerciseDataInput"
+                                                           name="exerciseDataInput">
+                                                    <div class="modal-footer">
+                                                        <div class="bank-details-btn">
+                                                            <button class="btn bank-save-btn" type="submit"
+                                                                    onclick="submitForm()">Save
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" value="" name="detailDeleteID"
+                                                           id="detailDeleteID">
+
+                                                    <input type="hidden" value="${param.week}" name="week" >
+                                                    <input type="hidden" value="${param.year}" name="year">
+                                                    <input type="hidden" id="currentURL" name="currentURL">
+                                                </form>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div id="popup-form" class="cd-schedule__popup">
+                                                <input type="hidden" id="slotIdl" name="slotId" value="">
+                                                <table class="table">
+                                                    <thead class="thead-dark">
+                                                    <tr>
+                                                        <th>Exercise Name</th>
+                                                        <th>Set</th>
+                                                        <th>Rep</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <c:forEach var="slotDetail" items="${SlotDetail}">
+                                                        <tr data-slot-id="${slotDetail.slotExercise.id}">
+                                                            <td>${slotDetail.exercise.name}</td>
+                                                            <td>${slotDetail.setExe}</td>
+                                                            <td>${slotDetail.rep}</td>
+
+                                                        </tr>
+                                                    </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                    <div id="popup-overlay" class="cd-schedule__popup-overlay"></div>
+
 
                                     <div class="cd-schedule-modal__body">
-                                        <div class="cd-schedule-modal__event-info"></div>
+                                        <div class=" cd-schedule-modal__event-info">
+                                        </div>
                                         <div class="cd-schedule-modal__body-bg"></div>
                                     </div>
                                     <a href="#0" class="cd-schedule-modal__close text-replace">Close</a>
@@ -163,19 +349,34 @@
 <script src="assets/js/moment.min.js"></script>
 <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
 <script src="assets/js/jquery-ui.min.js"></script>
+<script>
+    var deletedSlotDetailIDs = []; // Mảng để lưu trữ các slotDetail.id bị xóa
 
+    function deleteRow(button) {
+        var row = button.closest('tr'); // Truy cập đến hàng chứa nút "minus"
+        var slotDetailId = row.querySelector('td:first-child').innerText.trim(); // Lấy giá trị slotDetail.id từ cột đầu tiên
+
+        deletedSlotDetailIDs.push(slotDetailId); // Thêm giá trị slotDetail.id vào mảng
+
+        row.remove(); // Xóa hàng
+        updateDeletedIDsInput(); // Cập nhật giá trị của input ẩn
+    }
+
+    function updateDeletedIDsInput() {
+        // Cập nhật giá trị của input ẩn với các slotDetail.id bị xóa
+        document.getElementById('detailDeleteID').value = deletedSlotDetailIDs.join(',');
+    }
+</script>
 <script>
     function generateWeeks() {
         var year = $("#year").val();
         var weeks = [];
-
         for (var i = 1; i <= 52; i++) {
             var startOfWeek = moment().year(year).isoWeek(i).startOf('isoWeek');
             var endOfWeek = moment().year(year).isoWeek(i).endOf('isoWeek');
             var weekText = startOfWeek.format('DD/MM') + " - " + endOfWeek.format('DD/MM');
             weeks.push("<option value='" + i + "'>" + weekText + "</option>");
         }
-
         $("#week").html(weeks.join(""));
     }
 
@@ -250,6 +451,158 @@
             }
         }
     }
+</script>
+<script>
+    var deletedRowsData = [];
+    function deleteRow(button) {
+        var row = button.closest('tr');
+        var rowData = {
+            html: row.outerHTML, // Lưu trữ HTML của hàng
+            index: Array.from(row.parentNode.children).indexOf(row) // Lưu trữ chỉ số của hàng trong danh sách
+        };
+        row.remove();
+        deletedRowsData.push(rowData); // Thêm thông tin của hàng đã xóa vào danh sách
+    }
+    // Hiển thị lại các hàng đã bị xóa
+    deletedRowsData.forEach(function(rowData) {
+        var tbody = document.querySelector('.table tbody');
+        tbody.insertAdjacentHTML('beforeend', rowData.html); // Chèn HTML của hàng vào cuối tbody
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var popupForm = document.getElementById("popup-form");
+        var popupOverlay = document.getElementById("popup-overlay");
+        var triggerElement = document.querySelectorAll(".cd-schedule__event a");
+
+        triggerElement.forEach(function (element) {
+            element.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                // Get slotId from the data attribute of the clicked element
+                var slotId = this.dataset.slotId;
+                var hiddenInput = document.querySelector("input[name='slotId']");
+                hiddenInput.value = slotId;
+
+                // Show popup form and overlay
+                popupForm.classList.add("active");
+                popupOverlay.classList.add("active");
+
+                // Filter and display Slot Details based on slotId
+                var slotDetails = document.querySelectorAll("#popup-form .table tbody tr");
+                slotDetails.forEach(function (detail) {
+                    var detailSlotId = detail.getAttribute("data-slot-id");
+                    if (detailSlotId === slotId) {
+                        detail.style.display = "table-row";
+                    } else {
+                        detail.style.display = "none";
+                    }
+                });
+            });
+        });
+
+        // Close popup form when clicking on overlay or close button
+        popupOverlay.addEventListener("click", closePopup);
+        document.getElementById("close-popup-btn").addEventListener("click", closePopup);
+
+        function closePopup() {
+            popupForm.classList.remove("active");
+            popupOverlay.classList.remove("active");
+        }
+    });
+</script>
+<%--<c:forEach var="exercise" items="${exerciseList}">--%>
+<%--    <option value="${exercise.id}">${exercise.name}</option>--%>
+<%--</c:forEach>--%>
+<script !src="">
+    function addExerciseField() {
+        var exerciseFieldsContainer = $('#exerciseFieldsContainer');
+        var numberOfExerciseFields = exerciseFieldsContainer.children().length + 1;
+
+        // Create new exercise field
+        var newExerciseField = `
+        <div class="row exerciseFields" id="exerciseFields${numberOfExerciseFields}">
+            <div class="col-lg-12 col-md-12">
+                <button type="button" class="btn btn-danger remove-exercise-field">Remove</button>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>Exercise</label>
+                    <select class="form-control" name="exerciseSelect${numberOfExerciseFields}">
+                        <c:forEach var="exercise" items="${exerciseList}">
+    <option value="${exercise.id}">${exercise.name}</option>
+</c:forEach>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="form-group">
+                    <label>Set</label>
+                    <input type="text" class="form-control exerciseSet" placeholder="Enter set" name="exerciseSet${numberOfExerciseFields}" required >
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="form-group">
+                    <label>Rep</label>
+                    <input type="text" class="form-control exerciseRep" placeholder="Enter rep" reqirename="exerciseRep${numberOfExerciseFields}" required >
+                </div>
+            </div>
+        </div>`;
+        exerciseFieldsContainer.append(newExerciseField);
+        // Add click event listener to the newly created "Remove" button
+        $('.remove-exercise-field').off('click').on('click', function () {
+            $(this).closest('.exerciseFields').remove();
+        });
+    }
+
+    function collectExerciseData() {
+        var exerciseData = [];
+        $('.exerciseFields').each(function () {
+            var exerciseSelect = $(this).find('[name^="exerciseSelect"]').val();
+            var exerciseSet = $(this).find('[name^="exerciseSet"]').val();
+            var exerciseRep = $(this).find('[name^="exerciseRep"]').val();
+            exerciseData.push({
+                exerciseId: exerciseSelect,
+                set: exerciseSet,
+                rep: exerciseRep
+            });
+        });
+        return exerciseData;
+    }
+    function setCurrentURL() {
+        // Lấy URL hiện tại
+        var currentURL = window.location.href;
+
+        // Tìm vị trí của "http://localhost:8080" trong URL
+        var index = currentURL.indexOf("http://localhost:8080");
+
+        // Kiểm tra xem chuỗi "http://localhost:8080" có tồn tại trong URL hay không
+        if (index !== -1) {
+            // Trích xuất phần sau "http://localhost:8080" bao gồm "/"
+            var extractedPart = currentURL.substring(index + "http://localhost:8080".length);
+
+            // Đặt giá trị của phần URL trích xuất vào trường ẩn trong biểu mẫu
+            document.getElementById("currentURL").value = extractedPart;
+        }
+    }
+    function submitForm() {
+        var description = $('#description').val();
+        var slotId = $('#slotId').val();
+        var exerciseData = collectExerciseData();
+
+        // Convert exerciseData array to JSON string
+        var exerciseDataJson = JSON.stringify(exerciseData);
+
+        // Đặt URL hiện tại vào trường ẩn trong biểu mẫu
+        setCurrentURL();
+
+        // Đặt giá trị JSON của dữ liệu bài tập vào trường ẩn trong biểu mẫu
+        $('#exerciseDataInput').val(exerciseDataJson);
+
+        // Gửi biểu mẫu
+        document.getElementById("myForm").submit();
+    }
+
+
 </script>
 </body>
 

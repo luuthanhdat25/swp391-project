@@ -87,8 +87,45 @@ var carbGap = 100;
 setupFilter(carbProgressBar, carbSliderBar, carbInput, carbGap, carbPreview);
 
 
+//------------------------------ Switch
+var isAdvancedSearch = false;
 
-function handleSearch() {
+$(document).ready(function(){
+    $('#advancedSearch').hide();
+
+    $('#flexSwitchCheckDefault').change(function() {
+        if($(this).is(":checked")) {
+            $('#normalSearch').slideUp();
+            $('#advancedSearch').slideDown();
+        } else {
+            $('#advancedSearch').slideUp();
+            $('#normalSearch').slideDown();
+        }
+        isAdvancedSearch = !isAdvancedSearch;
+        // console.log(isAdvancedSearch)
+    });
+});
+//------------------------------
+function removeAllButtonActive(){
+    var buttons = document.querySelectorAll('#buttonGroup .btn');
+    buttons.forEach(function(btn) {
+        btn.classList.remove('active');
+    });
+}
+
+function toggleButton(button) {
+    removeAllButtonActive();
+    var id = button.id;
+    handleSearch(id)
+    button.classList.add('active');
+}
+
+function resetButtons(button) {
+    removeAllButtonActive();
+    handleSearch(button.id)
+}
+
+function handleSearch(id) {
     var searchName = $("#searchInput").val();
     var caloMin = $("#caloMinInput").val();
     var caloMax = $("#caloMaxInput").val();
@@ -99,7 +136,23 @@ function handleSearch() {
     var carbMin = $("#carbMinInput").val();
     var carbMax = $("#carbMaxInput").val();
 
+    if(id){
+        console.log(id)
+        caloMin = 0;
+        caloMax = 1000;
+        proteinMin = 0;
+        proteinMax = 1000;
+        fatMin = 0;
+        fatMax = 1000;
+        carbMin = 0;
+        carbMax = 1000;
 
+        if(id === "lowCalo") caloMax = caloMin;
+        if(id === "lowFat") fatMax = fatMin;
+        if(id === "highProtein") proteinMin = proteinMax;
+    }else{
+        removeAllButtonActive();
+    }
 
     var searchData = {
         "searchName": searchName,
@@ -142,6 +195,16 @@ function handleSearch() {
     });
 }
 
+function getActiveButtonIds() {
+    var activeButtonIds = [];
+    var buttons = document.querySelectorAll('#buttonGroup .btn');
+    buttons.forEach(function(btn) {
+        if (btn.classList.contains('active')) {
+            activeButtonIds.push(btn.id);
+        }
+    });
+    return activeButtonIds;
+}
 
 
 $(document).ready(function () {
@@ -149,6 +212,17 @@ $(document).ready(function () {
     $("#searchInput").keypress(function (event) {
         if (event.which == 13) {
             event.preventDefault();
+            if(isAdvancedSearch === true){
+                handleSearch();
+            }else{
+                var searchNormal;
+                if(getActiveButtonIds()[0]){
+                    searchNormal = getActiveButtonIds()[0];
+                }else{
+                    searchNormal = 'searchNameNormal';
+                }
+                handleSearch(searchNormal);
+            }
             handleSearch();
         }
     });

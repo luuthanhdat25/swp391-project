@@ -23,4 +23,8 @@ public interface NutritionService {
     void update(NutritionDTOIn nutritionDTOIn, int nutritinoId) throws IOException;
 
     List<Nutrition> getAllNutrition();
+
+    void updateNutritionStatus(int nutrition, int status);
+
+    List<Nutrition> findAllByIsPrivate(int isPrivate);
 }

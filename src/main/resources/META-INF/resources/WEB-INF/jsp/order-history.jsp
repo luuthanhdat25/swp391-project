@@ -30,7 +30,7 @@
                         <h3 class="page-title">Order Request</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active">Booking</li>
+                            <li class="breadcrumb-item active">Order</li>
                         </ul>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title">Request form</h5>
+                            <h5 class="card-title">Request list</h5>
                         </div>
                         <div class="card-body">
                             <c:if test="${not empty OrderHistory}">
@@ -52,7 +52,7 @@
                                         <th style="text-align: center;">Status</th>
                                         <th style="text-align: center;">Net Amount</th>
                                         <th style="text-align: center;">Order Detail</th>
-                                        <th style="text-align: center;">payment</th>
+                                        <th style="text-align: center;">Payment</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -70,11 +70,25 @@
                                             <td><a href="/gymer-orderdetail?order_id=${order.orderId}" class="view"
                                                    title="View Details" data-toggle="tooltip"><i class="fas fa-address-book" style='font-size:24px'></i></a></td>
                                             <td>
-                                                <c:if test="${order.status == 'Accepted'}">
+                                                <c:if test="">
                                                     <a href="/pay?amountPay=${order.total_of_money}&orderID=${order.orderId}" class="pay" title="Pay Now" data-toggle="tooltip">
                                                         <i class="fas fa-money-bill" style="font-size:24px"></i>
                                                     </a>
                                                 </c:if>
+                                                <c:choose>
+                                                    <c:when test="${order.status == 'Accepted'}">
+                                                        <a href="/pay?amountPay=${order.total_of_money}&orderID=${order.orderId}" class="pay" title="Pay Now" data-toggle="tooltip">
+                                                            <i class="fas fa-money-bill" style="font-size:24px"></i>
+                                                        </a>
+                                                    </c:when>
+                                                    <c:when test="${order.status == 'Pending'}">
+                                                        <span class="fas fa-times"></span>
+
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="fas fa-check"></span>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </td>
 
                                         </tr>

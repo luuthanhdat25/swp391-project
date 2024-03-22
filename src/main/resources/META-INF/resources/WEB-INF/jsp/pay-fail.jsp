@@ -22,7 +22,7 @@
                                         We regret to inform you that the payment was unsuccessful.  <br>
                                         Please check your payment details and try again later.
                                     </p>
-                                    <a href="#" class="btn btn-primary">Continue</a>
+                                    <a href="/" class="btn btn-primary">Continue</a>
                                 </div>
                             </div>
                         </div>

@@ -6,6 +6,7 @@
 </c:if>
 <c:if test="${account.getRole().getLabel() == 'Admin'}">
     <%@ include file="../common/header.jspf" %>
+    <%@ include file="../common/admin-head.jspf" %>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-inner slimscroll">
             <div id="sidebar-menu" class="sidebar-menu">
@@ -129,6 +130,15 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <c:if test="${account.getRole().getLabel() == 'Personal Trainer'}">
+                                        <div class="col-lg-2 col-md-2" style="display: flex;align-items: center;">
+                                            <div class="col-lg-6 col-md-6 d-flex align-items-center">
+                                                <div class="follow-btn-group">
+                                                    <button type="submit" class="btn btn-info message-btns">Inbox</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
                                     <div class="col-lg-2 col-md-2" style="display: flex;align-items: center;">
                                         <c:if test="${accountView.getIsBan() == 'false'}">
                                             <a href="/admin-home/lock-account?id=${accountView.getId()}" style="width: 100%;height: 48px;line-height: 36px" class="btn btn-primary lock-account">Lock Account</a>

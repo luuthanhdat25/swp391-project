@@ -36,33 +36,22 @@
 
                         <div class="row">
                             <div class="col-3" style="margin-left: 16px; width: 40%; padding: 0 15px 0 15px;">
-                                <form action="#" method="GET" style="width: 90%; margin-bottom: 0;">
+                                <form id="searchForm" style="width: 90%; margin-bottom: 0;">
                                     <div class="input-group" style="width: 100%;">
-                                        <input type="text" class="form-control" style="border: 1px solid #4c4c4c;" placeholder="Enter name here" name="title">
-                                        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                                        <input id="usernameInput" type="text" class="form-control" style="border: 1px solid #4c4c4c;" placeholder="Enter name here" name="title">
+                                        <!-- Remove the button for now, we'll handle the filtering on input change -->
                                     </div>
                                 </form>
                             </div>
                             <div class="col-3">
-                                <select class="form-select" id="sortCriteria">
-                                    <option selected disabled>Sort Category...</option>
-                                    <option value="name">Name</option>
-                                    <option value="email">Email</option>
-                                    <option value="birthday">Birthday</option>
-                                </select>
-                            </div>
-                            <div class="col-3">
                                 <select class="form-select" id="filterCriteria">
                                     <option selected disabled>Filter Category...</option>
-                                    <option value="pt">Personal Trainer</option>
-                                    <option value="gymer">Gymer</option>
-                                    <option value="lockAcc">Locked Account</option>
+<%--                                    <option value="pt">Personal Trainer</option>--%>
+                                    <option value="Gymer">Gymer</option>
+<%--                                    <option value="true">Locked Account</option>--%>
                                 </select>
                             </div>
                         </div>
-
-
-
                         <div class="card-body" style="width: 100%;">
                             <table id="datatablesSimple"
                                    class="table table-hover table-centered mdi-format-vertical-align-center">
@@ -77,7 +66,7 @@
                                     <th style="text-align: center">Action </th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tableBody">
                                 <c:forEach var="account" items="${accountList}">
                                     <tr>
                                         <td style="text-align: left;">
@@ -117,62 +106,65 @@
     </div>
 </div>
 
+
 <script>
-    $(document).ready(function() {
-        var accounts = ${accountList}; // Initialize accounts variable with the account list from JSP
+    // Get reference to search input field
+    const searchInput = document.getElementById("usernameInput");
 
-        $('#sortCriteria, #filterCriteria').change(function() {
-            var sortBy = $('#sortCriteria').val();
-            var filterBy = $('#filterCriteria').val();
+    // Get reference to table body
+    const tableBody = document.getElementById("tableBody");
 
-            var filteredAndSortedAccounts = [...accounts]; // Create a copy of the accounts array
-
-            // Sorting logic
-            if (sortBy === 'name') {
-                filteredAndSortedAccounts.sort((a, b) => (a.fullName > b.fullName) ? 1 : -1);
-            } else if (sortBy === 'email') {
-                filteredAndSortedAccounts.sort((a, b) => (a.email > b.email) ? 1 : -1);
-            } else if (sortBy === 'birthday') {
-                filteredAndSortedAccounts.sort((a, b) => moment(a.birthday) - moment(b.birthday));
-            }
-
-            // Filtering logic
-            if (filterBy === 'pt') {
-                filteredAndSortedAccounts = filteredAndSortedAccounts.filter(account => account.role === 'Personal Trainer');
-            } else if (filterBy === 'gymer') {
-                filteredAndSortedAccounts = filteredAndSortedAccounts.filter(account => account.role === 'Gymer');
-            } else if (filterBy === 'lockAcc') {
-                filteredAndSortedAccounts = filteredAndSortedAccounts.filter(account => account.isBan);
-            }
-
-            // Update the table with the filtered and sorted account list
-            updateAccountTable(filteredAndSortedAccounts);
-        });
-
-        // Function to update the account table with the filtered and sorted account list
-        function updateAccountTable(accounts) {
-            var tableBody = $('#datatablesSimple tbody');
-            tableBody.empty(); // Clear existing table rows
-
-            // Append rows for each account in the updated list
-            accounts.forEach(function(account) {
-                var row = $('<tr>');
-                row.append($('<td>').text(account.fullName));
-                row.append($('<td>').text(account.email));
-                row.append($('<td>').text(account.phone));
-                row.append($('<td>').text(account.birthday ? account.birthday : '[Empty]'));
-                row.append($('<td>').text(account.role));
-                var badge = $('<div>').addClass('badge ' + (account.isBan ? 'badge-danger' : 'badge-success')).text(account.isBan ? 'Banned' : 'Unbanned');
-                row.append($('<td>').append(badge));
-                row.append($('<td>').html('<a href="#" class="view" title="View Details" data-toggle="tooltip"><i class="fas fa-book" style="font-size:24px"></i></a>'));
-                tableBody.append(row);
-            });
-        }
-
-        // Call the sorting and filtering logic initially
-        $('#sortCriteria, #filterCriteria').change();
+    // Add event listener to search input field
+    searchInput.addEventListener("input", function() {
+        const searchQuery = this.value.trim().toLowerCase();
+        filterRows(searchQuery);
     });
 
+    // Function to filter rows based on search query
+    function filterRows(searchQuery) {
+        const rows = tableBody.querySelectorAll("tr");
+        rows.forEach(function(row) {
+            const text = row.textContent.toLowerCase();
+            if (text.includes(searchQuery)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+
+    <%--// Get reference to sort select element--%>
+    <%--const sortSelect = document.getElementById("sortCriteria");--%>
+
+    <%--// Add event listener to sort select element--%>
+    <%--sortSelect.addEventListener("change", function() {--%>
+    <%--    const sortCriterion = this.value;--%>
+    <%--    sortRows(sortCriterion);--%>
+    <%--});--%>
+
+    <%--// Function to sort rows based on selected criterion--%>
+    <%--function sortRows(sortCriterion) {--%>
+    <%--    // Sorting logic goes here--%>
+    <%--    // Example: Sort rows based on a specific column--%>
+    <%--    const rows = Array.from(tableBody.querySelectorAll("tr"));--%>
+    <%--    rows.sort((a, b) => {--%>
+    <%--        const aValue = a.querySelector(`[data-${sortCriterion}]`).getAttribute(`data-${sortCriterion}`);--%>
+    <%--        const bValue = b.querySelector(`[data-${sortCriterion}]`).getAttribute(`data-${sortCriterion}`);--%>
+    <%--        return aValue.localeCompare(bValue);--%>
+    <%--    });--%>
+    <%--    tableBody.innerHTML = ''; // Clear existing rows--%>
+    <%--    rows.forEach(row => tableBody.appendChild(row)); // Append sorted rows--%>
+    <%--}--%>
+
+    const filterSelect = document.getElementById("filterCriteria");
+
+
+    filterSelect.addEventListener("change", function() {
+        const filterCriterion = this.value;
+        const searchQuery = this.value.trim().toLowerCase();
+        console.log(searchQuery)
+        filterRows(searchQuery);
+    });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="../../../assets/js/jquery-3.6.0.min.js"></script>

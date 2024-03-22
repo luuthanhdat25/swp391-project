@@ -96,6 +96,11 @@ public class NutritionServiceIml implements NutritionService {
     }
 
     @Override
+    public List<Nutrition> getAllNutrition() {
+        return nutritionRepository.findAll();
+    }
+
+    @Override
     public List<Nutrition> findAllByIsPrivate(int isPrivate) {
         return nutritionRepository.findAllByIsPrivate(isPrivate);
     }

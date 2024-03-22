@@ -4,10 +4,10 @@
 <div class="header">
     <div class="header-left">
         <a href="/" class="logo">
-            <img src="../../assets/img/gymon.png" alt="Logo">
+            <img src="../../../assets/img/gymon.png" alt="Logo">
         </a>
         <a href="/" class="logo logo-small">
-            <img src="../../assets/img/sm-logo.png" alt="Logo" width="30" height="30">
+            <img src="../../../assets/img/sm-logo.png" alt="Logo" width="30" height="30">
         </a>
     </div>
 
@@ -25,6 +25,12 @@
     <c:choose>
         <c:when test="${account ne null}">
             <ul class="nav user-menu">
+                 <li class="nav-item" style="margin-right: 7px;">
+                    <a href="http://localhost:8080/chatting" class="nav-link header-nav-list">
+                        <img src="assets/img/icons/chat.svg" alt="">
+                    </a>
+                </li>
+
                 <li class="nav-item dropdown noti-dropdown">
                     <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
                         <img src="../../assets/img/icons/header-icon-05.svg" alt="">
@@ -59,7 +65,7 @@
                         <div class="user-header">
                             <div class="avatar avatar-sm">
                                 <img src="data:image/jpeg;base64,${account.getAvatarImageAsString()}" alt="User Image"
-                                     class="avatar-img rounded-circle" >
+                                     class="avatar-img rounded-circle">
                             </div>
                             <div class="user-text">
                                 <h6>${account.getFullName()}</h6>
@@ -67,7 +73,7 @@
                             </div>
                         </div>
                         <a class="dropdown-item" href="/profile/details">My Profile</a>
-<%--                        <a class="dropdown-item" href="inbox.html">Inbox</a>--%>
+                            <%--                        <a class="dropdown-item" href="inbox.html">Inbox</a>--%>
                         <a class="dropdown-item" href="/auth/logout">Logout</a>
                     </div>
                 </li>

@@ -131,6 +131,11 @@ public class PersonalTrainerController {
         String json = JsonUtils.jsonConvert(personalTrainerDTO);
         Account account = (Account) session.getAttribute("account");
         model.addAttribute("gymerAsView", new Gymer());
+        model.addAttribute("personaltrainer", json);
+        model.addAttribute("evaluations", evaluationDtoList);
+        if(account == null ) {
+            return "pt-profile-details";
+        }
         if(Role.GYMER.equals(account.getRole())) {
             Gymer gymer = gymerService.getGymerByAccount(account).get();
             boolean canEvaluate = orderRequestService.getOrderHistoryGymer(gymer).stream()
@@ -152,8 +157,6 @@ public class PersonalTrainerController {
             }
         }
         model.addAttribute("isPt", Role.PT.equals(account.getRole()));
-        model.addAttribute("personaltrainer", json);
-        model.addAttribute("evaluations", evaluationDtoList);
         return "pt-profile-details";
     }
 

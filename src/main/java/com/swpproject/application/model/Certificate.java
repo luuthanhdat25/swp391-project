@@ -21,7 +21,7 @@ public class Certificate {
     @Lob
     @Column(name = "image")
     private byte[] image;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "personal_trainer_id")
     private PersonalTrainer personalTrainer;
 }

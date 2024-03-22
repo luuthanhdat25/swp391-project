@@ -70,7 +70,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <h5 class="card-title">Personal Trainer information</h5>
+                                    <c:choose>
+                                        <c:when test="${gymer ne null}">
+                                            <h5 class="card-title">Personal Trainer information</h5>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <h5 class="card-title">Gymer information</h5>
+                                        </c:otherwise>
+                                    </c:choose>
                                     <c:choose>
                                         <c:when test="${gymer ne null}">
                                             <div class="form-group">
@@ -117,7 +124,7 @@
                                                 <div class="calendar-events-container col-md-6">
                                                     <div class="ui-color-key">
                                                         <div class="calendar-events" data-class="bg-info">
-                                                            <li style="background-color: #F5556F">Conflic slot</li>
+                                                            <li style="background-color: #F5556F">Conflict slot</li>
                                                         </div>
                                                         <div class="calendar-events" data-class="bg-success">
                                                             <li style="background-color: #93D199;">Pending slot</li>
@@ -301,18 +308,18 @@
                             </div>
 
 
-                            <button type="submit" class="btn btn-primary" name="action"
-                                    value="accept">
-                                Accept
-                            </button>
+<%--                            <button type="submit" class="btn btn-primary" name="action"--%>
+<%--                                    value="accept">--%>
+<%--                                Accept--%>
+<%--                            </button>--%>
 
-                            <a href="/decline-order?orderId=${param.order_id}"
-                               class="btn btn-primary"
-                               name="action" value="decline">Decline</a>
+<%--                            <a href="/decline-order?orderId=${param.order_id}"--%>
+<%--                               class="btn btn-primary"--%>
+<%--                               name="action" value="decline">Decline</a>--%>
 
-                            <a href="/decline-order?orderId=${param.order_id}"
-                               class="btn btn-primary"
-                               name="action" value="decline">Decline</a>
+<%--                            <a href="/decline-order?orderId=${param.order_id}"--%>
+<%--                               class="btn btn-primary"--%>
+<%--                               name="action" value="decline">Decline</a>--%>
                             <input type="hidden" name="MSG" value="${MSG}">
 
 
@@ -328,7 +335,7 @@
             </div>
         </div>
         <footer>
-            <p>Copyright © 2022 Dreamguys.</p>
+            <p>Copyright © 2022 GymOn.</p>
         </footer>
 
     </div>

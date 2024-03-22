@@ -42,27 +42,7 @@ function displayItems(page) {
         const averageRating = personalTrainer.averageVotes;
         const numberOfVotes = personalTrainer.numberOfVotes;
 
-        const wholeStars = Math.floor(averageRating); // Số ngôi sao làm tròn xuống
-        const partialStarOpacity = (averageRating - wholeStars); // Độ mờ của ngôi sao cuối cùng
-
-// Tạo các ngôi sao đầy
-        let stars = '';
-        for (let i = 0; i < wholeStars; i++) {
-            stars += '<span class="star" style="color: gold; font-size: 1.5rem">&#9733;</span>';
-        }
-
-// Tạo ngôi sao cuối cùng với hiệu ứng gradient
-        if (partialStarOpacity > 0) {
-            const partialStarGradient = `linear-gradient(90deg, gold ${partialStarOpacity * 100}%, gray ${partialStarOpacity * 100}%)`; // Gradient từ vàng sang xám
-            stars += `<span class="star" style="background: ${partialStarGradient}; -webkit-background-clip: text; color: transparent; font-size: 1.5rem">&#9733;</span>`;
-        }
-
-// Tạo các ngôi sao trống nếu cần
-        for (let i = wholeStars + 1; i < 5; i++) {
-            stars += '<span class="star" style="color: gray; font-size: 1.5rem">&#9733;</span>';
-        }
-
-        const rating = $('<h6 class="text-muted mb-0 ms-2"></h6>').html(`${stars} (${averageRating.toFixed(1)} from ${numberOfVotes} ratings)`);
+        const rating = $('<h6 class="text-muted mb-0 ms-2"></h6>').html(`(${averageRating.toFixed(1)} from ${numberOfVotes} ratings)`);
         ratingContainer.append(rating);
         headingDetail.append(trainerName, ratingContainer);
         const personalActivity = $('<div class="personal-activity mt-2"></div>');

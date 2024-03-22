@@ -25,12 +25,6 @@
                                 <span class="profile-views feather-eye toggle-password"></span>
                             </div>
                             <div class="forgotpass">
-                                <div class="remember-me">
-                                    <label class="custom_check mr-2 mb-0 d-inline-flex remember-me"> Remember me
-                                        <input type="checkbox" name="rememberMe">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
                                 <a href="/auth/forgot">Forgot Password?</a>
                             </div>
                             <div class="form-group">

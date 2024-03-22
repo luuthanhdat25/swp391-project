@@ -19,16 +19,16 @@ public interface NutritionRepository extends JpaRepository<Nutrition, Integer> {
 
     @Query("SELECT DISTINCT n FROM Nutrition n " +
             "LEFT JOIN n.personalTrainer pt " +
-            "LEFT JOIN Orders o ON pt.id = o.personalTrainer.id " +
+            "LEFT JOIN OrderRequest o ON pt.id = o.personalTrainer.id " +
             "LEFT JOIN o.gymer g " +
-            "WHERE n.isPrivate = 0 OR g.id = :gymerId")
+            "WHERE n.isPrivate = 0 OR g.gymerId = :gymerId")
     List<Nutrition> findAllNonPrivateOrPrivateForOrdersOnGoing(Integer gymerId);
 
     @Query("SELECT DISTINCT n FROM Nutrition n " +
             "LEFT JOIN n.personalTrainer pt " +
-            "LEFT JOIN Orders o ON pt.id = o.personalTrainer.id " +
+            "LEFT JOIN OrderRequest o ON pt.id = o.personalTrainer.id " +
             "LEFT JOIN o.gymer g " +
-            "WHERE (n.isPrivate = 0 OR g.id = :gymerId) AND n.nutritionId = :nutritionId")
+            "WHERE (n.isPrivate = 0 OR g.gymerId = :gymerId) AND n.nutritionId = :nutritionId")
     Optional<Nutrition> findNonPrivateOrPrivateForOrdersOnGoingById(Integer gymerId, Integer nutritionId);
 
 

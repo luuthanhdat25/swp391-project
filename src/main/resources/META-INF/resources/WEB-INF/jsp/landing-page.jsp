@@ -13,7 +13,6 @@
                             <div class="hero-text">
                                 <h2>Gym On</h2>
                                 <h1>FITNESS & NUTRITION</h1>
-                                <a href="#" class="primary-btn f-btn">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -23,7 +22,6 @@
                             <div class="hero-text">
                                 <h2>Gym On</h2>
                                 <h1>FITNESS & NUTRITION</h1>
-                                <a href="#" class="primary-btn f-btn">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -33,7 +31,6 @@
                             <div class="hero-text">
                                 <h2>Gym On</h2>
                                 <h1>FITNESS & NUTRITION</h1>
-                                <a href="#" class="primary-btn f-btn">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -58,7 +55,6 @@
                             <h3>NUTRITION TRACKING</h3>
                             <p>Stay on top of your nutritional goals effortlessly.<br />Explore the world of
                                 nutrition tracking with Gym On</p>
-                            <a href="#" class="primary-btn f-btn">Read More</a>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -67,7 +63,6 @@
                             <h3>PERSONAL TRAINING</h3>
                             <p>Achieve your fitness objectives with tailored workout plans <br /> designed by
                                 certified personal trainers.</p>
-                            <a href="#" class="primary-btn f-btn">Read More</a>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -76,7 +71,6 @@
                             <h3>EXERCISE & NUTRITION</h3>
                             <p>Seamlessly integrate your exercise and nutrition routines <br /> for a holistic
                                 approach to well-being.</p>
-                            <a href="#" class="primary-btn f-btn">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -169,7 +163,6 @@
                             <h4>Crossfit Level 1</h4>
                             <p>Sufferers around the globe will be happy to hear that there are sleep apnea remedies.
                             </p>
-                            <a href="#" class="primary-btn class-btn">Read More</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
@@ -178,21 +171,18 @@
                             <p>The oil, also called linseed oil, has many industrial uses – it is an important
                                 ingredient
                             </p>
-                            <a href="#" class="primary-btn class-btn">Read More</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
                         <div style="background-image: url(assets/img/class-3.jpg);" class="classes-item set-bg">
                             <h4>Energy Blast</h4>
                             <p>It is a very common occurrence like cold or fever depending upon your lifestyle. </p>
-                            <a href="#" class="primary-btn class-btn">Read More</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
                         <div style="background-image: url(assets/img/class-4.jpg);" class="classes-item set-bg">
                             <h4>CLASSIC BODY BALANCE</h4>
                             <p>The procedure is usually a preferred alternative to photorefractive keratectomy,</p>
-                            <a href="#" class="primary-btn class-btn">Read More</a>
                         </div>
                     </div>
                 </div>

@@ -37,4 +37,9 @@ public class CeritificateServiceImpl implements CertificateService {
     public List<Certificate> getCertificates() {
         return certificateRepository.findAll();
     }
+
+    @Override
+    public void removeCertificatesByPersonalTrainerId(Integer id) {
+        certificateRepository.deleteAllByPersonalTrainer_Id(id);
+    }
 }

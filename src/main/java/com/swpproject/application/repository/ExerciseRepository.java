@@ -20,16 +20,16 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {
 
     @Query("SELECT DISTINCT e FROM Exercise e " +
             "LEFT JOIN e.personalTrainer pt " +
-            "LEFT JOIN Orders o ON pt.id = o.personalTrainer.id " +
+            "LEFT JOIN OrderRequest o ON pt.id = o.personalTrainer.id " +
             "LEFT JOIN o.gymer g " +
-            "WHERE e.isPrivate = 0 OR g.id = :gymerId")
+            "WHERE e.isPrivate = 0 OR g.gymerId = :gymerId")
     List<Exercise> findAllNonPrivateOrPrivateForOrdersOnGoing(Integer gymerId);
 
     @Query("SELECT DISTINCT e FROM Exercise e " +
             "LEFT JOIN e.personalTrainer pt " +
-            "LEFT JOIN Orders o ON pt.id = o.personalTrainer.id " +
+            "LEFT JOIN OrderRequest o ON pt.id = o.personalTrainer.id " +
             "LEFT JOIN o.gymer g " +
-            "WHERE (e.isPrivate = 0 OR g.id = :gymerId) AND e.id = :exerciseId")
+            "WHERE (e.isPrivate = 0 OR g.gymerId = :gymerId) AND e.id = :exerciseId")
     Optional<Exercise> findNonPrivateOrPrivateForOrdersOnGoingById(Integer gymerId, Integer exerciseId);
 
 

@@ -59,7 +59,7 @@
                                     <c:forEach var="order" items="${OrderHistory}">
                                         <tr>
                                             <td style="text-align: left;">
-                                                <img class="img-thumbnail" src="data:image/png;base64,${order.gymer.account.getAvatarImageAsString()}" alt="Customer image Image">
+                                                <img class="img-thumbnail" src="data:image/png;base64,${order.personalTrainer.account.getAvatarImageAsString()}" alt="Customer image Image">
                                                     ${order.personalTrainer.getAccount().getFullName()}
                                             </td>
                                             <td>${order.datetime_start}</td>

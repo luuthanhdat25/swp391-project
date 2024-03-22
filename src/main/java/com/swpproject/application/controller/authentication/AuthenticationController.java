@@ -191,39 +191,16 @@ public class AuthenticationController {
     public String uploadImages(@RequestBody Base64Dto base64Strings,
                                HttpSession session) {
         Account account = (Account) session.getAttribute("account");
-        String basePass = account.getPassword();
-
-        if(basePass.length() <= 20) {
-            account.setPassword(PasswordUtils.hashPassword(account.getPassword()));
-            account.setAvatarImage(Base64.getDecoder().decode(BASE_IMG.getBytes()));
-            accountService.save(account);
-            PersonalTrainer personalTrainer = new PersonalTrainer();
-            personalTrainer.setAccount(account);
-            personalTrainer.setPrice(0);
-            personalTrainer.setIsActive(false);
-            String desc = new StringBuilder(BASE_DESC_1).append(account.getFullName()).append(BASE_DESC_2).toString();
-            personalTrainer.setDescription(desc);
-
-            List<Integer> certificateIDs = new ArrayList<>(); // Bao them vao
-            base64Strings.base64Strings().forEach(item -> {
-                item = item.trim().split(",")[1];
-                byte[] imageAsByte = Base64.getDecoder().decode(item.getBytes());
-                Certificate certificate = new Certificate();
-                certificate.setImage(imageAsByte);
-                certificate.setPersonalTrainer(personalTrainer);
-                certificateService.save(certificate);
-                Certificate certificateLast = certificateService.getCertificates().getLast(); // Bao them vao
-                certificateIDs.add(certificateLast.getId()); // Bao them vao
-            });
-            Schedule schedulePersonalTrainer = new Schedule();
-            schedulePersonalTrainer.setPersonalTrainer(personalTrainer);
-            scheduleService.save(schedulePersonalTrainer);
-            personalTrainerService.save(personalTrainer);
-            return "authentication/login";
-        }
-
-        PersonalTrainer personalTrainer = (PersonalTrainer) session.getAttribute("personalTrainer");
-        certificateService.removeCertificatesByPersonalTrainerId(personalTrainer.getId());
+        account.setPassword(PasswordUtils.hashPassword(account.getPassword()));
+        account.setAvatarImage(Base64.getDecoder().decode(BASE_IMG.getBytes()));
+        accountService.save(account);
+        PersonalTrainer personalTrainer = new PersonalTrainer();
+        personalTrainer.setAccount(account);
+        personalTrainer.setPrice(0);
+        personalTrainer.setIsActive(false);
+        String desc = new StringBuilder(BASE_DESC_1).append(account.getFullName()).append(BASE_DESC_2).toString();
+        personalTrainer.setDescription(desc);
+        personalTrainerService.save(personalTrainer);
 
         List<Integer> certificateIDs = new ArrayList<>(); // Bao them vao
         base64Strings.base64Strings().forEach(item -> {
@@ -233,11 +210,19 @@ public class AuthenticationController {
             certificate.setImage(imageAsByte);
             certificate.setPersonalTrainer(personalTrainer);
             certificateService.save(certificate);
+
             Certificate certificateLast = certificateService.getCertificates().getLast(); // Bao them vao
             certificateIDs.add(certificateLast.getId()); // Bao them vao
         });
+
         personalTrainerRequestService.createUploadCertificate(certificateIDs, personalTrainer); // Bao them vao
-        return "redirect:/profile/details";
+
+        personalTrainerService.save(personalTrainer);
+        Schedule schedulePersonalTrainer = new Schedule();
+        schedulePersonalTrainer.setPersonalTrainer(personalTrainer);
+        scheduleService.save(schedulePersonalTrainer);
+        session.setAttribute("personalTrainer", personalTrainer);
+        return "authentication/login";
     }
 
     // LOGIN

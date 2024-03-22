@@ -3198,7 +3198,6 @@ footer p {
 .login-wrapper .loginbox .login-right .forgotpass {
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
     margin-bottom: 20px
 }
 
